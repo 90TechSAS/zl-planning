@@ -1,0 +1,92 @@
+@white : #ffffff;
+
+
+.day {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  position: relative;
+
+  cursor: cell;
+
+
+  background: #FFF;
+
+  -webkit-transition:0.50s flex;
+  -moz-transition:0.50s flex;
+  -ms-transition:0.50s flex;
+  transition:0.50s flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+  overflow: hidden !important;
+
+  &:hover {
+    background: rgb(252, 252, 252);
+  }
+
+  & .event{
+    text-align: center;
+    color: @white;
+    position: absolute;
+
+  }
+  & .day-today > .day-hour {
+    background: #dcedc8;
+  }
+  & .day-passed > .day-hour {
+    background: #e0e0e0;
+  }
+  & .day-hour{
+    width: 150px;
+    height: 100%;
+    display: inline-block;
+  }
+  & .all-day {
+
+  }
+  & .half-hour {
+    display: inline-block;
+    height: 100%;
+    width: 1px;
+    border-right: 1px dashed #eaeef1;
+  }
+}
+
+.day-open {
+  -webkit-flex:2 400px;
+  -moz-flex:2 400px;
+  -ms-flex:2 400px;
+  flex:2 400px;
+
+
+}
+
+.event {
+  border: 1px lightgrey solid;
+}
+
+.event-line {
+  float:left;
+  height: 80%;
+  width: 3px;
+  margin:5px;
+  background-color: white;
+}
+
+.title-container {
+  display:flex;
+  flex: 1;
+  flex-direction: column;
+  height:100%;
+  line-height:200%;
+  text-align:center;
+  span {
+    margin:auto;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+  }
+
+}

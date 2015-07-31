@@ -22,8 +22,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
-	/**
+
+    /**
 	Function that wraps everything to allow dynamically setting/changing grunt options and config later by grunt task. This init function is called once immediately (for using the default grunt options, config, and setup) and then may be called again AFTER updating grunt (command line) options.
 	@toc 3.
 	@method init
@@ -84,8 +86,8 @@ module.exports = function(grunt) {
 				},
 				build: {
 					files:  {},
-					src:    'ning.js',
-					dest:   'ning.min.js'
+					src:    'planning/**/*.js',
+					dest:   'planning.min.js'
 				}
 			},
 			less: {
@@ -94,16 +96,21 @@ module.exports = function(grunt) {
 					},
 					files: {
 						"main.css": "_base.less",
-						"ning.css": "_ning.less"
+						"planning.css": "_planning.less"
 					}
 				}
 			},
 			cssmin: {
 				dev: {
-					src: ['ning.css'],
-					dest: 'ning.min.css'
+					src: ['planning.css'],
+					dest: 'planning.min.css'
 				}
-			}/*,
+			},
+            watch: {
+                files: ['**/*.less'],
+                tasks: ['default']
+            }
+			/*,
 			karma: {
 				unit: {
 					configFile: publicPathRelativeRoot+'config/karma.conf.js',
@@ -120,7 +127,7 @@ module.exports = function(grunt) {
 		*/
 		// Default task(s).
 		// grunt.registerTask('default', ['jshint:beforeconcat', 'less:development', 'concat:devJs', 'concat:devCss']);
-		grunt.registerTask('default', ['jshint:beforeconcatQ', 'less:development', 'cssmin', 'uglify:build']);
+		grunt.registerTask('default', ['jshint:beforeconcatQ', 'less:development', 'cssmin', 'uglify:build', 'watch']);
 	
 	}
 	init({});		//initialize here for defaults (init may be called again later within a task)

@@ -1,0 +1,16 @@
+<div class="b-b b-r all-day day-hour"
+     ng-repeat="n in [] | range:24">
+<span class="half-hour"></span>
+
+</div>
+
+<div class="event"
+     ng-repeat="event in line.events"
+     ng-style="event.style"
+     ng-class="{'text-black': line.colorService.getLuminance(line.colorService.getColorName(event.technician._id)) > 200 }"
+     ng-click="planning.callback({'event':event})">
+    <!--<span class="calendar-urgency bg-pink"></span>-->
+    <div class="event-line" ng-style="{'background-color': event.color}"></div>
+
+    <div class="title-container"><span>{{event.title}}</span></div>
+</div>

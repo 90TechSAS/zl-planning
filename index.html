@@ -5,20 +5,33 @@
 
     <title>zl-planning</title>
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="main.css"/>
 
 </head>
 <body>
-	<div ng-view></div>
+	<div ng-view class="full-height"></div>
 
 	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
 	<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
 	<script type="text/javascript" src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
 	<script type="text/javascript" src="bower_components/angular-touch/angular-touch.min.js"></script>
 	<script type="text/javascript" src="bower_components/angular-animate/angular-animate.min.js"></script>
-	
-	<script type="text/javascript" src="ning.js"></script>
-	<!--<script type="text/javascript" src="ning.min.js"></script>-->
+	<script type="text/javascript" src="bower_components/moment/moment.js"></script>
+	<script type="text/javascript" src="bower_components/moment/locale/fr.js"></script>
+	<script type="text/javascript" src="bower_components/moment-range/dist/moment-range.min.js"></script>
+	<script type="text/javascript" src="bower_components/lodash/lodash.min.js"></script>
+
+	<script type="text/javascript" src="planning/module.js"></script>
+	<script type="text/javascript" src="planning/directives/planning/planning.js"></script>
+	<script type="text/javascript" src="planning/directives/planning-left-column/planning-left-column.js"></script>
+	<script type="text/javascript" src="planning/directives/planning-top-row/planning-top-row.js"></script>
+	<script type="text/javascript" src="planning/directives/horizontal-scroll/horizontal-scroll.js"></script>
+	<script type="text/javascript" src="planning/directives/planning-line/planning-line.js"></script>
+	<script type="text/javascript" src="planning/filters/momentFilter.js"></script>
+	<script type="text/javascript" src="planning/filters/range.js"></script>
+	<!--<script type="text/javascript" src="planning.min.js"></script>-->
 	
 	<script type="text/javascript" src="app.js"></script>
 	
