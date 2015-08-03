@@ -20,9 +20,6 @@
 
         function init() {
 
-            // Deep Copy so as not to pollute original events with ranges.
-            self.events = angular.copy(self.events);
-
             // Pre-sort events by start Date
             self.events = _.sortBy(self.events, function (e) {
                 return e.start.valueOf();

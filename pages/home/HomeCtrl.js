@@ -8,22 +8,26 @@ moment.locale('fr');
 angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
     $scope.moment = moment();
 
-    $scope.events = [];
-    _.times(24, function (i) {
-        var evt    = {title: i};
-        var evt2   = {title: i + 'bis'};
-        var evt3   = {title: i + 'ter'};
-        evt.start  = moment();
-        evt.start.day(i % 7);
+    var technicians = ['titi', 'toto', 'tutu'];
+    $scope.events   = [];
+    _.times(30, function (i) {
+        var evt         = {title: i};
+        var evt2        = {title: i + 'bis'};
+        var evt3        = {title: i + 'ter'};
+        evt.technician  = technicians[Math.floor(Math.random() * 3)];
+        evt2.technician = technicians[Math.floor(Math.random() * 3)];
+        evt3.technician = technicians[Math.floor(Math.random() * 3)];
+        evt.start       = moment();
+        evt.start.weekday(i % 7);
         evt.start.hour(i);
-        evt2.start = moment(evt.start);
-        evt3.start = moment(evt.start);
+        evt2.start      = moment(evt.start);
+        evt3.start      = moment(evt.start);
         evt2.start.add(30, 'minutes');
         evt3.start.add(65, 'minutes');
 
         evt.end  = moment();
-        evt.end.day(i % 7);
-        evt.end.hour(i + 1);
+        evt.end.weekday(i % 7);
+        evt.end.hour(i + 2);
         evt2.end = moment(evt.end);
         evt3.end = moment(evt.end);
         evt2.end.add(30, 'minutes');
@@ -35,16 +39,21 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
         evt2['background-color'] = 'rgb(200,200,200)';
 
 
-        $scope.events.push(evt);
-        if (i % 2) {
+        if (evt.start.isBefore(evt.end)) {
+            $scope.events.push(evt);
+        }
+        if (i % 2 && evt2.start.isBefore(evt2.end)) {
             $scope.events.push(evt2);
         }
-        $scope.events.push(evt3);
-        $scope.events.push(angular.copy(evt3));
-
-        $scope.callback = function(a){
-           alert('Event clicked: ' + a.title);
+        if (evt3.start.isBefore(evt3.end)) {
+            $scope.events.push(evt3);
+            $scope.events.push(angular.copy(evt3));
         }
+
     });
+        console.log($scope.events);
+        $scope.callback = function (a) {
+            alert('Event clicked: ' + JSON.stringify(a));
+        }
 
 }]);

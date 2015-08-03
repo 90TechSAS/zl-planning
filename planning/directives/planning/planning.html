@@ -1,6 +1,7 @@
-<zl-planning-left-column mode="planning.mode" position="planning.position"></zl-planning-left-column>
+<zl-planning-left-column mode="planning.mode" position="planning.position" day-field="planning.dayField"
+                         events="planning.sortedEvents"></zl-planning-left-column>
 <div class="" style="height:100%">
-    <div zl-horizontal-scroll  scroll-left="planning.currentTimeToPixels()"  style="height:100%">
+    <div zl-horizontal-scroll scroll-left="planning.currentTimeToPixels()" style="height:100%">
         <div class="planning-body">
             <zl-planning-top-row mode="planning.mode" position="planning.position"></zl-planning-top-row>
             <div class="hour-cursor" ng-style="{left: planning.currentTimeToPixels()+'px'}"
@@ -8,7 +9,8 @@
                 <div class="hour-caret"></div>
             </div>
             <div class="planning-2pc"></div>
-            <zl-planning-line ng-repeat="(i, e) in planning.sortedEvents" class="day b-b" ng-class="{today: planning.isToday(i)}" events="e"></zl-planning-line>
+                <zl-planning-line ng-repeat="(i, e) in planning.sortedEvents" class="day b-b"
+                                  ng-class="{today: planning.isToday(i)}" events="e"></zl-planning-line>
         </div>
     </div>
 </div>

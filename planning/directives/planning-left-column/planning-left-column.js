@@ -6,6 +6,31 @@
         .module('90Tech.planning')
         .directive('zlPlanningLeftColumn', PlanningDirective);
 
+    PlanningLeftColumnController.$inject = ['$scope'];
+
+    function PlanningLeftColumnController($scope) {
+
+        var self = this;
+
+        function init() {
+            self.days = [];
+            console.info(self.events);
+            if (self.mode === 'week') {
+
+                _.times(7, function (i) {
+                    var d = moment(self.position);
+                    d.weekday(i);
+                    self.days.push(d);
+                });
+            } else if (self.mode === 'day' && self.dayField) {
+                self.column = _.keys(self.events);
+            }
+        }
+
+        $scope.$watch(function () {
+            return self.mode;
+        }, init);
+    }
 
     function PlanningDirective() {
 
@@ -19,32 +44,12 @@
                 entities: '=',
                 position: '=',
                 mode    : '=',
+                dayField: '=',
                 callback: '&'
             },
             scope           : true
         };
 
-        function PlanningLeftColumnController() {
-
-            var self = this;
-            var days = [];
-
-            function init(){
-                _.times(7, function(i){
-                   var d = moment(self.position);
-                    d.weekday(i);
-                    days.push(d);
-                });
-            }
-
-            _.extend(self, {
-               days: days
-            });
-
-            init();
-
-
-        }
     }
 
 

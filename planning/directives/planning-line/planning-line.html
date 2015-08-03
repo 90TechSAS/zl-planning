@@ -7,10 +7,10 @@
 <div class="event"
      ng-repeat="event in line.events"
      ng-style="event.style"
-     ng-class="{'text-black': line.colorService.getLuminance(line.colorService.getColorName(event.technician._id)) > 200 }"
+     ng-class="{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}"
      ng-click="planning.callback({'event':event})">
     <!--<span class="calendar-urgency bg-pink"></span>-->
-    <div class="event-line" ng-style="{'background-color': event.color}"></div>
+    <div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>
 
-    <div class="title-container"><span>{{event.title}}</span></div>
+    <div class="title-container"><span>{{event.title}} - {{event.technician}}</span></div>
 </div>

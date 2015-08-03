@@ -1,6 +1,5 @@
 @white : #ffffff;
 
-
 .day {
   display: flex;
   flex: 1;
@@ -9,13 +8,12 @@
 
   cursor: cell;
 
-
   background: #FFF;
 
-  -webkit-transition:0.50s flex;
-  -moz-transition:0.50s flex;
-  -ms-transition:0.50s flex;
-  transition:0.50s flex;
+  -webkit-transition: 0.50s flex;
+  -moz-transition: 0.50s flex;
+  -ms-transition: 0.50s flex;
+  transition: 0.50s flex;
   -webkit-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -26,7 +24,7 @@
     background: rgb(252, 252, 252);
   }
 
-  & .event{
+  & .event {
     text-align: center;
     color: @white;
     position: absolute;
@@ -38,7 +36,7 @@
   & .day-passed > .day-hour {
     background: #e0e0e0;
   }
-  & .day-hour{
+  & .day-hour {
     width: 150px;
     height: 100%;
     display: inline-block;
@@ -55,11 +53,10 @@
 }
 
 .day-open {
-  -webkit-flex:2 400px;
-  -moz-flex:2 400px;
-  -ms-flex:2 400px;
-  flex:2 400px;
-
+  -webkit-flex: 2 400px;
+  -moz-flex: 2 400px;
+  -ms-flex: 2 400px;
+  flex: 2 400px;
 
 }
 
@@ -68,25 +65,46 @@
 }
 
 .event-line {
-  float:left;
+  float: left;
   height: 80%;
   width: 3px;
-  margin:5px;
+  margin: 5px;
   background-color: white;
 }
 
 .title-container {
-  display:flex;
+  span {
+    text-overflow: ellipsis;
+
+  }
+  display: flex;
   flex: 1;
   flex-direction: column;
-  height:100%;
-  line-height:200%;
-  text-align:center;
+  height: 100%;
+  line-height: 200%;
+  text-align: center;
   span {
-    margin:auto;
+    margin: auto;
     display: inline-block;
     vertical-align: middle;
     line-height: normal;
   }
 
+}
+
+.continued-before:before {
+  content: '\2026';
+  float: left;
+  font-size: 0.7em;
+}
+
+.continued-after .title-container {
+  width: 60%
+}
+
+.continued-after:after {
+  content: '\2026';
+  z-index: 10;
+  float: right;
+  font-size: 0.7em;
 }

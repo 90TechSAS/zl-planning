@@ -1,3 +1,5 @@
 <div style="height:80%" ng-controller='HomeCtrl'>
-	<zl-planning mode="'week'" position="moment" events="events" callback="callback(event)"></zl-planning>
+	<zl-planning day-start="'10:00'" day-end="'18:00'" mode="mode || 'week'" day-field="'technician'" position="moment" events="events" callback="callback(event)"></zl-planning>
 </div>
+
+<button ng-click="mode = mode === 'day' ?  'week': 'day'">mode</button>
