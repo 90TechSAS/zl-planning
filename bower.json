@@ -14,6 +14,10 @@
     "test",
     "tests"
   ],
+  "main":[
+    "planning.min.js",
+    "planning.min.css"
+  ],
   "dependencies": {
     "angular": "~1.4.0",
     "angular-animate": "~1.4.0",
