@@ -14,7 +14,6 @@
 
         function init() {
             self.days = [];
-            console.info(self.events);
             if (self.mode === 'week') {
 
                 _.times(7, function (i) {
@@ -27,8 +26,8 @@
             }
         }
 
-        $scope.$watch(function () {
-            return self.mode;
+        $scope.$watchCollection(function () {
+            return [self.position, self.mode, self.dayStart, self.dayEnd];
         }, init);
     }
 

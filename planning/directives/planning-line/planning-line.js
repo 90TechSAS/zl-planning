@@ -27,7 +27,6 @@
 
 
             var lines = [[]];
-            // First loop to populate range info.
             _.each(self.events, function (event) {
                 var style                 = {};
                 event.depth = 1;

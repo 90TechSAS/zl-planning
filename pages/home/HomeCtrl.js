@@ -6,7 +6,10 @@
 moment.locale('fr');
 
 angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
-    $scope.moment = moment();
+    $scope.moment = moment().add(1, 'day');
+    $scope.onPikadaySelect = function (pikaday) {
+        $scope.moment = pikaday.getMoment();
+    };
 
     var technicians = ['titi', 'toto', 'tutu'];
     $scope.events   = [];
@@ -51,9 +54,9 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
         }
 
     });
-        console.log($scope.events);
-        $scope.callback = function (a) {
-            alert('Event clicked: ' + JSON.stringify(a));
-        }
+    $scope.callback = function (a) {
+        alert('Event clicked: ' + JSON.stringify(a));
+    };
+
 
 }]);

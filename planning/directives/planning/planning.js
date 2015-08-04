@@ -38,7 +38,7 @@
             // Build a first event that ends at the end of the first day
             var first_event = angular.copy(event);
             first_event.end = moment(event.start).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59);
-            if (event.start.isBefore(start)){
+            if (event.start.isBefore(start)) {
                 first_event.start = start;
             }
 
@@ -72,11 +72,11 @@
             return _.filter(events, function (e) {
                 var start, stop;
                 if (self.mode === 'week') {
-                    start = moment(self.position).weekday(0).hour(0).minute(0).second(0).subtract(1, 'second');
-                    stop  = moment(self.position).weekday(7).hour(0).minute(0).second(1);
+                    start = moment(self.position).weekday(0).hour(self._dayStart.h).minute(self._dayStart.m).second(0);
+                    stop  = moment(self.position).weekday(7).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59);
                 } else if (self.mode === 'day') {
-                    start = moment(self.position).hour(0).minute(0).second(0).subtract(1, 'second');
-                    stop  = moment(self.position).hour(0).minute(0).second(1).add(1, 'day');
+                    start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0);
+                    stop  = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59);
                 }
                 return e.start.isBetween(start, stop);
             });
@@ -122,7 +122,7 @@
         }
 
         $scope.$watchCollection(function () {
-            return [self.mode, self.dayStart, self.dayEnd];
+            return [self.position, self.mode, self.dayStart, self.dayEnd];
         }, init);
 
 
@@ -138,6 +138,8 @@
         function isCurrentWeek() {
             return self.position.week() === moment().week();
         }
+
+
 
 
         _.extend(self, {
