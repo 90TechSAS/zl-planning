@@ -61,9 +61,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "     ng-repeat=\"n in [] | range:24\"\r" +
     "\n" +
-    "        ng-click=\"line.clickEvent(n, $event)\">\r" +
+    "     ng-click=\"line.clickEvent(n, $event)\">\r" +
     "\n" +
-    "<span class=\"half-hour\"></span>\r" +
+    "    <span class=\"half-hour\"></span>\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -83,7 +83,13 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "    <!--<span class=\"calendar-urgency bg-pink\"></span>-->\r" +
     "\n" +
-    "    <div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>\r" +
+    "\r" +
+    "\n" +
+    "    <div style=\"margin-left: 5px;height:100%; padding-top: 1%; padding-bottom: 1%;width: 1px;float: left;\">\r" +
+    "\n" +
+    "        <div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>\r" +
+    "\n" +
+    "    </div>\r" +
     "\n" +
     "\r" +
     "\n" +
