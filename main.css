@@ -177,6 +177,10 @@ zl-planning-line.ng-animate {
   text-overflow: ellipsis;
 }
 .title-container span {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   margin: auto;
   display: inline-block;
   vertical-align: middle;
