@@ -83,7 +83,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "\r" +
     "\n" +
-    "    <div class=\"title-container\"><span>{{event.title}} - {{event.technician}}</span></div>\r" +
+    "    <div class=\"title-container\"><span>{{event.title}}</span></div>\r" +
     "\n" +
     "</div>"
   );

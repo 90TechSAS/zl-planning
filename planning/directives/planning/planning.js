@@ -83,9 +83,7 @@
         }
 
         function addMissingDays(sortedEvents) {
-            if (!sortedEvents) {
-                return;
-            }
+            sortedEvents    = sortedEvents || {};
             var startingDay = moment(self.position).weekday(0).dayOfYear();
             _.times(7, function (i) {
                 if (!sortedEvents[startingDay + i]) {
@@ -138,8 +136,6 @@
         function isCurrentWeek() {
             return self.position.week() === moment().week();
         }
-
-
 
 
         _.extend(self, {
