@@ -200,3 +200,18 @@ zl-planning-line.ng-animate {
   float: right;
   font-size: 0.7em;
 }
+.planning-top-row {
+  color: #788288;
+  background-color: #eeeeee;
+}
+.left-column {
+  color: #788288;
+  background-color: #eeeeee;
+}
+html,
+body {
+  height: 99%;
+}
+.full-height {
+  height: 100%;
+}
