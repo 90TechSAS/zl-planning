@@ -16,7 +16,7 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
     _.times(30, function (i) {
         var evt         = {title: i};
         var evt2        = {title: i + 'bis'};
-        var evt3        = {title: i + 'ter'};
+        var evt3        = {title: i + 'ter. Oh boy, this title is long'};
         evt.technician  = technicians[Math.floor(Math.random() * 3)];
         evt2.technician = technicians[Math.floor(Math.random() * 3)];
         evt3.technician = technicians[Math.floor(Math.random() * 3)];

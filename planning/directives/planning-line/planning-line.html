@@ -12,7 +12,7 @@
      ng-click="planning.eventCallback({'event':event})">
     <!--<span class="calendar-urgency bg-pink"></span>-->
 
-    <div style="margin-left: 5px;height:100%; padding-top: 1%; padding-bottom: 1%;width: 1px;float: left;">
+    <div class="event-line-container" style="">
         <div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>
     </div>
 
