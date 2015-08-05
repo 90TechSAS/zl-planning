@@ -161,9 +161,8 @@ zl-planning-line.ng-animate {
 }
 .event-line {
   float: left;
-  height: 80%;
+  height: 100%;
   width: 3px;
-  margin: 5px;
   background-color: white;
 }
 .title-container {
