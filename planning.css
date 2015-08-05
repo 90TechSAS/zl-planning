@@ -144,6 +144,7 @@ zl-planning-line.ng-animate {
   display: inline-block;
 }
 .day .half-hour {
+  pointer-events: none;
   display: inline-block;
   height: 100%;
   width: 1px;

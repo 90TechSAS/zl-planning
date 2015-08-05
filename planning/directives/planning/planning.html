@@ -10,7 +10,8 @@
             </div>
             <div class="planning-2pc"></div>
                 <zl-planning-line ng-repeat="(i, e) in planning.sortedEvents" class="day b-b"
-                                  ng-class="{today: planning.isToday(i)}" events="e"></zl-planning-line>
+                                  ng-class="{today: planning.isToday(i)}" events="e"
+                                    click-callback="planning.clickCallbackWrapper($hour, $minutes, i)"></zl-planning-line>
         </div>
     </div>
 </div>
