@@ -16,7 +16,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "                 ng-repeat=\"day in planningLeftColumn.days\"\r" +
     "\n" +
-    "                    ng-class=\"{today: planning.isToday(day.dayOfYear())}\">\r" +
+    "                    ng-class=\"{today: planning.isToday(day.dayOfYear())}\"\r" +
+    "\n" +
+    "                    ng-click=\"planning.dayCallback({$day:day})\">\r" +
     "\n" +
     "                <h4>\r" +
     "\n" +

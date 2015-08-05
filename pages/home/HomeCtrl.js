@@ -58,5 +58,11 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
         alert('Event clicked: ' + JSON.stringify(a));
     };
 
+    $scope.dayCallback = function (d) {
+        console.info('day callback: ', d);
+        $scope.moment= d;
+        $scope.mode='day'
+    };
+
 
 }]);

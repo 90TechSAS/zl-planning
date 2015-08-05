@@ -5,7 +5,8 @@
         <div class="days-body" ng-switch-when="week">
             <div class="dayName row8 b-b animate"
                  ng-repeat="day in planningLeftColumn.days"
-                    ng-class="{today: planning.isToday(day.dayOfYear())}">
+                    ng-class="{today: planning.isToday(day.dayOfYear())}"
+                    ng-click="planning.dayCallback({$day:day})">
                 <h4>
                     {{day | format:'dddd' | capitalize}}<br>
                     <small>{{day | format:'ll'}}</small>
