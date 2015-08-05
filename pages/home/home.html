@@ -1,19 +1,22 @@
 <div ng-controller='HomeCtrl' class="full-height">
 
 
-<div ng-style="{width: mode==='day' ? '80%': '100%' }" style="float:left;height:80%" >
-	<zl-planning day-start="'10:00'" day-end="'18:00'" mode="mode || 'week'"
-                 day-field="'technician'" position="moment" events="events"
-                 event-callback="callback(event)"
-                 day-callback="dayCallback($day)"></zl-planning>
-</div>
+    <div ng-style="{width: mode==='day' ? '80%': '100%' }" style="float:left;height:80%">
+        <zl-planning day-start="'10:00'" day-end="'18:00'" mode="mode || 'week'"
+                     day-field="'technician'" position="moment" events="events"
+                     event-callback="callback(event)"
+                     day-callback="dayCallback($day)"
+                     click-callback="clickCallback($moment)"
+                ></zl-planning>
+    </div>
 
 
-<div ng-if="mode==='day'" style="float:left; margin-left:5px;" >
-    <input pikaday="pikaday" default-date="{{moment.format('MM/DD/YYYY')}}" set-default-date="true" bound="false" type="hidden" on-select="onPikadaySelect(pikaday)">
+    <div ng-if="mode==='day'" style="float:left; margin-left:5px;">
+        <input pikaday="pikaday" default-date="{{moment.format('MM/DD/YYYY')}}" set-default-date="true" bound="false"
+               type="hidden" on-select="onPikadaySelect(pikaday)">
 
-</div>
+    </div>
 
 
-<button ng-click="mode = mode === 'day' ?  'week': 'day'">mode</button>
+    <button ng-click="mode = mode === 'day' ?  'week': 'day'">mode</button>
 </div>

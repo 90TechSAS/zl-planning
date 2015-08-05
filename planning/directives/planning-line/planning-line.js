@@ -18,6 +18,17 @@
 
         var self = this;
 
+
+        function clickEvent(hour, $event){
+            if (_.contains($event.target.classList, 'half-hour')){
+                // If the user has clicked right on the half-hour line, offsetX is 0
+                var minutes = 30;
+            } else {
+                var minutes = Math.floor($event.offsetX / 150 * 60);
+            }
+            self.clickCallback({$hour: hour, $minutes: minutes});
+        }
+
         function init() {
 
             // Pre-sort events by start Date
@@ -75,6 +86,10 @@
         }
 
         init();
+
+        _.extend(self, {
+            clickEvent: clickEvent
+        });
       //  console.info(self.events);
     }
 
@@ -90,7 +105,8 @@
             controller      : PlanningLineController,
             controllerAs    : 'line',
             bindToController: {
-                events: '='
+                events: '=',
+                clickCallback: '&'
             },
             scope           : true
         };

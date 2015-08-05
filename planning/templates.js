@@ -59,7 +59,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
   $templateCache.put('planning/directives/planning-line/planning-line.html',
     "<div class=\"b-b b-r all-day day-hour\"\r" +
     "\n" +
-    "     ng-repeat=\"n in [] | range:24\">\r" +
+    "     ng-repeat=\"n in [] | range:24\"\r" +
+    "\n" +
+    "        ng-click=\"line.clickEvent(n, $event)\">\r" +
     "\n" +
     "<span class=\"half-hour\"></span>\r" +
     "\n" +
@@ -132,7 +134,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "                <zl-planning-line ng-repeat=\"(i, e) in planning.sortedEvents\" class=\"day b-b\"\r" +
     "\n" +
-    "                                  ng-class=\"{today: planning.isToday(i)}\" events=\"e\"></zl-planning-line>\r" +
+    "                                  ng-class=\"{today: planning.isToday(i)}\" events=\"e\"\r" +
+    "\n" +
+    "                                    click-callback=\"planning.clickCallbackWrapper($hour, $minutes, i)\"></zl-planning-line>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +

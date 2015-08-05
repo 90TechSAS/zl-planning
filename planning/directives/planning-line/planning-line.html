@@ -1,5 +1,6 @@
 <div class="b-b b-r all-day day-hour"
-     ng-repeat="n in [] | range:24">
+     ng-repeat="n in [] | range:24"
+        ng-click="line.clickEvent(n, $event)">
 <span class="half-hour"></span>
 
 </div>

@@ -137,12 +137,17 @@
             return self.position.week() === moment().week();
         }
 
+        function clickCallbackWrapper(h, m, d) {
+            self.clickCallback({$moment: moment().hour(h).minute(m).second(0).dayOfYear(d)});
+        }
+
 
         _.extend(self, {
             //  sortedEvents       : sortedEvents,
-            isToday            : isToday,
-            currentTimeToPixels: currentTimeToPixels,
-            isCurrentWeek      : isCurrentWeek
+            isToday             : isToday,
+            currentTimeToPixels : currentTimeToPixels,
+            isCurrentWeek       : isCurrentWeek,
+            clickCallbackWrapper: clickCallbackWrapper
         })
     }
 

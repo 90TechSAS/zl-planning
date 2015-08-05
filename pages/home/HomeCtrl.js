@@ -64,5 +64,9 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
         $scope.mode='day'
     };
 
+    $scope.clickCallback = function(m){
+        console.info(m);
+    }
+
 
 }]);
