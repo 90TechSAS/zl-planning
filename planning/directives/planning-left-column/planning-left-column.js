@@ -43,8 +43,7 @@
                 entities: '=',
                 position: '=',
                 mode    : '=',
-                dayField: '=',
-                callback: '&'
+                dayField: '='
             },
             scope           : true
         };

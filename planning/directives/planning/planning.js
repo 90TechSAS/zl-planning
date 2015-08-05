@@ -156,14 +156,17 @@
             controller      : PlanningController,
             controllerAs    : 'planning',
             bindToController: {
-                events  : '=',
-                entities: '=',
-                position: '=',
-                mode    : '=',
-                dayStart: '=',
-                dayEnd  : '=',
-                dayField: '=',
-                callback: '&'
+                events       : '=',
+                entities     : '=',
+                position     : '=',
+                mode         : '=',
+                dayStart     : '=',
+                dayEnd       : '=',
+                dayField     : '=',
+                eventCallback: '&',
+                dayCallback  : '&',
+                clickCallback: '&'
+
             },
             scope           : {}
         };
