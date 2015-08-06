@@ -134,6 +134,8 @@
         }
 
         function isCurrentWeek() {
+            console.info(self.position.week);
+            console.info(moment().week);
             return self.position.week() === moment().week();
         }
 

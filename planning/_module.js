@@ -3,7 +3,7 @@
     'use strict';
 
     angular
-        .module('90Tech.planning', [])
+        .module('90Tech.planning', ['pikaday'])
 
 
 })();
