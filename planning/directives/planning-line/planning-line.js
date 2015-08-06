@@ -6,6 +6,9 @@
         .module('90Tech.planning')
         .directive('zlPlanningLine', PlanningLineDirective);
 
+    PlanningLineDirective.$inject = ['$scope'];
+
+
     // TODO externalize in conf
     var SECONDS_BY_DAY = 86400,
         SLIDER_WIDTH   = 3600;
@@ -14,7 +17,7 @@
      *
      */
     function
-    PlanningLineController() {
+    PlanningLineController($scope) {
 
         var self = this;
 
@@ -86,6 +89,10 @@
         }
 
         init();
+
+        $scope.$watchCollection(function () {
+            return [self.events];
+        }, init);
 
         _.extend(self, {
             clickEvent: clickEvent
