@@ -6,7 +6,7 @@
         .module('90Tech.planning')
         .directive('zlPlanningLine', PlanningLineDirective);
 
-    PlanningLineDirective.$inject = ['$scope'];
+    PlanningLineController.$inject = ['$scope'];
 
 
     // TODO externalize in conf
