@@ -138,6 +138,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "            <div class=\"planning-2pc\"></div>\r" +
     "\n" +
+    "                <div ng-if=\"!planning.sortedEvents.length\" style=\"position:fixed;left:50%;margin:auto\">{{'nothing_to_show' | strPlanning}}</div>\r" +
+    "\n" +
     "                <zl-planning-line ng-repeat=\"(i, e) in planning.sortedEvents\" class=\"day b-b\"\r" +
     "\n" +
     "                                  ng-class=\"{today: planning.isToday(i)}\" events=\"e\"\r" +

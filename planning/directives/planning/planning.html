@@ -9,6 +9,7 @@
                 <div class="hour-caret"></div>
             </div>
             <div class="planning-2pc"></div>
+                <div ng-if="!planning.sortedEvents.length" style="position:fixed;left:50%;margin:auto">{{'nothing_to_show' | strPlanning}}</div>
                 <zl-planning-line ng-repeat="(i, e) in planning.sortedEvents" class="day b-b"
                                   ng-class="{today: planning.isToday(i)}" events="e"
                                     click-callback="planning.clickCallbackWrapper($hour, $minutes, i)"></zl-planning-line>
