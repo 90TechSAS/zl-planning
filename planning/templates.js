@@ -73,7 +73,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "<div class=\"event\"\r" +
     "\n" +
-    "     ng-repeat=\"event in line.events\"\r" +
+    "     ng-repeat=\"event in line._events\"\r" +
     "\n" +
     "     ng-style=\"event.style\"\r" +
     "\n" +

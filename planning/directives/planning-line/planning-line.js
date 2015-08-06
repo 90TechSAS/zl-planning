@@ -34,14 +34,16 @@
 
         function init() {
 
+            self._events = angular.copy(self.events);
+
             // Pre-sort events by start Date
-            self.events = _.sortBy(self.events, function (e) {
+            self._events = _.sortBy(self._events, function (e) {
                 return e.start.valueOf();
             });
 
 
             var lines = [[]];
-            _.each(self.events, function (event) {
+            _.each(self._events, function (event) {
                 var style                 = {};
                 event.depth = 1;
                 event.range               = moment.range(event.start, event.end);
@@ -80,7 +82,7 @@
 
             });
 
-            _.each(self.events, function(event, i){
+            _.each(self._events, function(event, i){
                 event.style.top = Math.round((event.line) * 100 /lines.length) + '%';
                 event.style.height = Math.round(100 / lines.length) + '%';
 
