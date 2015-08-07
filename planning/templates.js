@@ -79,7 +79,11 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "     ng-class=\"{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}\"\r" +
     "\n" +
-    "     ng-click=\"planning.eventCallback({'event':event})\">\r" +
+    "     ng-click=\"planning.eventCallback({'event':event})\"\r" +
+    "\n" +
+    "     tooltip-append-to-body=\"true\"\r" +
+    "\n" +
+    "     tooltip=\"{{event.tooltip}}\">\r" +
     "\n" +
     "    <!--<span class=\"calendar-urgency bg-pink\"></span>-->\r" +
     "\n" +
