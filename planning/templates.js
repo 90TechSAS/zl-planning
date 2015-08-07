@@ -61,7 +61,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "     ng-repeat=\"n in [] | range:24\"\r" +
     "\n" +
-    "     ng-click=\"line.clickEvent(n, $event)\">\r" +
+    "     ng-dblclick=\"line.clickEvent(n, $event)\">\r" +
     "\n" +
     "    <span class=\"half-hour\"></span>\r" +
     "\n" +
