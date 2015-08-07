@@ -130,7 +130,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "            <div class=\"hour-cursor\" ng-style=\"{left: planning.currentTimeToPixels()+'px'}\"\r" +
     "\n" +
-    "                 ng-if=\"planning.isCurrentWeek()\">\r" +
+    "                 ng-if=\"planning.isCurrent()\">\r" +
     "\n" +
     "                <div class=\"hour-caret\"></div>\r" +
     "\n" +

@@ -5,7 +5,7 @@
         <div class="planning-body">
             <zl-planning-top-row mode="planning.mode" position="planning.position"></zl-planning-top-row>
             <div class="hour-cursor" ng-style="{left: planning.currentTimeToPixels()+'px'}"
-                 ng-if="planning.isCurrentWeek()">
+                 ng-if="planning.isCurrent()">
                 <div class="hour-caret"></div>
             </div>
             <div class="planning-2pc"></div>

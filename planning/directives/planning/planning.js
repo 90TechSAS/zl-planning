@@ -133,10 +133,8 @@
             return Math.floor((150 * totalMinutes) / 60);
         }
 
-        function isCurrentWeek() {
-            console.info(self.position.week);
-            console.info(moment().week);
-            return self.position.week() === moment().week();
+        function isCurrent() {
+            return self.position.isSame(moment(), self.mode);
         }
 
         function clickCallbackWrapper(h, m, d) {
@@ -148,7 +146,7 @@
             //  sortedEvents       : sortedEvents,
             isToday             : isToday,
             currentTimeToPixels : currentTimeToPixels,
-            isCurrentWeek       : isCurrentWeek,
+            isCurrent           : isCurrent,
             clickCallbackWrapper: clickCallbackWrapper
         })
     }
