@@ -28,5 +28,7 @@
     "lodash": "~3.10.0",
     "moment-range": "~2.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "angular-bootstrap": "0.13"
+  }
 }

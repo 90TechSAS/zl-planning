@@ -18,6 +18,7 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
         var evt2        = {title: i + 'bis'};
         var evt3        = {title: i + 'ter. Oh boy, this title is long'};
         evt.technician  = technicians[Math.floor(Math.random() * 3)];
+        evt.tooltip     = 'I Have a tooltip '+ i;
         evt2.technician = technicians[Math.floor(Math.random() * 3)];
         evt3.technician = technicians[Math.floor(Math.random() * 3)];
         evt.start       = moment();

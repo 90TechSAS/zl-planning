@@ -7,7 +7,7 @@
 
 angular.module('myApp', [
     'ngRoute', 'ngSanitize', 'ngTouch', 'ngAnimate',		//additional angular modules
-    '90Tech.planning'
+    'ui.bootstrap', '90Tech.planning'
 ]).
     config(['$routeProvider', '$locationProvider', '$compileProvider', 'planningConfigurationProvider', function ($routeProvider, $locationProvider, $compileProvider, planningConfigurationProvider) {
         /**
