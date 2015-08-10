@@ -50,7 +50,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "    </div>\r" +
     "\n" +
-    "    <div style=\"height:15px\"><!-- compensate for scrollbar --></div>\r" +
+    "    <div style=\"height:10px\"><!-- compensate for scrollbar --></div>\r" +
     "\n" +
     "</div>"
   );
