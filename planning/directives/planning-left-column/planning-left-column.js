@@ -27,7 +27,7 @@
         }
 
         $scope.$watchCollection(function () {
-            return [self.position, self.mode, self.dayStart, self.dayEnd];
+            return [self.events, self.position, self.mode, self.dayStart, self.dayEnd];
         }, init);
     }
 
