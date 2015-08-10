@@ -92,6 +92,15 @@
             });
         }
 
+        function addMissingEntities(sortedEvents){
+            sortedEvents = sortedEvents || {};
+            _.each(self.entities, function(e){
+                if (!sortedEvents[e]){
+                    sortedEvents[e] = [];
+                }
+            })
+        }
+
         function parseTime(h) {
             return {h: h.split(':')[0], m: h.split(':')[1]};
         }
@@ -114,13 +123,13 @@
                 self.sortedEvents = _.groupBy(self._events, function (e) {
                     return e[self.dayField];
                 });
+                addMissingEntities(self.sortedEvents);
             }
-
-
         }
 
+
         $scope.$watchCollection(function () {
-            return [self.events, self.position, self.mode, self.dayStart, self.dayEnd];
+            return [self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd];
         }, init);
 
 
