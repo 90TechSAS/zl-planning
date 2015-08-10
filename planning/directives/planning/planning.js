@@ -147,7 +147,13 @@
         }
 
         function clickCallbackWrapper(h, m, d) {
-            self.clickCallback({$moment: moment().hour(h).minute(m).second(0).dayOfYear(d)});
+            var m;
+            if (self.mode === 'week'){
+                m = moment().hour(h).minute(m).second(0).dayOfYear(d);
+            } else if (self.mode === 'day'){
+                m = moment(self.position).hour(h).minute(m);
+            }
+            self.clickCallback({$moment: m, $entity: self.mode === 'day' ? d : undefined});
         }
 
 
