@@ -1,4 +1,4 @@
-(function () {
+(function(){
 
     'use strict';
 
@@ -9,25 +9,26 @@
     PlanningController.$inject = ['$scope'];
 
 
-    function PlanningController($scope) {
+    function PlanningController($scope){
 
         var self = this;
 
-        function split(event) {
+        function split(event){
             // Event starts and ends the same day
+
             var start = moment(event.start).hour(self._dayStart.h).minute(self._dayStart.m).second(0);
             var stop  = moment(event.end).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59);
-            if (event.start.dayOfYear() === event.end.dayOfYear()) {
+            if (event.start.dayOfYear() === event.end.dayOfYear()){
                 // reset the boundaries if they exceed the one fixed.
                 // And trim events that are entirely out of the boundaries
-                if (event.start.isBefore(start)) {
-                    if (event.end.isBefore(start)) {
+                if (event.start.isBefore(start)){
+                    if (event.end.isBefore(start)){
                         return [];
                     }
                     event.start = start;
                 }
-                if (event.end.isAfter(stop)) {
-                    if (event.start.isAfter(stop)) {
+                if (event.end.isAfter(stop)){
+                    if (event.start.isAfter(stop)){
                         return [];
                     }
                     event.end = stop;
@@ -38,14 +39,14 @@
             // Build a first event that ends at the end of the first day
             var first_event = angular.copy(event);
             first_event.end = moment(event.start).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59);
-            if (event.start.isBefore(start)) {
+            if (event.start.isBefore(start)){
                 first_event.start = start;
             }
 
             var startNextDay = moment(event.start).add(1, 'day').hour(self._dayStart.h).minute(self._dayStart.m);
             var endThisDay   = moment(event.start).hour(self._dayEnd.h).minute(self._dayEnd.m);
-            if (event.end.isBefore(startNextDay)) {
-                if (first_event.start.isAfter(endThisDay)) {
+            if (event.end.isBefore(startNextDay)){
+                if (first_event.start.isAfter(endThisDay)){
                     return [];
                 }
                 // Event finishes before start hour next day. No need to create another one
@@ -60,7 +61,7 @@
             second_event.start           = moment(event.start).add(1, 'day').hour(self._dayStart.h).minute(self._dayStart.m);
             second_event.continuedBefore = true;
 
-            if (event.start.isAfter(endThisDay)) {
+            if (event.start.isAfter(endThisDay)){
                 // If the first event starts after curfew, don't add it
                 return split(second_event);
             }
@@ -68,13 +69,13 @@
             return [first_event].concat(split(second_event));
         }
 
-        function filter(events) {
-            return _.filter(events, function (e) {
+        function filter(events){
+            return _.filter(events, function(e){
                 var start, stop;
-                if (self.mode === 'week') {
+                if (self.mode === 'week'){
                     start = moment(self.position).weekday(0).hour(self._dayStart.h).minute(self._dayStart.m).second(0);
                     stop  = moment(self.position).weekday(7).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59);
-                } else if (self.mode === 'day') {
+                } else if (self.mode === 'day'){
                     start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0);
                     stop  = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59);
                 }
@@ -82,11 +83,11 @@
             });
         }
 
-        function addMissingDays(sortedEvents) {
+        function addMissingDays(sortedEvents){
             sortedEvents    = sortedEvents || {};
             var startingDay = moment(self.position).weekday(0).dayOfYear();
-            _.times(7, function (i) {
-                if (!sortedEvents[startingDay + i]) {
+            _.times(7, function(i){
+                if (!sortedEvents[startingDay + i]){
                     sortedEvents[startingDay + i] = [];
                 }
             });
@@ -101,26 +102,27 @@
             })
         }
 
-        function parseTime(h) {
+        function parseTime(h){
             return {h: h.split(':')[0], m: h.split(':')[1]};
         }
 
-        function init() {
+        function init(){
 
             self._dayStart    = self.dayStart ? parseTime(self.dayStart) : parseTime('00:00');
             self._dayEnd      = self.dayEnd ? parseTime(self.dayEnd) : parseTime('23:59');
+            self.width        = ((parseInt(self._dayEnd.h) - parseInt(self._dayStart.h)+1) * 150) + 'px';
             self.sortedEvents = undefined;
             self._events      = (_.flatten(_.map(self.events, split)));
             self._events      = filter(self._events);
-            if (self.mode === 'week') {
+            if (self.mode === 'week'){
 
-                self.sortedEvents = _.groupBy(self._events, function (e) {
+                self.sortedEvents = _.groupBy(self._events, function(e){
                     return e.start.dayOfYear();
                 });
 
                 addMissingDays(self.sortedEvents);
-            } else if (self.mode === 'day') {
-                self.sortedEvents = _.groupBy(self._events, function (e) {
+            } else if (self.mode === 'day'){
+                self.sortedEvents = _.groupBy(self._events, function(e){
                     return e[self.dayField];
                 });
                 addMissingEntities(self.sortedEvents);
@@ -128,25 +130,29 @@
         }
 
 
-        $scope.$watchCollection(function () {
+        $scope.$watchCollection(function(){
             return [self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd];
         }, init);
 
 
-        function isToday(n) {
+        function isToday(n){
             return self.position.week() === moment().week() && n == moment().dayOfYear();
         }
 
-        function currentTimeToPixels() {
-            var totalMinutes = moment().hour() * 60 + moment().minutes();
+        function isInDayRange(){
+            return moment().hour() > parseInt(self._dayStart.h) && moment().hour() < parseInt(self._dayEnd.h);
+        }
+
+        function currentTimeToPixels(){
+            var totalMinutes = (moment().hour() - parseInt(self._dayStart ? self._dayStart.h :0)) * 60 + moment().minutes();
             return Math.floor((150 * totalMinutes) / 60);
         }
 
-        function isCurrent() {
+        function isCurrent(){
             return self.position.isSame(moment(), self.mode);
         }
 
-        function clickCallbackWrapper(h, m, d) {
+        function clickCallbackWrapper(h, m, d){
             var m;
             if (self.mode === 'week'){
                 m = moment().hour(h).minute(m).second(0).dayOfYear(d);
@@ -162,12 +168,13 @@
             isToday             : isToday,
             currentTimeToPixels : currentTimeToPixels,
             isCurrent           : isCurrent,
-            clickCallbackWrapper: clickCallbackWrapper
+            clickCallbackWrapper: clickCallbackWrapper,
+            isInDayRange        : isInDayRange
         })
     }
 
 
-    function PlanningDirective() {
+    function PlanningDirective(){
 
 
         return {

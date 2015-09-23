@@ -59,7 +59,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
   $templateCache.put('planning/directives/planning-line/planning-line.html',
     "<div class=\"b-b b-r all-day day-hour\"\r" +
     "\n" +
-    "     ng-repeat=\"n in [] | range:24\"\r" +
+    "     ng-repeat=\"n in [] | range:line.range\"\r" +
     "\n" +
     "     ng-dblclick=\"line.clickEvent(n, $event)\">\r" +
     "\n" +
@@ -128,13 +128,13 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "    <div zl-horizontal-scroll scroll-left=\"planning.currentTimeToPixels()\" style=\"height:100%\">\r" +
     "\n" +
-    "        <div class=\"planning-body\">\r" +
+    "        <div ng-style=\"{width: planning.width}\" class=\"planning-body\">\r" +
     "\n" +
-    "            <zl-planning-top-row mode=\"planning.mode\" position=\"planning.position\"></zl-planning-top-row>\r" +
+    "            <zl-planning-top-row mode=\"planning.mode\" position=\"planning.position\" day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"></zl-planning-top-row>\r" +
     "\n" +
     "            <div class=\"hour-cursor\" ng-style=\"{left: planning.currentTimeToPixels()+'px'}\"\r" +
     "\n" +
-    "                 ng-if=\"planning.isCurrent()\">\r" +
+    "                 ng-if=\"planning.isCurrent() && planning.isInDayRange()\">\r" +
     "\n" +
     "                <div class=\"hour-caret\"></div>\r" +
     "\n" +
@@ -144,7 +144,11 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "                <div ng-if=\"!planning.sortedEvents.length\" style=\"position:fixed;left:50%;margin:auto\">{{'nothing_to_show' | strPlanning}}</div>\r" +
     "\n" +
-    "                <zl-planning-line ng-repeat=\"(i, e) in planning.sortedEvents\" class=\"day b-b\"\r" +
+    "                <zl-planning-line\r" +
+    "\n" +
+    "                        day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\r" +
+    "\n" +
+    "                        ng-repeat=\"(i, e) in planning.sortedEvents\" class=\"day b-b\"\r" +
     "\n" +
     "                                  ng-class=\"{today: planning.isToday(i)}\" events=\"e\"\r" +
     "\n" +
