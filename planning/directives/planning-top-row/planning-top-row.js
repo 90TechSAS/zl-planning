@@ -14,6 +14,8 @@
             controller      : PlanningTopRowController,
             controllerAs    : 'planningTopRow',
             bindToController: {
+                dayStart: '=',
+                dayEnd  : '=',
                 events  : '=',
                 entities: '=',
                 position: '=',
@@ -26,15 +28,17 @@
         function PlanningTopRowController(){
             var self = this;
             var hours = [];
+            var range = self.dayEnd.h - self.dayStart.h + 1;
 
             function init(){
-                _.times(24, function(i){
+                _.times(range, function(i){
                     var d = moment(self.position);
-                    d.hour(i);
+                    d.hour(i+ parseInt(self.dayStart.h));
                     d.minute(0);
                     hours.push(d);
                 });
             }
+
 
             _.extend(self, {
                 hours: hours

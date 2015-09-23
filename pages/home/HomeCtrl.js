@@ -12,8 +12,8 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
     };
 
     var technicians = ['titi', 'toto', 'tutu'];
-    $scope.events   = [];
-    _.times(30, function (i) {
+    $scope.events   = [{title: 'coucou', technician: 'toto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(0), end: moment().hours(15).minutes(0)}];
+  /*  _.times(30, function (i) {
         var evt         = {title: i};
         var evt2        = {title: i + 'bis'};
         var evt3        = {title: i + 'ter. Oh boy, this title is long'};
@@ -54,7 +54,7 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
             $scope.events.push(angular.copy(evt3));
         }
 
-    });
+    }); */
     $scope.callback = function (a) {
         alert('Event clicked: ' + JSON.stringify(a));
     };
