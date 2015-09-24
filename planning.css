@@ -88,7 +88,6 @@ zl-planning-line.ng-animate {
 }
 .day-hour {
   text-align: center;
-  width: 150px;
   height: 100%;
   display: inline-block;
 }
@@ -138,7 +137,6 @@ zl-planning-line.ng-animate {
   background: #e0e0e0;
 }
 .day .day-hour {
-  width: 150px;
   height: 100%;
   display: inline-block;
 }

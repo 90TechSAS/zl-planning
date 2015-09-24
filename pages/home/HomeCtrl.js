@@ -11,9 +11,19 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
         $scope.moment = pikaday.getMoment();
     };
 
+    $scope.zoom = 10;
+    $scope.start = 8;
+    $scope.end = 19;
     var technicians = ['titi', 'toto', 'tutu'];
-    $scope.events   = [{title: 'coucou', technician: 'toto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(0), end: moment().hours(15).minutes(0)}];
-  /*  _.times(30, function (i) {
+    $scope.events   = [
+        {title: 'acoucou', technician: 'atoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)},
+        {title: 'bcoucou', technician: 'btoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)},
+        {title: 'ccoucou', technician: 'ctoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)},
+        {title: 'dcoucou', technician: 'dtoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)},
+        {title: 'zcoucou', technician: 'ztoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)}
+    ];
+
+    _.times(30, function (i) {
         var evt         = {title: i};
         var evt2        = {title: i + 'bis'};
         var evt3        = {title: i + 'ter. Oh boy, this title is long'};
@@ -50,11 +60,11 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
             $scope.events.push(evt2);
         }
         if (evt3.start.isBefore(evt3.end)) {
-            $scope.events.push(evt3);
-            $scope.events.push(angular.copy(evt3));
+  //          $scope.events.push(evt3);
+  //          $scope.events.push(angular.copy(evt3));
         }
 
-    }); */
+    });
     $scope.callback = function (a) {
         alert('Event clicked: ' + JSON.stringify(a));
     };

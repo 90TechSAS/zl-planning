@@ -1,5 +1,6 @@
 <div class="planning-top-row">
-    <div ng-repeat="hour in planningTopRow.hours" class="day-hour">
+    <div ng-repeat="hour in planningTopRow.hours" class="day-hour"
+         ng-style="{width: planningTopRow.calcWidth(planningTopRow.zoom), margin: planningTopRow.calcMargin(planningTopRow.zoom, $index)}">
         <h4>{{hour | format:'HH:mm'}}</h4>
     </div>
 </div>
