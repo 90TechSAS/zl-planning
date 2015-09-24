@@ -36,7 +36,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "            <div class=\"dayName row8 b-b animate\"\r" +
     "\n" +
-    "                 ng-repeat=\"col in planningLeftColumn.column\">\r" +
+    "                 ng-repeat=\"col in planningLeftColumn.column | orderBy:col\">\r" +
     "\n" +
     "                <h4>\r" +
     "\n" +
@@ -58,6 +58,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
   $templateCache.put('planning/directives/planning-line/planning-line.html',
     "<div class=\"b-b b-r all-day day-hour\"\r" +
+    "\n" +
+    "     ng-style=\"{width: line.calcWidth(line.zoom)}\"\r" +
     "\n" +
     "     ng-repeat=\"n in [] | range:line.range\"\r" +
     "\n" +
@@ -106,7 +108,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
   $templateCache.put('planning/directives/planning-top-row/planning-top-row.html',
     "<div class=\"planning-top-row\">\r" +
     "\n" +
-    "    <div ng-repeat=\"hour in planningTopRow.hours\" class=\"day-hour\">\r" +
+    "    <div ng-repeat=\"hour in planningTopRow.hours\" class=\"day-hour\"\r" +
+    "\n" +
+    "         ng-style=\"{width: planningTopRow.calcWidth(planningTopRow.zoom), margin: planningTopRow.calcMargin(planningTopRow.zoom, $index)}\">\r" +
     "\n" +
     "        <h4>{{hour | format:'HH:mm'}}</h4>\r" +
     "\n" +
@@ -130,7 +134,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "        <div ng-style=\"{width: planning.width}\" class=\"planning-body\">\r" +
     "\n" +
-    "            <zl-planning-top-row mode=\"planning.mode\" position=\"planning.position\" day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"></zl-planning-top-row>\r" +
+    "            <zl-planning-top-row mode=\"planning.mode\" zoom=\"planning.zoom\" position=\"planning.position\"\r" +
+    "\n" +
+    "                                 day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"></zl-planning-top-row>\r" +
     "\n" +
     "            <div class=\"hour-cursor\" ng-style=\"{left: planning.currentTimeToPixels()+'px'}\"\r" +
     "\n" +
@@ -142,17 +148,23 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "            <div class=\"planning-2pc\"></div>\r" +
     "\n" +
-    "                <div ng-if=\"!planning.sortedEvents.length\" style=\"position:fixed;left:50%;margin:auto\">{{'nothing_to_show' | strPlanning}}</div>\r" +
+    "            <div ng-if=\"!planning.events.length\" style=\"position:fixed;left:50%;margin:auto\">{{'nothing_to_show' |\r" +
     "\n" +
-    "                <zl-planning-line\r" +
+    "                strPlanning}}\r" +
     "\n" +
-    "                        day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\r" +
+    "            </div>\r" +
     "\n" +
-    "                        ng-repeat=\"(i, e) in planning.sortedEvents\" class=\"day b-b\"\r" +
+    "            <zl-planning-line\r" +
     "\n" +
-    "                                  ng-class=\"{today: planning.isToday(i)}\" events=\"e\"\r" +
+    "                    zoom=\"planning.zoom\"\r" +
     "\n" +
-    "                                    click-callback=\"planning.clickCallbackWrapper($hour, $minutes, i)\"></zl-planning-line>\r" +
+    "                    day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\r" +
+    "\n" +
+    "                    ng-repeat=\"i in planning.keys(planning.sortedEvents)\" class=\"day b-b\"\r" +
+    "\n" +
+    "                    ng-class=\"{today: planning.isToday(i)}\" events=\"planning.getEvents(i)\"\r" +
+    "\n" +
+    "                    click-callback=\"planning.clickCallbackWrapper($hour, $minutes, i)\"></zl-planning-line>\r" +
     "\n" +
     "        </div>\r" +
     "\n" +

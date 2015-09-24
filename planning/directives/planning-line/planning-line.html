@@ -1,4 +1,5 @@
 <div class="b-b b-r all-day day-hour"
+     ng-style="{width: line.calcWidth(line.zoom)}"
      ng-repeat="n in [] | range:line.range"
      ng-dblclick="line.clickEvent(n, $event)">
     <span class="half-hour"></span>

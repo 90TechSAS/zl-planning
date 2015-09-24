@@ -123,7 +123,7 @@ module.exports = function (grunt) {
                 }
             },
             watch      : {
-                files: ['**/*.less'],
+                files: ['**/*.less', 'planning/**/*.js', 'planning/**/*.html'],
                 tasks: ['default']
             }
             /*,

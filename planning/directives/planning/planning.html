@@ -3,18 +3,22 @@
 <div class="" style="height:100%">
     <div zl-horizontal-scroll scroll-left="planning.currentTimeToPixels()" style="height:100%">
         <div ng-style="{width: planning.width}" class="planning-body">
-            <zl-planning-top-row mode="planning.mode" position="planning.position" day-start="planning._dayStart" day-end="planning._dayEnd"></zl-planning-top-row>
+            <zl-planning-top-row mode="planning.mode" zoom="planning.zoom" position="planning.position"
+                                 day-start="planning._dayStart" day-end="planning._dayEnd"></zl-planning-top-row>
             <div class="hour-cursor" ng-style="{left: planning.currentTimeToPixels()+'px'}"
                  ng-if="planning.isCurrent() && planning.isInDayRange()">
                 <div class="hour-caret"></div>
             </div>
             <div class="planning-2pc"></div>
-                <div ng-if="!planning.sortedEvents.length" style="position:fixed;left:50%;margin:auto">{{'nothing_to_show' | strPlanning}}</div>
-                <zl-planning-line
-                        day-start="planning._dayStart" day-end="planning._dayEnd"
-                        ng-repeat="(i, e) in planning.sortedEvents" class="day b-b"
-                                  ng-class="{today: planning.isToday(i)}" events="e"
-                                    click-callback="planning.clickCallbackWrapper($hour, $minutes, i)"></zl-planning-line>
+            <div ng-if="!planning.events.length" style="position:fixed;left:50%;margin:auto">{{'nothing_to_show' |
+                strPlanning}}
+            </div>
+            <zl-planning-line
+                    zoom="planning.zoom"
+                    day-start="planning._dayStart" day-end="planning._dayEnd"
+                    ng-repeat="i in planning.keys(planning.sortedEvents)" class="day b-b"
+                    ng-class="{today: planning.isToday(i)}" events="planning.getEvents(i)"
+                    click-callback="planning.clickCallbackWrapper($hour, $minutes, i)"></zl-planning-line>
         </div>
     </div>
 </div>

@@ -6,15 +6,18 @@
         .module('90Tech.planning')
         .directive('zlPlanning', PlanningDirective);
 
-    PlanningController.$inject = ['$scope'];
+    PlanningController.$inject = ['$scope', 'planningConfiguration'];
 
 
-    function PlanningController($scope){
+    function PlanningController($scope, planningConfiguration){
+
+        var BASE_SIZE = planningConfiguration.BASE_SIZE
 
         var self = this;
 
         function split(event){
             // Event starts and ends the same day
+            event = angular.copy(event);
 
             var start = moment(event.start).hour(self._dayStart.h).minute(self._dayStart.m).second(0);
             var stop  = moment(event.end).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59);
@@ -103,17 +106,23 @@
         }
 
         function parseTime(h){
-            return {h: h.split(':')[0], m: h.split(':')[1]};
+            if (h >= 24){
+                return {h: 23, m: 59}
+            }
+            return {h: h, m: 0};
         }
 
         function init(){
+            self.zoom = parseInt(self.zoom);
 
-            self._dayStart    = self.dayStart ? parseTime(self.dayStart) : parseTime('00:00');
-            self._dayEnd      = self.dayEnd ? parseTime(self.dayEnd) : parseTime('23:59');
+            if (!self.zoom || self.zoom < 1){
+                self.zoom = 1;
+            }
 
-            console.info(self._dayStart);
-            console.info(self._dayEnd);
-            self.width        = ((parseInt(self._dayEnd.h) - parseInt(self._dayStart.h)+1) * 150) + 'px';
+            self._dayStart = self.dayStart ? parseTime(self.dayStart) : parseTime(0);
+            self._dayEnd   = self.dayEnd ? parseTime(self.dayEnd) : parseTime(24);
+
+            self.width        = (self.zoom * (parseInt(self._dayEnd.h) - parseInt(self._dayStart.h) + 1) * BASE_SIZE) + 'px';
             self.sortedEvents = undefined;
             self._events      = (_.flatten(_.map(self.events, split)));
             self._events      = filter(self._events);
@@ -132,10 +141,22 @@
             }
         }
 
+        function keys(sortedEvents){
+            if (self.mode === 'week'){
+                return Object.keys(sortedEvents);
+            } else if (self.mode === 'day'){
+                return Object.keys(sortedEvents).sort();
+            }
+        }
+
+        function getEvents(key){
+            return self.sortedEvents[key];
+        }
+
         init();
 
         $scope.$watchCollection(function(){
-            return [self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd];
+            return [self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd, self.zoom];
         }, init);
 
 
@@ -148,8 +169,8 @@
         }
 
         function currentTimeToPixels(){
-            var totalMinutes = (moment().hour() - parseInt(self._dayStart ? self._dayStart.h :0)) * 60 + moment().minutes();
-            return Math.floor((150 * totalMinutes) / 60);
+            var totalMinutes = (moment().hour() - parseInt(self._dayStart ? self._dayStart.h : 0)) * 60 + moment().minutes();
+            return Math.floor(self.zoom * (BASE_SIZE * totalMinutes) / 60);
         }
 
         function isCurrent(){
@@ -157,13 +178,13 @@
         }
 
         function clickCallbackWrapper(h, m, d){
-            var m;
+            var mom;
             if (self.mode === 'week'){
-                m = moment().hour(h).minute(m).second(0).dayOfYear(d);
+                mom = moment().hour(h).minute(m).second(0).dayOfYear(d);
             } else if (self.mode === 'day'){
-                m = moment(self.position).hour(h).minute(m);
+                mom = moment(self.position).hour(h).minute(m);
             }
-            self.clickCallback({$moment: m, $entity: self.mode === 'day' ? d : undefined});
+            self.clickCallback({$moment: mom, $entity: self.mode === 'day' ? d : undefined});
         }
 
 
@@ -173,7 +194,9 @@
             currentTimeToPixels : currentTimeToPixels,
             isCurrent           : isCurrent,
             clickCallbackWrapper: clickCallbackWrapper,
-            isInDayRange        : isInDayRange
+            isInDayRange        : isInDayRange,
+            keys                : keys,
+            getEvents:getEvents
         })
     }
 
@@ -187,6 +210,7 @@
             controller      : PlanningController,
             controllerAs    : 'planning',
             bindToController: {
+                zoom         : '=',
                 events       : '=',
                 entities     : '=',
                 position     : '=',
