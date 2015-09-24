@@ -110,6 +110,9 @@
 
             self._dayStart    = self.dayStart ? parseTime(self.dayStart) : parseTime('00:00');
             self._dayEnd      = self.dayEnd ? parseTime(self.dayEnd) : parseTime('23:59');
+
+            console.info(self._dayStart);
+            console.info(self._dayEnd);
             self.width        = ((parseInt(self._dayEnd.h) - parseInt(self._dayStart.h)+1) * 150) + 'px';
             self.sortedEvents = undefined;
             self._events      = (_.flatten(_.map(self.events, split)));
@@ -129,6 +132,7 @@
             }
         }
 
+        init();
 
         $scope.$watchCollection(function(){
             return [self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd];

@@ -12,7 +12,7 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
     };
 
     var technicians = ['titi', 'toto', 'tutu'];
-    $scope.events   = [{title: 'coucou', technician: 'toto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(0), end: moment().hours(15).minutes(0)}];
+    $scope.events   = [{title: 'coucou', technician: 'toto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)}];
   /*  _.times(30, function (i) {
         var evt         = {title: i};
         var evt2        = {title: i + 'bis'};
