@@ -53,7 +53,9 @@
                 event.depth = 1;
                 event.range = moment.range(event.start, event.end);
                 if (event.range<900000){
-                    event.range = moment.range(900000);
+                    console.info('<<');
+                    var end = moment(event.start).add(15, 'minutes');
+                    event.range = moment.range(event.start, end);
                 }
                 style.left  = (event.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + event.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px';
                 //   style.left                = event.start.hours() * 150 + event.start.minutes() * 150 / 60 + 'px';
