@@ -85,7 +85,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "     tooltip-append-to-body=\"true\"\r" +
     "\n" +
-    "     tooltip=\"{{event.tooltip}}\">\r" +
+    "     uib-tooltip=\"{{event.tooltip}}\">\r" +
     "\n" +
     "    <!--<span class=\"calendar-urgency bg-pink\"></span>-->\r" +
     "\n" +

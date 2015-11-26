@@ -1,6 +1,6 @@
 {
   "name": "zl-planning-demo",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "authors": [
     "Florent Gouget <florent.gouget@gmail.com>"
   ],
@@ -29,6 +29,6 @@
     "moment-range": "~2.0.3"
   },
   "devDependencies": {
-    "angular-bootstrap": "0.13"
+    "angular-bootstrap": "~0.14"
   }
 }
