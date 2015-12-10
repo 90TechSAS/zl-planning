@@ -179,7 +179,7 @@
         function clickCallbackWrapper(h, m, d){
             var mom;
             if (self.mode === 'week'){
-                mom = moment().hour(h).minute(m).second(0).dayOfYear(d);
+                mom = moment(self.position).hour(h).minute(m).second(0).dayOfYear(d);
             } else if (self.mode === 'day'){
                 mom = moment(self.position).hour(h).minute(m);
             }
