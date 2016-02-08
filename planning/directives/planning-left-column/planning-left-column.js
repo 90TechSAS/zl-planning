@@ -22,7 +22,7 @@
                     self.days.push(d);
                 });
             } else if (self.mode === 'day' && self.dayField) {
-                self.column = _.keys(self.events);
+                self.column = Object.keys(self.events).sort();
             }
         }
 

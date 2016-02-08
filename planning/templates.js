@@ -36,7 +36,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "            <div class=\"dayName row8 b-b animate\"\r" +
     "\n" +
-    "                 ng-repeat=\"col in planningLeftColumn.column | orderBy:col\">\r" +
+    "                 ng-repeat=\"col in planningLeftColumn.column\">\r" +
     "\n" +
     "                <h4>\r" +
     "\n" +
