@@ -82,7 +82,7 @@
                     start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0);
                     stop  = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59);
                 }
-                return e.start.isBetween(start, stop);
+                return e.start.isBetween(start, stop) || e.end.isBetween(start, stop);
             });
         }
 
