@@ -94,8 +94,8 @@
             });
 
             _.each(self._events, function(event, i){
-                event.style.top    = Math.round((event.line) * 100 / lines.length) + '%';
-                event.style.height = Math.round(100 / lines.length) + '%';
+                event.style.top    = Math.round((event.line) * 80 / lines.length) + '%';
+                event.style.height = Math.round(80 / lines.length) + '%';
 
             });
 
