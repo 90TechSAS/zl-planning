@@ -16,11 +16,15 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
     $scope.end = 19;
     var technicians = ['titi', 'toto', 'tutu'];
     $scope.events   = [
-        {title: 'acoucou', technician: 'atoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(10).minutes(16)},
-        {title: 'bcoucou', technician: 'btoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)},
-        {title: 'ccoucou', technician: 'ctoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)},
-        {title: 'dcoucou', technician: 'dtoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)},
-        {title: 'zcoucou', technician: 'ztoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(15), end: moment().hours(15).minutes(45)}
+        {title: 'acoucou', technician: 'atoto', tooltip: 'I Have a tooltip', start: moment().hours(8).minutes(15), end: moment().hours(19).minutes(0)},
+        {title: 'acoucou', technician: 'atoto', tooltip: 'I Have a tooltip', start: moment().hours(8).minutes(15), end: moment().hours(19).minutes(0)},
+        {title: 'acoucou', technician: 'atoto', tooltip: 'I Have a tooltip', start: moment().hours(8).minutes(15), end: moment().hours(19).minutes(50)},
+        {title: 'bcoucou', technician: 'btoto', tooltip: 'I Have a tooltip', start: moment().hours(10).minutes(30), end: moment().hours(12).minutes(45)},
+        {title: 'ccoucou', technician: 'ctoto', tooltip: 'I Have a tooltip', start: moment().hours(11).minutes(30), end: moment().hours(13).minutes(45)},
+        {title: 'dcoucou', technician: 'dtoto', tooltip: 'I Have a tooltip', start: moment().hours(14).minutes(15), end: moment().hours(16).minutes(45)},
+        {title: 'ecoucou', technician: 'etoto', tooltip: 'I Have a tooltip', start: moment().hours(15).minutes(15), end: moment().hours(17).minutes(45)},
+        {title: 'ecoucou', technician: 'etoto', tooltip: 'I Have a tooltip', start: moment().hours(14).minutes(15), end: moment().hours(15).minutes(45)},
+        {title: 'ecoucou', technician: 'etoto', tooltip: 'I Have a tooltip', start: moment().hours(15).minutes(15), end: moment().hours(15).minutes(45)}
     ];
 
   /*  _.times(30, function (i) {
@@ -66,6 +70,7 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
 
     });    */
     $scope.callback = function (a) {
+        console.log(a);
         alert('Event clicked: ' + JSON.stringify(a));
     };
 
