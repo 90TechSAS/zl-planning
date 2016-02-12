@@ -67,19 +67,20 @@
                     for (var i = 0; i < lines.length; i++){
                         if (event.depth > MAX_PARALLEL) {
                             var overlap = false;
-                            _.filter(lines[4], function(elt) {
-                                if (event.range.overlaps(elt.range)){
-                                    overlap = true;
-                                    elt.title = (elt.eventList.length)+ " " + parallelText;
+                            _.each(lines[MAX_PARALLEL], function(elt) {
+                                overlap = event.range.overlaps(elt.range);
+                                if (overlap){
                                     if (elt.technician !== event.technician) elt.technician = '';
                                     elt.start = moment.min(event.start, elt.start);
                                     elt.end = moment.max(event.end, elt.end);
                                     elt.range = moment.range(elt.start, elt.end);
                                     elt.style.left = (elt.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + elt.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px';
+                                    elt.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px';
                                     elt.style['background-color'] = '#000';
                                     elt.style['font-weight'] = 'bold';
                                     elt.line = MAX_PARALLEL;
                                     elt.eventList.push(event);
+                                    elt.title = (elt.eventList.length)+ " " + parallelText;
                                 }
                             });
                             if (overlap) {
@@ -88,11 +89,12 @@
                             }
                             event.depth = MAX_PARALLEL;
                             event.line = MAX_PARALLEL;
-                            event.eventList = [event];
+                            var eventClone = _.cloneDeep(event);
+                            event.eventList = [eventClone];
                             lines[MAX_PARALLEL].push(event);
                             break line;
                         }
-                        event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px';
+
                         if (!lines[i].length){
                             lines[i].push(event);
                             event.line = i;
@@ -119,7 +121,7 @@
 
             });
             self._events = _.difference(self._events, toremove);
-            _.each(self._events, function(event, i){
+            _.each(self._events, function(event){
                 event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px';
                 if (event.line === undefined) event.line = MAX_PARALLEL;
                 event.style.top    = Math.round((parseInt(event.line)) * 80 / lines.length) + '%';

@@ -3,7 +3,7 @@ angular.module('90Tech.planning')
         var self = this;
 
         self.BASE_SIZE = 10;
-        self.MAX_PARALLEL = 4;
+        self.MAX_PARALLEL = 3;
         self.strings = {
             nothing_to_show: 'Rien à afficher'
         };
