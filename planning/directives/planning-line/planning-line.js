@@ -76,6 +76,8 @@
                                     elt.end = moment.max(event.end, elt.end);
                                     elt.range = moment.range(elt.start, elt.end);
                                     elt.style.left = (elt.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + elt.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px';
+                                    elt.style['background-color'] = '#000';
+                                    elt.style['font-weight'] = 'bold';
                                     elt.line = MAX_PARALLEL;
                                     elt.eventList.push(event);
                                 }
