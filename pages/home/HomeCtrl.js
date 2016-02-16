@@ -70,7 +70,7 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
 
     });    */
     $scope.callback = function (a) {
-        console.log(a);
+        console.log('a', a);
         alert('Event clicked: ' + JSON.stringify(a));
     };
 
@@ -81,7 +81,7 @@ angular.module('myApp').controller('HomeCtrl', ['$scope', function ($scope) {
     };
 
     $scope.clickCallback = function(m){
-        console.info(m);
+        console.info('m', m);
     }
 
 

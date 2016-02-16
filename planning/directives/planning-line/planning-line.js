@@ -81,6 +81,7 @@
                                     elt.line = MAX_PARALLEL;
                                     elt.eventList.push(event);
                                     elt.title = (elt.eventList.length)+ " " + parallelText;
+                                    if (elt.tooltip) elt.tooltip = elt.title;
                                 }
                             });
                             if (overlap) {
@@ -124,8 +125,8 @@
             _.each(self._events, function(event){
                 event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px';
                 if (event.line === undefined) event.line = MAX_PARALLEL;
-                event.style.top    = Math.round((parseInt(event.line)) * 80 / lines.length) + '%';
-                event.style.height = Math.round(80 / lines.length) + '%';
+                event.style.top    = Math.round((parseInt(event.line)) * 70 / lines.length) + '%';
+                event.style.height = Math.round(70 / lines.length) + '%';
             });
         }
 
