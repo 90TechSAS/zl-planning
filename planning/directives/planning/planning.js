@@ -155,8 +155,15 @@
           })
           .map(splitByWeeks)
           .flatten()
-          .groupBy(function (event) {return Math.floor(event.start.date() / 7)})
+          .groupBy(function (event) {
+            return Math.floor(event.start.date() / 7.01) // 7.01 -> Fix issue when start day = 7 (sunday)
+          })
           .value()
+        for (var i = 0; i < 5; i++) {
+          if (self.multipleDaysEvents[i] === undefined) {
+            self.multipleDaysEvents[i] = []
+          }
+        }
         var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0);
         self.days = [];
         _.times(firstDay.daysInMonth(), function (n) {
@@ -198,7 +205,7 @@
         event.end = moment(self.position).endOf('month')
       }
       // console.info(_.cloneDeep(event))
-      if (getWeekNumber(event.start) === getWeekNumber(event.end)) {
+      if (event.start.isoWeek() === event.end.isoWeek()) {
         // If our event is on one week, we're all set
         return [ event ]
       }

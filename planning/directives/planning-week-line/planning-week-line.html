@@ -1,20 +1,19 @@
 <div class="week-line" ng-class="'week-' + line.week " style="padding-top:20px">
-    <div class="multiple-days-events" style="height:60%">
-        <div class="week-event" ng-repeat="event in line.displayedEvents" style="width:100%; position:relative"
-             ng-style="{ height:line.height}">
-            <div
-                    ng-style="{'background-color': event.color, 'width': line.calculateWidth(event), 'left': line.calculateLeft(event)}"
-                    style="height:100%; position:relative;border:1px solid black;">
-                <span style="position:absolute; left:10px">{{event.title}}</span>
+    <div class="multiple-days-events" style="height:100%">
+        <div class="week-event-line" ng-repeat="l in line.lines" style="width:100%; position:relative"
+             ng-style="{'height': line.lh}">
+            <div    ng-repeat="event in l"
+                    ng-style="{'background-color': event.color, 'width': event.style.width, 'left': event.style.left}"
+                    style="position:absolute;border:1px solid black;height: 100%;">
+                <span style="position:absolute; left:10px">{{event.title}} {{event.start.format('dddd DD')}} - {{event.end.format('dddd DD')}}</span>
             </div>
         </div>
     </div>
-    <div class="single-day-events" style="height:40%; width:100%">
+    <div class="single-day-events" style="height:0%; width:100%">
         <div ng-repeat="ev in line.oneDayEvents"
              ng-style="{'background-color': ev.color,'left': line.calculateLeft(ev)}" style="width:14.28%;height:20%">
             {{ev.start}}
         </div>
-
     </div>
 </div>
 
