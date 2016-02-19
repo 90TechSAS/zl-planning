@@ -1,6 +1,6 @@
 {
   "name": "zl-planning-demo",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "authors": [
     "Florent Gouget <florent.gouget@gmail.com>"
   ],
@@ -14,21 +14,24 @@
     "test",
     "tests"
   ],
-  "main":[
+  "main": [
     "planning.min.js",
     "planning.min.css"
   ],
   "dependencies": {
-    "angular": "~1.4.0",
-    "angular-animate": "~1.4.0",
-    "angular-sanitize": "~1.4.0",
-    "angular-touch": "~1.4.0",
-    "angular-route": "~1.4.0",
-    "moment": "~2.10.6",
-    "lodash": "~3.10.0",
-    "moment-range": "~2.0.3"
+    "angular": "1.4.8",
+    "angular-animate": "1.4.8",
+    "angular-sanitize": "1.4.8",
+    "angular-touch": "1.4.8",
+    "angular-route": "1.4.8",
+    "moment": "2.10.6",
+    "lodash": "3.10.1",
+    "moment-range": "2.0.3"
   },
   "devDependencies": {
-    "angular-bootstrap": "~0.14"
+    "angular-bootstrap": "0.14"
+  },
+  "resolutions": {
+    "angular": "1.4.8"
   }
 }
