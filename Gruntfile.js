@@ -100,7 +100,8 @@ module.exports = function (grunt) {
             },
             uglify     : {
                 options: {
-                    mangle: false
+                    mangle: false,
+                    sourceMap: 'planning.sourcemap'
                 },
                 build  : {
                     files: {},

@@ -16,7 +16,8 @@
     PlanningLineController($scope, planningConfiguration){
 
         var BASE_SIZE = planningConfiguration.BASE_SIZE;
-
+        var parallelText = planningConfiguration.parallelText;
+        var MAX_PARALLEL = planningConfiguration.MAX_PARALLEL;
 
         var self            = this;
 
@@ -48,12 +49,12 @@
 
 
             var lines = [[]];
+            var toremove = [];
             _.each(self._events, function(event){
                 var style   = {};
                 event.depth = 1;
                 event.range = moment.range(event.start, event.end);
                 if (event.range<900000){
-                    console.info('<<');
                     var end = moment(event.start).add(15, 'minutes');
                     event.range = moment.range(event.start, end);
                 }
@@ -62,10 +63,38 @@
                 style.width               = self.zoom * self.SLIDER_WIDTH * (event.range) / self.SECONDS_BY_DAY / 1000 + 'px';
                 style['background-color'] = event['background-color'] || '#778899';
                 event.style               = style;
-
-
                 line:
                     for (var i = 0; i < lines.length; i++){
+                        if (event.depth > MAX_PARALLEL) {
+                            var overlap = false;
+                            _.each(lines[MAX_PARALLEL], function(elt) {
+                                overlap = event.range.overlaps(elt.range);
+                                if (overlap){
+                                    if (elt.technician !== event.technician) elt.technician = '';
+                                    elt.start = moment.min(event.start, elt.start);
+                                    elt.end = moment.max(event.end, elt.end);
+                                    elt.range = moment.range(elt.start, elt.end);
+                                    elt.style.left = (elt.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + elt.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px';
+                                    elt.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px';
+                                    elt.style['background-color'] = '#000';
+                                    elt.style['font-weight'] = 'bold';
+                                    elt.line = MAX_PARALLEL;
+                                    elt.eventList.push(event);
+                                    elt.title = (elt.eventList.length)+ " " + parallelText;
+                                    if (elt.tooltip) elt.tooltip = elt.title;
+                                }
+                            });
+                            if (overlap) {
+                              toremove.push(event);
+                              break line;
+                            }
+                            event.depth = MAX_PARALLEL;
+                            event.line = MAX_PARALLEL;
+                            var eventClone = _.cloneDeep(event);
+                            event.eventList = [eventClone];
+                            lines[MAX_PARALLEL].push(event);
+                            break line;
+                        }
 
                         if (!lines[i].length){
                             lines[i].push(event);
@@ -92,13 +121,13 @@
                     }
 
             });
-
-            _.each(self._events, function(event, i){
-                event.style.top    = Math.round((event.line) * 100 / lines.length) + '%';
-                event.style.height = Math.round(100 / lines.length) + '%';
-
+            self._events = _.difference(self._events, toremove);
+            _.each(self._events, function(event){
+                event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px';
+                if (event.line === undefined) event.line = MAX_PARALLEL;
+                event.style.top    = Math.round((parseInt(event.line)) * 70 / lines.length) + '%';
+                event.style.height = Math.round(70 / lines.length) + '%';
             });
-
         }
 
         init();
