@@ -93,7 +93,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
     $scope.events[i]['color'] = 'rgb('+blue+','+red+','+green+')'
   }
 
-/*
+
   _.times(30, function (i) {
     var evt = { title: i };
     var evt2 = { title: i + 'bis' };
@@ -126,7 +126,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
     /**if (i === 7){
       console.info(evt)
     }**/
-/*
+
     if (evt.start.isBefore(evt.end)) {
       $scope.events.push(evt);
     }
@@ -138,7 +138,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       //          $scope.events.push(angular.copy(evt3));
     }
 
-  });*/
+  });
   $scope.callback = function (a) {
     alert('Event clicked: ' + JSON.stringify(a));
   };
