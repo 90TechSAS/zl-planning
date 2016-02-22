@@ -9,10 +9,10 @@
             </div>
         </div>
     </div>
-    <div class="single-day-events" style="height:40%; width:100%">
+    <div class="single-day-events" style="height:40%; position:relative;">
         <div ng-repeat="ev in line.oneDayEvents"
-             ng-style="{'background-color': ev.color,'left': line.calculateLeft(ev)}" style="width:14.28%;height:20%">
-            {{event.title}} {{event.start.format('dddd DD')}} - {{event.end.format('dddd DD')}}
+             ng-style="{'background-color': ev.color,'left': line.calculateLeft(ev), 'height': 100 / line.oneDayEvents.length + '%'}" style="width:14.28%;border: 1px solid black;position:absolute;">
+            <span style="position:absolute; left:10px">{{ev.title}} - {{ 100 / line.oneDayEvents.length + '%' }}</span>
         </div>
     </div>
 </div>

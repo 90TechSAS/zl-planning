@@ -159,6 +159,8 @@
             return Math.floor(event.start.date() / 7.01) // 7.01 -> Fix issue when start day = 7 (sunday)
           })
           .value()
+
+        console.log(self.oneDayEvents)
         for (var i = 0; i < 5; i++) {
           if (self.multipleDaysEvents[i] === undefined) {
             self.multipleDaysEvents[i] = []

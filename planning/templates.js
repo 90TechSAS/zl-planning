@@ -95,10 +95,10 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
-    "    <div class=\"single-day-events\" style=\"height:40%; width:100%\">\n" +
+    "    <div class=\"single-day-events\" style=\"height:40%; position:relative;\">\n" +
     "        <div ng-repeat=\"ev in line.oneDayEvents\"\n" +
-    "             ng-style=\"{'background-color': ev.color,'left': line.calculateLeft(ev)}\" style=\"width:14.28%;height:20%\">\n" +
-    "            {{event.title}} {{event.start.format('dddd DD')}} - {{event.end.format('dddd DD')}}\n" +
+    "             ng-style=\"{'background-color': ev.color,'left': line.calculateLeft(ev), 'height': 100 / line.oneDayEvents.length + '%'}\" style=\"width:14.28%;border: 1px solid black;position:absolute;\">\n" +
+    "            <span style=\"position:absolute; left:10px\">{{ev.title}} - {{ 100 / line.oneDayEvents.length + '%' }}</span>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +

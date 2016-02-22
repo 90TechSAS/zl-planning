@@ -63,10 +63,7 @@
         }
       })
       self.lh = Math.round(100 / self.lines.length) + '%'
-      console.log('/////////')
-      console.log('displayedEvents',self.displayedEvents)
-      console.log('lines',self.lines)
-      console.log('/////////')
+
       //self.height = Math.floor(100 / self.displayedEvents.length) + '%'
 
     }
@@ -81,6 +78,7 @@
     }
 
     function calculateLeft (event) {
+      console.log('left', ((event.start.date() - 1 ) % 7 ) * 14.2 + '%')
       return ((event.start.date() - 1) % 7 ) * 14.28 + '%'
 
     }
