@@ -2,18 +2,20 @@
     <div class="multiple-days-events" style="height:60%; overflow-y: none;">
         <div class="week-event-line" ng-repeat="l in line.lines" style="width:100%; position:relative"
              ng-style="{'height': line.lh}">
-            <div    ng-repeat="event in l"
-                    ng-style="{'background-color': event.color, 'width': event.style.width, 'left': event.style.left}"
-                    style="position:absolute;border:1px solid black;height: 100%;">
-                <span style="position:absolute; left:10px">{{event.title}} {{event.start.format('dddd DD')}} - {{event.end.format('dddd DD')}}</span>
+            <div ng-repeat="event in l"
+                 class="multiple-day-event"
+                 ng-style="{'background-color': event.color, 'width': event.style.width, 'left': event.style.left}"
+                 style="position:absolute;border:1px solid black;height: 100%;">
+                <span style="position:absolute; left:10px">{{event.title}}</span>
             </div>
         </div>
     </div>
     <div class="single-day-events" style="height:40%; position:relative;">
         <div ng-repeat="ev in line.oneDayEvents"
              ng-style="{'background-color': ev.color,'left': ev.style.left, 'height': ev.style.height , 'top': ev.style.top, 'width': ev.style.width}"
-             style="position:absolute;border: 1px solid black;">
-            <span style="position:absolute; left:10px">{{ev.title}} SINGLE - {{ ev.style.height }} - {{ev.start.format('dddd DD')}}</span>
+             style="position:absolute;border: 1px solid black;"
+             class="single-day-event">
+            <span style="position:absolute; left:10px">{{ev.title}}</span>
         </div>
     </div>
 </div>

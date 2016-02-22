@@ -53,7 +53,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       end: moment().hours(15).minutes(45)
     }*/
   ];
-
+/*
   var e0 = { title: 'e0'}
   e0.start = moment('02/07/2016')
   e0.end = moment('02/09/2016')
@@ -83,7 +83,35 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
   var e5 = { title: 'e5'}
   e5.start = moment().add('3', 'days')
   e5.end = moment().add('5', 'days')
-  $scope.events.push(e5)
+  $scope.events.push(e5) */
+
+  function generateRandomText()
+  {
+      var text = "";
+      var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+      for( var i=0; i < 5; i++ )
+          text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+      return text;
+  }
+
+  for (var i = 0; i < 10; i++) {
+    $scope.events.push({
+      title: generateRandomText(),
+      start: moment().add(Math.random() * (30 - (-30)) + (-30), 'day'),
+      end: moment().add(Math.random() * (30 - (-30)) + (-30), 'day')
+    })
+  }
+  for (var i = 0; i < 10; i++) {
+    var date = Math.random() * (30 - (-30)) + (-30)
+    $scope.events.push({
+      title: generateRandomText() + ' - ' + i,
+      start: moment().add(date, 'day'),
+      end: moment().add(date, 'day')
+    })
+    console.log(date);
+  }
 
   for (var i = 0; i < $scope.events.length; i++) {
     var red = Math.floor(Math.random() * (255 - 0 + 1))
@@ -93,7 +121,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
     $scope.events[i]['color'] = 'rgb('+blue+','+red+','+green+')'
   }
 
-
+/*
   _.times(30, function (i) {
     var evt = { title: i };
     var evt2 = { title: i + 'bis' };
@@ -122,12 +150,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
     evt[ 'color' ] = 'rgb(246,213,36)';
     evt2[ 'color' ] = 'rgb(70,189,234)';
     evt2[ 'background-color' ] = 'rgb(200,200,200)';
-
-    /**if (i === 7){
-      console.info(evt)
-    }**/
-
-    if (evt.start.isBefore(evt.end)) {
+  if (evt.start.isBefore(evt.end)) {
       $scope.events.push(evt);
     }
     if (i % 2 && evt2.start.isBefore(evt2.end)) {
@@ -138,7 +161,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       //          $scope.events.push(angular.copy(evt3));
     }
 
-  });
+  }); */
   $scope.callback = function (a) {
     alert('Event clicked: ' + JSON.stringify(a));
   };

@@ -88,18 +88,20 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    <div class=\"multiple-days-events\" style=\"height:60%; overflow-y: none;\">\n" +
     "        <div class=\"week-event-line\" ng-repeat=\"l in line.lines\" style=\"width:100%; position:relative\"\n" +
     "             ng-style=\"{'height': line.lh}\">\n" +
-    "            <div    ng-repeat=\"event in l\"\n" +
-    "                    ng-style=\"{'background-color': event.color, 'width': event.style.width, 'left': event.style.left}\"\n" +
-    "                    style=\"position:absolute;border:1px solid black;height: 100%;\">\n" +
-    "                <span style=\"position:absolute; left:10px\">{{event.title}} {{event.start.format('dddd DD')}} - {{event.end.format('dddd DD')}}</span>\n" +
+    "            <div ng-repeat=\"event in l\"\n" +
+    "                 class=\"multiple-day-event\"\n" +
+    "                 ng-style=\"{'background-color': event.color, 'width': event.style.width, 'left': event.style.left}\"\n" +
+    "                 style=\"position:absolute;border:1px solid black;height: 100%;\">\n" +
+    "                <span style=\"position:absolute; left:10px\">{{event.title}}</span>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"single-day-events\" style=\"height:40%; position:relative;\">\n" +
     "        <div ng-repeat=\"ev in line.oneDayEvents\"\n" +
     "             ng-style=\"{'background-color': ev.color,'left': ev.style.left, 'height': ev.style.height , 'top': ev.style.top, 'width': ev.style.width}\"\n" +
-    "             style=\"position:absolute;border: 1px solid black;\">\n" +
-    "            <span style=\"position:absolute; left:10px\">{{ev.title}} SINGLE - {{ ev.style.height }} - {{ev.start.format('dddd DD')}}</span>\n" +
+    "             style=\"position:absolute;border: 1px solid black;\"\n" +
+    "             class=\"single-day-event\">\n" +
+    "            <span style=\"position:absolute; left:10px\">{{ev.title}}</span>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n"

@@ -52,13 +52,11 @@
 
     init()
 
-    function calculateWidth (event)
-      console.log(100/7);
+    function calculateWidth (event) {
       return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
     }
 
     function calculateLeft (event) {
-      console.log(100/7);
       return ((event.start.date() - 1) % 7) * (100 / 7) + '%'
     }
 

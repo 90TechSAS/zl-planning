@@ -144,10 +144,10 @@
 
         self.oneDayEvents = _(self.events)
           .filter(function (event) {
-            return event.start.dayOfYear() === event.end.dayOfYear()
+            return event.start.dayOfYear() === event.end.dayOfYear() && event.start.months() === moment(self.position).months()
           })
           .groupBy(
-            function (event) {return Math.floor(event.start.date() / 7)})
+            function (event) {return Math.floor(event.start.date() / 7.01)}) // 7.01 -> Fix issue when start day = 7 (sunday)
           .value();
         self.multipleDaysEvents = _(self.events)
           .filter(function (event) {
