@@ -6,12 +6,12 @@
     .module('90Tech.planning')
     .directive('zlPlanningWeekLine', PlanningLineDirective);
 
-  PlanningLineController.$inject = [];
+  PlanningLineController.$inject = ['PositionService'];
 
   /**
    *
    */
-  function PlanningLineController () {
+  function PlanningLineController (PositionService) {
     var self = this
 
     function init () {
@@ -25,62 +25,41 @@
         event.range = moment.range(event.start, event.end)
         event.style.left = calculateLeft(event)
         event.style.width = calculateWidth(event)
-        line:
-            for (var i = 0; i < self.lines.length; i++){
-              if (!self.lines[i].length){
-                self.lines[i].push(event);
-                event.line = i;
-                break line;
-              }
-
-              if (_.filter(self.lines[i], function(elt){
-                    if (event.range.overlaps(elt.range)){
-                      elt.depth += 1;
-                      return true;
-                    } else if ((event.range.start.day() === elt.range.end.day()) || (event.range.start.day() === elt.range.start.day())) {
-                      elt.depth +=1;
-                      return true;
-                    }
-                  }).length){
-                event.depth += 1;
-                if (!self.lines[i + 1]){
-                  self.lines[i + 1] = [];
-                }
-                continue line;
-              } else{
-                //console.log(event.title, i)
-                self.lines[i].push(event);
-                event.line = i;
-                break line;
-              }
-            }
+        PositionService.overlap(self.lines, event)
       })
       _.each(self.displayedEvents, function(event){
-        event.style.top = Math.round((event.line) * 100 / self.lines.length) + '%'
-        event.style.height = Math.round(100 / self.lines.length) + '%'
-        if (event.title === 'e1' || event.title === 'e0bis') {
-          
-        }
+        event.style.top = Math.round((event.line) * 100 / self.lines.length) + '%';
+        event.style.height = Math.round(100 / self.lines.length) + '%';
       })
-      self.lh = Math.round(100 / self.lines.length) + '%'
+      self.lh = Math.round(100 / self.lines.length) + '%';
 
-      //self.height = Math.floor(100 / self.displayedEvents.length) + '%'
+      self.singleDayEventsLines = [[]]
 
+      _.each(self.oneDayEvents, function(event) {
+        event.style = {}
+        event.depth = 1
+        event.range = moment.range(event.start, event.end)
+        event.style.left = calculateLeft(event)
+        event.style.width = calculateWidth(event)
+        PositionService.overlap(self.singleDayEventsLines, event)
+      })
+
+      _.each(self.oneDayEvents, function (event) {
+        event.style.top = Math.round((event.line) * 100 / self.singleDayEventsLines.length) + '%'
+        event.style.height = Math.round(100 / self.singleDayEventsLines.length) + '%'
+      })
     }
 
     init()
 
-    function calculateWidth (event) {
-      if (event.end.diff(event.start, 'days') + 1 > 7) {
-        console.info(event.end.diff(event.start, 'days') + 1)
-      }
-      return (event.end.diff(event.start, 'days') + 1) * 14.28 + '%'
+    function calculateWidth (event)
+      console.log(100/7);
+      return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
     }
 
     function calculateLeft (event) {
-      console.log('left', ((event.start.date() - 1 ) % 7 ) * 14.2 + '%')
-      return ((event.start.date() - 1) % 7 ) * 14.28 + '%'
-
+      console.log(100/7);
+      return ((event.start.date() - 1) % 7) * (100 / 7) + '%'
     }
 
     _.extend(self, {

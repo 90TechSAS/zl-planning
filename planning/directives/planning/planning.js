@@ -160,7 +160,6 @@
           })
           .value()
 
-        console.log(self.oneDayEvents)
         for (var i = 0; i < 5; i++) {
           if (self.multipleDaysEvents[i] === undefined) {
             self.multipleDaysEvents[i] = []
@@ -184,7 +183,6 @@
     }
 
     function splitByWeeks (event) {
-
       if (event.start.isAfter(event.end)) {
         var st = event.start
         event.start = event.end

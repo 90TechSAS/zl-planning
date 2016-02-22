@@ -1,5 +1,5 @@
 <div class="week-line" ng-class="'week-' + line.week " style="padding-top:20px">
-    <div class="multiple-days-events" style="height:60%">
+    <div class="multiple-days-events" style="height:60%; overflow-y: none;">
         <div class="week-event-line" ng-repeat="l in line.lines" style="width:100%; position:relative"
              ng-style="{'height': line.lh}">
             <div    ng-repeat="event in l"
@@ -11,9 +11,9 @@
     </div>
     <div class="single-day-events" style="height:40%; position:relative;">
         <div ng-repeat="ev in line.oneDayEvents"
-             ng-style="{'background-color': ev.color,'left': line.calculateLeft(ev), 'height': 100 / line.oneDayEvents.length + '%'}" style="width:14.28%;border: 1px solid black;position:absolute;">
-            <span style="position:absolute; left:10px">{{ev.title}} - {{ 100 / line.oneDayEvents.length + '%' }}</span>
+             ng-style="{'background-color': ev.color,'left': ev.style.left, 'height': ev.style.height , 'top': ev.style.top, 'width': ev.style.width}"
+             style="position:absolute;border: 1px solid black;">
+            <span style="position:absolute; left:10px">{{ev.title}} SINGLE - {{ ev.style.height }} - {{ev.start.format('dddd DD')}}</span>
         </div>
     </div>
 </div>
-

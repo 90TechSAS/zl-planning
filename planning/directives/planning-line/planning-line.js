@@ -6,15 +6,14 @@
         .module('90Tech.planning')
         .directive('zlPlanningLine', PlanningLineDirective);
 
-    PlanningLineController.$inject = ['$scope', 'planningConfiguration'];
+    PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService'];
 
 
     /**
      *
      */
     function
-    PlanningLineController($scope, planningConfiguration){
-
+    PlanningLineController ($scope, planningConfiguration, PositionService) {
         var BASE_SIZE = planningConfiguration.BASE_SIZE;
 
 
@@ -53,7 +52,6 @@
                 event.depth = 1;
                 event.range = moment.range(event.start, event.end);
                 if (event.range<900000){
-                    console.info('<<');
                     var end = moment(event.start).add(15, 'minutes');
                     event.range = moment.range(event.start, end);
                 }
@@ -62,35 +60,7 @@
                 style.width               = self.zoom * self.SLIDER_WIDTH * (event.range) / self.SECONDS_BY_DAY / 1000 + 'px';
                 style['background-color'] = event['background-color'] || '#778899';
                 event.style               = style;
-
-
-                line:
-                    for (var i = 0; i < lines.length; i++){
-
-                        if (!lines[i].length){
-                            lines[i].push(event);
-                            event.line = i;
-                            break line;
-                        }
-
-                        if (_.filter(lines[i], function(elt){
-                                if (event.range.overlaps(elt.range)){
-                                    elt.depth += 1;
-                                    return true;
-                                }
-                            }).length){
-                            event.depth += 1;
-                            if (!lines[i + 1]){
-                                lines[i + 1] = [];
-                            }
-                            continue line;
-                        } else{
-                            lines[i].push(event);
-                            event.line = i;
-                            break line;
-                        }
-                    }
-
+                PositionService.overlap(lines, event)
             });
 
             _.each(self._events, function(event, i){
