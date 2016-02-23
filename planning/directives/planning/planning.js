@@ -141,13 +141,17 @@
         });
         addMissingEntities(self.sortedEvents);
       } else if (self.mode === 'month') {
-
+        var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0);
+        self.decallage = firstDay.isoWeekday() -1 //
+        if (self.decallage < 0)  {
+          self.decallage = 0
+        }
         self.oneDayEvents = _(self.events)
           .filter(function (event) {
             return event.start.dayOfYear() === event.end.dayOfYear() && event.start.month() === moment(self.position).month()
           })
           .groupBy(
-            function (event) {return Math.floor(event.start.date() / 7.01)}) // 7.01 -> Fix issue when start day = 7 (sunday)
+            function (event) {return Math.floor((event.start.date() + self.decallage) / 7)}) // 7.01 -> Fix issue when start day = 7 (sunday)
           .value();
         self.multipleDaysEvents = _(self.events)
           .filter(function (event) {
@@ -156,7 +160,7 @@
           .map(splitByWeeks)
           .flatten()
           .groupBy(function (event) {
-            return Math.floor(event.start.date() / 7) // 7.01 -> Fix issue when start day = 7 (sunday)
+            return Math.floor((event.start.date() + self.decallage) / 7) // 7.01 -> Fix issue when start day = 7 (sunday)
           })
           .value()
 
@@ -166,13 +170,8 @@
             self.multipleDaysEvents[i] = []
           }
         }
-        var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0);
         self.days = [];
         // Add day from previous month
-        self.decallage = firstDay.isoWeekday() -1 //
-        if (self.decallage < 0)  {
-          self.decallage = 0
-        }
         if (firstDay.isoWeekday() -1 > 0) {
           for (var i = 0 ; i < firstDay.isoWeekday() -1; i++) {
               self.days.unshift({})

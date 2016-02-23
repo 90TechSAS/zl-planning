@@ -6,10 +6,12 @@
 moment.locale('fr');
 
 angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
-  $scope.moment = moment().add(1, 'month');
+  var viewMonth = 5
+  var month = moment().month(viewMonth)
   $scope.onPikadaySelect = function (pikaday) {
     $scope.moment = pikaday.getMoment();
   };
+  $scope.moment = moment().month(viewMonth);
   $scope.mode = 'month'
 
   $scope.zoom = 10;
@@ -96,15 +98,20 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       return text;
   }
 
+  var random
   for (var i = 0; i < 10; i++) {
+    var start = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
+    var end = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
+    console.log(start.format('dddd DD'))
+    console.log(end.format('dddd DD'))
     $scope.events.push({
       title: generateRandomText(),
-      start: moment().dayOfYear(Math.random() * (90 - 62) + 62),
-      end: moment().dayOfYear(Math.random() * (90 - 62) + 62)
+      start: start,
+      end: end
     })
   }
   for (var i = 0; i < 10; i++) {
-    var date = moment().dayOfYear(Math.random() * (90 - 62) + 62)
+    var date = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
     $scope.events.push({
       title: generateRandomText() + ' - ' + i,
       start: date,
