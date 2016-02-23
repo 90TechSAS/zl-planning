@@ -49,7 +49,8 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       $scope.events.push({
         title: generateRandomText(),
         start: start,
-        end: end
+        end: end,
+        technician: technicians[ Math.floor(Math.random() * 3) ]
       })
     }
     for (var i = 0; i < $scope.nbEvents; i++) {
@@ -57,7 +58,8 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       $scope.events.push({
         title: generateRandomText() + ' - ' + i,
         start: date,
-        end: date
+        end: date,
+        technician: technicians[ Math.floor(Math.random() * 3) ]
       })
     }
 
