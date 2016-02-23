@@ -50,6 +50,13 @@ zl-planning {
   border-right: 5px solid transparent;
   border-top: 5px solid #03a9f4;
 }
+.month-header .day {
+  width: 14.28%;
+  height: 1.2em;
+  float: left;
+  border-right: 1px solid darkgray;
+  border-bottom: 1px solid darkgray;
+}
 zl-planning-line.ng-animate {
   transition: none;
   keyframe: 0s none;

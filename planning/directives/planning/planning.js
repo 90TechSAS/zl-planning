@@ -151,7 +151,7 @@
             return event.start.dayOfYear() === event.end.dayOfYear() && event.start.month() === moment(self.position).month()
           })
           .groupBy(
-            function (event) {return Math.floor((event.start.date() + self.decallage) / 7)}) // 7.01 -> Fix issue when start day = 7 (sunday)
+            function (event) {return Math.floor((event.start.date() + self.decallage) / 7.01)}) // 7.01 -> Fix issue when start day = 7 (sunday)
           .value();
         self.multipleDaysEvents = _(self.events)
           .filter(function (event) {
@@ -160,11 +160,10 @@
           .map(splitByWeeks)
           .flatten()
           .groupBy(function (event) {
-            return Math.floor((event.start.date() + self.decallage) / 7) // 7.01 -> Fix issue when start day = 7 (sunday)
+            return Math.floor((event.start.date() + self.decallage) / 7.01) // 7.01 -> Fix issue when start day = 7 (sunday)
           })
           .value()
 
-        console.log(self.multipleDaysEvents)
         for (var i = 0; i < 5; i++) {
           if (self.multipleDaysEvents[i] === undefined) {
             self.multipleDaysEvents[i] = []
@@ -228,9 +227,7 @@
       firstEvent.continuedAfter = true;
       secondEvent.continuedBefore = true;
       firstEvent.end = moment(firstEvent.start).endOf('week');
-      console.log('firstEvent.end.endOf(\'week\')', firstEvent.end.format('dddd DD'))
       secondEvent.start.add(1, 'week').startOf('week')
-      console.log('secondEvent.start.startOf(\'week\')', secondEvent.start.startOf('week').format('dddd DD'))
 
       // Recursion will handle potential split needed by second event
       return [ firstEvent ].concat(splitByWeeks(secondEvent))
@@ -247,9 +244,7 @@
     function getEvents (key) {
       return self.sortedEvents[ key ];
     }
-    console.log('//////');
     init();
-    console.log('//////');
 
     $scope.$watchCollection(function () {
       return [ self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd, self.zoom ];

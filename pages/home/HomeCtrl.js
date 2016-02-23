@@ -98,12 +98,9 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       return text;
   }
 
-  var random
   for (var i = 0; i < 10; i++) {
     var start = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
     var end = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
-    console.log(start.format('dddd DD'))
-    console.log(end.format('dddd DD'))
     $scope.events.push({
       title: generateRandomText(),
       start: start,

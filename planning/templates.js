@@ -137,6 +137,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "</div>\n" +
     "\n" +
     "<div ng-if=\"planning.mode =='month'\" class=\"month-container\">\n" +
+    "\n" +
     "    <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\"></zl-planning-day>\n" +
     "    <zl-planning-week-line ng-repeat=\"(week, events) in planning.multipleDaysEvents\" events=\"events\" week=\"week\" one-day-events=\"planning.oneDayEvents[week]\"></zl-planning-week-line>\n" +
     "</div>\n"
