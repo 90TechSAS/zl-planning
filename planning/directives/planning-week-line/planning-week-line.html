@@ -6,7 +6,7 @@
                  class="multiple-day-event"
                  ng-style="{'background-color': event.color, 'width': event.style.width, 'left': event.style.left}"
                  style="position:absolute;border:1px solid black;height: 100%;">
-                <span style="position:absolute; left:10px">{{event.title}}</span>
+                <span style="position:absolute; left:10px">{{event.title}} / {{event.start.format('dddd DD')}} - {{event.end.format('dddd DD')}}</span>
             </div>
         </div>
     </div>
@@ -15,7 +15,7 @@
              ng-style="{'background-color': ev.color,'left': ev.style.left, 'height': ev.style.height , 'top': ev.style.top, 'width': ev.style.width}"
              style="position:absolute;border: 1px solid black;"
              class="single-day-event">
-            <span style="position:absolute; left:10px">{{ev.title}}</span>
+            <span style="position:absolute; left:10px">{{ev.title}} - {{ev.start.format('dddd DD')}}</span>
         </div>
     </div>
 </div>

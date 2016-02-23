@@ -6,7 +6,7 @@
 moment.locale('fr');
 
 angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
-  $scope.moment = moment().add(1, 'day');
+  $scope.moment = moment().add(1, 'month');
   $scope.onPikadaySelect = function (pikaday) {
     $scope.moment = pikaday.getMoment();
   };
@@ -95,23 +95,33 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
 
       return text;
   }
-
+  /*
   for (var i = 0; i < 10; i++) {
     $scope.events.push({
       title: generateRandomText(),
-      start: moment().add(Math.random() * (30 - (-30)) + (-30), 'day'),
-      end: moment().add(Math.random() * (30 - (-30)) + (-30), 'day')
+      start: moment().dayOfYear(Math.random() * (90 - 62) + 62),
+      end: moment().dayOfYear(Math.random() * (90 - 62) + 62)
     })
   }
   for (var i = 0; i < 10; i++) {
-    var date = Math.random() * (30 - (-30)) + (-30)
+    var date = moment().dayOfYear(Math.random() * (90 - 62) + 62)
     $scope.events.push({
       title: generateRandomText() + ' - ' + i,
-      start: moment().add(date, 'day'),
-      end: moment().add(date, 'day')
+      start: date,
+      end: date
     })
-    console.log(date);
-  }
+  } */
+
+  $scope.events.push({
+    title: moment().month(2).date(5).format('dddd DD') + ' - ' + moment().month(2).date(7).format('dddd DD'),
+    start: moment().month(2).date(5),
+    end: moment().month(2).date(7)
+  })
+  $scope.events.push({
+    title: moment().month(2).date(11).format('dddd DD') + ' - ' + moment().month(2).date(15).format('dddd DD'),
+    start: moment().month(2).date(11),
+    end: moment().month(2).date(15)
+  })
 
   for (var i = 0; i < $scope.events.length; i++) {
     var red = Math.floor(Math.random() * (255 - 0 + 1))

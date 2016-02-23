@@ -144,7 +144,7 @@
 
         self.oneDayEvents = _(self.events)
           .filter(function (event) {
-            return event.start.dayOfYear() === event.end.dayOfYear() && event.start.months() === moment(self.position).months()
+            return event.start.dayOfYear() === event.end.dayOfYear() && event.start.month() === moment(self.position).month()
           })
           .groupBy(
             function (event) {return Math.floor(event.start.date() / 7.01)}) // 7.01 -> Fix issue when start day = 7 (sunday)
@@ -160,17 +160,27 @@
           })
           .value()
 
+        console.log(self.multipleDaysEvents)
         for (var i = 0; i < 5; i++) {
           if (self.multipleDaysEvents[i] === undefined) {
             self.multipleDaysEvents[i] = []
           }
         }
         var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0);
+        self.decallage = firstDay.isoWeekday() -1
+        if (self.decallage < 0)  {
+          self.decallage = 0
+        }
         self.days = [];
         _.times(firstDay.daysInMonth(), function (n) {
           var day = moment(firstDay).add(n, 'days')
           self.days.push({ date: day, events: [] })
         })
+        if (firstDay.isoWeekday() -1 > 0) {
+          for (var i = 0 ; i < firstDay.isoWeekday() -1; i++) {
+              self.days.unshift({})
+          }
+        }
       }
     }
 
@@ -179,7 +189,7 @@
       // To get a week number relative to the month, subtract 1, and divide by 7
       // Then add 1 again for convenience.
       // Trust me, I'm an engineer
-      return Math.floor((d.date() - 1) / 7) + 1
+      return Math.floor((d.date() - 1) / 7.01) + 1
     }
 
     function splitByWeeks (event) {
@@ -211,15 +221,16 @@
       }
 
       var week = getWeekNumber(event.start);
-
       // Split
       var firstEvent = angular.copy(event);
       var secondEvent = angular.copy(event);
       // make it end on the same week
       firstEvent.continuedAfter = true;
       secondEvent.continuedBefore = true;
-      firstEvent.end.date(week * 7);
-      secondEvent.start.date(week * 7 + 1)
+      firstEvent.end = moment(firstEvent.start).endOf('week');
+      console.log('firstEvent.end.endOf(\'week\')', firstEvent.end.format('dddd DD'))
+      secondEvent.start.add(1, 'week').startOf('week')
+      console.log('secondEvent.start.startOf(\'week\')', secondEvent.start.startOf('week').format('dddd DD'))
 
       // Recursion will handle potential split needed by second event
       return [ firstEvent ].concat(splitByWeeks(secondEvent))
@@ -236,8 +247,9 @@
     function getEvents (key) {
       return self.sortedEvents[ key ];
     }
-
+    console.log('//////');
     init();
+    console.log('//////');
 
     $scope.$watchCollection(function () {
       return [ self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd, self.zoom ];

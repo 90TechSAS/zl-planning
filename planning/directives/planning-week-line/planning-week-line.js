@@ -57,7 +57,7 @@
     }
 
     function calculateLeft (event) {
-      return ((event.start.date() - 1) % 7) * (100 / 7) + '%'
+      return ((event.start.isoWeekday()-1)) * (100 / 7) + '%'
     }
 
     _.extend(self, {

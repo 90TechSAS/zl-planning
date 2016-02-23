@@ -92,7 +92,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                 class=\"multiple-day-event\"\n" +
     "                 ng-style=\"{'background-color': event.color, 'width': event.style.width, 'left': event.style.left}\"\n" +
     "                 style=\"position:absolute;border:1px solid black;height: 100%;\">\n" +
-    "                <span style=\"position:absolute; left:10px\">{{event.title}}</span>\n" +
+    "                <span style=\"position:absolute; left:10px\">{{event.title}} / {{event.start.format('dddd DD')}} - {{event.end.format('dddd DD')}}</span>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -101,7 +101,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "             ng-style=\"{'background-color': ev.color,'left': ev.style.left, 'height': ev.style.height , 'top': ev.style.top, 'width': ev.style.width}\"\n" +
     "             style=\"position:absolute;border: 1px solid black;\"\n" +
     "             class=\"single-day-event\">\n" +
-    "            <span style=\"position:absolute; left:10px\">{{ev.title}}</span>\n" +
+    "            <span style=\"position:absolute; left:10px\">{{ev.title}} - {{ev.start.format('dddd DD')}}</span>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n"
