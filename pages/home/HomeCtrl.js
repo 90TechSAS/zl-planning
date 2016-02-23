@@ -95,7 +95,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
 
       return text;
   }
-  /*
+
   for (var i = 0; i < 10; i++) {
     $scope.events.push({
       title: generateRandomText(),
@@ -110,7 +110,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       start: date,
       end: date
     })
-  } */
+  }
 
   $scope.events.push({
     title: moment().month(2).date(5).format('dddd DD') + ' - ' + moment().month(2).date(7).format('dddd DD'),

@@ -156,7 +156,7 @@
           .map(splitByWeeks)
           .flatten()
           .groupBy(function (event) {
-            return Math.floor(event.start.date() / 7.01) // 7.01 -> Fix issue when start day = 7 (sunday)
+            return Math.floor(event.start.date() / 7) // 7.01 -> Fix issue when start day = 7 (sunday)
           })
           .value()
 
@@ -167,20 +167,21 @@
           }
         }
         var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0);
-        self.decallage = firstDay.isoWeekday() -1
+        self.days = [];
+        // Add day from previous month
+        self.decallage = firstDay.isoWeekday() -1 //
         if (self.decallage < 0)  {
           self.decallage = 0
         }
-        self.days = [];
-        _.times(firstDay.daysInMonth(), function (n) {
-          var day = moment(firstDay).add(n, 'days')
-          self.days.push({ date: day, events: [] })
-        })
         if (firstDay.isoWeekday() -1 > 0) {
           for (var i = 0 ; i < firstDay.isoWeekday() -1; i++) {
               self.days.unshift({})
           }
         }
+        _.times(firstDay.daysInMonth(), function (n) {
+          var day = moment(firstDay).add(n, 'days')
+          self.days.push({ date: day, events: [] })
+        })
       }
     }
 
