@@ -6,12 +6,12 @@
 moment.locale('fr');
 
 angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
-  var viewMonth = 5
-  var month = moment().month(viewMonth)
+  $scope.viewMonth = 1
+  var month = moment().month($scope.viewMonth)
   $scope.onPikadaySelect = function (pikaday) {
     $scope.moment = pikaday.getMoment();
   };
-  $scope.moment = moment().month(viewMonth);
+  $scope.moment = moment().month($scope.viewMonth);
   $scope.mode = 'month'
 
   $scope.zoom = 10;
@@ -98,42 +98,45 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       return text;
   }
 
-  for (var i = 0; i < 10; i++) {
-    var start = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
-    var end = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
-    $scope.events.push({
-      title: generateRandomText(),
-      start: start,
-      end: end
-    })
-  }
-  for (var i = 0; i < 10; i++) {
-    var date = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
-    $scope.events.push({
-      title: generateRandomText() + ' - ' + i,
-      start: date,
-      end: date
-    })
+  $scope.init = function() {
+
+    $scope.events = []
+
+    var month = moment().month($scope.viewMonth)
+    $scope.onPikadaySelect = function (pikaday) {
+      $scope.moment = pikaday.getMoment();
+    };
+    $scope.moment = moment().month($scope.viewMonth);
+
+    for (var i = 0; i < 10; i++) {
+      var start = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
+      var end = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
+      $scope.events.push({
+        title: generateRandomText(),
+        start: start,
+        end: end
+      })
+    }
+    for (var i = 0; i < 10; i++) {
+      var date = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
+      $scope.events.push({
+        title: generateRandomText() + ' - ' + i,
+        start: date,
+        end: date
+      })
+    }
+    for (var i = 0; i < $scope.events.length; i++) {
+      var red = Math.floor(Math.random() * (255 - 0 + 1))
+      var green = Math.floor(Math.random() * (255 - 0 + 1))
+      var blue = Math.floor(Math.random() * (255 - 0 + 1))
+      $scope.events[i]['background-color'] = 'rgb('+red+','+green+','+blue+')'
+      $scope.events[i]['color'] = 'rgb('+blue+','+red+','+green+')'
+    }
   }
 
-  $scope.events.push({
-    title: moment().month(2).date(5).format('dddd DD') + ' - ' + moment().month(2).date(7).format('dddd DD'),
-    start: moment().month(2).date(5),
-    end: moment().month(2).date(7)
-  })
-  $scope.events.push({
-    title: moment().month(2).date(11).format('dddd DD') + ' - ' + moment().month(2).date(15).format('dddd DD'),
-    start: moment().month(2).date(11),
-    end: moment().month(2).date(15)
-  })
+  $scope.init()
 
-  for (var i = 0; i < $scope.events.length; i++) {
-    var red = Math.floor(Math.random() * (255 - 0 + 1))
-    var green = Math.floor(Math.random() * (255 - 0 + 1))
-    var blue = Math.floor(Math.random() * (255 - 0 + 1))
-    $scope.events[i]['background-color'] = 'rgb('+red+','+green+','+blue+')'
-    $scope.events[i]['color'] = 'rgb('+blue+','+red+','+green+')'
-  }
+
 
 /*
   _.times(30, function (i) {

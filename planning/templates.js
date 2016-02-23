@@ -135,11 +135,23 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n" +
-    "\n" +
-    "<div ng-if=\"planning.mode =='month'\" class=\"month-container\">\n" +
-    "\n" +
-    "    <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\"></zl-planning-day>\n" +
-    "    <zl-planning-week-line ng-repeat=\"(week, events) in planning.multipleDaysEvents\" events=\"events\" week=\"week\" one-day-events=\"planning.oneDayEvents[week]\"></zl-planning-week-line>\n" +
+    "<div ng-if=\"planning.mode =='month'\" style=\"height: 100%; z-index: 1000;\">\n" +
+    "    <div class=\"month-header\">\n" +
+    "        <span class=\"month-text\">{{planning.month | capitalize}}</span>\n" +
+    "    </div>\n" +
+    "    <div class=\"day-header\">\n" +
+    "        <div class=\"day\">Lundi</div>\n" +
+    "        <div class=\"day\">Mardi</div>\n" +
+    "        <div class=\"day\">Mercredi</div>\n" +
+    "        <div class=\"day\">Jeudi</div>\n" +
+    "        <div class=\"day\">Vendredi</div>\n" +
+    "        <div class=\"day\">Samedi</div>\n" +
+    "        <div class=\"day\">Dimanche</div>\n" +
+    "    </div>\n" +
+    "    <div class=\"month-container\">\n" +
+    "        <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\"></zl-planning-day>\n" +
+    "        <zl-planning-week-line ng-repeat=\"(week, events) in planning.multipleDaysEvents\" events=\"events\" week=\"week\" one-day-events=\"planning.oneDayEvents[week]\"></zl-planning-week-line>\n" +
+    "    </div>\n" +
     "</div>\n"
   );
 

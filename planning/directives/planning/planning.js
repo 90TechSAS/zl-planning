@@ -142,6 +142,7 @@
         addMissingEntities(self.sortedEvents);
       } else if (self.mode === 'month') {
         var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0);
+        self.month = moment(self.position).date(1).hours(0).minutes(0).seconds(0).format('MMMM')
         self.decallage = firstDay.isoWeekday() -1 //
         if (self.decallage < 0)  {
           self.decallage = 0
@@ -180,6 +181,10 @@
           var day = moment(firstDay).add(n, 'days')
           self.days.push({ date: day, events: [] })
         })
+
+        while (self.days.length < 35) {
+          self.days.push({})
+        }
       }
     }
 
