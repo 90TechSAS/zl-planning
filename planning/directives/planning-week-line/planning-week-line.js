@@ -6,12 +6,12 @@
     .module('90Tech.planning')
     .directive('zlPlanningWeekLine', PlanningLineDirective);
 
-  PlanningLineController.$inject = ['PositionService'];
+  PlanningLineController.$inject = ['$scope', 'PositionService'];
 
   /**
    *
    */
-  function PlanningLineController (PositionService) {
+  function PlanningLineController ($scope, PositionService) {
     var self = this
 
     function init () {
@@ -51,6 +51,10 @@
     }
 
     init()
+
+    $scope.$watchCollection(function () {
+      return [ self.events, self.oneDayEvents, self.week];
+    }, init);
 
     function calculateWidth (event) {
       return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'

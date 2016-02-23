@@ -19,7 +19,8 @@
         <button ng-click="mode = mode === 'day' ?  'week': 'day'">mode</button>
         <input type="number" min="5" max="15" ng-model="zoom" >
         <input type="number" min="0" max="12" ng-model="start" >
-        <input type="number" min="13" max="24" ng-model="end" >
-        <input type="number" min="0" max="11" ng-model="viewMonth" ng-change="init()" >
+        <input type="number" min="13" max="24" ng-model="end" ><br>
+        <span>Mois : </span><input type="number" min="0" max="11" ng-model="viewMonth" ng-change="init()" > <span>Events :</span><input type="number" min="0" max="20" ng-model="nbEvents" ng-change="init()" >
+
     </div>
 </div>

@@ -7,6 +7,7 @@ moment.locale('fr');
 
 angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
   $scope.viewMonth = 1
+  $scope.nbEvents = 10
   var month = moment().month($scope.viewMonth)
   $scope.onPikadaySelect = function (pikaday) {
     $scope.moment = pikaday.getMoment();
@@ -18,74 +19,8 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
   $scope.start = 8;
   $scope.end = 19;
   var technicians = [ 'titi', 'toto', 'tutu' ];
-  $scope.events = [
-    /*{
-      title: 'acoucou',
-      technician: 'atoto',
-      tooltip: 'I Have a tooltip',
-      start: moment().hours(10).minutes(15),
-      end: moment().hours(10).minutes(16)
-    },
-    {
-      title: 'bcoucou',
-      technician: 'btoto',
-      tooltip: 'I Have a tooltip',
-      start: moment().hours(10).minutes(15),
-      end: moment().hours(15).minutes(45)
-    },
-    {
-      title: 'ccoucou',
-      technician: 'ctoto',
-      tooltip: 'I Have a tooltip',
-      start: moment().hours(10).minutes(15),
-      end: moment().hours(15).minutes(45)
-    },
-    {
-      title: 'dcoucou',
-      technician: 'dtoto',
-      tooltip: 'I Have a tooltip',
-      start: moment().hours(10).minutes(15),
-      end: moment().hours(15).minutes(45)
-    },
-    {
-      title: 'zcoucou',
-      technician: 'ztoto',
-      tooltip: 'I Have a tooltip',
-      start: moment().hours(10).minutes(15),
-      end: moment().hours(15).minutes(45)
-    }*/
-  ];
-/*
-  var e0 = { title: 'e0'}
-  e0.start = moment('02/07/2016')
-  e0.end = moment('02/09/2016')
-  $scope.events.push(e0)
+  $scope.events = [];
 
-  var e0bis = { title: 'e0bis'}
-  e0bis.start = moment('02/10/2016')
-  e0bis.end = moment('02/12/2016')
-  $scope.events.push(e0bis)
-
-  var e1 = { title: 'e1'}
-  e1.start = moment()
-  e1.end = moment().add('1', 'days')
-  $scope.events.push(e1)
-  var e2 = { title: 'e2'}
-  e2.start = moment().add('2', 'days')
-  e2.end = moment().add('4', 'days')
-  $scope.events.push(e2)
-  var e3 = { title: 'e3'}
-  e3.start = moment().add('4', 'days')
-  e3.end = moment().add('5', 'days')
-  $scope.events.push(e3)
-  var e4 = { title: 'e4'}
-  e4.start = moment().add('4', 'days')
-  e4.end = moment().add('6', 'days')
-  $scope.events.push(e4)
-  var e5 = { title: 'e5'}
-  e5.start = moment().add('3', 'days')
-  e5.end = moment().add('5', 'days')
-  $scope.events.push(e5) */
 
   function generateRandomText()
   {
@@ -99,7 +34,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
   }
 
   $scope.init = function() {
-
+    delete $scope.events
     $scope.events = []
 
     var month = moment().month($scope.viewMonth)
@@ -108,7 +43,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
     };
     $scope.moment = moment().month($scope.viewMonth);
 
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < $scope.nbEvents; i++) {
       var start = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
       var end = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
       $scope.events.push({
@@ -117,7 +52,7 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
         end: end
       })
     }
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < $scope.nbEvents; i++) {
       var date = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
       $scope.events.push({
         title: generateRandomText() + ' - ' + i,
@@ -125,6 +60,33 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
         end: date
       })
     }
+
+    /*$scope.events.push({
+      title: moment().month($scope.viewMonth).date(10).format('dddd DD MMMM'),
+      start: moment().month($scope.viewMonth).date(10),
+      end: moment().month($scope.viewMonth).date(15)
+    })
+
+    $scope.events.push({
+      title: moment().month($scope.viewMonth).date(1).format('dddd DD MMMM'),
+      start: moment().month($scope.viewMonth).date(1),
+      end: moment().month($scope.viewMonth).date(3)
+    })
+    console.log(moment().month($scope.viewMonth).date(1).format('dddd DD MMMM'))
+
+    $scope.events.push({
+      title: moment().month($scope.viewMonth).date(4).format('dddd DD MMMM'),
+      start: moment().month($scope.viewMonth).date(4),
+      end: moment().month($scope.viewMonth).date(9)
+    })
+
+    $scope.events.push({
+      title: moment().month($scope.viewMonth).date(22).format('dddd DD MMMM'),
+      start: moment().month($scope.viewMonth).date(22),
+      end: moment().month($scope.viewMonth).date(31)
+    }) */
+
+
     for (var i = 0; i < $scope.events.length; i++) {
       var red = Math.floor(Math.random() * (255 - 0 + 1))
       var green = Math.floor(Math.random() * (255 - 0 + 1))
