@@ -29,10 +29,16 @@
               elt.eventList.push(event)
             }
           })
-        }
-        if (overlap) {
-          toRemove.push(event)
-          break
+          if (overlap) {
+            toRemove.push(event)
+            break
+          }
+          event.depth = maxParallelEvents;
+          event.line = maxParallelEvents;
+          var eventClone = _.cloneDeep(event);
+          event.eventList = [eventClone];
+          lines[maxParallelEvents].push(event);
+          break;
         }
         if (!lines[i].length) {
           lines[i].push(event)

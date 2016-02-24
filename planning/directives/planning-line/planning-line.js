@@ -66,9 +66,7 @@
             });
             self._events = _.difference(self._events, toremove);
             _.each(self._events, function(event){
-                console.log(event)
                 if (event.line === MAX_PARALLEL) {
-                    console.log(event)
                     event.style.left = (event.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + event.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px';
                     event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px';
                     event.style['background-color'] = '#000';
