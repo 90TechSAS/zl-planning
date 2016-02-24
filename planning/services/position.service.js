@@ -15,8 +15,25 @@
       overlap: overlap
     })
 
-    function overlap (lines, event) {
+    function overlap (lines, event, maxParallelEvents, toRemove) {
       for (var i = 0; i < lines.length; i++) {
+        if (event.depth > maxParallelEvents) {
+          var overlap = false
+          _.each(lines[maxParallelEvents], function (elt) {
+            overlap = event.range.overlaps(elt.range)
+            if (overlap) {
+              elt.start = moment.min(event.start, elt.start)
+              elt.end = moment.max(event.end, elt.end)
+              elt.range = moment.range(elt.start, elt.end)
+              elt.line = maxParallelEvents
+              elt.eventList.push(event)
+            }
+          })
+        }
+        if (overlap) {
+          toRemove.push(event)
+          break
+        }
         if (!lines[i].length) {
           lines[i].push(event)
           event.line = i

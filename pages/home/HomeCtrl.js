@@ -142,10 +142,11 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
       //          $scope.events.push(angular.copy(evt3));
     }
 
-  }); */
-  $scope.callback = function (a) {
-    alert('Event clicked: ' + JSON.stringify(a));
-  };
+    });    */
+    $scope.callback = function (a) {
+        console.log('a', a);
+        alert('Event clicked: ' + JSON.stringify(a));
+    };
 
   $scope.dayCallback = function (d) {
     console.info('day callback: ', d);
@@ -153,9 +154,9 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
     $scope.mode = 'day'
   };
 
-  $scope.clickCallback = function (m) {
-    console.info(m);
-  }
+    $scope.clickCallback = function(m){
+        console.info('m', m);
+    }
 
   $scope.switch = function() {
     if ($scope.mode === 'month') {
@@ -167,4 +168,4 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
     }
   }
 
-} ]);
+}]);
