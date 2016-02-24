@@ -33,12 +33,12 @@
             toRemove.push(event)
             break
           }
-          event.depth = maxParallelEvents;
-          event.line = maxParallelEvents;
-          var eventClone = _.cloneDeep(event);
-          event.eventList = [eventClone];
-          lines[maxParallelEvents].push(event);
-          break;
+          event.depth = maxParallelEvents
+          event.line = maxParallelEvents
+          var eventClone = _.cloneDeep(event)
+          event.eventList = [eventClone]
+          lines[maxParallelEvents].push(event)
+          break
         }
         if (!lines[i].length) {
           lines[i].push(event)
@@ -54,7 +54,6 @@
           if (!lines[i + 1]) {
             lines[i + 1] = []
           }
-          continue
         } else {
           lines[i].push(event)
           event.line = i

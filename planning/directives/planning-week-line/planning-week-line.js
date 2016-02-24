@@ -1,12 +1,11 @@
-(function () {
-
-  'use strict';
+;(function (angular, moment, _) {
+  'use strict'
 
   angular
     .module('90Tech.planning')
-    .directive('zlPlanningWeekLine', PlanningLineDirective);
+    .directive('zlPlanningWeekLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$scope', 'PositionService'];
+  PlanningLineController.$inject = ['$scope', 'PositionService']
 
   /**
    *
@@ -18,8 +17,8 @@
       self.displayedEvents = _(self.events).sortBy(function (event) {
         return event.continuedBefore ? -1 : (event.continuedAfter ? 0 : 1)
       }).value()
-      self.lines = [[]];
-      _.each(self.displayedEvents, function(event){
+      self.lines = [[]]
+      _.each(self.displayedEvents, function (event) {
         event.style = {}
         event.depth = 1
         event.range = moment.range(event.start, event.end)
@@ -27,15 +26,15 @@
         event.style.width = calculateWidth(event)
         PositionService.overlap(self.lines, event)
       })
-      _.each(self.displayedEvents, function(event){
-        event.style.top = Math.round((event.line) * 100 / self.lines.length) + '%';
-        event.style.height = Math.round(100 / self.lines.length) + '%';
+      _.each(self.displayedEvents, function (event) {
+        event.style.top = Math.round((event.line) * 100 / self.lines.length) + '%'
+        event.style.height = Math.round(100 / self.lines.length) + '%'
       })
-      self.lh = Math.round(100 / self.lines.length) + '%';
+      self.lh = Math.round(100 / self.lines.length) + '%'
 
       self.singleDayEventsLines = [[]]
 
-      _.each(self.oneDayEvents, function(event) {
+      _.each(self.oneDayEvents, function (event) {
         event.style = {}
         event.depth = 1
         event.range = moment.range(event.start, event.end)
@@ -53,15 +52,15 @@
     init()
 
     $scope.$watchCollection(function () {
-      return [ self.events, self.oneDayEvents, self.week];
-    }, init);
+      return [self.events, self.oneDayEvents, self.week]
+    }, init)
 
     function calculateWidth (event) {
       return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
     }
 
     function calculateLeft (event) {
-      return ((event.start.isoWeekday()-1)) * (100 / 7) + '%'
+      return ((event.start.isoWeekday() - 1)) * (100 / 7) + '%'
     }
 
     _.extend(self, {
@@ -74,7 +73,6 @@
    *
    */
   function PlanningLineDirective () {
-
     return {
       restrict: 'E',
       replace: true,
@@ -87,9 +85,6 @@
         oneDayEvents: '='
       },
       scope: true
-    };
-
+    }
   }
-
-})
-();
+})(window.angular, window.moment, window._)

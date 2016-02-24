@@ -1,47 +1,38 @@
-(function () {
-
-  'use strict';
+;(function (angular, _) {
+  'use strict'
 
   angular
     .module('90Tech.planning')
-    .directive('zlPlanningDay', PlanningDayDirective);
-
+    .directive('zlPlanningDay', PlanningDayDirective)
 
   /**
    *
    */
   function PlanningDayController () {
-    var self = this;
+    var self = this
 
-    function init(){
-
-
-
+    function init () {
     }
-    init();
+    init()
 
-
-    _.extend(self, {});
+    _.extend(self, {})
   }
 
   /**
    *
    */
   function PlanningDayDirective () {
-
     return {
       restrict: 'E',
-      replace:true,
+      replace: true,
       templateUrl: 'planning/directives/planning-day-block/planning-day.html',
       controller: PlanningDayController,
       controllerAs: 'dayCtrl',
       bindToController: {
         day: '=',
-        events:'='
+        events: '='
       },
       scope: true
-    };
-
+    }
   }
-
-})();
+})(window.angular, window._)
