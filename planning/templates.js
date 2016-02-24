@@ -109,7 +109,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('planning/directives/planning/planning.html',
-    "<div ng-if=\"planning.mode !=='month'\">\n" +
+    "<div ng-if=\"planning.mode !=='month'\" style=\"height: 100%;\">\n" +
     "    <zl-planning-left-column mode=\"planning.mode\" position=\"planning.position\" day-field=\"planning.dayField\"\n" +
     "                             events=\"planning.sortedEvents\"></zl-planning-left-column>\n" +
     "    <div class=\"\" style=\"height:100%\">\n" +

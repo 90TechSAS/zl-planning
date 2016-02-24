@@ -16,7 +16,7 @@
                    type="hidden" on-select="onPikadaySelect(pikaday)">
 
         </div>
-        <button ng-click="mode = mode === 'day' ?  'week': 'day'">mode</button>
+        <button ng-click="switch()">mode</button>
         <input type="number" min="5" max="15" ng-model="zoom" >
         <input type="number" min="0" max="12" ng-model="start" >
         <input type="number" min="13" max="24" ng-model="end" ><br>

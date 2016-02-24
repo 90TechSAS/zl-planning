@@ -157,4 +157,14 @@ angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
     console.info(m);
   }
 
+  $scope.switch = function() {
+    if ($scope.mode === 'month') {
+      $scope.mode = 'week'
+    } else if ($scope.mode === 'week') {
+      $scope.mode = 'day'
+    } else if ($scope.mode === 'day') {
+      $scope.mode = 'month'
+    }
+  }
+
 } ]);
