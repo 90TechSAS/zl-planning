@@ -19,7 +19,7 @@
       scope: {
         scrollLeft: '='
       },
-      link: function link (scope, element,  attributes) {
+      link: function link (scope, element,  attributes) { // eslint-disable-line
         element.bind('mousewheel', function (e) {
           element[0].scrollLeft -= e.wheelDelta / 3
         })
