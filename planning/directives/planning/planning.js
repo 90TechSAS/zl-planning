@@ -300,8 +300,8 @@
         dayField: '=',
         eventCallback: '&',
         dayCallback: '&',
-        clickCallback: '&'
-
+        clickCallback: '&',
+        weekEventCallback: '&'
       },
       scope: {}
     }

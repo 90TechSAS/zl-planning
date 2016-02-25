@@ -75,8 +75,8 @@
         var red = Math.floor(Math.random() * (255))
         var green = Math.floor(Math.random() * (25))
         var blue = Math.floor(Math.random() * (255))
+        $scope.events[i].color = 'rgb(' + blue + ',' + red + ',' + green + ')'
         $scope.events[i]['background-color'] = 'rgb(' + red + ',' + green + ',' + blue + ')'
-        $scope.events[i]['color'] = 'rgb(' + blue + ',' + red + ',' + green + ')'
       }
     }
 
@@ -95,6 +95,10 @@
 
     $scope.clickCallback = function (m) {
       console.info('m', m)
+    }
+
+    $scope.hello = function () {
+      console.log('weekEvent')
     }
 
     $scope.switch = function () {

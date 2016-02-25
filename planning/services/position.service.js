@@ -27,6 +27,10 @@
               elt.range = moment.range(elt.start, elt.end)
               elt.line = maxParallelEvents
               elt.eventList.push(event)
+              if (elt.technician !== event.technician) {
+                elt.technician = ''
+                event.technician = ''
+              }
             }
           })
           if (overlap) {
