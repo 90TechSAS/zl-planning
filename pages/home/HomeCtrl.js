@@ -97,8 +97,8 @@
       console.info('m', m)
     }
 
-    $scope.hello = function () {
-      console.log('weekEvent')
+    $scope.hello = function (event) {
+      console.log(event)
     }
 
     $scope.switch = function () {

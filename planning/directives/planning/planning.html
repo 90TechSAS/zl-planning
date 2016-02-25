@@ -39,6 +39,6 @@
     </div>
     <div class="month-container">
         <zl-planning-day ng-repeat="day in planning.days" day="day" events="planning._events"></zl-planning-day>
-        <zl-planning-week-line ng-repeat="(week, events) in planning.multipleDaysEvents" events="events" week="week" one-day-events="planning.oneDayEvents[week]" week-event-callback="planning.weekEventCallback()"></zl-planning-week-line>
+        <zl-planning-week-line ng-repeat="(week, events) in planning.multipleDaysEvents" events="events" week="week" one-day-events="planning.oneDayEvents[week]"></zl-planning-week-line>
     </div>
 </div>

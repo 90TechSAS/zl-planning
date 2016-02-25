@@ -89,7 +89,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        <div class=\"week-event-line\" ng-repeat=\"l in line.lines\" style=\"width:100%; position:relative\"\n" +
     "             ng-style=\"{'height': line.lh}\">\n" +
     "            <div ng-repeat=\"event in l\"\n" +
-    "                 class=\"multiple-day-event\" ng-click=\"line.weekEventCallback(event, $event)\"\n" +
+    "                 class=\"multiple-day-event\" ng-click=\"planning.weekEventCallback({event: event})\"\n" +
     "                 ng-style=\"{'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}\"\n" +
     "                 style=\"position:absolute;border:1px solid black;height: 100%;\">\n" +
     "                <span style=\"position:absolute; left:10px\">{{event.title}}</span>\n" +
@@ -99,7 +99,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    <div class=\"single-day-events\" style=\"height:60%; position:relative;\">\n" +
     "        <div ng-repeat=\"ev in line.oneDayEvents\"\n" +
     "             ng-style=\"{'background-color': ev.style['background-color'], 'color': event.style.color, 'left': ev.style.left, 'height': ev.style.height , 'top': ev.style.top, 'width': ev.style.width}\"\n" +
-    "             style=\"position:absolute;border: 1px solid black;\" ng-click=\"line.weekEventCallback(ev, $event)\"\n" +
+    "             style=\"position:absolute;border: 1px solid black;\" ng-click=\"planning.weekEventCallback({event: ev})\"\n" +
     "             class=\"single-day-event\">\n" +
     "            <span style=\"position:absolute; left:10px\">{{ev.title}}</span>\n" +
     "        </div>\n" +
@@ -150,7 +150,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    </div>\n" +
     "    <div class=\"month-container\">\n" +
     "        <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\"></zl-planning-day>\n" +
-    "        <zl-planning-week-line ng-repeat=\"(week, events) in planning.multipleDaysEvents\" events=\"events\" week=\"week\" one-day-events=\"planning.oneDayEvents[week]\" week-event-callback=\"planning.weekEventCallback()\"></zl-planning-week-line>\n" +
+    "        <zl-planning-week-line ng-repeat=\"(week, events) in planning.multipleDaysEvents\" events=\"events\" week=\"week\" one-day-events=\"planning.oneDayEvents[week]\"></zl-planning-week-line>\n" +
     "    </div>\n" +
     "</div>\n"
   );
