@@ -272,7 +272,9 @@
     }
 
     function clickWeekEvent (day, $event) {
-      console.log('doubleclick', day)
+      if (day.date) {
+        self.clickCallback({$moment: day.date})
+      }
     }
 
     _.extend(self, {
