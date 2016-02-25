@@ -1,0 +1,10 @@
+<div class="day-block">
+    <div class="day-number">{{ dayCtrl.day.date.date() }}</div>
+    <div class="events-container">
+
+        <div ng-style="{'background-color': event.color}" class="month-event"
+             ng-repeat="event in dayCtrl.day.events |limitTo:5">{{event.title}}
+        </div>
+    </div>
+
+</div>

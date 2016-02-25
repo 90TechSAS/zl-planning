@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.1
+
+## Features
+
+- Add monthly view
+
 # 1.0.12
 
 ## Features

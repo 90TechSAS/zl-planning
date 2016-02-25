@@ -1,0 +1,17 @@
+<div class="week-line" ng-class="'week-' + line.week " style="padding-top:20px;">
+    <div class="single-day-events" style="height:40%; position:relative;pointer-events: none;">
+        <div ng-repeat="ev in line.oneDayEvents"
+             ng-style="{'background-color': ev.style['background-color'], 'color': event.style.color, 'left': ev.style.left, 'height': ev.style.height , 'top': ev.style.top, 'width': ev.style.width}"
+             style="position:absolute;border: 1px solid black;pointer-events: auto;" ng-click="planning.weekEventCallback({event: ev})"
+             class="single-day-event">
+            <span style="position:absolute; left:10px">{{ev.title}}</span>
+        </div>
+    </div>
+    <div class="multiple-days-events" style="height:40%; position: relative;pointer-events: none;">
+        <div class="multiple-day-event" ng-repeat="event in line.displayedEvents" style="position: absolute; border: 1px solid black;pointer-events: auto;"
+             ng-click="planning.weekEventCallback({event: event})"
+             ng-style="{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}">
+            <span style="position:absolute; left:10px">{{event.title}}</span>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,5 @@
 <div ng-controller='HomeCtrl' class="full-height">
-
-
-    <div ng-style="{width: mode==='day' ? '80%': '100%' }" style="float:left;height:80%">
+    <div ng-style="{width: mode==='day' ? '80%': '100%' }" style="float:left;height:90%;margin-bottom: 40px;">
         <zl-planning
                 zoom="zoom"
                 day-start="start" day-end="end" mode="mode || 'week'"
@@ -10,22 +8,20 @@
                 event-callback="callback(event)"
                 day-callback="dayCallback($day)"
                 click-callback="clickCallback($moment)"
+                week-event-callback="hello(event)"
                 ></zl-planning>
     </div>
+    <div style="position: fixed; right: 10px;bottom: 5px;z-index: 100000;">
+        <div ng-if="mode==='day'" style="float:left; margin-left:5px;">
+            <input pikaday="pikaday" default-date="{{moment.format('MM/DD/YYYY')}}" set-default-date="true" bound="false"
+                   type="hidden" on-select="onPikadaySelect(pikaday)">
 
-
-    <div ng-if="mode==='day'" style="float:left; margin-left:5px;">
-        <input pikaday="pikaday" default-date="{{moment.format('MM/DD/YYYY')}}" set-default-date="true" bound="false"
-               type="hidden" on-select="onPikadaySelect(pikaday)">
+        </div>
+        <button ng-click="switch()">mode</button>
+        <input type="number" min="5" max="15" ng-model="zoom" >
+        <input type="number" min="0" max="12" ng-model="start" >
+        <input type="number" min="13" max="24" ng-model="end" ><br>
+        <span>Mois : </span><input type="number" min="0" max="11" ng-model="viewMonth" ng-change="init()" > <span>Events :</span><input type="number" min="0" max="20" ng-model="nbEvents" ng-change="init()" >
 
     </div>
-
-
-    <button ng-click="mode = mode === 'day' ?  'week': 'day'">mode</button>
-
-    <input type="number" min="5" max="15" ng-model="zoom" >
-    <input type="number" min="0" max="12" ng-model="start" >
-    <input type="number" min="13" max="24" ng-model="end" >
-
-
 </div>

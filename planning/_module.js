@@ -1,9 +1,6 @@
-(function(){
+;(function (angular) {
+  'use strict'
 
-    'use strict';
-
-    angular
-        .module('90Tech.planning', ['pikaday'])
-
-
-})();
+  angular
+    .module('90Tech.planning', ['pikaday'])
+})(window.angular)

@@ -6,48 +6,41 @@
  * Non permissive commercial License.
  */
 
-(function() {
+;(function (angular) {
+  'use strict'
 
-    'use strict';
+  angular
+    .module('90Tech.planning')
+    .filter('range', RangeFilter)
 
-    angular
-        .module('90Tech.planning')
-        .filter('range', RangeFilter);
-
+  /**
+   * Class Range for emulate a "for" loop
+   * @class RangeFilter
+   * @constructor
+   */
+  function RangeFilter () {
     /**
-     * Class Range for emulate a "for" loop
-     * @class RangeFilter
-     * @constructor
+     * Return decimal values arrays at wished size
+     * @param input
+     * @param total
+     * @returns {*}
      */
-    function RangeFilter() {
+    var operation = function (input, total) {
+      // We parse just in case
+      total = parseInt(total)
 
-        /**
-         * Return decimal values arrays at wished size
-         * @param input
-         * @param total
-         * @returns {*}
-         */
-        var operation = function(input, total) {
+      // We're adding at empty array the current value for the loop
+      for (var i = 0; i < total; i++) {
+        input.push(i)
+      }
 
-            // We parse just in case
-            total = parseInt(total);
-
-            // We're adding at empty array the current value for the loop
-            for(var i = 0; i < total; i++) {
-                input.push(i);
-            }
-
-            // We return the array finally
-            return input;
-
-        };
-
-
-
-        /**
-         * Return callback to execute RangeFilter
-         */
-        return operation;
+      // We return the array finally
+      return input
     }
 
-})();
+    /**
+     * Return callback to execute RangeFilter
+     */
+    return operation
+  }
+})(window.angular)
