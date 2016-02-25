@@ -26,29 +26,12 @@
         event.style = {}
         event.depth = 1
         event.range = moment.range(event.start, event.end)
-        event.style.left = calculateLeft(event)
-        event.style.width = calculateWidth(event)
-        event.style['background-color'] = event['background-color']
         PositionService.overlap(self.lines, event, MAX_PARALLEL, toRemove)
       })
       self.displayedEvents = _.difference(self.displayedEvents, toRemove)
       _.each(self.displayedEvents, function (event) {
-        if (event.line === MAX_PARALLEL) {
-          event.style.left = calculateLeft(event)
-          event.style.width = calculateWidth(event)
-          if (event.eventList.length > 2) {
-            event.title = (event.eventList.length) + ' ' + parallelText
-            event.style['background-color'] = '#000'
-            event.style['color'] = '#FFF'
-            event.style['font-weight'] = 'bold'
-          }
-          if (event.tooltip) event.tooltip = event.title
-        }
-        if (event.line === undefined) event.line = MAX_PARALLEL
-        event.style.top = Math.round((event.line) * 100 / self.lines.length) + '%'
-        event.style.height = Math.round(100 / self.lines.length) + '%'
+        setStyle(event, self.lines.length)
       })
-      self.lh = Math.round(100 / self.lines.length) + '%'
 
       self.singleDayEventsLines = [[]]
       toRemove = []
@@ -56,27 +39,12 @@
         event.style = {}
         event.depth = 1
         event.range = moment.range(event.start, event.end)
-        event.style.left = calculateLeft(event)
-        event.style.width = calculateWidth(event)
-        event.style['background-color'] = event['background-color']
         PositionService.overlap(self.singleDayEventsLines, event, MAX_PARALLEL, toRemove)
       })
-      self.oneDayEvents = _.difference(self.oneDayEvents, toRemove)
+
+      self.oneDayEvents = _.difference(self.oneDayEvents, toRemove) // Remove event which have been merged
       _.each(self.oneDayEvents, function (event) {
-        if (event.line === MAX_PARALLEL) {
-          event.style.left = calculateLeft(event)
-          event.style.width = calculateWidth(event)
-          if (event.eventList.length > 2) {
-            event.style['background-color'] = '#000'
-            event.style['color'] = '#FFF'
-            event.style['font-weight'] = 'bold'
-            event.title = (event.eventList.length) + ' ' + parallelText
-          }
-          if (event.tooltip) event.tooltip = event.title
-        }
-        if (event.line === undefined) event.line = MAX_PARALLEL
-        event.style.top = Math.round((event.line) * 100 / self.singleDayEventsLines.length) + '%'
-        event.style.height = Math.round(100 / self.singleDayEventsLines.length) + '%'
+        setStyle(event, self.singleDayEventsLines.length)
       })
     }
 
@@ -90,22 +58,44 @@
       return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
     }
 
+    function positioning (eventList) {
+      var lines = [[]]
+      var toRemove = []
+      _.each(eventList, function (event) {
+        event.style = {}
+        event.depth = 1
+        event.range = moment.range(event.start, event.end)
+        PositionService.overlap(lines, event, MAX_PARALLEL, toRemove)
+      })
+      eventList = _.difference(eventList, toRemove)
+      _.each(eventList, function (event) {
+        setStyle(event, lines.length)
+      })
+    }
+
     function calculateLeft (event) {
       return ((event.start.isoWeekday() - 1)) * (100 / 7) + '%'
     }
 
-    function hello (event) {
-      console.log(event.title)
-      if (event.eventList) {
-        console.log(event.eventList)
-        console.log(event)
+    function setStyle (event, height) {
+      event.style.left = calculateLeft(event)
+      event.style.width = calculateWidth(event)
+      event.style['background-color'] = event['background-color']
+      event.style.top = Math.round((event.line) * 100 / height) + '%'
+      event.style.height = Math.round(100 / height) + '%'
+      if (event.line === undefined) event.line = MAX_PARALLEL
+      if (event.eventList && event.eventList.length > 1) {
+        event.style['background-color'] = '#000'
+        event.style['color'] = '#FFF'
+        event.style['font-weight'] = 'bold'
+        event.title = (event.eventList.length) + ' ' + parallelText
+        if (event.tooltip) event.tooltip = event.title
       }
     }
 
     _.extend(self, {
       calculateWidth: calculateWidth,
-      calculateLeft: calculateLeft,
-      hello: hello
+      calculateLeft: calculateLeft
     })
   }
 

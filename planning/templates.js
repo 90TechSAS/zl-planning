@@ -96,7 +96,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    <div class=\"multiple-days-events\" style=\"height:40%; position: relative;pointer-events: none;\">\n" +
     "        <div class=\"multiple-day-event\" ng-repeat=\"event in line.displayedEvents\" style=\"position: absolute; border: 1px solid black;pointer-events: auto;\"\n" +
     "             ng-click=\"planning.weekEventCallback({event: event})\"\n" +
-    "             ng-style=\"{'top': event.style.top, 'height': line.lh, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}\">\n" +
+    "             ng-style=\"{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}\">\n" +
     "            <span style=\"position:absolute; left:10px\">{{event.title}}</span>\n" +
     "        </div>\n" +
     "    </div>\n" +
