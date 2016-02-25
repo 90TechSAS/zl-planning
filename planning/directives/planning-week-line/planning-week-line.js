@@ -18,45 +18,14 @@
 
     function init () {
       self.displayedEvents = _(self.events).sortBy(function (event) {
-        return event.continuedBefore ? -1 : (event.continuedAfter ? 0 : 1)
+        return event.continuedBefore ? -1 : (event.continuedAfter ? 0 : 1) // Order event list
       }).value()
-      self.lines = [[]]
-      var toRemove = []
-      _.each(self.displayedEvents, function (event) {
-        event.style = {}
-        event.depth = 1
-        event.range = moment.range(event.start, event.end)
-        PositionService.overlap(self.lines, event, MAX_PARALLEL, toRemove)
-      })
-      self.displayedEvents = _.difference(self.displayedEvents, toRemove)
-      _.each(self.displayedEvents, function (event) {
-        setStyle(event, self.lines.length)
-      })
 
-      self.singleDayEventsLines = [[]]
-      toRemove = []
-      _.each(self.oneDayEvents, function (event) {
-        event.style = {}
-        event.depth = 1
-        event.range = moment.range(event.start, event.end)
-        PositionService.overlap(self.singleDayEventsLines, event, MAX_PARALLEL, toRemove)
-      })
-
-      self.oneDayEvents = _.difference(self.oneDayEvents, toRemove) // Remove event which have been merged
-      _.each(self.oneDayEvents, function (event) {
-        setStyle(event, self.singleDayEventsLines.length)
-      })
+      self.displayedEvents = positioning(self.displayedEvents)
+      self.oneDayEvents = positioning(self.oneDayEvents)
     }
 
     init()
-
-    $scope.$watchCollection(function () {
-      return [self.events, self.week]
-    }, init)
-
-    function calculateWidth (event) {
-      return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
-    }
 
     function positioning (eventList) {
       var lines = [[]]
@@ -71,10 +40,7 @@
       _.each(eventList, function (event) {
         setStyle(event, lines.length)
       })
-    }
-
-    function calculateLeft (event) {
-      return ((event.start.isoWeekday() - 1)) * (100 / 7) + '%'
+      return eventList
     }
 
     function setStyle (event, height) {
@@ -93,15 +59,24 @@
       }
     }
 
+
+    $scope.$watchCollection(function () {
+      return [self.events, self.week]
+    }, init)
+
+    function calculateWidth (event) {
+      return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
+    }
+    function calculateLeft (event) {
+      return ((event.start.isoWeekday() - 1)) * (100 / 7) + '%'
+    }
+
     _.extend(self, {
       calculateWidth: calculateWidth,
       calculateLeft: calculateLeft
     })
   }
 
-  /**
-   *
-   */
   function PlanningLineDirective () {
     return {
       restrict: 'E',
