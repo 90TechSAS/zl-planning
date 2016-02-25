@@ -85,7 +85,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
   $templateCache.put('planning/directives/planning-week-line/planning-week-line.html',
     "<div class=\"week-line\" ng-class=\"'week-' + line.week \" style=\"padding-top:20px\">\n" +
-    "    <div class=\"single-day-events\" style=\"height:60%; position:relative;\">\n" +
+    "    <div class=\"single-day-events\" style=\"height:40%; position:relative;\">\n" +
     "        <div ng-repeat=\"ev in line.oneDayEvents\"\n" +
     "             ng-style=\"{'background-color': ev.style['background-color'], 'color': event.style.color, 'left': ev.style.left, 'height': ev.style.height , 'top': ev.style.top, 'width': ev.style.width}\"\n" +
     "             style=\"position:absolute;border: 1px solid black;\" ng-click=\"planning.weekEventCallback({event: ev})\"\n" +
