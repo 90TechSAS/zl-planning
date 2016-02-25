@@ -30,7 +30,8 @@
       controllerAs: 'dayCtrl',
       bindToController: {
         day: '=',
-        events: '='
+        events: '=',
+        clickCallback: '&'
       },
       scope: true
     }

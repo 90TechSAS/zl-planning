@@ -271,6 +271,10 @@
       self.clickCallback({ $moment: mom, $entity: self.mode === 'day' ? d : undefined })
     }
 
+    function clickWeekEvent (day, $event) {
+      console.log('doubleclick', day)
+    }
+
     _.extend(self, {
       //  sortedEvents       : sortedEvents,
       isToday: isToday,
@@ -279,7 +283,8 @@
       clickCallbackWrapper: clickCallbackWrapper,
       isInDayRange: isInDayRange,
       keys: keys,
-      getEvents: getEvents
+      getEvents: getEvents,
+      clickWeekEvent: clickWeekEvent
     })
   }
 
