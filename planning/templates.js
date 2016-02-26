@@ -2,7 +2,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
   'use strict';
 
   $templateCache.put('planning/directives/planning-day-block/planning-day.html',
-    "<div class=\"day-block\">\n" +
+    "<div class=\"day-block\" ng-click=\"planning.dayCallback({$day:dayCtrl.day.date})\">\n" +
     "    <div class=\"day-number\">{{ dayCtrl.day.date.date() }}</div>\n" +
     "    <div class=\"events-container\">\n" +
     "\n" +
@@ -87,17 +87,17 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "<div class=\"week-line\" ng-class=\"'week-' + line.week \" style=\"padding-top:20px;\">\n" +
     "    <div class=\"single-day-events\" style=\"height:40%; position:relative;pointer-events: none;\">\n" +
     "        <div ng-repeat=\"ev in line.oneDayEvents\"\n" +
-    "             ng-style=\"{'background-color': ev.style['background-color'], 'color': event.style.color, 'left': ev.style.left, 'height': ev.style.height , 'top': ev.style.top, 'width': ev.style.width}\"\n" +
-    "             style=\"position:absolute;border: 1px solid black;pointer-events: auto;\" ng-click=\"planning.weekEventCallback({event: ev})\"\n" +
+    "             ng-style=\"{'top': ev.style.top, 'height': ev.style.height, 'background-color': ev.style['background-color'], 'color' : ev.style.color, 'width': ev.style.width, 'left': ev.style.left}\"\n" +
+    "             style=\"position:absolute;border: 1px solid black;pointer-events: auto; overflow: hidden;\" ng-click=\"planning.weekEventCallback({event: ev})\"\n" +
     "             class=\"single-day-event\">\n" +
-    "            <span style=\"position:absolute; left:10px\">{{ev.title}}</span>\n" +
+    "            <span class=\"single-day-event-title\" style=\"position:absolute; left:10px; font-size: 100%; line-height: 100%;\">{{ev.title}}</span>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"multiple-days-events\" style=\"height:40%; position: relative;pointer-events: none;\">\n" +
-    "        <div class=\"multiple-day-event\" ng-repeat=\"event in line.displayedEvents\" style=\"position: absolute; border: 1px solid black;pointer-events: auto;\"\n" +
+    "        <div class=\"multiple-day-event\" ng-repeat=\"event in line.displayedEvents\" style=\"position: absolute; border: 1px solid black;pointer-events: auto; overflow: hidden;                                                                                                                                                \"\n" +
     "             ng-click=\"planning.weekEventCallback({event: event})\"\n" +
     "             ng-style=\"{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}\">\n" +
-    "            <span style=\"position:absolute; left:10px\">{{event.title}}</span>\n" +
+    "            <span class=\"multiple-day-event-title\" style=\"position:absolute; left:10px; font-size: 100%; line-height: 100%;\">{{event.title}}</span>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n"

@@ -34,7 +34,7 @@
         event.style = {}
         event.depth = 1
         event.range = moment.range(event.start, event.end)
-        PositionService.overlap(lines, event, MAX_PARALLEL, toRemove)
+        PositionService.overlap(lines, event, MAX_PARALLEL, toRemove, true)
       })
       eventList = _.difference(eventList, toRemove)
       _.each(eventList, function (event) {
@@ -47,6 +47,7 @@
       event.style.left = calculateLeft(event)
       event.style.width = calculateWidth(event)
       event.style['background-color'] = event['background-color']
+      event.style.color = 'black'
       event.style.top = Math.round((event.line) * 100 / height) + '%'
       event.style.height = Math.round(100 / height) + '%'
       if (event.line === undefined) event.line = MAX_PARALLEL
@@ -58,7 +59,6 @@
         if (event.tooltip) event.tooltip = event.title
       }
     }
-
 
     $scope.$watchCollection(function () {
       return [self.events, self.week]

@@ -21,13 +21,17 @@
      * @param event Event
      * @param maxParallelEvents Int, maximum parallelEvents
      * @param toRemove Array containing event which have been integrated/merged with another event
+     * @param doublecheck Boolean If true, check if day isn't same between two events (useful for monthly view where hours doesn't overlap on same day)
      */
-    function overlap (lines, event, maxParallelEvents, toRemove) {
+    function overlap (lines, event, maxParallelEvents, toRemove, doublecheck) {
       for (var i = 0; i < lines.length; i++) {
         if (event.depth > maxParallelEvents) {
           var overlap = false
           _.each(lines[maxParallelEvents], function (elt) {
             overlap = event.range.overlaps(elt.range)
+            if (!overlap && doublecheck) {
+              overlap = (event.start.day() === elt.start.day() || event.start.day() === elt.end.day() || event.end.day() === elt.start.day() || event.end.day() === elt.end.day())
+            }
             if (overlap) {
               elt.start = moment.min(event.start, elt.start) // set start to minimum of 2 overlapping event
               elt.end = moment.max(event.end, elt.end)  // set end to maximum of 2 overlapping event
@@ -46,8 +50,10 @@
           }
           event.depth = maxParallelEvents
           event.line = maxParallelEvents
-          var eventClone = _.cloneDeep(event)
-          event.eventList = [eventClone]
+          if (!event.eventList) {
+            var eventClone = _.cloneDeep(event)
+            event.eventList = [eventClone]
+          }
           lines[maxParallelEvents].push(event)
           break
         }
@@ -57,7 +63,11 @@
           break
         }
         if (_.filter(lines[i], function (elt) { // if any event in lines[i] overlap
-          if (event.range.overlaps(elt.range)) {
+          overlap = event.range.overlaps(elt.range)
+          if (!overlap && doublecheck) {
+            overlap = (event.start.day() === elt.start.day() || event.start.day() === elt.end.day() || event.end.day() === elt.start.day() || event.end.day() === elt.end.day())
+          }
+          if (overlap) {
             elt.depth += 1
             return true
           } }).length) {

@@ -48,7 +48,7 @@
             technician: technicians[ Math.floor(Math.random() * 3) ]
           })
         }
-        for (i = 0; i < $scope.nbEvents; i++) {
+        for (i = 0; i < $scope.nbEvents * 2; i++) {
           var date = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
           $scope.events.push({
             title: generateRandomText() + ' - ' + i,
