@@ -89,6 +89,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        <div ng-repeat=\"ev in line.oneDayEvents\"\n" +
     "             ng-style=\"{'top': ev.style.top, 'height': ev.style.height, 'background-color': ev.style['background-color'], 'color' : ev.style.color, 'width': ev.style.width, 'left': ev.style.left}\"\n" +
     "             style=\"position:absolute;border: 1px solid black;pointer-events: auto; overflow: hidden;\" ng-click=\"planning.weekEventCallback({event: ev})\"\n" +
+    "             tooltip-append-to-body=\"true\"\n" +
+    "             uib-tooltip=\"{{ev.tooltip}}\"\n" +
     "             class=\"single-day-event\">\n" +
     "            <span class=\"single-day-event-title\" style=\"position:absolute; left:10px; font-size: 100%; line-height: 100%;\">{{ev.title}}</span>\n" +
     "        </div>\n" +
@@ -96,6 +98,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    <div class=\"multiple-days-events\" style=\"height:40%; position: relative;pointer-events: none;\">\n" +
     "        <div class=\"multiple-day-event\" ng-repeat=\"event in line.displayedEvents\" style=\"position: absolute; border: 1px solid black;pointer-events: auto; overflow: hidden;                                                                                                                                                \"\n" +
     "             ng-click=\"planning.weekEventCallback({event: event})\"\n" +
+    "             tooltip-append-to-body=\"true\"\n" +
+    "             uib-tooltip=\"{{event.tooltip}}\"\n" +
     "             ng-style=\"{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}\">\n" +
     "            <span class=\"multiple-day-event-title\" style=\"position:absolute; left:10px; font-size: 100%; line-height: 100%;\">{{event.title}}</span>\n" +
     "        </div>\n" +

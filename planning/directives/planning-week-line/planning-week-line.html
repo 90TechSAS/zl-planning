@@ -3,6 +3,8 @@
         <div ng-repeat="ev in line.oneDayEvents"
              ng-style="{'top': ev.style.top, 'height': ev.style.height, 'background-color': ev.style['background-color'], 'color' : ev.style.color, 'width': ev.style.width, 'left': ev.style.left}"
              style="position:absolute;border: 1px solid black;pointer-events: auto; overflow: hidden;" ng-click="planning.weekEventCallback({event: ev})"
+             tooltip-append-to-body="true"
+             uib-tooltip="{{ev.tooltip}}"
              class="single-day-event">
             <span class="single-day-event-title" style="position:absolute; left:10px; font-size: 100%; line-height: 100%;">{{ev.title}}</span>
         </div>
@@ -10,6 +12,8 @@
     <div class="multiple-days-events" style="height:40%; position: relative;pointer-events: none;">
         <div class="multiple-day-event" ng-repeat="event in line.displayedEvents" style="position: absolute; border: 1px solid black;pointer-events: auto; overflow: hidden;                                                                                                                                                "
              ng-click="planning.weekEventCallback({event: event})"
+             tooltip-append-to-body="true"
+             uib-tooltip="{{event.tooltip}}"
              ng-style="{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}">
             <span class="multiple-day-event-title" style="position:absolute; left:10px; font-size: 100%; line-height: 100%;">{{event.title}}</span>
         </div>
