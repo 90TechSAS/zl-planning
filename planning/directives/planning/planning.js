@@ -181,7 +181,6 @@
       secondEvent.continuedBefore = true
       firstEvent.end = moment(firstEvent.start).endOf('week')
       secondEvent.start.add(1, 'week').startOf('week')
-
       // Recursion will handle potential split needed by second event
       return [ firstEvent ].concat(splitByWeeks(secondEvent))
     }
