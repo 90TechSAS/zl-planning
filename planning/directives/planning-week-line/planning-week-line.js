@@ -48,7 +48,7 @@
       event.style.width = calculateWidth(event)
       event.style['background-color'] = event['background-color']
       event.style.color = 'black'
-      event.style.top = Math.round((event.line) * 100 / height) + '%'
+      event.style.top = Math.ceil((event.line) * 100 / height) + '%'
       event.style.height = Math.round(100 / height) + '%'
       if (event.line === undefined) event.line = MAX_PARALLEL
       if (event.eventList && event.eventList.length > 1) {
@@ -68,7 +68,7 @@
       return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
     }
     function calculateLeft (event) {
-      return ((event.start.isoWeekday() - 1)) * (100 / 7) + '%'
+      return ((event.start.isoWeekday() - 1)) * (99.9 / 7) + '%'
     }
 
     _.extend(self, {

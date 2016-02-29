@@ -29,13 +29,13 @@
         <span class="month-text">{{planning.month | capitalize}}</span>
     </div>
     <div class="day-header">
-        <div class="day">Lundi</div>
-        <div class="day">Mardi</div>
-        <div class="day">Mercredi</div>
-        <div class="day">Jeudi</div>
-        <div class="day">Vendredi</div>
-        <div class="day">Samedi</div>
-        <div class="day">Dimanche</div>
+        <div class="day"><span class="day-text">Lundi</span></div>
+        <div class="day"><span class="day-text">Mardi</span></div>
+        <div class="day"><span class="day-text">Mercredi</span></div>
+        <div class="day"><span class="day-text">Jeudi</span></div>
+        <div class="day"><span class="day-text">Vendredi</span></div>
+        <div class="day"><span class="day-text">Samedi</span></div>
+        <div class="day"><span class="day-text">Dimanche</span></div>
     </div>
     <div class="month-container">
         <zl-planning-day ng-repeat="day in planning.days" day="day" events="planning._events" ng-dblclick="planning.clickWeekEvent(day, $event)"></zl-planning-day>

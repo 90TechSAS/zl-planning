@@ -11,6 +11,7 @@
   function PlanningDayController () {
     var self = this
 
+    self.isDefined = (self.day.events === undefined)
     function init () {
     }
     init()

@@ -6,7 +6,12 @@
              tooltip-append-to-body="true"
              uib-tooltip="{{ev.tooltip}}"
              class="single-day-event">
-            <span class="single-day-event-title" style="position:absolute; left:10px; font-size: 100%; line-height: 100%;">{{ev.title}}</span>
+            <div class="event-line-container">
+                <div class="event-line" ng-style="{'background-color': ev.color}" ng-if="!ev.continuedBefore"></div>
+            </div>
+            <div class="single-day-event-title">
+                <span>{{ev.title}}</span>
+            </div>
         </div>
     </div>
     <div class="multiple-days-events" style="height:40%; position: relative;pointer-events: none;">
@@ -15,7 +20,12 @@
              tooltip-append-to-body="true"
              uib-tooltip="{{event.tooltip}}"
              ng-style="{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}">
-            <span class="multiple-day-event-title" style="position:absolute; left:10px; font-size: 100%; line-height: 100%;">{{event.title}}</span>
+            <div class="event-line-container">
+                <div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>
+            </div>
+            <div class="multiple-day-event-title">
+                <span>{{event.title}}</span>
+            </div>
         </div>
     </div>
 </div>

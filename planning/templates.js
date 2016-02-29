@@ -2,7 +2,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
   'use strict';
 
   $templateCache.put('planning/directives/planning-day-block/planning-day.html',
-    "<div class=\"day-block\" ng-click=\"planning.dayCallback({$day:dayCtrl.day.date})\">\n" +
+    "<div class=\"day-block\" ng-class=\"{'empty-day': dayCtrl.isDefined }\" ng-click=\"planning.dayCallback({$day:dayCtrl.day.date})\">\n" +
     "    <div class=\"day-number\">{{ dayCtrl.day.date.date() }}</div>\n" +
     "    <div class=\"events-container\">\n" +
     "\n" +
@@ -92,7 +92,12 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "             tooltip-append-to-body=\"true\"\n" +
     "             uib-tooltip=\"{{ev.tooltip}}\"\n" +
     "             class=\"single-day-event\">\n" +
-    "            <span class=\"single-day-event-title\" style=\"position:absolute; left:10px; font-size: 100%; line-height: 100%;\">{{ev.title}}</span>\n" +
+    "            <div class=\"event-line-container\">\n" +
+    "                <div class=\"event-line\" ng-style=\"{'background-color': ev.color}\" ng-if=\"!ev.continuedBefore\"></div>\n" +
+    "            </div>\n" +
+    "            <div class=\"single-day-event-title\">\n" +
+    "                <span>{{ev.title}}</span>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"multiple-days-events\" style=\"height:40%; position: relative;pointer-events: none;\">\n" +
@@ -101,7 +106,12 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "             tooltip-append-to-body=\"true\"\n" +
     "             uib-tooltip=\"{{event.tooltip}}\"\n" +
     "             ng-style=\"{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}\">\n" +
-    "            <span class=\"multiple-day-event-title\" style=\"position:absolute; left:10px; font-size: 100%; line-height: 100%;\">{{event.title}}</span>\n" +
+    "            <div class=\"event-line-container\">\n" +
+    "                <div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>\n" +
+    "            </div>\n" +
+    "            <div class=\"multiple-day-event-title\">\n" +
+    "                <span>{{event.title}}</span>\n" +
+    "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "</div>\n"
@@ -140,13 +150,13 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        <span class=\"month-text\">{{planning.month | capitalize}}</span>\n" +
     "    </div>\n" +
     "    <div class=\"day-header\">\n" +
-    "        <div class=\"day\">Lundi</div>\n" +
-    "        <div class=\"day\">Mardi</div>\n" +
-    "        <div class=\"day\">Mercredi</div>\n" +
-    "        <div class=\"day\">Jeudi</div>\n" +
-    "        <div class=\"day\">Vendredi</div>\n" +
-    "        <div class=\"day\">Samedi</div>\n" +
-    "        <div class=\"day\">Dimanche</div>\n" +
+    "        <div class=\"day\"><span class=\"day-text\">Lundi</span></div>\n" +
+    "        <div class=\"day\"><span class=\"day-text\">Mardi</span></div>\n" +
+    "        <div class=\"day\"><span class=\"day-text\">Mercredi</span></div>\n" +
+    "        <div class=\"day\"><span class=\"day-text\">Jeudi</span></div>\n" +
+    "        <div class=\"day\"><span class=\"day-text\">Vendredi</span></div>\n" +
+    "        <div class=\"day\"><span class=\"day-text\">Samedi</span></div>\n" +
+    "        <div class=\"day\"><span class=\"day-text\">Dimanche</span></div>\n" +
     "    </div>\n" +
     "    <div class=\"month-container\">\n" +
     "        <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\" ng-dblclick=\"planning.clickWeekEvent(day, $event)\"></zl-planning-day>\n" +

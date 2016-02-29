@@ -1,4 +1,4 @@
-<div class="day-block" ng-click="planning.dayCallback({$day:dayCtrl.day.date})">
+<div class="day-block" ng-class="{'empty-day': dayCtrl.isDefined }" ng-click="planning.dayCallback({$day:dayCtrl.day.date})">
     <div class="day-number">{{ dayCtrl.day.date.date() }}</div>
     <div class="events-container">
 
