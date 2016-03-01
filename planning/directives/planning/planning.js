@@ -81,7 +81,8 @@
           self.days.push({ date: day, events: [] })
         })
 
-        while (self.days.length < 35) {
+        var displayedDaysCount = (self.days.length > 35 ? 42 : 35)
+        while (self.days.length < displayedDaysCount) {
           self.days.push({})
         }
       }
