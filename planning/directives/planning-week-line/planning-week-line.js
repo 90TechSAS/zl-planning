@@ -68,7 +68,7 @@
       if (event.start.day() === event.end.day()) {
         return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
       } else {
-        return (Math.ceil(event.end.diff(event.start, 'hours') / 24) + 1) * (100 / 7) + '%'
+        return (Math.ceil(event.end.diff(event.start, 'hours') / 24)) * (100 / 7) + '%'
       }
     }
     function calculateLeft (event) {
