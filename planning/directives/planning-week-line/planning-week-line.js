@@ -65,7 +65,11 @@
     }, init)
 
     function calculateWidth (event) {
-      return (Math.ceil(event.end.diff(event.start, 'hours') / 24) + 1) * (100 / 7) + '%'
+      if (event.start.day() === event.end.day()) {
+        return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
+      } else {
+        return (Math.ceil(event.end.diff(event.start, 'hours') / 24) + 1) * (100 / 7) + '%'
+      }
     }
     function calculateLeft (event) {
       return ((event.start.isoWeekday() - 1)) * (99.9 / 7) + '%'
