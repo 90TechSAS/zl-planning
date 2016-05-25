@@ -191,7 +191,7 @@
         var start, stop
         if (self.mode === 'week') {
           start = moment(self.position).weekday(0).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
-          stop = moment(self.position).weekday(7).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
+          stop = moment(self.position).weekday(6).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
         } else if (self.mode === 'day') {
           start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
           stop = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
