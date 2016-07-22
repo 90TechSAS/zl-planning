@@ -3,6 +3,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
   $templateCache.put('planning/directives/planning-day-block/planning-day.html',
     "<div class=\"day-block\" ng-class=\"{'empty-day': dayCtrl.isDefined }\" ng-click=\"planning.dayCallback({$day:dayCtrl.day.date})\">\n" +
+    "    <div style=\"position:absolute;left:5px;top:5px;\" ng-if=\"dayCtrl.day.date.day() === 1\">{{dayCtrl.day.date.week()}}</div>\n" +
     "    <div class=\"day-number\">{{ dayCtrl.day.date.date() }}</div>\n" +
     "    <div class=\"events-container\">\n" +
     "\n" +

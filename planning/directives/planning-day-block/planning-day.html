@@ -1,4 +1,5 @@
 <div class="day-block" ng-class="{'empty-day': dayCtrl.isDefined }" ng-click="planning.dayCallback({$day:dayCtrl.day.date})">
+    <div style="position:absolute;left:5px;top:5px;" ng-if="dayCtrl.day.date.day() === 1">{{dayCtrl.day.date.week()}}</div>
     <div class="day-number">{{ dayCtrl.day.date.date() }}</div>
     <div class="events-container">
 
