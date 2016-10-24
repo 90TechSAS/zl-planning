@@ -43,22 +43,13 @@
               },
               false
             )
-
-            el.addEventListener(
-              'dragover',
-              function (e) {
-                e.dataTransfer.dropEffect = 'move'
-                if (e.preventDefault) e.preventDefault()
-                this.classList.add('over')
-                return false
-              },
-              false
-            )
           }
           if (el.attributes['zl-drop']){
+            console.log(el)
             el.addEventListener(
               'drop',
               function (e) {
+                console.log('TOTO')
                 e.preventDefault()
                 e.stopPropagation()
                 if (e.stopPropagation) e.stopPropagation()
@@ -74,7 +65,8 @@
             el.addEventListener(
               'dragenter',
               function (e) {
-                this.classList.add('over')
+                console.log('TOTO')
+                this.classList.add('overtjttjtjtjtjtj')
                 return false
               },
               false
