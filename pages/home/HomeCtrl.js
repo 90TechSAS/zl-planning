@@ -31,7 +31,7 @@
     $scope.init = function () {
       delete $scope.events
       $scope.events = []
-      if ($scope.mode === 'month') {
+      //if ($scope.mode === 'month') {
         var month = moment().month($scope.viewMonth)
         $scope.onPikadaySelect = function (pikaday) {
           $scope.moment = pikaday.getMoment()
@@ -57,7 +57,7 @@
             technician: technicians[ Math.floor(Math.random() * 3) ]
           })
         }
-      } else {
+      /*} else {
         $scope.events = [
           {title: 'acoucou', technician: 'atoto', tooltip: 'I Have a tooltip', start: moment().hours(8).minutes(15), end: moment().hours(19).minutes(0)},
           {title: 'acoucou', technician: 'atoto', tooltip: 'I Have a tooltip', start: moment().hours(8).minutes(15), end: moment().hours(19).minutes(0)},
@@ -69,7 +69,7 @@
           {title: 'ecoucou', technician: 'etoto', tooltip: 'I Have a tooltip', start: moment().hours(14).minutes(15), end: moment().hours(15).minutes(45)},
           {title: 'ecoucou', technician: 'etoto', tooltip: 'I Have a tooltip', start: moment().hours(15).minutes(15), end: moment().hours(15).minutes(45)}
         ]
-      }
+      } */
 
       for (i = 0; i < $scope.events.length; i++) {
         var red = Math.floor(Math.random() * (255))
@@ -99,6 +99,12 @@
 
     $scope.hello = function (event) {
       console.log(event)
+    }
+
+    $scope.drop = function($data, $event, $moment, $entity){
+      console.log($data)
+      console.log($moment)
+      console.log($entity)
     }
 
     $scope.switch = function () {

@@ -71,6 +71,7 @@
         return (Math.ceil(event.end.diff(event.start, 'hours') / 24)) * (100 / 7) + '%'
       }
     }
+
     function calculateLeft (event) {
       return ((event.start.isoWeekday() - 1)) * (99.9 / 7) + '%'
     }

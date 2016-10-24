@@ -141,7 +141,7 @@ module.exports = function (grunt) {
      */
     // Default task(s).
     // grunt.registerTask('default', ['jshint:beforeconcat', 'less:development', 'concat:devJs', 'concat:devCss'])
-    grunt.registerTask('default', ['jshint:beforeconcatQ', 'less:development', 'cssmin', 'ngtemplates', 'uglify:build', 'watch'])
+    grunt.registerTask('default', ['less:development', 'cssmin', 'ngtemplates', 'uglify:build', 'watch'])
   }
 
   init({}) // initialize here for defaults (init may be called again later within a task)

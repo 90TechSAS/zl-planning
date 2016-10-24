@@ -18,7 +18,8 @@
 
     var self = this
 
-    function clickEvent (hour, $event) {
+
+    function extractMinutesFromEvent($event){
       var minutes
       if (_.contains($event.target.classList, 'half-hour')) {
         // If the user has clicked right on the half-hour line, offsetX is 0
@@ -26,6 +27,16 @@
       } else {
         minutes = Math.floor($event.offsetX / (BASE_SIZE * self.zoom) * 60)
       }
+      return minutes
+    }
+
+    function dropEvent (hour, data, event) {
+      var minutes = extractMinutesFromEvent(event)
+      self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+    }
+
+    function clickEvent (hour, $event) {
+      var minutes = extractMinutesFromEvent($event)
       self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
     }
 
@@ -87,9 +98,11 @@
       return [self.events, self.dayStart, self.dayEnd]
     }, init)
 
+
     _.extend(self, {
       clickEvent: clickEvent,
-      calcWidth: calcWidth
+      calcWidth: calcWidth,
+      dropEvent: dropEvent
     })
   }
 
@@ -104,7 +117,8 @@
         dayStart: '=',
         dayEnd: '=',
         events: '=',
-        clickCallback: '&'
+        clickCallback: '&',
+        dropCallback: '&'
       },
       scope: true
     }

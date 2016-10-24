@@ -1,11 +1,15 @@
-<div class="week-line" ng-class="'week-' + line.week " style="padding-top:20px;">
-    <div class="single-day-events" style="height:40%; position:relative;pointer-events: none;">
-        <div ng-repeat="ev in line.oneDayEvents"
-             ng-style="{'top': ev.style.top, 'height': ev.style.height, 'background-color': ev.style['background-color'], 'color' : ev.style.color, 'width': ev.style.width, 'left': ev.style.left}"
-             style="position:absolute;border: 1px solid black;pointer-events: auto; overflow: hidden;" ng-click="planning.weekEventCallback({event: ev})"
-             tooltip-append-to-body="true"
-             uib-tooltip="{{ev.tooltip}}"
-             class="single-day-event">
+<div class="week-line" ng-class="'week-' + line.week " style="padding-top:20px;" >
+    <div class="single-day-events" style="height:40%; position:relative;">
+        <div
+                zl-planning-drag-drop
+                zl-drag="ev"
+                ng-repeat="ev in line.oneDayEvents"
+                ng-style="{'top': ev.style.top, 'height': ev.style.height, 'background-color': ev.style['background-color'], 'color' : ev.style.color, 'width': ev.style.width, 'left': ev.style.left}"
+                style="position:absolute;border: 1px solid black;pointer-events: auto; overflow: hidden;"
+                ng-click="planning.weekEventCallback({event: ev})"
+                tooltip-append-to-body="true"
+                uib-tooltip="{{ev.tooltip}}"
+                class="single-day-event">
             <div class="event-line-container">
                 <div class="event-line" ng-style="{'background-color': ev.color}" ng-if="!ev.continuedBefore"></div>
             </div>
@@ -14,14 +18,18 @@
             </div>
         </div>
     </div>
-    <div class="multiple-days-events" style="height:40%; position: relative;pointer-events: none;">
-        <div class="multiple-day-event" ng-repeat="event in line.displayedEvents" style="position: absolute; border: 1px solid black;pointer-events: auto; overflow: hidden;                                                                                                                                                "
+    <div class="multiple-days-events" style="height:40%; position: relative;">
+        <div class="multiple-day-event" ng-repeat="event in line.displayedEvents"
+             style="position: absolute; border: 1px solid black;pointer-events: auto; overflow: hidden;"
+             zl-planning-drag-drop
+             zl-drag="event"
              ng-click="planning.weekEventCallback({event: event})"
              tooltip-append-to-body="true"
              uib-tooltip="{{event.tooltip}}"
              ng-style="{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}">
             <div class="event-line-container">
-                <div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>
+                <div class="event-line" ng-style="{'background-color': event.color}"
+                     ng-if="!event.continuedBefore"></div>
             </div>
             <div class="multiple-day-event-title">
                 <span>{{event.title}}</span>

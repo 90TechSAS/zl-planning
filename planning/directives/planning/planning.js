@@ -5,7 +5,7 @@
     .module('90Tech.planning')
     .directive('zlPlanning', PlanningDirective)
 
-  PlanningController.$inject = [ '$scope', 'planningConfiguration' ]
+  PlanningController.$inject = ['$scope', 'planningConfiguration']
 
   function PlanningController ($scope, planningConfiguration) {
     var BASE_SIZE = planningConfiguration.BASE_SIZE
@@ -36,7 +36,7 @@
         self._events = (_.flatten(_.map(self.events, split)))
         self._events = filter(self._events)
         self.sortedEvents = _.groupBy(self._events, function (e) {
-          return e[ self.dayField ]
+          return e[self.dayField]
         })
         addMissingEntities(self.sortedEvents)
       } else if (self.mode === 'month') {
@@ -111,7 +111,7 @@
           }
           event.end = stop
         }
-        return [ event ]
+        return [event]
       }
       // Event is on several days.
       // Build a first event that ends at the end of the first day
@@ -128,7 +128,7 @@
           return []
         }
         // Event finishes before start hour next day. No need to create another one
-        return [ first_event ]
+        return [first_event]
       }
       first_event.continuedAfter = true
 
@@ -143,7 +143,7 @@
         return split(second_event)
       }
 
-      return [ first_event ].concat(split(second_event))
+      return [first_event].concat(split(second_event))
     }
 
     function splitByWeeks (event) {
@@ -171,7 +171,7 @@
       // console.info(_.cloneDeep(event))
       if (event.start.isoWeek() === event.end.isoWeek()) {
         // If our event is on one week, we're all set
-        return [ event ]
+        return [event]
       }
 
       // Split
@@ -183,7 +183,7 @@
       firstEvent.end = moment(firstEvent.start).endOf('week')
       secondEvent.start.add(1, 'week').startOf('week')
       // Recursion will handle potential split needed by second event
-      return [ firstEvent ].concat(splitByWeeks(secondEvent))
+      return [firstEvent].concat(splitByWeeks(secondEvent))
     }
 
     function filter (events) { // remove event not in range (month, week, day)
@@ -207,8 +207,8 @@
       sortedEvents = sortedEvents || {}
       var startingDay = moment(self.position).weekday(0).dayOfYear()
       _.times(7, function (i) {
-        if (!sortedEvents[ startingDay + i ]) {
-          sortedEvents[ startingDay + i ] = []
+        if (!sortedEvents[startingDay + i]) {
+          sortedEvents[startingDay + i] = []
         }
       })
     }
@@ -216,8 +216,8 @@
     function addMissingEntities (sortedEvents) {
       sortedEvents = sortedEvents || {}
       _.each(self.entities, function (e) {
-        if (!sortedEvents[ e ]) {
-          sortedEvents[ e ] = []
+        if (!sortedEvents[e]) {
+          sortedEvents[e] = []
         }
       })
     }
@@ -238,11 +238,11 @@
     }
 
     function getEvents (key) {
-      return self.sortedEvents[ key ]
+      return self.sortedEvents[key]
     }
 
     $scope.$watchCollection(function () {
-      return [ self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd, self.zoom ]
+      return [self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd, self.zoom]
     }, init)
 
     function isToday (n) {
@@ -274,8 +274,22 @@
 
     function clickWeekEvent (day, $event) {
       if (day.date) {
-        self.clickCallback({$moment: day.date})
+        self.clickCallback({ $moment: day.date })
       }
+    }
+
+    function dropEventWeekMode (h, m, d, $data, $event) {
+      var mom
+      if (self.mode === 'week') {
+        mom = moment(self.position).hour(h).minute(m).second(0).dayOfYear(d)
+      } else if (self.mode === 'day') {
+        mom = moment(self.position).hour(h).minute(m)
+      }
+      self.dropCallback({ $moment: mom, $data: $data, $event: $event, $entity: self.mode === 'day' ? d : undefined })
+    }
+
+    function dropEvent (data, event, moment) {
+      self.dropCallback({ $data: data, $event: event, $moment: moment })
     }
 
     _.extend(self, {
@@ -287,7 +301,9 @@
       isInDayRange: isInDayRange,
       keys: keys,
       getEvents: getEvents,
-      clickWeekEvent: clickWeekEvent
+      clickWeekEvent: clickWeekEvent,
+      dropEvent: dropEvent,
+      dropEventWeekMode: dropEventWeekMode
     })
   }
 
@@ -309,7 +325,8 @@
         eventCallback: '&',
         dayCallback: '&',
         clickCallback: '&',
-        weekEventCallback: '&'
+        weekEventCallback: '&',
+        dropCallback: '&'
       },
       scope: {}
     }
