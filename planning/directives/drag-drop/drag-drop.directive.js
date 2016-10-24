@@ -45,11 +45,9 @@
             )
           }
           if (el.attributes['zl-drop']){
-            console.log(el)
             el.addEventListener(
               'drop',
               function (e) {
-                console.log('TOTO')
                 e.preventDefault()
                 e.stopPropagation()
                 if (e.stopPropagation) e.stopPropagation()
