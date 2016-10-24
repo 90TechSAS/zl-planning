@@ -69,7 +69,7 @@
         el.addEventListener(
           'dragenter',
           function (e) {
-            this.classList.add('overtototototo')
+            this.classList.add('over')
             return false
           },
           false
