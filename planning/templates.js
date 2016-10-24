@@ -47,14 +47,17 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('planning/directives/planning-line/planning-line.html',
-    "<div class=\"b-b b-r all-day day-hour\"\n" +
-    "     zl-planning-drag-drop\n" +
-    "     zl-drop=\"line.dropEvent(n, $data, $event)\"\n" +
-    "     ng-style=\"{width: line.calcWidth(line.zoom)}\"\n" +
-    "     ng-repeat=\"n in [] | range:line.range\"\n" +
-    "     ng-dblclick=\"line.clickEvent(n, $event)\">\n" +
-    "    <span class=\"half-hour\"></span>\n" +
+    "<div\n" +
+    "        zl-planning-drag-drop\n" +
+    "        zl-drop=\"line.dropEvent($data, $event)\">\n" +
+    "    <div class=\"b-b b-r all-day day-hour\"\n" +
+    "         ng-style=\"{width: line.calcWidth(line.zoom)}\"\n" +
+    "         ng-repeat=\"n in [] | range:line.range\"\n" +
+    "         ng-dblclick=\"line.clickEvent(n, $event)\"\n" +
+    "        hour=\"{{n}}\">\n" +
+    "        <span class=\"half-hour\"></span>\n" +
     "\n" +
+    "    </div>\n" +
     "</div>\n" +
     "\n" +
     "<div class=\"event\"\n" +

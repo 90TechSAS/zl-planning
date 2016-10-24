@@ -177,6 +177,9 @@ zl-planning-line.ng-animate {
   height: 100%;
   display: inline-block;
 }
+.day .day-hour.over {
+  background: lightblue;
+}
 .day .half-hour {
   pointer-events: none;
   display: inline-block;

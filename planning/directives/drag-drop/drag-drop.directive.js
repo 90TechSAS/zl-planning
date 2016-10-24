@@ -51,6 +51,7 @@
                 e.preventDefault()
                 e.stopPropagation()
                 if (e.stopPropagation) e.stopPropagation()
+                e.target.classList.remove('over')
                 this.classList.remove('over')
                 scope.$apply(function () {
                   scope.dragDropCtrl.zlDrop({$data: JSON.parse(e.dataTransfer.getData('Text')), $event: e})
@@ -63,7 +64,7 @@
             el.addEventListener(
               'dragenter',
               function (e) {
-                this.classList.add('over')
+                e.target.classList.add('over')
                 return false
               },
               false
@@ -72,7 +73,7 @@
             el.addEventListener(
               'dragleave',
               function (e) {
-                this.classList.remove('over')
+                e.target.classList.remove('over')
                 return false
               },
               false

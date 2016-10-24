@@ -30,7 +30,8 @@
       return minutes
     }
 
-    function dropEvent (hour, data, event) {
+    function dropEvent (data, event) {
+      var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
       self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
     }
