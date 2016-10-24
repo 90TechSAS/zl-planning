@@ -65,8 +65,7 @@
             el.addEventListener(
               'dragenter',
               function (e) {
-                console.log('TOTO')
-                this.classList.add('overtjttjtjtjtjtj')
+                this.classList.add('over')
                 return false
               },
               false
