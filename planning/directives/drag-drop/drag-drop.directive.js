@@ -31,13 +31,13 @@
                 dragImage.style.backgroundColor = el.style.backgroundColor
                 dragImage.style.height = el.clientHeight + 'px'
                 dragImage.style.width = Math.min(el.clientWidth, 200) + 'px'
+                dragImage.style.zIndex = '1000'
                 dragImage.style.position = 'relative'
                 dragImage.style.left = '-10000px'
                 dragImage.style.bottom = '-10000px;'
                 dragImage.innerHTML = el.innerHTML
                 e.dataTransfer.effectAllowed = 'move'
 
-                document.body.appendChild(dragImage)
                 document.body.appendChild(dragImage)
 
                 e.dataTransfer.setDragImage(dragImage,0 , el.clientHeight/2)
