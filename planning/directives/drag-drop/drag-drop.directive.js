@@ -40,7 +40,9 @@
 
                 document.body.appendChild(dragImage)
 
-                e.dataTransfer.setDragImage(dragImage,0 , el.clientHeight/2)
+                if (e.dataTransfer.setDragImage) {
+                  e.dataTransfer.setDragImage(dragImage,0 , el.clientHeight/2)
+                }
 
                 e.dataTransfer.setData('Text', JSON.stringify(scope.dragDropCtrl.zlDrag))
                 this.classList.add('drag')
