@@ -60,23 +60,30 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    </div>\n" +
     "</div>\n" +
     "\n" +
-    "<div class=\"event\"\n" +
-    "     zl-planning-drag-drop\n" +
-    "     zl-drag=\"event\"\n" +
-    "     ng-repeat=\"event in line._events\"\n" +
-    "     ng-style=\"event.style\"\n" +
-    "     ng-class=\"{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}\"\n" +
-    "     ng-click=\"planning.eventCallback({'event':event})\"\n" +
-    "     tooltip-append-to-body=\"true\"\n" +
-    "     uib-tooltip=\"{{event.tooltip}}\">\n" +
-    "    <!--<span class=\"calendar-urgency bg-pink\"></span>-->\n" +
-    "\n" +
-    "    <div class=\"event-line-container\" style=\"\">\n" +
-    "        <div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>\n" +
+    "<div style=\"position: absolute;\" ng-style=\"\" ng-repeat=\"event in line._events\">\n" +
+    "    <div ng-style=\"pre.style\" class=\"pre-event\" ng-repeat=\"pre in line.preEvent\"\n" +
+    "         tooltip-append-to-body=\"true\"\n" +
+    "         uib-tooltip=\"{{pre.tooltip}}\">\n" +
+    "        <i style=\"height: 100%; font-size: 1.2em;\" class=\"mdi mdi-car\"></i>\n" +
     "    </div>\n" +
+    "    <div class=\"event\"\n" +
+    "         zl-planning-drag-drop\n" +
+    "         zl-drag=\"event\"\n" +
+    "         ng-style=\"event.style\"\n" +
+    "         ng-class=\"{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}\"\n" +
+    "         ng-click=\"planning.eventCallback({'event':event})\"\n" +
+    "         tooltip-append-to-body=\"true\"\n" +
+    "         uib-tooltip=\"{{event.tooltip}}\">\n" +
+    "        <!--<span class=\"calendar-urgency bg-pink\"></span>-->\n" +
     "\n" +
-    "    <div class=\"title-container\"><span>{{event.title}}</span></div>\n" +
-    "</div>"
+    "        <div class=\"event-line-container\" style=\"\">\n" +
+    "            <div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"title-container\"><span>{{event.title}}</span></div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n"
   );
 
 

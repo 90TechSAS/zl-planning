@@ -18,6 +18,7 @@
 
     var self = this
 
+    self.preEvent = {}
 
     function extractMinutesFromEvent($event){
       var minutes
@@ -43,6 +44,7 @@
 
     function init () {
       //     self.SLIDER_WIDTH   = 24 * BASE_SIZE
+      self.preEvent = []
 
       self._events = angular.copy(self.events)
 
@@ -86,6 +88,29 @@
         if (event.line === undefined) event.line = MAX_PARALLEL
         event.style.top = Math.round((parseInt(event.line)) * 70 / lines.length) + '%'
         event.style.height = Math.round(70 / lines.length) + '%'
+
+        if (event.pre > 0) {
+          event.style['border-left'] = 'none'
+          var s = moment(event.start).subtract(event.pre, 'minutes')
+          var e = moment(event.start)
+          var r = moment.range(s, e)
+          var obj = {
+            style: {
+              left: (((moment(s).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(s).minutes()) * BASE_SIZE * self.zoom / 60) + 2) +  'px',
+              width: self.zoom * self.SLIDER_WIDTH * (r.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
+              top: event.style.top,
+              height: event.style.height,
+              'text-align': 'center',
+              color: '#fff',
+              position: 'absolute',
+              'border-top': '1px lightgrey solid',
+              'border-bottom': '1px lightgrey solid',
+              'border-left': '1px lightgrey solid'
+            },
+            tooltip: 'Trajet de ' + event.pre + ' min'
+          }
+          self.preEvent[event._id] = obj
+        }
       })
     }
 
