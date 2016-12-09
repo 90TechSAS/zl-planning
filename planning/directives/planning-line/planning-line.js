@@ -106,7 +106,7 @@
           var r = moment.range(s, e)
           var totalRange = moment.range(s, event.range.end)
           var percentage = r.valueOf() / totalRange.valueOf() * 100
-          event.percentage = (100 - percentage) + '%'
+          event.percentage = (100 - percentage - 1) + '%'
           var obj = {
             percentage: (percentage - 1) + '%',
             style: {
