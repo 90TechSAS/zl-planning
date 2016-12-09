@@ -12,11 +12,19 @@
    */
   function
   PlanningLineController ($scope, planningConfiguration, PositionService) {
+
     var BASE_SIZE = planningConfiguration.BASE_SIZE
     var parallelText = planningConfiguration.parallelText
     var MAX_PARALLEL = planningConfiguration.MAX_PARALLEL
 
     var self = this
+    self.log = function (a) {
+    }
+
+    self.replace = function (string) {
+      if (!string) return
+      return string.replace(/([a-zA-Z\ ])\w+/, '')
+    }
 
     self.preEvent = {}
 
@@ -43,8 +51,9 @@
     }
 
     function init () {
+      var currentId = 0
       //     self.SLIDER_WIDTH   = 24 * BASE_SIZE
-      self.preEvent = []
+      self.preEvent = {}
 
       self._events = angular.copy(self.events)
 
@@ -76,6 +85,7 @@
       })
       self._events = _.difference(self._events, toremove)
       _.each(self._events, function (event) {
+        event.id = angular.copy(currentId)
         if (event.line === MAX_PARALLEL) {
           event.style.left = (event.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + event.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px'
           event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
@@ -88,18 +98,23 @@
         if (event.line === undefined) event.line = MAX_PARALLEL
         event.style.top = Math.round((parseInt(event.line)) * 70 / lines.length) + '%'
         event.style.height = Math.round(70 / lines.length) + '%'
-
+        event.percentage = '100%'
         if (event.pre > 0) {
           event.style['border-left'] = 'none'
           var s = moment(event.start).subtract(event.pre, 'minutes')
           var e = moment(event.start)
           var r = moment.range(s, e)
+          var totalRange = moment.range(s, event.range.end)
+          var percentage = r.valueOf() / totalRange.valueOf() * 100
+          event.percentage = (100 - percentage) + '%'
           var obj = {
+            percentage: (percentage - 1) + '%',
             style: {
               left: (((moment(s).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(s).minutes()) * BASE_SIZE * self.zoom / 60) + 2) +  'px',
               width: self.zoom * self.SLIDER_WIDTH * (r.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
               top: event.style.top,
               height: event.style.height,
+              totalWidth: self.zoom * self.SLIDER_WIDTH * (totalRange.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
               'text-align': 'center',
               color: '#fff',
               position: 'absolute',
@@ -109,8 +124,9 @@
             },
             tooltip: 'Trajet de ' + event.pre + ' min'
           }
-          self.preEvent.push(obj)
+          self.preEvent[event.id] = obj
         }
+        currentId++
       })
     }
 
