@@ -60,7 +60,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    </div>\n" +
     "</div>\n" +
     "\n" +
-    "<div ng-repeat=\"event in line._events\" ng-click=\"line.log(event)\"\n" +
+    "<div ng-repeat=\"event in line._events\"\n" +
     "     zl-planning-drag-drop\n" +
     "     ng-click=\"planning.eventCallback({'event':event})\"\n" +
     "     zl-drag=\"event\"\n" +
