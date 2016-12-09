@@ -109,7 +109,7 @@
             },
             tooltip: 'Trajet de ' + event.pre + ' min'
           }
-          self.preEvent[event._id] = obj
+          self.preEvent.push(obj)
         }
       })
     }
