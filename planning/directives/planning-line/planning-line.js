@@ -122,7 +122,7 @@
               'border-bottom': '1px lightgrey solid',
               'border-left': '1px lightgrey solid'
             },
-            tooltip: 'Trajet de ' + event.pre + ' min'
+            tooltip: 'Trajet estimé de ' + event.pre + ' min'
           }
           self.preEvent[event.id] = obj
         }

@@ -26,7 +26,7 @@
          style="display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
          class="pre-event"
          tooltip-append-to-body="true"
-         uib-tooltip="{{line.preEvent[even.id].tooltip}}">
+         uib-tooltip="{{line.preEvent[event.id].tooltip}}">
         <div class="title-container">
             <span>
             <i style="height: 100%; font-size: 1.2em;" class="mdi mdi-car"></i>
@@ -35,6 +35,8 @@
 
     </div>
     <div class="event" style="display: inline-block; position: relative; height: 100%;"
+         tooltip-append-to-body="true"
+         uib-tooltip="{{event.tooltip}}"
          ng-style="{
          width: event.percentage,
          background: event.style['background-color'],

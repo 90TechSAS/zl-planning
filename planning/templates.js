@@ -75,7 +75,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "         style=\"display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;\"\n" +
     "         class=\"pre-event\"\n" +
     "         tooltip-append-to-body=\"true\"\n" +
-    "         uib-tooltip=\"{{line.preEvent[even.id].tooltip}}\">\n" +
+    "         uib-tooltip=\"{{line.preEvent[event.id].tooltip}}\">\n" +
     "        <div class=\"title-container\">\n" +
     "            <span>\n" +
     "            <i style=\"height: 100%; font-size: 1.2em;\" class=\"mdi mdi-car\"></i>\n" +
@@ -84,6 +84,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "    </div>\n" +
     "    <div class=\"event\" style=\"display: inline-block; position: relative; height: 100%;\"\n" +
+    "         tooltip-append-to-body=\"true\"\n" +
+    "         uib-tooltip=\"{{event.tooltip}}\"\n" +
     "         ng-style=\"{\n" +
     "         width: event.percentage,\n" +
     "         background: event.style['background-color'],\n" +
