@@ -35,6 +35,7 @@
                 dragImage.style.bottom = '-10000px;'
                 dragImage.innerHTML = el.innerHTML
                 if (el.children.length > 1) {
+                  dragImage.children[0].style.float = 'left'
                   dragImage.style.backgroundColor = el.children[1].style.backgroundColor
                   dragImage.style.width = el.clientWidth + 'px'
                 } else {

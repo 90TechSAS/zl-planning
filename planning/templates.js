@@ -71,17 +71,23 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        left: event.pre > 0 ? line.preEvent[event.id].style.left : event.style.left\n" +
     "    }\" style=\"position: absolute;\"\n" +
     ">\n" +
-    "    <div ng-if=\"event.pre > 0\" ng-style=\"{width: line.preEvent[event.id].percentage}\"\n" +
-    "         style=\"display: inline-block; position: relative; height: 100%; text-align: center; color: white\"\n" +
+    "    <div ng-if=\"event.pre > 0\" ng-style=\"{width: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}\"\n" +
+    "         style=\"display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;\"\n" +
     "         class=\"pre-event\"\n" +
     "         tooltip-append-to-body=\"true\"\n" +
     "         uib-tooltip=\"{{line.preEvent[even.id].tooltip}}\">\n" +
-    "        <i style=\"height: 100%; font-size: 1.2em;\" class=\"mdi mdi-car\"></i>\n" +
+    "        <div class=\"title-container\">\n" +
+    "            <span>\n" +
+    "            <i style=\"height: 100%; font-size: 1.2em;\" class=\"mdi mdi-car\"></i>\n" +
+    "            </span>\n" +
+    "        </div>\n" +
+    "\n" +
     "    </div>\n" +
     "    <div class=\"event\" style=\"display: inline-block; position: relative; height: 100%;\"\n" +
     "         ng-style=\"{\n" +
     "         width: event.percentage,\n" +
-    "         background: event.style['background-color']\n" +
+    "         background: event.style['background-color'],\n" +
+    "         'border-left': event.pre > 0 ? 'none': ''\n" +
     "         }\">\n" +
     "        <div class=\"event-line-container\" style=\"\">\n" +
     "            <div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>\n" +

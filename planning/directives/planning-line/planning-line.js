@@ -106,9 +106,9 @@
           var r = moment.range(s, e)
           var totalRange = moment.range(s, event.range.end)
           var percentage = r.valueOf() / totalRange.valueOf() * 100
-          event.percentage = (100 - percentage - 1) + '%'
+          event.percentage = (100 - percentage) + '%'
           var obj = {
-            percentage: (percentage - 1) + '%',
+            percentage: (percentage) + '%',
             style: {
               left: (((moment(s).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(s).minutes()) * BASE_SIZE * self.zoom / 60) + 2) +  'px',
               width: self.zoom * self.SLIDER_WIDTH * (r.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
@@ -117,7 +117,7 @@
               totalWidth: self.zoom * self.SLIDER_WIDTH * (totalRange.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
               'text-align': 'center',
               color: '#fff',
-              position: 'absolute',
+              'background' : 'repeating-linear-gradient(45deg, ' +  event['background-color']  + ', ' +  event['background-color']  + ' 10px, white 10px, white 20px)',
               'border-top': '1px lightgrey solid',
               'border-bottom': '1px lightgrey solid',
               'border-left': '1px lightgrey solid'
