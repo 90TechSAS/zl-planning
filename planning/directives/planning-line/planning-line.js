@@ -102,6 +102,9 @@
         if (event.pre > 0) {
           event.style['border-left'] = 'none'
           var s = moment(event.start).subtract(event.pre, 'minutes')
+          if (!moment(s).isSame(event.start, 'day')) {
+            s = moment(event.start).startOf('day')
+          }
           var e = moment(event.start)
           var r = moment.range(s, e)
           var totalRange = moment.range(s, event.range.end)
@@ -124,7 +127,12 @@
             },
             tooltip: 'Trajet estimé de ' + event.pre + ' min'
           }
-          self.preEvent[event.id] = obj
+          if (percentage > 0) {
+            self.preEvent[event.id] = obj
+          } else {
+            event.pre = 0
+          }
+
         }
         currentId++
       })
