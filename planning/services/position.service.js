@@ -24,11 +24,19 @@
      * @param doublecheck Boolean If true, check if day isn't same between two events (useful for monthly view where hours doesn't overlap on same day)
      */
     function overlap (lines, event, maxParallelEvents, toRemove, doublecheck) {
+      var range = event.pre > 0
+        ? moment.range(moment(event.start).subtract(event.pre, 'minutes'), moment(event.end))
+        : event.range
       for (var i = 0; i < lines.length; i++) {
         if (event.depth > maxParallelEvents) {
           var overlap = false
           _.each(lines[maxParallelEvents], function (elt) {
-            overlap = event.range.overlaps(elt.range)
+
+            var eltRange = elt.pre > 0
+              ? moment.range(moment(elt.start).subtract(elt.pre, 'minutes'), moment(elt.end))
+              : elt.range
+
+            overlap = range.overlaps(eltRange)
             if (!overlap && doublecheck) {
               overlap = (event.start.day() === elt.start.day() || event.start.day() === elt.end.day() || event.end.day() === elt.start.day() || event.end.day() === elt.end.day())
             }
@@ -63,7 +71,10 @@
           break
         }
         if (_.filter(lines[i], function (elt) { // if any event in lines[i] overlap
-          overlap = event.range.overlaps(elt.range)
+          var eltRange = elt.pre > 0
+            ? moment.range(moment(elt.start).subtract(elt.pre, 'minutes'), moment(elt.end))
+            : elt.range
+          overlap = range.overlaps(eltRange)
           if (!overlap && doublecheck) {
             overlap = (event.start.day() === elt.start.day() || event.start.day() === elt.end.day() || event.end.day() === elt.start.day() || event.end.day() === elt.end.day())
           }

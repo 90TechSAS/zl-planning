@@ -28,14 +28,20 @@
             el.addEventListener(
               'dragstart',
               function (e) {
-                dragImage.style.backgroundColor = el.style.backgroundColor
                 dragImage.style.height = el.clientHeight + 'px'
-                dragImage.style.width = Math.min(el.clientWidth, 200) + 'px'
                 dragImage.style.zIndex = '1000'
                 dragImage.style.position = 'relative'
                 dragImage.style.left = '-10000px'
                 dragImage.style.bottom = '-10000px;'
                 dragImage.innerHTML = el.innerHTML
+                if (el.children.length > 1) {
+                  dragImage.children[0].style.float = 'left'
+                  dragImage.style.backgroundColor = el.children[1].style.backgroundColor
+                  dragImage.style.width = el.clientWidth + 'px'
+                } else {
+                  dragImage.style.width = Math.min(el.clientWidth, 200) + 'px'
+                  dragImage.style.backgroundColor = el.children[0].style.backgroundColor
+                }
                 e.dataTransfer.effectAllowed = 'move'
 
                 document.body.appendChild(dragImage)

@@ -5,26 +5,67 @@
          ng-style="{width: line.calcWidth(line.zoom)}"
          ng-repeat="n in [] | range:line.range"
          ng-dblclick="line.clickEvent(n, $event)"
-        hour="{{n}}">
+         hour="{{n}}">
         <span class="half-hour"></span>
 
     </div>
 </div>
 
-<div class="event"
+<div ng-repeat="event in line._events"
      zl-planning-drag-drop
-     zl-drag="event"
-     ng-repeat="event in line._events"
-     ng-style="event.style"
-     ng-class="{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}"
      ng-click="planning.eventCallback({'event':event})"
-     tooltip-append-to-body="true"
-     uib-tooltip="{{event.tooltip}}">
-    <!--<span class="calendar-urgency bg-pink"></span>-->
+     zl-drag="event"
+     ng-style="{
+        height: event.style.height,
+        top: event.style.top,
+        width: event.pre > 0 ? line.preEvent[event.id].style.totalWidth : event.style.width,
+        left: event.pre > 0 ? line.preEvent[event.id].style.left : event.style.left
+    }" style="position: absolute;"
+>
+    <div ng-if="event.pre > 0" ng-style="{width: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}"
+         style="display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
+         class="pre-event"
+         tooltip-append-to-body="true"
+         uib-tooltip="{{line.preEvent[event.id].tooltip}}">
+        <div class="title-container">
+            <span>
+            <i style="height: 100%; font-size: 1.2em;" class="mdi mdi-car"></i>
+            </span>
+        </div>
 
-    <div class="event-line-container" style="">
-        <div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>
     </div>
+    <div class="event" style="display: inline-block; position: relative; height: 100%;"
+         tooltip-append-to-body="true"
+         uib-tooltip="{{event.tooltip}}"
+         ng-style="{
+         width: event.percentage,
+         background: event.style['background-color'],
+         'border-left': event.pre > 0 ? 'none': ''
+         }">
+        <div class="event-line-container" style="">
+            <div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>
+        </div>
 
-    <div class="title-container"><span>{{event.title}}</span></div>
+        <div class="title-container"><span>{{event.title}}</span></div>
+    </div>
 </div>
+
+
+<!--<div class="event"-->
+<!--zl-planning-drag-drop-->
+<!--zl-drag="event"-->
+<!--ng-repeat="event in line._events"-->
+<!--ng-style="event.style"-->
+<!--ng-class="{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}"-->
+<!--ng-click="planning.eventCallback({'event':event})"-->
+<!--tooltip-append-to-body="true"-->
+<!--uib-tooltip="{{event.tooltip}}">-->
+<!--&lt;!&ndash;<span class="calendar-urgency bg-pink"></span>&ndash;&gt;-->
+
+<!--<div class="event-line-container" style="">-->
+<!--<div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>-->
+<!--</div>-->
+
+<!--<div class="title-container"><span>{{event.title}}</span></div>-->
+<!--</div>-->
+
