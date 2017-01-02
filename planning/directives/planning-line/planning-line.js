@@ -5,13 +5,13 @@
     .module('90Tech.planning')
     .directive('zlPlanningLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService']
+  PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService', 'ColorService']
 
   /**
    *
    */
   function
-  PlanningLineController ($scope, planningConfiguration, PositionService) {
+  PlanningLineController ($scope, planningConfiguration, PositionService, ColorService) {
 
     var BASE_SIZE = planningConfiguration.BASE_SIZE
     var parallelText = planningConfiguration.parallelText
@@ -80,6 +80,11 @@
         //   style.left                = event.start.hours() * 150 + event.start.minutes() * 150 / 60 + 'px'
         style.width = self.zoom * self.SLIDER_WIDTH * (event.range) / self.SECONDS_BY_DAY / 1000 + 'px'
         style['background-color'] = event['background-color'] || '#778899'
+        if (ColorService.getLuminance(style['background-color'])> 200){
+          style.color = 'black'
+        } else {
+          style.color = 'white'
+        }
         event.style = style
         PositionService.overlap(lines, event, MAX_PARALLEL, toremove)
       })

@@ -76,7 +76,7 @@
         var green = Math.floor(Math.random() * (25))
         var blue = Math.floor(Math.random() * (255))
         $scope.events[i].color = 'rgb(' + blue + ',' + red + ',' + green + ')'
-        $scope.events[i]['background-color'] = 'rgb(' + red + ',' + green + ',' + blue + ')'
+        $scope.events[i]['background-color'] = 'rgb(200,250,200)'
       }
     }
 

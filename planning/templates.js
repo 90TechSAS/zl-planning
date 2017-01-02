@@ -89,6 +89,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "         ng-style=\"{\n" +
     "         width: event.percentage,\n" +
     "         background: event.style['background-color'],\n" +
+    "         color: event.style.color,\n" +
     "         'border-left': event.pre > 0 ? 'none': ''\n" +
     "         }\">\n" +
     "        <div class=\"event-line-container\" style=\"\">\n" +

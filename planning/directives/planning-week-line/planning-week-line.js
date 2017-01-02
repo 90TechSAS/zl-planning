@@ -5,12 +5,12 @@
     .module('90Tech.planning')
     .directive('zlPlanningWeekLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$scope', 'PositionService', 'planningConfiguration']
+  PlanningLineController.$inject = ['$scope', 'PositionService', 'planningConfiguration', 'ColorService']
 
   /**
    *
    */
-  function PlanningLineController ($scope, PositionService, planningConfiguration) {
+  function PlanningLineController ($scope, PositionService, planningConfiguration, ColorService) {
     var self = this
 
     var parallelText = planningConfiguration.parallelText
@@ -47,7 +47,12 @@
       event.style.left = calculateLeft(event)
       event.style.width = calculateWidth(event)
       event.style['background-color'] = event['background-color']
-      event.style.color = 'black'
+      if (ColorService.getLuminance(event.style['background-color'])> 200){
+        event.style.color = 'black'
+      } else{
+        event.style.color = 'white'
+      }
+
       event.style.top = Math.ceil((event.line) * 100 / height) + '%'
       event.style.height = Math.round(100 / height) + '%'
       if (event.line === undefined) event.line = MAX_PARALLEL
