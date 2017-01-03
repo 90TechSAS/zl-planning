@@ -207,6 +207,14 @@
       sortedEvents = sortedEvents || {}
       var startingDay = moment(self.position).weekday(0).dayOfYear()
       _.times(7, function (i) {
+        /* Handle week overlapping two years by adding days #366, #367, etc
+         *  And remove day #1, 2, etc
+         *  To prevent them from appearing on top
+          * */
+        if (startingDay >= 358 && sortedEvents[i]){
+          sortedEvents[startingDay + 5 + i] = sortedEvents[i]
+          delete sortedEvents[i]
+        }
         if (!sortedEvents[startingDay + i]) {
           sortedEvents[startingDay + i] = []
         }
