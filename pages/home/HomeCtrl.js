@@ -10,11 +10,11 @@
       $scope.moment = pikaday.getMoment()
     }
     $scope.moment = moment().month($scope.viewMonth)
-    $scope.mode = 'week'
+    $scope.mode = 'week-advanced'
 
     $scope.zoom = 10
-    $scope.start = 8
-    $scope.end = 19
+    $scope.start = 0
+    $scope.end = 23
     var technicians = [ 'titi', 'toto', 'tutu' ]
     $scope.events = []
 
@@ -39,8 +39,12 @@
         $scope.moment = moment().month($scope.viewMonth)
 
         for (var i = 0; i < $scope.nbEvents; i++) {
-          var start = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
-          var end = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
+          var d = Math.ceil(Math.random()*7)-1
+          var dd = Math.ceil(Math.random()*7)-1
+          var start = moment(month).weekday(d).hour(Math.ceil(Math.random()*24)).minutes(Math.ceil(Math.random()*60))
+          var end = moment(month).weekday(dd).hour(Math.ceil(Math.random()*24)).minutes(Math.ceil(Math.random()*60))
+          //var start = angular.copy(month).hours(Math.random() * 23).minutes(Math.random()*60)
+          ///var end = angular.copy(month).add(Math.random() * 23, 'h') //.hours(Math.random() * 23).minutes(Math.random()*60)
           $scope.events.push({
             title: generateRandomText(),
             start: start,
@@ -48,15 +52,15 @@
             technician: technicians[ Math.floor(Math.random() * 3) ]
           })
         }
-        for (i = 0; i < $scope.nbEvents * 2; i++) {
+     /*   for (i = 0; i < $scope.nbEvents * 2; i++) {
           var date = angular.copy(month).date(Math.random() * (month.daysInMonth() - 1) + 1)
           $scope.events.push({
             title: generateRandomText() + ' - ' + i,
             start: date,
-            end: date,
+            end: moment(date).add(3, 'h'),
             technician: technicians[ Math.floor(Math.random() * 3) ]
           })
-        }
+        }*/
       /*} else {
         $scope.events = [
           {title: 'acoucou', technician: 'atoto', tooltip: 'I Have a tooltip', start: moment().hours(8).minutes(15), end: moment().hours(19).minutes(0)},
@@ -76,7 +80,7 @@
         var green = Math.floor(Math.random() * (25))
         var blue = Math.floor(Math.random() * (255))
         $scope.events[i].color = 'rgb(' + blue + ',' + red + ',' + green + ')'
-        $scope.events[i]['background-color'] = 'rgb(200,250,200)'
+        $scope.events[i]['background-color'] = 'rgb(' + red + ',' + green + ',' + blue + ')'//'rgb(200,250,200)'
       }
     }
 
@@ -84,7 +88,10 @@
 
     $scope.callback = function (a) {
       console.log('a', a)
-      window.alert('Event clicked: ' + JSON.stringify(a))
+      window.alert('Event clicked: ' +
+        '\nstart: ' + a.start.format('HH:mm') +
+        '\nend: ' + a.end.format('HH:mm') +
+        '\n' + JSON.stringify(a))
     }
 
     $scope.dayCallback = function (d) {

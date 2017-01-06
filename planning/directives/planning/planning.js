@@ -32,13 +32,25 @@
         })
 
         addMissingDays(self.sortedEvents)
-      } else if (self.mode === 'day') {
+      } else if (self.mode === 'day' || self.mode === 'week-advanced') {
         self._events = (_.flatten(_.map(self.events, split)))
         self._events = filter(self._events)
+
         self.sortedEvents = _.groupBy(self._events, function (e) {
           return e[self.dayField]
         })
+        /* If we are in advanced week mode, we have a double grouping: first by technician, then by day of week */
+        if (self.mode === 'week-advanced') {
+          self.sortedEvents = _.mapValues(self.sortedEvents, function (eventsByTechnician) {
+            return _.groupBy(eventsByTechnician, function (e) {
+              return e.start.weekday()
+            })
+            addMissingDays(sorted)
+            return sorted
+          })
+        }
         addMissingEntities(self.sortedEvents)
+       // console.log(self.sortedEvents)
       } else if (self.mode === 'month') {
         var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0)
         self.month = moment(self.position).date(1).hours(0).minutes(0).seconds(0).format('MMMM')
@@ -189,7 +201,7 @@
     function filter (events) { // remove event not in range (month, week, day)
       return _.filter(events, function (e) {
         var start, stop
-        if (self.mode === 'week') {
+        if (self.mode === 'week' || self.mode === 'week-advanced') {
           start = moment(self.position).weekday(0).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
           stop = moment(self.position).weekday(6).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
         } else if (self.mode === 'day') {
@@ -210,8 +222,8 @@
         /* Handle week overlapping two years by adding days #366, #367, etc
          *  And remove day #1, 2, etc
          *  To prevent them from appearing on top
-          * */
-        if (startingDay >= 358 && sortedEvents[i]){
+         * */
+        if (startingDay >= 358 && sortedEvents[i]) {
           sortedEvents[startingDay + 5 + i] = sortedEvents[i]
           delete sortedEvents[i]
         }

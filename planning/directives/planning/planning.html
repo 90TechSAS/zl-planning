@@ -1,4 +1,4 @@
-<div ng-if="planning.mode !=='month'" style="height: 100%;">
+<div ng-if="planning.mode ==='day' || planning.mode === 'week'" style="height: 100%;">
     <zl-planning-left-column mode="planning.mode" position="planning.position" day-field="planning.dayField"
                              events="planning.sortedEvents"></zl-planning-left-column>
     <div class="" style="height:100%">
@@ -25,7 +25,56 @@
         </div>
     </div>
 </div>
-<div ng-if="planning.mode =='month'" style="height: 100%; z-index: 1000;">
+
+<div ng-if="planning.mode ==='week-advanced'" style="height:100%;width:100%">
+    <div class="" style="width:100%;display:flex; border-bottom:1px solid black;">
+        <div class="day" style="flex:0.5;border-right:1px solid black;"></div>
+        <div class="day" style="flex:1;border-right:1px solid black;" ng-repeat="day in [
+        'Lundi','Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
+        "><span class="day-text"
+                style="
+                    padding:10px;
+                    text-align:center;
+                    vertical-align:center;"
+        >{{day}}</span></div>
+
+    </div>
+
+    <div>
+        <div style="
+        width:100%;
+        display:flex;
+        border-bottom:1px solid black;"
+             ng-repeat="(name,v) in planning.sortedEvents">
+            <div style="
+                flex:0.5;
+                box-sizing:border-box;
+                 text-align:center;
+                 vertical-align:middle;"
+            >
+                <span style="margin:auto">{{name}}</span>
+            </div>
+            <div ng-repeat="day in [0,1,2,3,4,5,6]"
+                 style="
+                    box-sizing:border-box;
+                    flex:1;
+                    border-right:1px solid black;
+                    position:relative;">
+                <zl-planning-vertical-line
+                        zoom="planning.zoom"
+                        day-start="planning._dayStart" day-end="planning._dayEnd"
+                        events=" planning.getEvents(name)[day]">
+                </zl-planning-vertical-line>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<div ng-if="planning.mode === 'month'" style="height: 100%; z-index: 1000;">
     <div class="month-header">
         <span class="month-text">{{planning.month | capitalize}}</span>
     </div>
@@ -42,6 +91,8 @@
         <zl-planning-day ng-repeat="day in planning.days" day="day" events="planning._events"
                          drop-callback="planning.dropEvent($data, $event, day.date)"
                          ng-dblclick="planning.clickWeekEvent(day, $event)"></zl-planning-day>
-        <zl-planning-week-line ng-repeat="(week, events) in planning.multipleDaysEvents"  events="events" week="week" one-day-events="planning.oneDayEvents[week]" style="height: 20%; pointer-events: none"></zl-planning-week-line>
+        <zl-planning-week-line ng-repeat="(week, events) in planning.multipleDaysEvents" events="events" week="week"
+                               one-day-events="planning.oneDayEvents[week]"
+                               style="height: 20%; pointer-events: none"></zl-planning-week-line>
     </div>
 </div>
