@@ -10,6 +10,8 @@
         nothing_to_show: 'Rien à afficher'
       }
 
+      self.DAYS = [0, 1, 2, 3, 4, 5, 6]
+
       self.parallelText = 'parallel items'
 
       this.setParallelText = function (text) {
@@ -27,8 +29,18 @@
         self.strings[key] = value
       }
 
+      this.setDays = function (value) {
+        self.DAYS = value
+      }
+
       this.$get = [function () {
-        return {strings: self.strings, BASE_SIZE: self.BASE_SIZE, MAX_PARALLEL: self.MAX_PARALLEL, parallelText: self.parallelText}
+        return {
+          strings: self.strings,
+          BASE_SIZE: self.BASE_SIZE,
+          MAX_PARALLEL: self.MAX_PARALLEL,
+          parallelText: self.parallelText,
+          DAYS: self.DAYS
+        }
       }]
     })
 }(window.angular))

@@ -26,48 +26,27 @@
     </div>
 </div>
 
-<div ng-if="planning.mode ==='week-advanced'" style="height:100%;width:100%">
-    <div class="" style="width:100%;display:flex; border-bottom:1px solid black;">
-        <div class="day" style="flex:0.5;border-right:1px solid black;"></div>
-        <div class="day" style="flex:1;border-right:1px solid black;" ng-repeat="day in [
-        'Lundi','Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
-        "><span class="day-text"
-                style="
-                    padding:10px;
-                    text-align:center;
-                    vertical-align:center;"
-        >{{day}}</span></div>
-
+<div ng-if="planning.mode ==='week-advanced'" class="advanced-week">
+    <div class="days-list">
+        <div class="day-advanced">&nbsp;</div>
+        <div class="day-advanced" ng-repeat="day in planning.allowedDays">
+            <span class="day-text"
+            >{{day | day}}</span></div>
     </div>
 
-    <div>
-        <div style="
-        width:100%;
-        display:flex;
-        border-bottom:1px solid black;"
-             ng-repeat="(name,v) in planning.sortedEvents">
-            <div style="
-                flex:0.5;
-                box-sizing:border-box;
-                 text-align:center;
-                 vertical-align:middle;"
-            >
-                <span style="margin:auto">{{name}}</span>
-            </div>
-            <div ng-repeat="day in [0,1,2,3,4,5,6]"
-                 style="
-                    box-sizing:border-box;
-                    flex:1;
-                    border-right:1px solid black;
-                    position:relative;">
-                <zl-planning-vertical-line
-                        zoom="planning.zoom"
-                        day-start="planning._dayStart" day-end="planning._dayEnd"
-                        events=" planning.getEvents(name)[day]">
-                </zl-planning-vertical-line>
-            </div>
+    <div class="advanced-week-container"
+         ng-repeat="(name,v) in planning.sortedEvents">
+        <div class="left-column-advanced">
+            <span style="margin:auto">{{name}}</span>
         </div>
-
+        <div ng-repeat="day in planning.allowedDays"
+             class="day-advanced">
+            <zl-planning-vertical-line
+                    zoom="planning.zoom"
+                    day-start="planning._dayStart" day-end="planning._dayEnd"
+                    events=" planning.getEvents(name)[day]">
+            </zl-planning-vertical-line>
+        </div>
     </div>
 
 
@@ -79,13 +58,7 @@
         <span class="month-text">{{planning.month | capitalize}}</span>
     </div>
     <div class="day-header">
-        <div class="day"><span class="day-text">Lundi</span></div>
-        <div class="day"><span class="day-text">Mardi</span></div>
-        <div class="day"><span class="day-text">Mercredi</span></div>
-        <div class="day"><span class="day-text">Jeudi</span></div>
-        <div class="day"><span class="day-text">Vendredi</span></div>
-        <div class="day"><span class="day-text">Samedi</span></div>
-        <div class="day"><span class="day-text">Dimanche</span></div>
+        <div class="day" ng-repeat="day in []|range:7"><span class="day-text">{{day | day}}</span></div>
     </div>
     <div class="month-container">
         <zl-planning-day ng-repeat="day in planning.days" day="day" events="planning._events"

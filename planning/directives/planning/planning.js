@@ -15,6 +15,8 @@
     function init () {
       self.zoom = parseInt(self.zoom)
 
+      self.allowedDays = planningConfiguration.DAYS
+
       if (!self.zoom || self.zoom < 1) {
         self.zoom = 1
       }

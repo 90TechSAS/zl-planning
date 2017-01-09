@@ -115,13 +115,9 @@
     }
 
     $scope.switch = function () {
-      if ($scope.mode === 'month') {
-        $scope.mode = 'week'
-      } else if ($scope.mode === 'week') {
-        $scope.mode = 'day'
-      } else if ($scope.mode === 'day') {
-        $scope.mode = 'month'
-      }
+      var modes = [ 'month', 'week', 'week-advanced', 'day']
+      $scope.mode = modes[(modes.indexOf($scope.mode)+1) % modes.length ]
+      console.log($scope.mode)
       $scope.init()
     }
   }])

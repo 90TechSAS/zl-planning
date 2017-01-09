@@ -2,6 +2,48 @@ zl-planning {
   height: 100%;
 }
 
+.advanced-week {
+  height: 100%;
+  width: 100%;
+  .days-list {
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid black;
+    align-content: stretch;
+
+    .day-advanced {
+      box-sizing:border-box;
+      flex:1;
+      border-right:1px solid black;
+      min-height:1.2em;
+      text-align:center;
+      &:first-of-type {
+        flex: 0.5;
+      }
+    }
+  }
+
+  .advanced-week-container {
+    width:100%;
+    display:flex;
+    border-bottom:1px solid black;
+    align-content:stretch;
+    .left-column-advanced {
+      flex:0.5;
+      box-sizing:border-box;
+      text-align:center;
+      border-right:1px solid black;
+      display:flex;
+    }
+    .day-advanced {
+      flex:1;
+      border-right:1px solid black;
+      position:relative;
+    }
+  }
+
+}
+
 .today {
   background-color: lightgrey !important;
 }
@@ -25,13 +67,11 @@ zl-planning {
   flex: 1;
 }
 
-
 .planning-2pc {
   display: block;
   height: 2%;
   width: 100%;
 }
-
 
 .hour-cursor {
   border-left: 1px solid #03a9f4;
@@ -62,14 +102,18 @@ zl-planning {
     border-bottom: 1px solid darkgray;
   }
 }
+
 .month-header {
   width: 50%;
-  margin-left:auto;
+  margin-left: auto;
   height: 2%;
 }
 
-.day-block.over{
-  border:2px solid black;
+.day-block.over {
+  border: 2px solid black;
 }
 
-zl-planning-line.ng-animate { transition:none; keyframe:0s none; }
+zl-planning-line.ng-animate {
+  transition: none;
+  keyframe: 0s none;
+}

@@ -7,6 +7,44 @@
 zl-planning {
   height: 100%;
 }
+.advanced-week {
+  height: 100%;
+  width: 100%;
+}
+.advanced-week .days-list {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+  align-content: stretch;
+}
+.advanced-week .days-list .day-advanced {
+  box-sizing: border-box;
+  flex: 1;
+  border-right: 1px solid black;
+  min-height: 1.2em;
+  text-align: center;
+}
+.advanced-week .days-list .day-advanced:first-of-type {
+  flex: 0.5;
+}
+.advanced-week .advanced-week-container {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+  align-content: stretch;
+}
+.advanced-week .advanced-week-container .left-column-advanced {
+  flex: 0.5;
+  box-sizing: border-box;
+  text-align: center;
+  border-right: 1px solid black;
+  display: flex;
+}
+.advanced-week .advanced-week-container .day-advanced {
+  flex: 1;
+  border-right: 1px solid black;
+  position: relative;
+}
 .today {
   background-color: lightgrey !important;
 }

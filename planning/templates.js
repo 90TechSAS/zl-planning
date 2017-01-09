@@ -284,48 +284,27 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    </div>\n" +
     "</div>\n" +
     "\n" +
-    "<div ng-if=\"planning.mode ==='week-advanced'\" style=\"height:100%;width:100%\">\n" +
-    "    <div class=\"\" style=\"width:100%;display:flex; border-bottom:1px solid black;\">\n" +
-    "        <div class=\"day\" style=\"flex:0.5;border-right:1px solid black;\"></div>\n" +
-    "        <div class=\"day\" style=\"flex:1;border-right:1px solid black;\" ng-repeat=\"day in [\n" +
-    "        'Lundi','Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']\n" +
-    "        \"><span class=\"day-text\"\n" +
-    "                style=\"\n" +
-    "                    padding:10px;\n" +
-    "                    text-align:center;\n" +
-    "                    vertical-align:center;\"\n" +
-    "        >{{day}}</span></div>\n" +
-    "\n" +
+    "<div ng-if=\"planning.mode ==='week-advanced'\" class=\"advanced-week\">\n" +
+    "    <div class=\"days-list\">\n" +
+    "        <div class=\"day-advanced\">&nbsp;</div>\n" +
+    "        <div class=\"day-advanced\" ng-repeat=\"day in planning.allowedDays\">\n" +
+    "            <span class=\"day-text\"\n" +
+    "            >{{day | day}}</span></div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div>\n" +
-    "        <div style=\"\n" +
-    "        width:100%;\n" +
-    "        display:flex;\n" +
-    "        border-bottom:1px solid black;\"\n" +
-    "             ng-repeat=\"(name,v) in planning.sortedEvents\">\n" +
-    "            <div style=\"\n" +
-    "                flex:0.5;\n" +
-    "                box-sizing:border-box;\n" +
-    "                 text-align:center;\n" +
-    "                 vertical-align:middle;\"\n" +
-    "            >\n" +
-    "                <span style=\"margin:auto\">{{name}}</span>\n" +
-    "            </div>\n" +
-    "            <div ng-repeat=\"day in [0,1,2,3,4,5,6]\"\n" +
-    "                 style=\"\n" +
-    "                    box-sizing:border-box;\n" +
-    "                    flex:1;\n" +
-    "                    border-right:1px solid black;\n" +
-    "                    position:relative;\">\n" +
-    "                <zl-planning-vertical-line\n" +
-    "                        zoom=\"planning.zoom\"\n" +
-    "                        day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
-    "                        events=\" planning.getEvents(name)[day]\">\n" +
-    "                </zl-planning-vertical-line>\n" +
-    "            </div>\n" +
+    "    <div class=\"advanced-week-container\"\n" +
+    "         ng-repeat=\"(name,v) in planning.sortedEvents\">\n" +
+    "        <div class=\"left-column-advanced\">\n" +
+    "            <span style=\"margin:auto\">{{name}}</span>\n" +
     "        </div>\n" +
-    "\n" +
+    "        <div ng-repeat=\"day in planning.allowedDays\"\n" +
+    "             class=\"day-advanced\">\n" +
+    "            <zl-planning-vertical-line\n" +
+    "                    zoom=\"planning.zoom\"\n" +
+    "                    day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
+    "                    events=\" planning.getEvents(name)[day]\">\n" +
+    "            </zl-planning-vertical-line>\n" +
+    "        </div>\n" +
     "    </div>\n" +
     "\n" +
     "\n" +
@@ -337,13 +316,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        <span class=\"month-text\">{{planning.month | capitalize}}</span>\n" +
     "    </div>\n" +
     "    <div class=\"day-header\">\n" +
-    "        <div class=\"day\"><span class=\"day-text\">Lundi</span></div>\n" +
-    "        <div class=\"day\"><span class=\"day-text\">Mardi</span></div>\n" +
-    "        <div class=\"day\"><span class=\"day-text\">Mercredi</span></div>\n" +
-    "        <div class=\"day\"><span class=\"day-text\">Jeudi</span></div>\n" +
-    "        <div class=\"day\"><span class=\"day-text\">Vendredi</span></div>\n" +
-    "        <div class=\"day\"><span class=\"day-text\">Samedi</span></div>\n" +
-    "        <div class=\"day\"><span class=\"day-text\">Dimanche</span></div>\n" +
+    "        <div class=\"day\" ng-repeat=\"day in []|range:7\"><span class=\"day-text\">{{day | day}}</span></div>\n" +
     "    </div>\n" +
     "    <div class=\"month-container\">\n" +
     "        <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\"\n" +
