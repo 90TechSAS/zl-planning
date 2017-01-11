@@ -47,7 +47,7 @@
                 document.body.appendChild(dragImage)
 
                 if (e.dataTransfer.setDragImage) {
-                  e.dataTransfer.setDragImage(dragImage,0 , el.clientHeight/2)
+                  e.dataTransfer.setDragImage(dragImage,0,0)
                 }
 
                 e.dataTransfer.setData('Text', JSON.stringify(scope.dragDropCtrl.zlDrag))

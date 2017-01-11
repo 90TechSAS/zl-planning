@@ -6,8 +6,7 @@
          ng-repeat="n in [] | range:line.range"
          ng-dblclick="line.clickEvent(n, $event)"
          hour="{{n}}">
-        <span class="half-hour"></span>
-
+        <span class="hour-text">{{n+1}}</span>
     </div>
 </div>
 
@@ -22,30 +21,28 @@
         top: event.pre > 0 ? line.preEvent[event.id].style.left : event.style.left
     }" style="position: absolute;"
 >
-<!--
- TODO Uncomment me when everything else works
- <div ng-if="event.pre > 0" ng-style="{width: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}"
-         style="display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
-         class="pre-event"
-         tooltip-append-to-body="true"
-         uib-tooltip="{{line.preEvent[event.id].tooltip}}">
-        <div class="title-container">
-            <span>
-            <i style="width: 100%; font-size: 1.2em;" class="mdi mdi-car"></i>
-            </span>
+     <div ng-if="event.pre > 0" ng-style="{height: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}"
+             style="display: inline-block; position: relative; width: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
+             class="pre-event"
+             tooltip-append-to-body="true"
+             uib-tooltip="{{line.preEvent[event.id].tooltip}}">
+            <div class="title-container">
+                <span>
+                <i style="width: 100%; font-size: 1.2em;" class="mdi mdi-car"></i>
+                </span>
+            </div>
+
         </div>
 
-    </div>
-    -->
     <div class="event" style="display: inline-block; position: relative; width: 100%;"
          tooltip-append-to-body="true"
          uib-tooltip="{{event.tooltip}}"
          ng-style="{
-         height: event.percentage,
-         background: event.style['background-color'],
-         color: event.style.color,
-         'border-left': event.pre > 0 ? 'none': ''
-         }">
+             height: event.percentage,
+             background: event.style['background-color'],
+             color: event.style.color,
+             'border-left': event.pre > 0 ? 'none': ''
+             }">
         <div class="event-line-container" style="">
             <div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>
         </div>

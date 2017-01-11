@@ -52,7 +52,7 @@
           })
         }
         addMissingEntities(self.sortedEvents)
-       // console.log(self.sortedEvents)
+        // console.log(self.sortedEvents)
       } else if (self.mode === 'month') {
         var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0)
         self.month = moment(self.position).date(1).hours(0).minutes(0).seconds(0).format('MMMM')
@@ -300,18 +300,19 @@
       }
     }
 
-    function dropEventWeekMode (h, m, d, $data, $event) {
-      var mom
-      if (self.mode === 'week') {
-        mom = moment(self.position).hour(h).minute(m).second(0).dayOfYear(d)
-      } else if (self.mode === 'day') {
-        mom = moment(self.position).hour(h).minute(m)
+    function dropEvent (config) {
+      var mom = config.moment
+      if (!mom) {
+        if (self.mode === 'week') {
+          mom = moment(self.position).hour(config.h).minute(config.m).second(0).dayOfYear(config.d)
+        } else if (self.mode === 'week-advanced'){
+          mom = moment(self.position).hour(config.h).minute(config.m).second(0).weekday(config.d)
+        } else if (self.mode === 'day') {
+          mom = moment(self.position).hour(config.h).minute(config.m)
+        }
       }
-      self.dropCallback({ $moment: mom, $data: $data, $event: $event, $entity: self.mode === 'day' ? d : undefined })
-    }
-
-    function dropEvent (data, event, moment) {
-      self.dropCallback({ $data: data, $event: event, $moment: moment })
+      var entity = (self.mode === 'week-advanced'||self.mode==='day') ? config.entity : undefined
+      self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
     }
 
     _.extend(self, {
@@ -324,8 +325,7 @@
       keys: keys,
       getEvents: getEvents,
       clickWeekEvent: clickWeekEvent,
-      dropEvent: dropEvent,
-      dropEventWeekMode: dropEventWeekMode
+      dropEvent: dropEvent
     })
   }
 

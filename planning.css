@@ -287,6 +287,11 @@ zl-planning-line.ng-animate {
 .day-hour-vertical {
   display: block;
 }
+.hour-text {
+  font-size: 0.7em;
+  margin-left: 2px;
+  color: rgba(0, 0, 0, 0.5);
+}
 .month-container {
   margin-top: -5px;
   width: 100%;

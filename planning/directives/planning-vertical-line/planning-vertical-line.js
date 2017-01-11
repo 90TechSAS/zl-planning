@@ -20,6 +20,7 @@
     var BASE_SIZE = Math.max(planningConfiguration.BASE_SIZE - 8, 1)
     var parallelText = planningConfiguration.parallelText
     var MAX_PARALLEL = planningConfiguration.MAX_PARALLEL
+    var AVAILABLE_SPACE = 90 // Total horizontal space taken by the events
 
     var self = this
     self.log = function (a) {
@@ -38,14 +39,19 @@
         // If the user has clicked right on the half-hour line, offsetX is 0
         minutes = 30
       } else {
-        minutes = Math.floor($event.offsetX / (BASE_SIZE * self.zoom) * 60)
+        minutes = Math.floor($event.offsetY / (BASE_SIZE * self.zoom) * 6)*10
       }
+      console.log(minutes)
       return minutes
     }
 
     function dropEvent (data, event) {
+      console.log('drop')
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
+      console.log(event.target)
+      console.log(hour)
+
       self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
     }
 
@@ -60,6 +66,8 @@
       self.preEvent = {}
 
       self._events = angular.copy(self.events)
+      console.log(self.dayEnd)
+      console.log(self.start)
       self.range = self.dayEnd.h - self.dayStart.h
       self.SECONDS_BY_DAY = 3600 * self.range
       self.SLIDER_WIDTH = BASE_SIZE * self.range
@@ -104,8 +112,8 @@
         }
         event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
         if (event.line === undefined) event.line = MAX_PARALLEL
-        event.style.top = Math.round((parseInt(event.line)) * 100 / lines.length) + '%'
-        event.style.height = Math.round(100 / lines.length) + '%'
+        event.style.top = Math.round((parseInt(event.line)) * AVAILABLE_SPACE / lines.length) + '%'
+        event.style.height = Math.round(AVAILABLE_SPACE / lines.length) + '%'
         event.percentage = '100%'
         if (event.pre > 0) {
           event.style['border-left'] = 'none'
