@@ -41,17 +41,12 @@
       } else {
         minutes = Math.floor($event.offsetY / (BASE_SIZE * self.zoom) * 6)*10
       }
-      console.log(minutes)
       return minutes
     }
 
     function dropEvent (data, event) {
-      console.log('drop')
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
-      console.log(event.target)
-      console.log(hour)
-
       self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
     }
 
@@ -66,8 +61,6 @@
       self.preEvent = {}
 
       self._events = angular.copy(self.events)
-      console.log(self.dayEnd)
-      console.log(self.start)
       self.range = self.dayEnd.h - self.dayStart.h
       self.SECONDS_BY_DAY = 3600 * self.range
       self.SLIDER_WIDTH = BASE_SIZE * self.range
@@ -101,6 +94,7 @@
       })
       self._events = _.difference(self._events, toremove)
       _.each(self._events, function (event) {
+        if (event.continuedBefore) console.log(event)
         event.id = angular.copy(currentId)
         if (event.line === MAX_PARALLEL) {
           event.style.left = (event.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + event.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px'
@@ -115,6 +109,7 @@
         event.style.top = Math.round((parseInt(event.line)) * AVAILABLE_SPACE / lines.length) + '%'
         event.style.height = Math.round(AVAILABLE_SPACE / lines.length) + '%'
         event.percentage = '100%'
+        if (event.continuedBefore) event.pre = 0
         if (event.pre > 0) {
           event.style['border-left'] = 'none'
           var s = moment(event.start).subtract(event.pre, 'minutes')

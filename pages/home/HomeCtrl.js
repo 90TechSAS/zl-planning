@@ -49,7 +49,8 @@
             title: generateRandomText(),
             start: start,
             end: end,
-            technician: technicians[ Math.floor(Math.random() * 3) ]
+            technician: technicians[ Math.floor(Math.random() * 3) ],
+            pre: Math.ceil(Math.random()*240)
           })
         }
      /*   for (i = 0; i < $scope.nbEvents * 2; i++) {

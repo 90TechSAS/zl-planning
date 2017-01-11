@@ -36,7 +36,7 @@
     </div>
 
     <div class="advanced-week-container"
-         ng-repeat="(name,v) in planning.sortedEvents">
+         ng-repeat="name in planning.keys(planning.sortedEvents)">
         <div class="left-column-advanced">
             <span style="margin:auto">{{name}}</span>
         </div>

@@ -291,7 +291,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    </div>\n" +
     "\n" +
     "    <div class=\"advanced-week-container\"\n" +
-    "         ng-repeat=\"(name,v) in planning.sortedEvents\">\n" +
+    "         ng-repeat=\"name in planning.keys(planning.sortedEvents)\">\n" +
     "        <div class=\"left-column-advanced\">\n" +
     "            <span style=\"margin:auto\">{{name}}</span>\n" +
     "        </div>\n" +

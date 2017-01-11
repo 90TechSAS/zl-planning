@@ -254,7 +254,7 @@
     function keys (sortedEvents) {
       if (self.mode === 'week') {
         return Object.keys(sortedEvents)
-      } else if (self.mode === 'day') {
+      } else if (self.mode === 'day' || self.mode === 'week-advanced') {
         return Object.keys(sortedEvents).sort()
       }
     }
