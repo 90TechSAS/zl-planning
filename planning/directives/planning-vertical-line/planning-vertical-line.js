@@ -94,7 +94,6 @@
       })
       self._events = _.difference(self._events, toremove)
       _.each(self._events, function (event) {
-        if (event.continuedBefore) console.log(event)
         event.id = angular.copy(currentId)
         if (event.line === MAX_PARALLEL) {
           event.style.left = (event.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + event.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px'

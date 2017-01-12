@@ -266,9 +266,6 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                    <div class=\"hour-caret\"></div>\n" +
     "                </div>\n" +
     "                <div class=\"planning-2pc\"></div>\n" +
-    "                <div ng-if=\"!planning.events.length\" style=\"position:fixed;left:50%;margin:auto\">{{'nothing_to_show' |\n" +
-    "                    strPlanning}}\n" +
-    "                </div>\n" +
     "                <zl-planning-line\n" +
     "                        zoom=\"planning.zoom\"\n" +
     "                        day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
