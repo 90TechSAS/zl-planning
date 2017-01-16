@@ -29,7 +29,9 @@
     "moment-range": "2.0.3"
   },
   "devDependencies": {
-    "angular-bootstrap": "0.14"
+    "angular-bootstrap": "0.14",
+    "pikaday": "1.5.1",
+    "pikaday-angular": "2.0.0"
   },
   "resolutions": {
     "angular": "1.4.8"
