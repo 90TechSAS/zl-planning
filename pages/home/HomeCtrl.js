@@ -5,7 +5,7 @@
 
   angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
     $scope.viewMonth = 1
-    $scope.nbEvents = 10
+    $scope.nbEvents = 30
     $scope.onPikadaySelect = function (pikaday) {
       $scope.moment = pikaday.getMoment()
     }
@@ -39,10 +39,10 @@
         $scope.moment = moment().month($scope.viewMonth)
 
         for (var i = 0; i < $scope.nbEvents; i++) {
-          var d = Math.ceil(Math.random()*7)-1
-          var dd = Math.ceil(Math.random()*7)-1
-          var start = moment(month).weekday(d).hour(Math.ceil(Math.random()*24)).minutes(Math.ceil(Math.random()*60))
-          var end = moment(month).weekday(dd).hour(Math.ceil(Math.random()*24)).minutes(Math.ceil(Math.random()*60))
+          var d = Math.ceil(Math.random()*32)-1
+          var dd = Math.ceil(Math.random()*32)-1
+          var start = moment(month).date(d).hour(Math.ceil(Math.random()*24)).minutes(Math.ceil(Math.random()*60))
+          var end = moment(month).date(dd).hour(Math.ceil(Math.random()*24)).minutes(Math.ceil(Math.random()*60))
           //var start = angular.copy(month).hours(Math.random() * 23).minutes(Math.random()*60)
           ///var end = angular.copy(month).add(Math.random() * 23, 'h') //.hours(Math.random() * 23).minutes(Math.random()*60)
           $scope.events.push({

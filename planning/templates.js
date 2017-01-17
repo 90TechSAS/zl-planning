@@ -272,8 +272,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                        ng-repeat=\"i in planning.keys(planning.sortedEvents)\" class=\"day b-b\"\n" +
     "                        ng-class=\"{today: planning.isToday(i)}\" events=\"planning.getEvents(i)\"\n" +
     "                        drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event})\"\n" +
-    "                        click-callback=\"planning.clickCallbackWrapper($hour, $minutes, i)\"></zl-planning-line>\n" +
-    "                <!-- TODO fix dopEvent i can contain day of year as well as entity -->\n" +
+    "                        click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: i, entity: i})\"></zl-planning-line>\n" +
+    "                <!-- TODO fix dopEvent and clickCallbackWrapper it can contain day of year as well as entity -->\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -298,7 +298,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                    zoom=\"planning.zoom\"\n" +
     "                    drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d:day, entity: name, $data: $data, $event: $event})\"\n" +
     "                    day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
-    "                    events=\" planning.getEvents(name)[day]\">\n" +
+    "                    events=\" planning.getEvents(name)[day]\"\n" +
+    "                    click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: day, entity: name})\">\n" +
     "            </zl-planning-vertical-line>\n" +
     "        </div>\n" +
     "    </div>\n" +

@@ -284,14 +284,20 @@
       return self.position.isSame(moment(), self.mode)
     }
 
-    function clickCallbackWrapper (h, m, d) {
+    function clickCallbackWrapper (opts) {
       var mom
+      var entity
       if (self.mode === 'week') {
-        mom = moment(self.position).hour(h).minute(m).second(0).dayOfYear(d)
+        mom = moment(self.position).hour(opts.h).minute(opts.m).second(0).dayOfYear(opts.d)
       } else if (self.mode === 'day') {
-        mom = moment(self.position).hour(h).minute(m)
+        mom = moment(self.position).hour(opts.h).minute(opts.m)
+      } else if (self.mode === 'week-advanced'){
+        mom = moment(self.position).hour(opts.h).minute(opts.m).second(0).weekday(opts.d)
       }
-      self.clickCallback({ $moment: mom, $entity: self.mode === 'day' ? d : undefined })
+      if (self.mode === 'day' || self.mode === 'week-advanced'){
+        entity = opts.entity
+      }
+      self.clickCallback({ $moment: mom, $entity: entity })
     }
 
     function clickWeekEvent (day, $event) {
