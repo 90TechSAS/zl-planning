@@ -27,9 +27,16 @@
 <div ng-if="planning.mode ==='week-advanced'" class="advanced-week">
     <div class="days-list">
         <div class="day-advanced">&nbsp;</div>
-        <div class="day-advanced" ng-repeat="day in planning.allowedDays">
-            <span class="day-text"
-            >{{day | day}}</span></div>
+        <div class="day-advanced" ng-repeat="day in planning.daysList" ng-click="planning.dayCallback({$day:day})">
+          <span class="day-text">
+              {{day | format:'dddd' | capitalize}}<br>
+              <small>{{day | format:'ll'}}</small>
+          </span>
+        </div>
+        <!--<div class="day-advanced" ng-repeat="day in planning.allowedDays">
+          <span class="day-text"
+            >{{day | day}}</span>
+        </div> -->
     </div>
 
     <div class="advanced-week-container"

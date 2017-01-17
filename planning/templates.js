@@ -137,9 +137,6 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "<div\n" +
     "        zl-planning-drag-drop\n" +
     "        zl-drop=\"line.dropEvent($data, $event)\">\n" +
-    "        <!--\n" +
-    " -->\n" +
-    "\n" +
     "    <div class=\"b-b b-r all-day\"\n" +
     "         ng-style=\"{height: line.calcWidth(line.zoom)}\"\n" +
     "         ng-repeat=\"n in [] | range: line.range\"\n" +
@@ -284,9 +281,16 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "<div ng-if=\"planning.mode ==='week-advanced'\" class=\"advanced-week\">\n" +
     "    <div class=\"days-list\">\n" +
     "        <div class=\"day-advanced\">&nbsp;</div>\n" +
-    "        <div class=\"day-advanced\" ng-repeat=\"day in planning.allowedDays\">\n" +
-    "            <span class=\"day-text\"\n" +
-    "            >{{day | day}}</span></div>\n" +
+    "        <div class=\"day-advanced\" ng-repeat=\"day in planning.daysList\" ng-click=\"planning.dayCallback({$day:day})\">\n" +
+    "          <span class=\"day-text\">\n" +
+    "              {{day | format:'dddd' | capitalize}}<br>\n" +
+    "              <small>{{day | format:'ll'}}</small>\n" +
+    "          </span>\n" +
+    "        </div>\n" +
+    "        <!--<div class=\"day-advanced\" ng-repeat=\"day in planning.allowedDays\">\n" +
+    "          <span class=\"day-text\"\n" +
+    "            >{{day | day}}</span>\n" +
+    "        </div> -->\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"advanced-week-container\"\n" +

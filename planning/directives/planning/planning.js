@@ -17,6 +17,13 @@
 
       self.allowedDays = planningConfiguration.DAYS
 
+      self.daysList = []
+      _.times(5, function (i) {
+        var d = moment(self.position)
+        d.weekday(i)
+        self.daysList.push(d)
+      })
+
       if (!self.zoom || self.zoom < 1) {
         self.zoom = 1
       }
