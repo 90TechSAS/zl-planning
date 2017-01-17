@@ -292,7 +292,7 @@
       } else if (self.mode === 'day') {
         mom = moment(self.position).hour(opts.h).minute(opts.m)
       } else if (self.mode === 'week-advanced'){
-        mom = moment(self.position).hour(opts.h).minute(opts.m).second(0).day(opts.d)
+        mom = moment(self.position).hour(opts.h).minute(opts.m).second(0).weekday(opts.d)
       }
       if (self.mode === 'day' || self.mode === 'week-advanced'){
         entity = opts.entity
