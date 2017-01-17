@@ -137,12 +137,15 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "<div\n" +
     "        zl-planning-drag-drop\n" +
     "        zl-drop=\"line.dropEvent($data, $event)\">\n" +
+    "        <!--\n" +
+    " -->\n" +
+    "\n" +
     "    <div class=\"b-b b-r all-day\"\n" +
     "         ng-style=\"{height: line.calcWidth(line.zoom)}\"\n" +
-    "         ng-repeat=\"n in [] | range:line.range\"\n" +
+    "         ng-repeat=\"n in [] | range: line.range\"\n" +
     "         ng-dblclick=\"line.clickEvent(n, $event)\"\n" +
-    "         hour=\"{{n}}\">\n" +
-    "        <span class=\"hour-text\">{{n+1}}</span>\n" +
+    "         hour=\"{{n + line.dayStart.h}}\">\n" +
+    "        <span class=\"hour-text\">{{n + 1 + line.dayStart.h}}</span>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -204,8 +207,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "<!--</div>-->\n" +
     "\n" +
     "<!--<div class=\"title-container\"><span>{{event.title}}</span></div>-->\n" +
-    "<!--</div>-->\n" +
-    "\n"
+    "<!--</div>-->\n"
   );
 
 
