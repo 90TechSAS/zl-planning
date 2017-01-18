@@ -8,18 +8,19 @@ zl-planning {
   .days-list {
     width: 100%;
     display: flex;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #e6e6e6;
     align-content: stretch;
 
     .day-advanced {
       box-sizing:border-box;
       flex:1;
       cursor: pointer;
-      border-right:1px solid black;
+      border-left:1px solid #e6e6e6;
       min-height:1.2em;
       text-align:center;
       &:first-of-type {
         flex: 0.5;
+        border-left: none;
       }
     }
   }
@@ -27,18 +28,18 @@ zl-planning {
   .advanced-week-container {
     width:100%;
     display:flex;
-    border-bottom:1px solid black;
+    border-bottom:1px solid #e6e6e6;
     align-content:stretch;
+
     .left-column-advanced {
       flex:0.5;
       box-sizing:border-box;
       text-align:center;
-      border-right:1px solid black;
       display:flex;
     }
     .day-advanced {
       flex:1;
-      border-right:1px solid black;
+      border-left:1px solid #e6e6e6;
       position:relative;
       overflow-y:hidden;
     }

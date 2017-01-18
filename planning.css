@@ -1,8 +1,11 @@
 .b-r {
-  border-right: 1px solid #eaeef1;
+  border-right: none;
 }
 .b-b {
-  border-bottom: 1px solid #eaeef1;
+  border-bottom: 1px solid #f8f8f8;
+}
+.b-b:last-of-type {
+  border-bottom: none;
 }
 zl-planning {
   height: 100%;
@@ -14,36 +17,36 @@ zl-planning {
 .advanced-week .days-list {
   width: 100%;
   display: flex;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #e6e6e6;
   align-content: stretch;
 }
 .advanced-week .days-list .day-advanced {
   box-sizing: border-box;
   flex: 1;
   cursor: pointer;
-  border-right: 1px solid black;
+  border-left: 1px solid #e6e6e6;
   min-height: 1.2em;
   text-align: center;
 }
 .advanced-week .days-list .day-advanced:first-of-type {
   flex: 0.5;
+  border-left: none;
 }
 .advanced-week .advanced-week-container {
   width: 100%;
   display: flex;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #e6e6e6;
   align-content: stretch;
 }
 .advanced-week .advanced-week-container .left-column-advanced {
   flex: 0.5;
   box-sizing: border-box;
   text-align: center;
-  border-right: 1px solid black;
   display: flex;
 }
 .advanced-week .advanced-week-container .day-advanced {
   flex: 1;
-  border-right: 1px solid black;
+  border-left: 1px solid #e6e6e6;
   position: relative;
   overflow-y: hidden;
 }
