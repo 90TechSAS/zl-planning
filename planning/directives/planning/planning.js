@@ -16,12 +16,10 @@
       self.zoom = parseInt(self.zoom)
 
       self.allowedDays = planningConfiguration.DAYS
-
-      self.daysList = []
-      _.times(5, function (i) {
+      self. daysList = self.allowedDays.map(function (i) {
         var d = moment(self.position)
         d.weekday(i)
-        self.daysList.push(d)
+        return d
       })
 
       if (!self.zoom || self.zoom < 1) {

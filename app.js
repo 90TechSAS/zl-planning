@@ -23,6 +23,6 @@
     $routeProvider.otherwise({redirectTo: appPathRoute + 'home'})
 
     planningConfigurationProvider.setString('nothing_to_show', 'HZJKZHZJKHZJ')
-    planningConfigurationProvider.setDays([0,1,2,3,4])
+    planningConfigurationProvider.setDays([0,1,3,4,5])
   }])
 }(window.angular))
