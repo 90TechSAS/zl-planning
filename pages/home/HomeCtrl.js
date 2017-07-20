@@ -3,9 +3,10 @@
 
   moment.locale('fr')
 
-  angular.module('myApp').controller('HomeCtrl', [ '$scope', function ($scope) {
+  angular.module('myApp').controller('HomeCtrl', [ '$scope', 'planningConfiguration', function ($scope, planningConfiguration) {
     $scope.viewMonth = 1
     $scope.nbEvents = 30
+    $scope.conf = planningConfiguration
     $scope.onPikadaySelect = function (pikaday) {
       $scope.moment = pikaday.getMoment()
     }
@@ -30,6 +31,7 @@
 
     $scope.init = function () {
       delete $scope.events
+      $scope.days = _.clone(planningConfiguration.DAYS)
       $scope.events = []
       //if ($scope.mode === 'month') {
         var month = moment().month($scope.viewMonth)
@@ -120,6 +122,18 @@
       $scope.mode = modes[(modes.indexOf($scope.mode)+1) % modes.length ]
       console.log($scope.mode)
       $scope.init()
+    }
+
+    $scope.toggleDay = function (day) {
+      console.log('aaaaaa')
+      var days = _.clone($scope.days)
+      if (_.include(days, day)) {
+        days.splice(days.indexOf(day), 1)
+      } else {
+        days.push(day)
+      }
+      days = days.sort()
+      $scope.days = days
     }
   }])
 }(window.angular, window.moment))

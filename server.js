@@ -4,7 +4,7 @@ var express = require('express')
 var path = require('path')
 var app = express()
 
-var port = 3000
+var port = 3100
 var host = 'localhost'
 var serverPath = '/'
 var staticPath = '/'
