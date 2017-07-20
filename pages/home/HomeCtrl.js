@@ -11,7 +11,7 @@
       $scope.moment = pikaday.getMoment()
     }
     $scope.moment = moment().month($scope.viewMonth)
-    $scope.mode = 'week-advanced'
+    $scope.mode = 'week'
 
     $scope.zoom = 10
     $scope.start = 0

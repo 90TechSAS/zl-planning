@@ -15,7 +15,7 @@
     function init () {
       self.zoom = parseInt(self.zoom)
 
-      self.allowedDays = self.days || planningConfiguration.DAYS
+      self.allowedDays = self.usableDays || planningConfiguration.DAYS
       self. daysList = self.allowedDays.map(function (i) {
         var d = moment(self.position)
         d.weekday(i)
@@ -269,7 +269,7 @@
     }
 
     $scope.$watchCollection(function () {
-      return [self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd, self.zoom, self.days]
+      return [self.events, self.entities, self.position, self.mode, self.dayStart, self.dayEnd, self.zoom, self.usableDays]
     }, init)
 
     function isToday (n) {
@@ -360,7 +360,7 @@
         clickCallback: '&',
         weekEventCallback: '&',
         dropCallback: '&',
-        days: '=?'
+        usableDays: '=?'
       },
       scope: {}
     }
