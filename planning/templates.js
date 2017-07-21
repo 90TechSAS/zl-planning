@@ -253,7 +253,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
   $templateCache.put('planning/directives/planning/planning.html',
     "<div ng-if=\"planning.mode ==='day' || planning.mode === 'week'\" style=\"height: 100%;\">\n" +
-    "    <zl-planning-left-column mode=\"planning.mode\" position=\"planning.position\" day-field=\"planning.dayField\"\n" +
+    "    <zl-planning-left-column mode=\"planning.mode\" position=\"planning.position\" day-field=\"planning.dayField\" usable-days=\"planning.allowedDays\"\n" +
     "                             events=\"planning.sortedEvents\"></zl-planning-left-column>\n" +
     "    <div class=\"\" style=\"height:100%\">\n" +
     "        <div zl-horizontal-scroll scroll-left=\"planning.currentTimeToPixels()\" style=\"height:100%\">\n" +
@@ -265,13 +265,21 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                    <div class=\"hour-caret\"></div>\n" +
     "                </div>\n" +
     "                <div class=\"planning-2pc\"></div>\n" +
-    "                <zl-planning-line\n" +
+    "                <zl-planning-line ng-if=\"planning.mode === 'day'\"\n" +
     "                        zoom=\"planning.zoom\"\n" +
     "                        day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                        ng-repeat=\"i in planning.keys(planning.sortedEvents)\" class=\"day b-b\"\n" +
     "                        ng-class=\"{today: planning.isToday(i)}\" events=\"planning.getEvents(i)\"\n" +
     "                        drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event})\"\n" +
     "                        click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: i, entity: i})\"></zl-planning-line>\n" +
+    "\n" +
+    "                <zl-planning-line ng-if=\"planning.mode === 'week'\"\n" +
+    "                        zoom=\"planning.zoom\"\n" +
+    "                        ng-repeat=\"day in planning.usableDays\"\n" +
+    "                        day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\" class=\"day b-b\"\n" +
+    "                        ng-class=\"{today: planning.isToday(planning.keys(planning.sortedEvents)[day])}\" events=\"planning.getEvents(planning.keys(planning.sortedEvents)[day])\"\n" +
+    "                        drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d: planning.keys(planning.sortedEvents)[day], entity: planning.keys(planning.sortedEvents)[day], $data: $data, $event: $event})\"\n" +
+    "                        click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: planning.keys(planning.sortedEvents)[day], entity: planning.keys(planning.sortedEvents)[day]})\"></zl-planning-line>\n" +
     "                <!-- TODO fix dopEvent and clickCallbackWrapper it can contain day of year as well as entity -->\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -287,10 +295,6 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "              <small>{{day | format:'ll'}}</small>\n" +
     "          </span>\n" +
     "        </div>\n" +
-    "        <!--<div class=\"day-advanced\" ng-repeat=\"day in planning.allowedDays\">\n" +
-    "          <span class=\"day-text\"\n" +
-    "            >{{day | day}}</span>\n" +
-    "        </div> -->\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"advanced-week-container\"\n" +

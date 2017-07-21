@@ -12,11 +12,15 @@
 
     function init () {
       self.days = []
+      self.allowedDays = self.usableDays
       if (self.mode === 'week') {
-        _.times(7, function (i) {
-          var d = moment(self.position)
-          d.weekday(i)
-          self.days.push(d)
+        _.forEach(self.allowedDays, function (d) {
+          var day = moment(self.position)
+          day.weekday(d)
+          self.days.push(day)
+        })
+        self.days = _.sortBy(self.days, function (d) {
+          return d.dayOfYear()
         })
       } else if (self.mode === 'day' && self.dayField) {
         self.column = Object.keys(self.events).sort()
@@ -24,7 +28,7 @@
     }
 
     $scope.$watchCollection(function () {
-      return [self.events, self.position, self.mode, self.dayStart, self.dayEnd]
+      return [self.events, self.position, self.mode, self.dayStart, self.dayEnd, self.usableDays]
     }, init)
   }
 
@@ -38,7 +42,8 @@
         events: '=',
         position: '=',
         mode: '=',
-        dayField: '='
+        dayField: '=',
+        usableDays: '='
       },
       scope: true
     }

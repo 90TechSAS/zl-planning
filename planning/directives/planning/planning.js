@@ -15,8 +15,8 @@
     function init () {
       self.zoom = parseInt(self.zoom)
 
-      self.allowedDays = self.usableDays || planningConfiguration.DAYS
-      self. daysList = self.allowedDays.map(function (i) {
+      self.allowedDays = self.usableDays.sort() || planningConfiguration.DAYS
+      self.daysList = self.allowedDays.map(function (i) {
         var d = moment(self.position)
         d.weekday(i)
         return d
@@ -57,7 +57,6 @@
           })
         }
         addMissingEntities(self.sortedEvents)
-        // console.log(self.sortedEvents)
       } else if (self.mode === 'month') {
         var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0)
         self.month = moment(self.position).date(1).hours(0).minutes(0).seconds(0).format('MMMM')
@@ -258,7 +257,7 @@
 
     function keys (sortedEvents) {
       if (self.mode === 'week') {
-        return Object.keys(sortedEvents)
+        return Object.keys(sortedEvents).sort()
       } else if (self.mode === 'day' || self.mode === 'week-advanced') {
         return Object.keys(sortedEvents).sort()
       }
