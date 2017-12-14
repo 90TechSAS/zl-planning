@@ -61,6 +61,7 @@
         var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0)
         self.month = moment(self.position).date(1).hours(0).minutes(0).seconds(0).format('MMMM')
         self.decallage = firstDay.isoWeekday() - 1 //
+
         if (self.decallage < 0) {
           self.decallage = 0
         }
@@ -170,9 +171,10 @@
         event.start = event.end
         event.end = st
       }
-      if (event.start.month() < self.position.month()) {
+
+      if (event.start.year() < self.position.year() || event.start.month() < self.position.month()) {
         // Event starts before our current month
-        if (event.end.month() < self.position.month()) {
+        if (event.end.year() < self.position.year() || event.end.month() < self.position.month()) {
           // Event also ends before. Return nothing
           return []
         }
