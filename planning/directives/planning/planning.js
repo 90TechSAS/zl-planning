@@ -14,7 +14,6 @@
 
     function init () {
       self.zoom = parseInt(self.zoom)
-
       self.allowedDays = self.usableDays.sort() || planningConfiguration.DAYS
       self.daysList = self.allowedDays.map(function (i) {
         var d = moment(self.position)
@@ -259,7 +258,7 @@
 
     function keys (sortedEvents) {
       if (self.mode === 'week') {
-        return Object.keys(sortedEvents).sort()
+        return Object.keys(sortedEvents).sort(function(a, b){return parseInt(a) - parseInt(b)})
       } else if (self.mode === 'day' || self.mode === 'week-advanced') {
         return Object.keys(sortedEvents).sort()
       }
