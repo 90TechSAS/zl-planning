@@ -47,7 +47,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('planning/directives/planning-line/planning-line.html',
-    "<div\n" +
+    "<div style=\"z-index: 1;\"\n" +
     "        zl-planning-drag-drop\n" +
     "        zl-drop=\"line.dropEvent($data, $event)\">\n" +
     "    <div class=\"b-b b-r all-day day-hour\"\n" +
@@ -69,7 +69,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        top: event.style.top,\n" +
     "        width: event.pre > 0 ? line.preEvent[event.id].style.totalWidth : event.style.width,\n" +
     "        left: event.pre > 0 ? line.preEvent[event.id].style.left : event.style.left\n" +
-    "    }\" style=\"position: absolute;\"\n" +
+    "    }\" style=\"position: absolute; z-index: 1;\"\n" +
     ">\n" +
     "    <div ng-if=\"event.pre > 0\" ng-style=\"{width: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}\"\n" +
     "         style=\"display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;\"\n" +
@@ -100,6 +100,14 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    </div>\n" +
     "</div>\n" +
     "\n" +
+    "<div ng-repeat=\"pause in line.breaks track by $index\"\n" +
+    "     class=\"planning-pause-element\"\n" +
+    "     style=\"position: absolute; height: 100%; background-color: #f00; display: flex; flex-flow: row nowrap; justify-content: center; align-items: center; text-align: center;\"\n" +
+    "     ng-style=\"pause.style\">\n" +
+    "    <p class=\"planning-pause-text\" style=\"font-size: 2em; color: #fff;\">\n" +
+    "        {{pause.name}}\n" +
+    "    </p>\n" +
+    "</div>\n" +
     "\n" +
     "<!--<div class=\"event\"-->\n" +
     "<!--zl-planning-drag-drop-->\n" +
@@ -270,6 +278,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                        day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                        ng-repeat=\"i in planning.keys(planning.sortedEvents)\" class=\"day b-b\"\n" +
     "                        ng-class=\"{today: planning.isToday(i)}\" events=\"planning.getEvents(i)\"\n" +
+    "                        pauses=\"planning.entitiesPauses[i]\"\n" +
     "                        drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event})\"\n" +
     "                        click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: i, entity: i})\"></zl-planning-line>\n" +
     "\n" +

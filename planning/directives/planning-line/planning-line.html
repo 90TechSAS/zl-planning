@@ -1,4 +1,4 @@
-<div
+<div style="z-index: 1;"
         zl-planning-drag-drop
         zl-drop="line.dropEvent($data, $event)">
     <div class="b-b b-r all-day day-hour"
@@ -20,7 +20,7 @@
         top: event.style.top,
         width: event.pre > 0 ? line.preEvent[event.id].style.totalWidth : event.style.width,
         left: event.pre > 0 ? line.preEvent[event.id].style.left : event.style.left
-    }" style="position: absolute;"
+    }" style="position: absolute; z-index: 1;"
 >
     <div ng-if="event.pre > 0" ng-style="{width: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}"
          style="display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
@@ -51,6 +51,14 @@
     </div>
 </div>
 
+<div ng-repeat="pause in line.breaks track by $index"
+     class="planning-pause-element"
+     style="position: absolute; height: 100%; background-color: #f00; display: flex; flex-flow: row nowrap; justify-content: center; align-items: center; text-align: center;"
+     ng-style="pause.style">
+    <p class="planning-pause-text" style="font-size: 2em; color: #fff;">
+        {{pause.name}}
+    </p>
+</div>
 
 <!--<div class="event"-->
 <!--zl-planning-drag-drop-->

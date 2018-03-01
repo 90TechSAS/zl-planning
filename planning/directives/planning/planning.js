@@ -350,6 +350,7 @@
         zoom: '=',
         events: '=',
         entities: '=',
+        entitiesPauses: '=?',
         position: '=',
         mode: '=',
         dayStart: '=',
