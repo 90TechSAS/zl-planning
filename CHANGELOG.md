@@ -1,4 +1,9 @@
 Version numbers correspond to `bower.json` version
+# 1.4.0
+
+## Features
+
+- Display pauses
 
 # 1.1
 

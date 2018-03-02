@@ -5,13 +5,13 @@
     .module('90Tech.planning')
     .directive('zlPlanningVerticalLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService', 'ColorService']
+  PlanningLineController.$inject = ['$filter', '$scope', 'planningConfiguration', 'PositionService', 'ColorService']
 
   /**
    *
    */
   function
-  PlanningLineController ($scope, planningConfiguration, PositionService, ColorService) {
+  PlanningLineController ($filter, $scope, planningConfiguration, PositionService, ColorService) {
 
 
     /** BASE_SIZE is the span of an hour. It gets multiplied by zoom (default 10) to get the size in pixel
@@ -59,6 +59,7 @@
       var currentId = 0
       //     self.SLIDER_WIDTH   = 24 * BASE_SIZE
       self.preEvent = {}
+      self.breaks = []
 
       self._events = angular.copy(self.events)
       self.range = self.dayEnd.h - self.dayStart.h
@@ -146,12 +147,47 @@
         }
         currentId++
       })
+      if (self.pauses) {
+        createBreaks()
+      }
+      calculateContainerHeight()
     }
 
     init()
 
     function calcWidth (zoom) {
       return (parseInt(zoom) * BASE_SIZE) + 'px'
+    }
+
+    function createBreaks () {
+      self.breaks = _.compact(_.map(self.pauses.breaks, function (p) {
+        var pause = {
+          name: p.name,
+          start: moment().hours(p.start.split(':')[0]).minute(p.start.split(':')[1]).second(0),
+          end: moment().hours(p.end.split(':')[0]).minute(p.end.split(':')[1]).second(0),
+          style: {}
+        }
+
+        if (pause.start.isAfter(self.dayEnd) || pause.end.isBefore(self.dayStart)) {
+          return
+        }
+        if (pause.start.isBefore(self.dayStart)) {
+          pause.start = moment(angular.copy(self.dayStart))
+        }
+
+        if (pause.end.isAfter(self.dayEnd)) {
+          pause.end = moment(angular.copy(self.dayEnd))
+        }
+
+        pause.style.top = (((moment(pause.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(pause.start).minutes()) * BASE_SIZE * self.zoom / 60) + 2) +  'px'
+        pause.style.height = self.zoom * self.SLIDER_WIDTH * (moment.range(pause.start, pause.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
+
+        return pause
+      }))
+    }
+
+    function calculateContainerHeight () {
+      self.containerHeight = (parseInt(self.zoom) * BASE_SIZE) * $filter('range')(self.range) + 'px'
     }
 
     $scope.$watchCollection(function () {
@@ -177,6 +213,7 @@
         dayStart: '=',
         dayEnd: '=',
         events: '=',
+        pauses: '=?',
         clickCallback: '&',
         dropCallback: '&'
       },

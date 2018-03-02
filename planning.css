@@ -112,6 +112,11 @@ zl-planning-line.ng-animate {
   transition: none;
   keyframe: 0s none;
 }
+.planning-pause-element {
+  position: absolute;
+  z-index: 0;
+  background: repeating-linear-gradient(45deg, #cccccc, #cccccc 15px, #333333 15px, #333333 25px);
+}
 .left-column {
   width: 16.7%;
   float: left;

@@ -11,11 +11,22 @@
       $scope.moment = pikaday.getMoment()
     }
     $scope.moment = moment().month($scope.viewMonth)
-    $scope.mode = 'week'
+    $scope.mode = 'week-advanced'
 
     $scope.zoom = 10
     $scope.start = 0
     $scope.end = 23
+    $scope.entitiesPauses = {
+      'titi': {
+        "_id":"1",
+        "name":"titi",
+        "breaks":[{"start":"00:00","end":"06:00","name":"REPOS"},{"start":"19:00","end":"23:59","name":"REPOS"},{"start":"12:00","end":"13:00","name":"Déjeuner"}]
+      },
+      'toto': {
+        "_id":"2",
+        "name":"toto",
+        "breaks":[{"start":"00:00","end":"08:00","name":"REPOS"},{"start":"18:00","end":"23:59","name":"REPOS"},{"start":"12:15","end":"13:45","name":"Pause repas plus courte"}]}
+    }
     var technicians = [ 'titi', 'toto', 'tutu' ]
     $scope.events = []
 

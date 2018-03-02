@@ -54,6 +54,7 @@
       var currentId = 0
       //     self.SLIDER_WIDTH   = 24 * BASE_SIZE
       self.preEvent = {}
+      self.breaks = []
 
       self._events = angular.copy(self.events)
 
@@ -141,12 +142,42 @@
         }
         currentId++
       })
+      if (self.pauses) {
+        createBreaks()
+      }
     }
 
     init()
 
     function calcWidth (zoom) {
       return (parseInt(zoom) * BASE_SIZE) + 'px'
+    }
+
+    function createBreaks () {
+      self.breaks = _.compact(_.map(self.pauses.breaks, function (p) {
+        var pause = {
+          name: p.name,
+          start: moment().hours(p.start.split(':')[0]).minute(p.start.split(':')[1]).second(0),
+          end: moment().hours(p.end.split(':')[0]).minute(p.end.split(':')[1]).second(0),
+          style: {}
+        }
+
+        if (pause.start.isAfter(self.dayEnd) || pause.end.isBefore(self.dayStart)) {
+          return
+        }
+        if (pause.start.isBefore(self.dayStart)) {
+          pause.start = moment(angular.copy(self.dayStart))
+        }
+
+        if (pause.end.isAfter(self.dayEnd)) {
+          pause.end = moment(angular.copy(self.dayEnd))
+        }
+
+        pause.style.left = (pause.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + pause.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px'
+        pause.style.width = self.zoom * self.SLIDER_WIDTH * (moment.range(pause.start, pause.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
+
+        return pause
+      }))
     }
 
     $scope.$watchCollection(function () {
@@ -173,7 +204,8 @@
         dayEnd: '=',
         events: '=',
         clickCallback: '&',
-        dropCallback: '&'
+        dropCallback: '&',
+        pauses: '=?'
       },
       scope: true
     }
