@@ -1,27 +1,29 @@
-<div
-        zl-planning-drag-drop
-        zl-drop="line.dropEvent($data, $event)">
-    <div class="b-b b-r all-day"
-         ng-style="{height: line.calcWidth(line.zoom)}"
-         ng-repeat="n in [] | range: line.range"
-         ng-dblclick="line.clickEvent(n, $event)"
-         hour="{{n + line.dayStart.h}}">
-        <span class="hour-text">{{n + 1 + line.dayStart.h}}</span>
+<div ng-style="{height: line.containerHeight}">
+    <div style="position: absolute; height: 100%; width: 100%; z-index: 1;"
+         zl-planning-drag-drop
+         zl-drop="line.dropEvent($data, $event)">
+        <div class="b-b b-r all-day"
+             ng-style="{height: line.calcWidth(line.zoom)}"
+             ng-repeat="n in [] | range: line.range"
+             ng-dblclick="line.clickEvent(n, $event)"
+             hour="{{n + line.dayStart.h}}">
+            <span class="hour-text">{{n + 1 + line.dayStart.h}}</span>
+        </div>
     </div>
-</div>
 
-<div ng-repeat="event in line._events"
-     zl-planning-drag-drop
-     ng-click="planning.eventCallback({'event':event})"
-     zl-drag="event"
-     ng-style="{
+    <div ng-repeat="event in line._events"
+         zl-planning-drag-drop
+         ng-click="planning.eventCallback({'event':event})"
+         zl-drag="event"
+         ng-style="{
         width: event.style.height,
         right: event.style.top,
         height: event.pre > 0 ? line.preEvent[event.id].style.totalWidth : event.style.width,
         top: event.pre > 0 ? line.preEvent[event.id].style.left : event.style.left
-    }" style="position: absolute;"
->
-     <div ng-if="event.pre > 0" ng-style="{height: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}"
+    }" style="position: absolute; z-index: 1;"
+    >
+        <div ng-if="event.pre > 0"
+             ng-style="{height: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}"
              style="display: inline-block; position: relative; width: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
              class="pre-event"
              tooltip-append-to-body="true"
@@ -34,23 +36,30 @@
 
         </div>
 
-    <div class="event" style="display: inline-block; position: relative; width: 100%;"
-         tooltip-append-to-body="true"
-         uib-tooltip="{{event.tooltip}}"
-         ng-style="{
+        <div class="event" style="display: inline-block; position: relative; width: 100%;"
+             tooltip-append-to-body="true"
+             uib-tooltip="{{event.tooltip}}"
+             ng-style="{
              height: event.percentage,
              background: event.style['background-color'],
              color: event.style.color,
              'border-left': event.pre > 0 ? 'none': ''
              }">
-        <div class="event-line-container" style="">
-            <div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>
-        </div>
+            <div class="event-line-container" style="">
+                <div class="event-line" ng-style="{'background-color': event.color}"
+                     ng-if="!event.continuedBefore"></div>
+            </div>
 
-        <div class="title-container"><span>{{event.title}}</span></div>
+            <div class="title-container"><span>{{event.title}}</span></div>
+        </div>
+    </div>
+
+    <div ng-repeat="pause in line.breaks track by $index"
+         class="planning-pause-element"
+         style="width: 95%; left: 5%;"
+         ng-style="pause.style">
     </div>
 </div>
-
 
 <!--<div class="event"-->
 <!--zl-planning-drag-drop-->

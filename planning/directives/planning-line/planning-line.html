@@ -53,11 +53,8 @@
 
 <div ng-repeat="pause in line.breaks track by $index"
      class="planning-pause-element"
-     style="position: absolute; height: 100%; background-color: #f00; display: flex; flex-flow: row nowrap; justify-content: center; align-items: center; text-align: center;"
+     style="height: 100%;"
      ng-style="pause.style">
-    <p class="planning-pause-text" style="font-size: 2em; color: #fff;">
-        {{pause.name}}
-    </p>
 </div>
 
 <!--<div class="event"-->

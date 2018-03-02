@@ -326,6 +326,10 @@
       self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
     }
 
+    function calculateAdvancedWeekContainerHeight () {
+      return (parseInt(self.zoom) * Math.max(planningConfiguration.BASE_SIZE - 8, 1)) + 'px'
+    }
+
     _.extend(self, {
       //  sortedEvents       : sortedEvents,
       isToday: isToday,

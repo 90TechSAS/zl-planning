@@ -102,11 +102,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "<div ng-repeat=\"pause in line.breaks track by $index\"\n" +
     "     class=\"planning-pause-element\"\n" +
-    "     style=\"position: absolute; height: 100%; background-color: #f00; display: flex; flex-flow: row nowrap; justify-content: center; align-items: center; text-align: center;\"\n" +
+    "     style=\"height: 100%;\"\n" +
     "     ng-style=\"pause.style\">\n" +
-    "    <p class=\"planning-pause-text\" style=\"font-size: 2em; color: #fff;\">\n" +
-    "        {{pause.name}}\n" +
-    "    </p>\n" +
     "</div>\n" +
     "\n" +
     "<!--<div class=\"event\"-->\n" +
@@ -142,30 +139,32 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('planning/directives/planning-vertical-line/planning-vertical-line.html',
-    "<div\n" +
-    "        zl-planning-drag-drop\n" +
-    "        zl-drop=\"line.dropEvent($data, $event)\">\n" +
-    "    <div class=\"b-b b-r all-day\"\n" +
-    "         ng-style=\"{height: line.calcWidth(line.zoom)}\"\n" +
-    "         ng-repeat=\"n in [] | range: line.range\"\n" +
-    "         ng-dblclick=\"line.clickEvent(n, $event)\"\n" +
-    "         hour=\"{{n + line.dayStart.h}}\">\n" +
-    "        <span class=\"hour-text\">{{n + 1 + line.dayStart.h}}</span>\n" +
+    "<div ng-style=\"{height: line.containerHeight}\">\n" +
+    "    <div style=\"position: absolute; height: 100%; width: 100%; z-index: 1;\"\n" +
+    "         zl-planning-drag-drop\n" +
+    "         zl-drop=\"line.dropEvent($data, $event)\">\n" +
+    "        <div class=\"b-b b-r all-day\"\n" +
+    "             ng-style=\"{height: line.calcWidth(line.zoom)}\"\n" +
+    "             ng-repeat=\"n in [] | range: line.range\"\n" +
+    "             ng-dblclick=\"line.clickEvent(n, $event)\"\n" +
+    "             hour=\"{{n + line.dayStart.h}}\">\n" +
+    "            <span class=\"hour-text\">{{n + 1 + line.dayStart.h}}</span>\n" +
+    "        </div>\n" +
     "    </div>\n" +
-    "</div>\n" +
     "\n" +
-    "<div ng-repeat=\"event in line._events\"\n" +
-    "     zl-planning-drag-drop\n" +
-    "     ng-click=\"planning.eventCallback({'event':event})\"\n" +
-    "     zl-drag=\"event\"\n" +
-    "     ng-style=\"{\n" +
+    "    <div ng-repeat=\"event in line._events\"\n" +
+    "         zl-planning-drag-drop\n" +
+    "         ng-click=\"planning.eventCallback({'event':event})\"\n" +
+    "         zl-drag=\"event\"\n" +
+    "         ng-style=\"{\n" +
     "        width: event.style.height,\n" +
     "        right: event.style.top,\n" +
     "        height: event.pre > 0 ? line.preEvent[event.id].style.totalWidth : event.style.width,\n" +
     "        top: event.pre > 0 ? line.preEvent[event.id].style.left : event.style.left\n" +
-    "    }\" style=\"position: absolute;\"\n" +
-    ">\n" +
-    "     <div ng-if=\"event.pre > 0\" ng-style=\"{height: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}\"\n" +
+    "    }\" style=\"position: absolute; z-index: 1;\"\n" +
+    "    >\n" +
+    "        <div ng-if=\"event.pre > 0\"\n" +
+    "             ng-style=\"{height: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}\"\n" +
     "             style=\"display: inline-block; position: relative; width: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;\"\n" +
     "             class=\"pre-event\"\n" +
     "             tooltip-append-to-body=\"true\"\n" +
@@ -178,23 +177,30 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "        </div>\n" +
     "\n" +
-    "    <div class=\"event\" style=\"display: inline-block; position: relative; width: 100%;\"\n" +
-    "         tooltip-append-to-body=\"true\"\n" +
-    "         uib-tooltip=\"{{event.tooltip}}\"\n" +
-    "         ng-style=\"{\n" +
+    "        <div class=\"event\" style=\"display: inline-block; position: relative; width: 100%;\"\n" +
+    "             tooltip-append-to-body=\"true\"\n" +
+    "             uib-tooltip=\"{{event.tooltip}}\"\n" +
+    "             ng-style=\"{\n" +
     "             height: event.percentage,\n" +
     "             background: event.style['background-color'],\n" +
     "             color: event.style.color,\n" +
     "             'border-left': event.pre > 0 ? 'none': ''\n" +
     "             }\">\n" +
-    "        <div class=\"event-line-container\" style=\"\">\n" +
-    "            <div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>\n" +
-    "        </div>\n" +
+    "            <div class=\"event-line-container\" style=\"\">\n" +
+    "                <div class=\"event-line\" ng-style=\"{'background-color': event.color}\"\n" +
+    "                     ng-if=\"!event.continuedBefore\"></div>\n" +
+    "            </div>\n" +
     "\n" +
-    "        <div class=\"title-container\"><span>{{event.title}}</span></div>\n" +
+    "            <div class=\"title-container\"><span>{{event.title}}</span></div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div ng-repeat=\"pause in line.breaks track by $index\"\n" +
+    "         class=\"planning-pause-element\"\n" +
+    "         style=\"width: 95%; left: 5%;\"\n" +
+    "         ng-style=\"pause.style\">\n" +
     "    </div>\n" +
     "</div>\n" +
-    "\n" +
     "\n" +
     "<!--<div class=\"event\"-->\n" +
     "<!--zl-planning-drag-drop-->\n" +
@@ -318,6 +324,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                    drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d:day, entity: name, $data: $data, $event: $event})\"\n" +
     "                    day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                    events=\" planning.getEvents(name)[day]\"\n" +
+    "                    pauses=\"planning.entitiesPauses[name]\"\n" +
     "                    click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: day, entity: name})\">\n" +
     "            </zl-planning-vertical-line>\n" +
     "        </div>\n" +
