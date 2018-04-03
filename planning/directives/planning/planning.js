@@ -365,7 +365,8 @@
         clickCallback: '&',
         weekEventCallback: '&',
         dropCallback: '&',
-        usableDays: '=?'
+        usableDays: '=?',
+        action: '&?'
       },
       scope: {}
     }

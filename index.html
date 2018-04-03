@@ -10,7 +10,39 @@
     <link rel="stylesheet" href="bower_components/pikaday/css/pikaday.css">
 	<link rel="stylesheet" href="main.css"/>
 	<link rel="stylesheet" href="planning.min.css"/>
+	<style>
+		.context-menu {
+			display: block;
+			position: fixed !important;
+			top: 0;
+			left: 0;
+			font-size: 15px;
+			border-radius: 2px;
+			box-shadow: 0 2px 6px rgba(0,0,0,.1);
+			border: 1px solid rgba(0,0,0,.1);
+			z-index: 1000 !important;
+			padding: 0 !important;
+		}
 
+		.context-menu i.mdi {
+			width: 30px;
+			display: inline-block;
+		}
+
+		.dropdown-header {
+			padding: 5px 15px;
+			display: block;
+			font-size: 12px;
+			line-height: 1.42857143;
+			color: #777;
+			white-space: nowrap;
+		}
+
+		.context-menu > li {
+			color: black!important;
+		}
+
+	</style>
 </head>
 <body>
 	<div ng-view class="full-height"></div>
@@ -28,6 +60,7 @@
 	<script type="text/javascript" src="bower_components/pikaday-angular/pikaday-angular.js"></script>
 	<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 	<script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="bower_components/zl-contextmenu/dist/zl-contextmenu.js"></script>
 
 	<!--script type="text/javascript" src="planning/module.js"></script>
 	<script type="text/javascript" src="planning/directives/planning/planning.js"></script>
@@ -40,9 +73,9 @@
 	<script type="text/javascript" src="planning/services/configurationProvider.js"></script>
 	<script type="text/javascript" src="planning/filters/strFilter.js"></script-->
 	<script type="text/javascript" src="planning.min.js"></script>
-	
+
 	<script type="text/javascript" src="app.js"></script>
-	
+
 	<script type="text/javascript" src="pages/home/HomeCtrl.js"></script>
 </body>
 </html>

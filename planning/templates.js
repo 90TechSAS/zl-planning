@@ -83,7 +83,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "\n" +
     "    </div>\n" +
-    "    <div class=\"event\" style=\"display: inline-block; position: relative; height: 100%;\"\n" +
+    "    <div class=\"event\" style=\"display: inline-block; position: relative; height: 100%;\" data-context-menu=\"planning/templates/planning-context-menu.html\"\n" +
     "         tooltip-append-to-body=\"true\"\n" +
     "         uib-tooltip=\"{{event.tooltip}}\"\n" +
     "         ng-style=\"{\n" +
@@ -179,6 +179,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "        <div class=\"event\" style=\"display: inline-block; position: relative; width: 100%;\"\n" +
     "             tooltip-append-to-body=\"true\"\n" +
+    "             data-context-menu=\"planning/templates/planning-context-menu.html\"\n" +
     "             uib-tooltip=\"{{event.tooltip}}\"\n" +
     "             ng-style=\"{\n" +
     "             height: event.percentage,\n" +
@@ -238,7 +239,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "            <div class=\"event-line-container\">\n" +
     "                <div class=\"event-line\" ng-style=\"{'background-color': ev.color}\" ng-if=\"!ev.continuedBefore\"></div>\n" +
     "            </div>\n" +
-    "            <div class=\"single-day-event-title\">\n" +
+    "            <div class=\"single-day-event-title\" data-context-menu=\"planning/templates/planning-context-menu.html\">\n" +
     "                <span>{{ev.title}}</span>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -256,7 +257,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                <div class=\"event-line\" ng-style=\"{'background-color': event.color}\"\n" +
     "                     ng-if=\"!event.continuedBefore\"></div>\n" +
     "            </div>\n" +
-    "            <div class=\"multiple-day-event-title\">\n" +
+    "            <div class=\"multiple-day-event-title\" data-context-menu=\"planning/templates/planning-context-menu.html\">\n" +
     "                <span>{{event.title}}</span>\n" +
     "            </div>\n" +
     "        </div>\n" +
@@ -350,6 +351,16 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                               style=\"height: 20%; pointer-events: none\"></zl-planning-week-line>\n" +
     "    </div>\n" +
     "</div>\n"
+  );
+
+
+  $templateCache.put('planning/templates/planning-context-menu.html',
+    "<ul class=\"dropdown-menu context-menu\" ng-click=\"$event.stopPropagation();\">\n" +
+    "    <li ng-if=\"!event.eventList.length && !ev.eventList.length\">\n" +
+    "        <a ng-click=\"planning.action({$element: event || ev})\">\n" +
+    "            <i class=\"mdi mdi-chevron-down\"></i> Ouvrir dans un nouvel onglet {{event.eventList.length}}</a>\n" +
+    "    </li>\n" +
+    "</ul>\n"
   );
 
 }]);

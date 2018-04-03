@@ -1,0 +1,6 @@
+<ul class="dropdown-menu context-menu" ng-click="$event.stopPropagation();">
+    <li ng-if="!event.eventList.length && !ev.eventList.length">
+        <a ng-click="planning.action({$element: event || ev})">
+            <i class="mdi mdi-chevron-down"></i> Ouvrir dans un nouvel onglet {{event.eventList.length}}</a>
+    </li>
+</ul>

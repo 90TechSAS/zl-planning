@@ -11,7 +11,7 @@
       $scope.moment = pikaday.getMoment()
     }
     $scope.moment = moment().month($scope.viewMonth)
-    $scope.mode = 'week-advanced'
+    $scope.mode = 'week'
 
     $scope.zoom = 10
     $scope.start = 0
@@ -62,8 +62,8 @@
             title: generateRandomText(),
             start: start,
             end: end,
-            technician: technicians[ Math.floor(Math.random() * 3) ],
-            pre: Math.ceil(Math.random()*240)
+            technician: technicians[ Math.floor(Math.random() * 3) ]/*,
+            pre: Math.ceil(Math.random()*240)*/
           })
         }
      /*   for (i = 0; i < $scope.nbEvents * 2; i++) {
@@ -145,6 +145,10 @@
       }
       days = days.sort()
       $scope.days = days
+    }
+
+    $scope.action = function (event) {
+      console.log(event)
     }
   }])
 }(window.angular, window.moment))
