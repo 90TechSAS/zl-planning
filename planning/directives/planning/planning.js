@@ -29,80 +29,140 @@
       self._dayEnd = self.dayEnd ? parseTime(self.dayEnd) : parseTime(24)
       self.width = (self.zoom * (parseInt(self._dayEnd.h) - parseInt(self._dayStart.h) + 1) * BASE_SIZE) + 'px'
       self.sortedEvents = undefined
-      if (self.mode === 'week') {
-        self._events = (_.flatten(_.map(self.events, split)))
-        self._events = filter(self._events)
+      switch (self.mode) {
+        case 'week':
+          self._events = (_.flatten(_.map(self.events, split)))
+          self._events = filter(self._events)
 
-        self.sortedEvents = _.groupBy(self._events, function (e) {
-          return e.start.dayOfYear()
-        })
+          self.sortedEvents = _.groupBy(self._events, function (e) {
+            return e.start.dayOfYear()
+          })
 
-        addMissingDays(self.sortedEvents)
-      } else if (self.mode === 'day' || self.mode === 'week-advanced') {
-        self._events = (_.flatten(_.map(self.events, split)))
-        self._events = filter(self._events)
-
-        self.sortedEvents = _.groupBy(self._events, function (e) {
-          return e[self.dayField]
-        })
-        /* If we are in advanced week mode, we have a double grouping: first by technician, then by day of week */
-        if (self.mode === 'week-advanced') {
-          self.sortedEvents = _.mapValues(self.sortedEvents, function (eventsByTechnician) {
-            return _.groupBy(eventsByTechnician, function (e) {
-              return e.start.weekday()
+          addMissingDays(self.sortedEvents)
+          break
+        case 'day':
+        case 'week-advanced':
+          self._events = (_.flatten(_.map(self.events, split)))
+          self._events = filter(self._events)
+          self.sortedEvents = _.groupBy(self._events, function (e) {
+            return e[self.dayField]
+          })
+          /* If we are in advanced week mode, we have a double grouping: first by technician, then by day of week */
+          if (self.mode === 'week-advanced') {
+            self.sortedEvents = _.mapValues(self.sortedEvents, function (eventsByTechnician) {
+              return _.groupBy(eventsByTechnician, function (e) {
+                return e.start.weekday()
+              })
             })
-            addMissingDays(sorted)
-            return sorted
-          })
-        }
-        addMissingEntities(self.sortedEvents)
-      } else if (self.mode === 'month') {
-        var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0)
-        self.month = moment(self.position).date(1).hours(0).minutes(0).seconds(0).format('MMMM')
-        self.decallage = firstDay.isoWeekday() - 1 //
-
-        if (self.decallage < 0) {
-          self.decallage = 0
-        }
-        self.oneDayEvents = _(self.events)
-          .filter(function (event) {
-            return event.start.dayOfYear() === event.end.dayOfYear() && event.start.month() === moment(self.position).month()
-          })
-          .groupBy(
-            function (event) { return Math.floor((event.start.date() + self.decallage) / 7.01) }) // 7.01 -> Fix issue when start day = 7 (sunday)
-          .value()
-        self.multipleDaysEvents = _(self.events)
-          .filter(function (event) {
-            return event.start.dayOfYear() !== event.end.dayOfYear()
-          })
-          .map(splitByWeeks)
-          .flatten()
-          .groupBy(function (event) {
-            return Math.floor((event.start.date() + self.decallage) / 7.01) // 7.01 -> Fix issue when start day = 7 (sunday)
-          })
-          .value()
-
-        for (var i = 0; i < 5; i++) {
-          if (self.multipleDaysEvents[i] === undefined) {
-            self.multipleDaysEvents[i] = []
           }
-        }
-        self.days = []
-        // Add day from previous month
-        if (firstDay.isoWeekday() - 1 > 0) {
-          for (i = 0; i < firstDay.isoWeekday() - 1; i++) {
-            self.days.unshift({})
-          }
-        }
-        _.times(firstDay.daysInMonth(), function (n) {
-          var day = moment(firstDay).add(n, 'days')
-          self.days.push({ date: day, events: [] })
-        })
+          addMissingEntities(self.sortedEvents)
+          break
+        case '3day':
+          self._events = (_.flatten(_.map(self.events, split)))
+          self._events = filter(self._events)
+          self.sortedEvents = _.groupBy(self._events, function (e) {
+            return e[self.dayField]
+          })
 
-        var displayedDaysCount = (self.days.length > 35 ? 42 : 35)
-        while (self.days.length < displayedDaysCount) {
-          self.days.push({})
-        }
+          var keys = _.keys(self.sortedEvents)
+          self.groupedEvents = _.map(_.groupBy(self._events, function (e) {
+              return moment(e.start).startOf('day').unix()
+            }), function (v, k) {
+              var result = {
+                key: k,
+                value: _.groupBy(v, function (e) {
+                  return e.technician
+                })
+              }
+              _.each(keys, function (k) {
+                if (!result.value[k]) {
+                  result.value[k] = []
+                }
+              })
+              return result
+            })
+
+          var start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
+          var stop = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
+          var days = [{start: angular.copy(start), end: angular.copy(stop)}]
+
+          var i = 0
+          while (i < 2) {
+            stop.add(1, 'day')
+            if (_.includes(self.allowedDays, stop.day())) {
+              days.push({start: angular.copy(stop).hour(self._dayStart.h).minute(self._dayStart.m).second(0), end: angular.copy(stop).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)})
+              i++
+            }
+          }
+
+          _.each(days, function (d) {
+            var date = "" + moment(d.start).startOf('day').unix()
+
+            var found = _.find(self.groupedEvents, function (group) {
+              return group.key === date
+            })
+
+            if (!found) {
+              var obj = {
+                key: date,
+                value: {}
+              }
+
+              _.each(_.keys(self.sortedEvents), function (k) {
+                obj.value[k] = []
+              })
+              self.groupedEvents.push(obj)
+            }
+          })
+          break
+        case 'month':
+          var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0)
+          self.month = moment(self.position).date(1).hours(0).minutes(0).seconds(0).format('MMMM')
+          self.decallage = firstDay.isoWeekday() - 1 //
+
+          if (self.decallage < 0) {
+            self.decallage = 0
+          }
+          self.oneDayEvents = _(self.events)
+            .filter(function (event) {
+              return event.start.dayOfYear() === event.end.dayOfYear() && event.start.month() === moment(self.position).month()
+            })
+            .groupBy(
+              function (event) { return Math.floor((event.start.date() + self.decallage) / 7.01) }) // 7.01 -> Fix issue when start day = 7 (sunday)
+            .value()
+          self.multipleDaysEvents = _(self.events)
+            .filter(function (event) {
+              return event.start.dayOfYear() !== event.end.dayOfYear()
+            })
+            .map(splitByWeeks)
+            .flatten()
+            .groupBy(function (event) {
+              return Math.floor((event.start.date() + self.decallage) / 7.01) // 7.01 -> Fix issue when start day = 7 (sunday)
+            })
+            .value()
+
+          for (var i = 0; i < 5; i++) {
+            if (self.multipleDaysEvents[i] === undefined) {
+              self.multipleDaysEvents[i] = []
+            }
+          }
+          self.days = []
+          // Add day from previous month
+          if (firstDay.isoWeekday() - 1 > 0) {
+            for (i = 0; i < firstDay.isoWeekday() - 1; i++) {
+              self.days.unshift({})
+            }
+          }
+          _.times(firstDay.daysInMonth(), function (n) {
+            var day = moment(firstDay).add(n, 'days')
+            self.days.push({ date: day, events: [] })
+          })
+
+          var displayedDaysCount = (self.days.length > 35 ? 42 : 35)
+          while (self.days.length < displayedDaysCount) {
+            self.days.push({})
+          }
+          break
       }
     }
 
@@ -208,15 +268,36 @@
     function filter (events) { // remove event not in range (month, week, day)
       return _.filter(events, function (e) {
         var start, stop
-        if (self.mode === 'week' || self.mode === 'week-advanced') {
-          start = moment(self.position).weekday(0).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
-          stop = moment(self.position).weekday(6).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
-        } else if (self.mode === 'day') {
-          start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
-          stop = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
-        } else if (self.mode === 'month') {
-          start = moment(self.position).date(1).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
-          stop = moment(self.position).weekday(moment(self.position).daysInMonth()).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
+        switch (self.mode) {
+          case 'week':
+          case 'week-advanced':
+            start = moment(self.position).weekday(0).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
+            stop = moment(self.position).weekday(6).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
+            break
+          case 'day':
+            start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
+            stop = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
+            break
+          case '3day':
+            start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
+            stop = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
+            var days = [{start: angular.copy(start), end: angular.copy(stop)}]
+
+            var i = 0
+            while (i < 2) {
+              stop.add(1, 'day')
+              if (_.includes(self.allowedDays, stop.day())) {
+                days.push({start: angular.copy(stop).hour(self._dayStart.h).minute(self._dayStart.m).second(0), end: angular.copy(stop).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)})
+                i++
+              }
+            }
+            return _.some(days, function (d) {
+              return e.start.isBetween(d.start, d.end) || e.end.isBetween(d.start, d.end)
+            })
+          case 'month':
+            start = moment(self.position).date(1).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
+            stop = moment(self.position).weekday(moment(self.position).daysInMonth()).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
+            break
         }
         return e.start.isBetween(start, stop) || e.end.isBetween(start, stop)
       })
@@ -257,10 +338,13 @@
     }
 
     function keys (sortedEvents) {
-      if (self.mode === 'week') {
-        return Object.keys(sortedEvents).sort(function(a, b){return parseInt(a) - parseInt(b)})
-      } else if (self.mode === 'day' || self.mode === 'week-advanced') {
-        return Object.keys(sortedEvents).sort()
+      switch (self.mode) {
+        case 'week':
+        case 'week-advanced':
+          return Object.keys(sortedEvents).sort(function(a, b){return parseInt(a) - parseInt(b)})
+        case 'day':
+        case '3day':
+          return Object.keys(sortedEvents).sort()
       }
     }
 

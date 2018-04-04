@@ -302,6 +302,35 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    </div>\n" +
     "</div>\n" +
     "\n" +
+    "<div ng-if=\"planning.mode === '3day'\" style=\"height: 100%;\">\n" +
+    "    <zl-planning-left-column mode=\"'day'\" position=\"planning.position\" day-field=\"planning.dayField\" usable-days=\"planning.allowedDays\"\n" +
+    "                             events=\"planning.sortedEvents\"></zl-planning-left-column>\n" +
+    "    <div style=\"height: 100%; display: flex; flex-flow: row nowrap;\" zl-horizontal-scroll>\n" +
+    "        <div style=\"height:100%;\" ng-repeat=\"day in planning.groupedEvents track by $index\">\n" +
+    "            <div style=\"height:100%\">\n" +
+    "                <div ng-style=\"{width: planning.width}\" class=\"planning-body\">\n" +
+    "                    <zl-planning-top-row mode=\"'day'\" zoom=\"planning.zoom\" position=\"planning.position\"\n" +
+    "                                         day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"></zl-planning-top-row>\n" +
+    "                    <div class=\"hour-cursor\" ng-style=\"{left: planning.currentTimeToPixels()+'px'}\"\n" +
+    "                         ng-if=\"planning.isCurrent() && planning.isInDayRange()\">\n" +
+    "                        <div class=\"hour-caret\"></div>\n" +
+    "                    </div>\n" +
+    "                    <div class=\"planning-2pc\"></div>\n" +
+    "\n" +
+    "                    <zl-planning-line\n" +
+    "                            zoom=\"planning.zoom\"\n" +
+    "                            day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
+    "                            ng-repeat=\"i in planning.keys(day.value) track by $index\" class=\"day b-b\"\n" +
+    "                            ng-class=\"{today: planning.isToday(i)}\" events=\"day.value[i]\"\n" +
+    "                            pauses=\"planning.entitiesPauses[i]\"\n" +
+    "                            drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event})\"\n" +
+    "                            click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: i, entity: i})\"></zl-planning-line>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "\n" +
     "<div ng-if=\"planning.mode ==='week-advanced'\" class=\"advanced-week\">\n" +
     "    <div class=\"days-list\">\n" +
     "        <div class=\"day-advanced\">&nbsp;</div>\n" +
