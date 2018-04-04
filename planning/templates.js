@@ -321,9 +321,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                            zoom=\"planning.zoom\"\n" +
     "                            day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                            ng-repeat=\"i in planning.keys(day.value) track by $index\" class=\"day b-b\"\n" +
-    "                            ng-class=\"{today: planning.isToday(i)}\" events=\"day.value[i]\"\n" +
+    "                            events=\"day.value[i]\"\n" +
     "                            pauses=\"planning.entitiesPauses[i]\"\n" +
-    "                            drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event})\"\n" +
+    "                            drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event, day: day.key})\"\n" +
     "                            click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: i, entity: i})\"></zl-planning-line>\n" +
     "                </div>\n" +
     "            </div>\n" +

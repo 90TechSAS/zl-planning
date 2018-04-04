@@ -398,15 +398,21 @@
     function dropEvent (config) {
       var mom = config.moment
       if (!mom) {
-        if (self.mode === 'week') {
-          mom = moment(self.position).hour(config.h).minute(config.m).second(0).dayOfYear(config.d)
-        } else if (self.mode === 'week-advanced'){
-          mom = moment(self.position).hour(config.h).minute(config.m).second(0).weekday(config.d)
-        } else if (self.mode === 'day') {
-          mom = moment(self.position).hour(config.h).minute(config.m)
+        switch (self.mode) {
+          case 'week':
+            mom = moment(self.position).hour(config.h).minute(config.m).second(0).dayOfYear(config.d)
+            break
+          case 'week-advanced':
+            mom = moment(self.position).hour(config.h).minute(config.m).second(0).weekday(config.d)
+            break
+          case 'day':
+            mom = moment(self.position).hour(config.h).minute(config.m)
+            break
+          case '3day':
+            mom = moment().hour(config.h).minute(config.m).day(moment.unix(config.day).day())
         }
       }
-      var entity = (self.mode === 'week-advanced'||self.mode==='day') ? config.entity : undefined
+      var entity = (_.includes(['week-advanced', 'day', '3day'], self.mode)) ? config.entity : undefined
       self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
     }
 

@@ -52,9 +52,9 @@
                             zoom="planning.zoom"
                             day-start="planning._dayStart" day-end="planning._dayEnd"
                             ng-repeat="i in planning.keys(day.value) track by $index" class="day b-b"
-                            ng-class="{today: planning.isToday(i)}" events="day.value[i]"
+                            events="day.value[i]"
                             pauses="planning.entitiesPauses[i]"
-                            drop-callback="planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event})"
+                            drop-callback="planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event, day: day.key})"
                             click-callback="planning.clickCallbackWrapper({h: $hour, m: $minutes, d: i, entity: i})"></zl-planning-line>
                 </div>
             </div>
