@@ -255,7 +255,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "             ng-style=\"{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}\">\n" +
     "            <div class=\"event-line-container\">\n" +
     "                <div class=\"event-line\" ng-style=\"{'background-color': event.color}\"\n" +
-    "                     ng-if=\"!event.continuedBefore\"></div>\n" +
+    "                     ng-if=\"!event.continuedBefore\"> </div>\n" +
     "            </div>\n" +
     "            <div class=\"multiple-day-event-title\" data-context-menu=\"planning/templates/planning-context-menu.html\">\n" +
     "                <span>{{event.title}}</span>\n" +
@@ -355,7 +355,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('planning/templates/planning-context-menu.html',
-    "<ul class=\"dropdown-menu context-menu\" ng-click=\"$event.stopPropagation();\">\n" +
+    "<ul class=\"dropdown-menu context-menu\" ng-click=\"$event.stopPropagation();\" style=\"z-index: 10\">\n" +
     "    <li ng-if=\"!event.eventList.length && !ev.eventList.length\">\n" +
     "        <a ng-click=\"planning.action({$element: event || ev})\">\n" +
     "            <i class=\"mdi mdi-chevron-down\"></i> Ouvrir dans un nouvel onglet {{event.eventList.length}}</a>\n" +

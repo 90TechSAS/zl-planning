@@ -27,7 +27,7 @@
     "moment": "2.10.6",
     "lodash": "3.10.1",
     "moment-range": "2.0.3",
-    "zl-contextmenu": "https://git@github.com/90TechSAS/zl-contextmenu.git#0.0.6"
+    "zl-contextmenu": "https://git@github.com/90TechSAS/zl-contextmenu.git#0.0.7"
   },
   "devDependencies": {
     "angular-bootstrap": "0.14",
