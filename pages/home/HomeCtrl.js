@@ -11,7 +11,7 @@
       $scope.moment = pikaday.getMoment()
     }
     $scope.moment = moment().month($scope.viewMonth)
-    $scope.mode = '3day'
+    $scope.mode = 'day'
 
     $scope.zoom = 10
     $scope.start = 0
@@ -62,8 +62,14 @@
             end.add(Math.floor(Math.random() * 5), 'day')
             break
           case 'day':
-            start = moment().hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
-            end = moment().hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
+            var roundValueAt = 30
+            start = moment().hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60)/roundValueAt)*roundValueAt)
+            end = moment().hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60)/roundValueAt)*roundValueAt)
+            if (start.isAfter(end)) {
+              var copy = angular.copy(start)
+              start = angular.copy(end)
+              end = copy
+            }
             break
           default:
             start = moment(month).date(d).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
