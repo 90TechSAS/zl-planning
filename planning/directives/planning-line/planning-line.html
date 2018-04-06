@@ -35,8 +35,9 @@
 
     </div>
     <div class="event" style="display: inline-block; position: relative; height: 100%;" data-context-menu="planning/templates/planning-context-menu.html"
-         tooltip-append-to-body="true"
-         uib-tooltip="{{event.tooltip}}"
+         tooltip-append-to-body="true" tooltip-placement="{{event.tooltipTemplate? 'right': 'top'}}"
+         ng-attr-uib-tooltip="{{!event.tooltipTemplate ? event.tooltip : undefined}}"
+         ng-attr-uib-tooltip-template="{{'' + event.tooltipTemplate}}" tooltip-class="planning-event-tooltip"
          ng-style="{
          width: event.percentage,
          background: event.style['background-color'],

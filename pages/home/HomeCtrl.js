@@ -80,6 +80,8 @@
           title: faker.random.words(),
           start: start,
           end: end,
+          tooltip: faker.random.words(),
+          tooltipTemplate: i % 2 !== 0 ? "'/pages/home/test-template.html'" : undefined,
           technician: technicians[Math.floor(Math.random() * 3)]/*,
           pre: Math.ceil(Math.random()*240)*/
         })

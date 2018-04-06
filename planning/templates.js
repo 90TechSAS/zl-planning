@@ -84,8 +84,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "    </div>\n" +
     "    <div class=\"event\" style=\"display: inline-block; position: relative; height: 100%;\" data-context-menu=\"planning/templates/planning-context-menu.html\"\n" +
-    "         tooltip-append-to-body=\"true\"\n" +
-    "         uib-tooltip=\"{{event.tooltip}}\"\n" +
+    "         tooltip-append-to-body=\"true\" tooltip-placement=\"{{event.tooltipTemplate? 'right': 'top'}}\"\n" +
+    "         ng-attr-uib-tooltip=\"{{!event.tooltipTemplate ? event.tooltip : undefined}}\"\n" +
+    "         ng-attr-uib-tooltip-template=\"{{'' + event.tooltipTemplate}}\" tooltip-class=\"planning-event-tooltip\"\n" +
     "         ng-style=\"{\n" +
     "         width: event.percentage,\n" +
     "         background: event.style['background-color'],\n" +
@@ -178,9 +179,10 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "\n" +
     "        <div class=\"event\" style=\"display: inline-block; position: relative; width: 100%;\"\n" +
-    "             tooltip-append-to-body=\"true\"\n" +
+    "             tooltip-append-to-body=\"true\" tooltip-placement=\"{{event.tooltipTemplate? 'right': 'top'}}\"\n" +
+    "             ng-attr-uib-tooltip=\"{{!event.tooltipTemplate ? event.tooltip : undefined}}\"\n" +
+    "             ng-attr-uib-tooltip-template=\"{{'' + event.tooltipTemplate}}\" tooltip-class=\"planning-event-tooltip\"\n" +
     "             data-context-menu=\"planning/templates/planning-context-menu.html\"\n" +
-    "             uib-tooltip=\"{{event.tooltip}}\"\n" +
     "             ng-style=\"{\n" +
     "             height: event.percentage,\n" +
     "             background: event.style['background-color'],\n" +
@@ -233,8 +235,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                ng-style=\"{'top': ev.style.top, 'height': ev.style.height, 'background-color': ev.style['background-color'], 'color' : ev.style.color, 'width': ev.style.width, 'left': ev.style.left}\"\n" +
     "                style=\"position:absolute;border: 1px solid black;pointer-events: auto; overflow: hidden;\"\n" +
     "                ng-click=\"planning.weekEventCallback({event: ev})\"\n" +
-    "                tooltip-append-to-body=\"true\"\n" +
-    "                uib-tooltip=\"{{ev.tooltip}}\"\n" +
+    "                tooltip-append-to-body=\"true\" tooltip-placement=\"{{ev.tooltipTemplate? 'right': 'top'}}\"\n" +
+    "                ng-attr-uib-tooltip=\"{{!ev.tooltipTemplate ? ev.tooltip : undefined}}\"\n" +
+    "                ng-attr-uib-tooltip-template=\"{{'' + ev.tooltipTemplate}}\" tooltip-class=\"planning-event-tooltip\"\n" +
     "                class=\"single-day-event\">\n" +
     "            <div class=\"event-line-container\">\n" +
     "                <div class=\"event-line\" ng-style=\"{'background-color': ev.color}\" ng-if=\"!ev.continuedBefore\"></div>\n" +
@@ -250,8 +253,9 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "             zl-planning-drag-drop\n" +
     "             zl-drag=\"event\"\n" +
     "             ng-click=\"planning.weekEventCallback({event: event})\"\n" +
-    "             tooltip-append-to-body=\"true\"\n" +
-    "             uib-tooltip=\"{{event.tooltip}}\"\n" +
+    "             tooltip-append-to-body=\"true\" tooltip-placement=\"{{event.tooltipTemplate? 'right': 'top'}}\"\n" +
+    "             ng-attr-uib-tooltip=\"{{!event.tooltipTemplate ? event.tooltip : undefined}}\"\n" +
+    "             ng-attr-uib-tooltip-template=\"{{'' + event.tooltipTemplate}}\" tooltip-class=\"planning-event-tooltip\"\n" +
     "             ng-style=\"{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}\">\n" +
     "            <div class=\"event-line-container\">\n" +
     "                <div class=\"event-line\" ng-style=\"{'background-color': event.color}\"\n" +
