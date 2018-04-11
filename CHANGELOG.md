@@ -1,5 +1,5 @@
 Version numbers correspond to `bower.json` version
-# NEXT
+# 1.5.0
 
 ## Features
 
