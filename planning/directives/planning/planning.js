@@ -60,9 +60,10 @@
         case '3day':
           self._events = (_.flatten(_.map(self.events, split)))
           self._events = filter(self._events)
-          self.sortedEvents = _.groupBy(self._events, function (e) {
-            return e[self.dayField]
-          })
+          self.sortedEvents = _.reduce(self.entities, function (acc, v) {
+            acc[v] = []
+            return acc
+          }, {})
 
           var keys = _.keys(self.sortedEvents)
           self.groupedEvents = _.map(_.groupBy(self._events, function (e) {
@@ -70,13 +71,14 @@
             }), function (v, k) {
               var result = {
                 key: k,
+                day: moment.unix(k).startOf('day').format('dddd DD MMMM'),
                 value: _.groupBy(v, function (e) {
                   return e.technician
                 })
               }
-              _.each(keys, function (k) {
-                if (!result.value[k]) {
-                  result.value[k] = []
+              _.each(self.entities, function (e) {
+                if (!result.value[e]) {
+                  result.value[e] = []
                 }
               })
               return result
@@ -86,12 +88,16 @@
           var stop = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
           var days = [{start: angular.copy(start), end: angular.copy(stop)}]
 
-          var i = 0
-          while (i < 2) {
+          var j = 0
+          while (j < 2) {
             stop.add(1, 'day')
-            if (_.includes(self.allowedDays, stop.day())) {
+            var d = stop.day() - 1
+            if (d < 0) {
+              d = 6
+            }
+            if (_.isEmpty(self.allowedDays) || _.includes(self.allowedDays, d)) {
               days.push({start: angular.copy(stop).hour(self._dayStart.h).minute(self._dayStart.m).second(0), end: angular.copy(stop).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)})
-              i++
+              j++
             }
           }
 
@@ -105,15 +111,16 @@
             if (!found) {
               var obj = {
                 key: date,
+                day: moment(angular.copy(d.start)).startOf('day').format('dddd DD MMMM'),
                 value: {}
               }
-
               _.each(_.keys(self.sortedEvents), function (k) {
                 obj.value[k] = []
               })
               self.groupedEvents.push(obj)
             }
           })
+          debugger
           break
         case 'month':
           var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0)
@@ -286,7 +293,11 @@
             var i = 0
             while (i < 2) {
               stop.add(1, 'day')
-              if (_.includes(self.allowedDays, stop.day())) {
+              var d = stop.day() - 1
+              if (d < 0) {
+                d = 6
+              }
+              if (_.isEmpty(self.allowedDays) || _.includes(self.allowedDays, d)) {
                 days.push({start: angular.copy(stop).hour(self._dayStart.h).minute(self._dayStart.m).second(0), end: angular.copy(stop).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)})
                 i++
               }
