@@ -1,4 +1,11 @@
 Version numbers correspond to `bower.json` version
+# 1.5.0
+
+## Features
+
+- Context menu
+- Three opened day view
+
 # 1.4.0
 
 ## Features

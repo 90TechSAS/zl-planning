@@ -33,6 +33,35 @@
     </div>
 </div>
 
+<div ng-if="planning.mode === '3day'" style="height: 100%;">
+    <zl-planning-left-column mode="'day'" position="planning.position" day-field="planning.dayField" usable-days="planning.allowedDays"
+                             events="planning.sortedEvents"></zl-planning-left-column>
+    <div style="height: 100%; display: flex; flex-flow: row nowrap;" zl-horizontal-scroll>
+        <div style="height:100%;" ng-repeat="day in planning.groupedEvents track by $index">
+            <div style="height:100%">
+                <div ng-style="{width: planning.width}" class="planning-body">
+                    <zl-planning-top-row mode="'day'" zoom="planning.zoom" position="planning.position"
+                                         day-start="planning._dayStart" day-end="planning._dayEnd"></zl-planning-top-row>
+                    <div class="hour-cursor" ng-style="{left: planning.currentTimeToPixels()+'px'}"
+                         ng-if="planning.isCurrent() && planning.isInDayRange()">
+                        <div class="hour-caret"></div>
+                    </div>
+                    <div class="planning-2pc"></div>
+
+                    <zl-planning-line
+                            zoom="planning.zoom"
+                            day-start="planning._dayStart" day-end="planning._dayEnd"
+                            ng-repeat="i in planning.keys(day.value) track by $index" class="day b-b"
+                            events="day.value[i]"
+                            pauses="planning.entitiesPauses[i]"
+                            drop-callback="planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event, day: day.key})"
+                            click-callback="planning.clickCallbackWrapper({h: $hour, m: $minutes, d: i, entity: i})"></zl-planning-line>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div ng-if="planning.mode ==='week-advanced'" class="advanced-week">
     <div class="days-list">
         <div class="day-advanced">&nbsp;</div>
