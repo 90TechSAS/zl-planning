@@ -311,10 +311,11 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                             events=\"planning.sortedEvents\"></zl-planning-left-column>\n" +
     "    <div style=\"height: 100%; display: flex; flex-flow: row nowrap;\" zl-horizontal-scroll>\n" +
     "        <div style=\"height:100%;\" ng-repeat=\"day in planning.groupedEvents track by $index\">\n" +
-    "            <div style=\"height:100%\">\n" +
+    "            <div style=\"height:100%; display: inline-block;\">\n" +
     "                <div ng-style=\"{width: planning.width}\" class=\"planning-body\">\n" +
     "                    <zl-planning-top-row mode=\"'day'\" zoom=\"planning.zoom\" position=\"planning.position\"\n" +
     "                                         day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"></zl-planning-top-row>\n" +
+    "                    <p style=\"position: absolute; top: 25px; font-size: 1.5em; font-weight: bold; text-align: center;\">{{day.day}}</p>\n" +
     "                    <div class=\"hour-cursor\" ng-style=\"{left: planning.currentTimeToPixels()+'px'}\"\n" +
     "                         ng-if=\"planning.isCurrent() && planning.isInDayRange()\">\n" +
     "                        <div class=\"hour-caret\"></div>\n" +

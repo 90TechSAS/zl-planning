@@ -11,7 +11,7 @@
       $scope.moment = pikaday.getMoment()
     }
     $scope.moment = moment().month($scope.viewMonth)
-    $scope.mode = 'day'
+    $scope.mode = '3day'
 
     $scope.zoom = 10
     $scope.start = 0
@@ -36,7 +36,13 @@
         }, {'start': '12:15', 'end': '13:45', 'name': 'Pause repas plus courte'}]
       }
     }*/
-    var technicians = ['titi', 'toto', 'tutu']
+    $scope.entities = [
+      faker.name.firstName() + ' ' + faker.name.lastName(),
+      faker.name.firstName() + ' ' + faker.name.lastName(),
+      faker.name.firstName() + ' ' + faker.name.lastName(),
+      faker.name.firstName() + ' ' + faker.name.lastName(),
+      faker.name.firstName() + ' ' + faker.name.lastName()
+    ]
     $scope.events = []
 
     $scope.init = function () {
@@ -82,7 +88,7 @@
           end: end,
           tooltip: faker.random.words(),
           tooltipTemplate: i % 2 !== 0 ? "'/pages/home/test-template.html'" : undefined,
-          technician: technicians[Math.floor(Math.random() * 3)]/*,
+          technician: $scope.entities[Math.floor(Math.random() * $scope.entities.length)]/*,
           pre: Math.ceil(Math.random()*240)*/
         })
       }
