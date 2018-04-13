@@ -73,7 +73,11 @@
       if (event.start.day() === event.end.day()) {
         return (event.end.diff(event.start, 'days') + 1) * (100 / 7) + '%'
       } else {
-        return (Math.ceil(event.end.diff(event.start, 'hours') / 24)) * (100 / 7) + '%'
+        var diff = Math.ceil(event.end.diff(event.start, 'hours') / 24)
+        if (event.end.hours() < event.start.hours()) {
+          diff += 1
+        }
+        return (diff * (100 / 7)) + '%'
       }
     }
 

@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.5.2
+
+## Fixes
+
+- Fix issue on month view when event was on multiple days and end hour was before start hour
+
 # 1.5.1
 
 ## Fixes

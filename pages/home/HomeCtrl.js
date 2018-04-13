@@ -11,7 +11,7 @@
       $scope.moment = pikaday.getMoment()
     }
     $scope.moment = moment().month($scope.viewMonth)
-    $scope.mode = '3day'
+    $scope.mode = 'month'
 
     $scope.zoom = 10
     $scope.start = 0
@@ -88,14 +88,11 @@
           end: end,
           tooltip: faker.random.words(),
           tooltipTemplate: i % 2 !== 0 ? "'/pages/home/test-template.html'" : undefined,
-          technician: $scope.entities[Math.floor(Math.random() * $scope.entities.length)]/*,
+          technician: $scope.entities[Math.floor(Math.random() * $scope.entities.length)],
+          color: faker.internet.color(),
+          'background-color': faker.internet.color()/*,
           pre: Math.ceil(Math.random()*240)*/
         })
-      }
-
-      for (i = 0; i < $scope.events.length; i++) {
-        $scope.events[i].color = faker.internet.color()
-        $scope.events[i]['background-color'] = faker.internet.color()
       }
 
       console.groupCollapsed('Generated events')
