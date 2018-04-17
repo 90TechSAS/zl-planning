@@ -120,7 +120,9 @@
               self.groupedEvents.push(obj)
             }
           })
-          debugger
+          self.groupedEvents = _.sortBy(self.groupedEvents, function (e) {
+            return e.key
+          })
           break
         case 'month':
           var firstDay = moment(self.position).date(1).hours(0).minutes(0).seconds(0)

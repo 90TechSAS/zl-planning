@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.5.3
+
+## Fixes
+
+- Fix day order in 3day view
+
 # 1.5.2
 
 ## Fixes
