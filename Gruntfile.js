@@ -20,7 +20,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify')
   grunt.loadNpmTasks('grunt-contrib-cssmin')
   grunt.loadNpmTasks('grunt-contrib-jshint')
-  grunt.loadNpmTasks('grunt-karma')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-angular-templates')
 
@@ -125,22 +124,7 @@ module.exports = function (grunt) {
         files: ['**/*.less', 'planning/**/*.js', 'planning/**/*.html'],
         tasks: ['default']
       }
-    /*,
-     karma: {
-     unit: {
-     configFile: publicPathRelativeRoot+'config/karma.conf.js',
-     singleRun: true,
-     browsers: ['PhantomJS']
-     }
-     }*/
     })
-
-    /**
-     register/define grunt tasks
-     @toc 6.
-     */
-    // Default task(s).
-    // grunt.registerTask('default', ['jshint:beforeconcat', 'less:development', 'concat:devJs', 'concat:devCss'])
     grunt.registerTask('default', ['less:development', 'cssmin', 'ngtemplates', 'uglify:build'])
   }
 

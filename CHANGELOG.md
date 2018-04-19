@@ -1,5 +1,12 @@
 Version numbers correspond to `bower.json` version
 
+# 1.5.4
+
+## Fixes
+
+- Fix issue when dropping event in 3day view
+- Fix issue when clicking on entity in 3day view
+
 # 1.5.3
 
 ## Fixes

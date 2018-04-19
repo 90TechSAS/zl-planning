@@ -389,15 +389,19 @@
     function clickCallbackWrapper (opts) {
       var mom
       var entity
-      if (self.mode === 'week') {
-        mom = moment(self.position).hour(opts.h).minute(opts.m).second(0).dayOfYear(opts.d)
-      } else if (self.mode === 'day') {
-        mom = moment(self.position).hour(opts.h).minute(opts.m)
-      } else if (self.mode === 'week-advanced'){
-        mom = moment(self.position).hour(opts.h).minute(opts.m).second(0).weekday(opts.d)
-      }
-      if (self.mode === 'day' || self.mode === 'week-advanced'){
-        entity = opts.entity
+      switch (self.mode) {
+        case 'week':
+          mom = moment(self.position).hour(opts.h).minute(opts.m).second(0).dayOfYear(opts.d)
+          break
+        case '3day':
+        case 'day':
+          mom = moment(self.position).hour(opts.h).minute(opts.m)
+          entity = opts.entity
+          break
+        case 'week-advanced':
+          entity = opts.entity
+          mom = moment(self.position).hour(opts.h).minute(opts.m).second(0).weekday(opts.d)
+          break
       }
       self.clickCallback({ $moment: mom, $entity: entity })
     }
@@ -422,7 +426,7 @@
             mom = moment(self.position).hour(config.h).minute(config.m)
             break
           case '3day':
-            mom = moment().hour(config.h).minute(config.m).day(moment.unix(config.day).day())
+            mom = moment.unix(config.day).hour(config.h).minute(config.m)
         }
       }
       var entity = (_.includes(['week-advanced', 'day', '3day'], self.mode)) ? config.entity : undefined
