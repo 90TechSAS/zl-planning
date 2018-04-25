@@ -49,7 +49,8 @@
                 if (e.dataTransfer.setDragImage) {
                   e.dataTransfer.setDragImage(dragImage,0,0)
                 }
-
+                // Dispatch mouseleave event to close tooltips
+                el.dispatchEvent(new Event('mouseleave'));
                 e.dataTransfer.setData('Text', JSON.stringify(scope.dragDropCtrl.zlDrag))
                 this.classList.add('drag')
                 return false
