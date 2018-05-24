@@ -18,6 +18,22 @@
     var MAX_PARALLEL = planningConfiguration.MAX_PARALLEL
 
     var self = this
+
+    self.$onInit = function () {
+      _.extend(self, {
+        clickEvent: clickEvent,
+        calcWidth: calcWidth,
+        dropEvent: dropEvent
+      })
+      init()
+
+
+
+      $scope.$watchCollection(function () {
+        return [self.events, self.dayStart, self.dayEnd]
+      }, init)
+    }
+
     self.log = function (a) {
     }
 
@@ -147,7 +163,7 @@
       }
     }
 
-    init()
+
 
     function calcWidth (zoom) {
       return (parseInt(zoom) * BASE_SIZE) + 'px'
@@ -179,17 +195,6 @@
         return pause
       }))
     }
-
-    $scope.$watchCollection(function () {
-      return [self.events, self.dayStart, self.dayEnd]
-    }, init)
-
-
-    _.extend(self, {
-      clickEvent: clickEvent,
-      calcWidth: calcWidth,
-      dropEvent: dropEvent
-    })
   }
 
   function PlanningLineDirective () {

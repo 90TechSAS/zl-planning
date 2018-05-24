@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.6.0
+
+# Features
+
+- Update AngularJS to 1.7.0
+
 # 1.5.4
 
 ## Fixes

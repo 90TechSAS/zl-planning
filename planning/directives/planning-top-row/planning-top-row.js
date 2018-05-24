@@ -31,6 +31,17 @@
     function PlanningTopRowController ($scope) {
       var self = this
 
+      self.$onInit = function () {
+        $scope.$watchGroup([function () { return self.dayStart }, function () { return self.dayEnd }], init)
+
+        _.extend(self, {
+          calcWidth: calcWidth,
+          calcMargin: calcMargin
+        })
+
+        init()
+      }
+
       function init () {
         var range = self.dayEnd.h - self.dayStart.h + 1
         self.hours = []
@@ -42,7 +53,7 @@
         })
       }
 
-      $scope.$watchGroup([function () { return self.dayStart }, function () { return self.dayEnd }], init)
+
 
       function calcWidth (zoom) {
         return (parseInt(zoom) * BASE_SIZE) + 'px'
@@ -54,12 +65,6 @@
         return '0 ' + half + 'px 0 -' + half + 'px'
       }
 
-      _.extend(self, {
-        calcWidth: calcWidth,
-        calcMargin: calcMargin
-      })
-
-      init()
     }
   }
 })(window.angular, window.moment, window._)

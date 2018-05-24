@@ -10,6 +10,12 @@
   function PlanningLeftColumnController ($scope) {
     var self = this
 
+    self.$onInit = function () {
+      $scope.$watchCollection(function () {
+        return [self.events, self.position, self.mode, self.dayStart, self.dayEnd, self.usableDays]
+      }, init)
+    }
+
     function init () {
       self.days = []
       self.allowedDays = self.usableDays
@@ -27,9 +33,7 @@
       }
     }
 
-    $scope.$watchCollection(function () {
-      return [self.events, self.position, self.mode, self.dayStart, self.dayEnd, self.usableDays]
-    }, init)
+
   }
 
   function PlanningDirective () {

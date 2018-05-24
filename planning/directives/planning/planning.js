@@ -12,6 +12,23 @@
 
     var self = this
 
+    self.$onInit = function () {
+      _.extend(self, {
+        //  sortedEvents       : sortedEvents,
+        isToday: isToday,
+        currentTimeToPixels: currentTimeToPixels,
+        isCurrent: isCurrent,
+        clickCallbackWrapper: clickCallbackWrapper,
+        isInDayRange: isInDayRange,
+        keys: keys,
+        getEvents: getEvents,
+        clickWeekEvent: clickWeekEvent,
+        dropEvent: dropEvent
+      })
+
+      init()
+    }
+
     function init () {
       self.zoom = parseInt(self.zoom)
       self.allowedDays = self.usableDays.sort() || planningConfiguration.DAYS
@@ -67,22 +84,22 @@
 
           var keys = _.keys(self.sortedEvents)
           self.groupedEvents = _.map(_.groupBy(self._events, function (e) {
-              return moment(e.start).startOf('day').unix()
-            }), function (v, k) {
-              var result = {
-                key: k,
-                day: moment.unix(k).startOf('day').format('dddd DD MMMM'),
-                value: _.groupBy(v, function (e) {
-                  return e.technician
-                })
-              }
-              _.each(self.entities, function (e) {
-                if (!result.value[e]) {
-                  result.value[e] = []
-                }
+            return moment(e.start).startOf('day').unix()
+          }), function (v, k) {
+            var result = {
+              key: k,
+              day: moment.unix(k).startOf('day').format('dddd DD MMMM'),
+              value: _.groupBy(v, function (e) {
+                return e.technician
               })
-              return result
+            }
+            _.each(self.entities, function (e) {
+              if (!result.value[e]) {
+                result.value[e] = []
+              }
             })
+            return result
+          })
 
           var start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
           var stop = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
@@ -174,8 +191,6 @@
           break
       }
     }
-
-    init()
 
     function split (event) {
       // Event starts and ends the same day
@@ -437,18 +452,7 @@
       return (parseInt(self.zoom) * Math.max(planningConfiguration.BASE_SIZE - 8, 1)) + 'px'
     }
 
-    _.extend(self, {
-      //  sortedEvents       : sortedEvents,
-      isToday: isToday,
-      currentTimeToPixels: currentTimeToPixels,
-      isCurrent: isCurrent,
-      clickCallbackWrapper: clickCallbackWrapper,
-      isInDayRange: isInDayRange,
-      keys: keys,
-      getEvents: getEvents,
-      clickWeekEvent: clickWeekEvent,
-      dropEvent: dropEvent
-    })
+
   }
 
   function PlanningDirective () {

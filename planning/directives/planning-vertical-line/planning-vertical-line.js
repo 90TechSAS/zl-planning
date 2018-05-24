@@ -23,6 +23,22 @@
     var AVAILABLE_SPACE = 90 // Total horizontal space taken by the events
 
     var self = this
+
+    self.$onInit = function () {
+      $scope.$watchCollection(function () {
+        return [self.events, self.dayStart, self.dayEnd]
+      }, init)
+
+
+      _.extend(self, {
+        clickEvent: clickEvent,
+        calcWidth: calcWidth,
+        dropEvent: dropEvent
+      })
+
+      init()
+    }
+
     self.log = function (a) {
     }
 
@@ -153,8 +169,6 @@
       calculateContainerHeight()
     }
 
-    init()
-
     function calcWidth (zoom) {
       return (parseInt(zoom) * BASE_SIZE) + 'px'
     }
@@ -189,17 +203,6 @@
     function calculateContainerHeight () {
       self.containerHeight = (parseInt(self.zoom) * BASE_SIZE) * $filter('range')(self.range) + 'px'
     }
-
-    $scope.$watchCollection(function () {
-      return [self.events, self.dayStart, self.dayEnd]
-    }, init)
-
-
-    _.extend(self, {
-      clickEvent: clickEvent,
-      calcWidth: calcWidth,
-      dropEvent: dropEvent
-    })
   }
 
   function PlanningLineDirective () {
