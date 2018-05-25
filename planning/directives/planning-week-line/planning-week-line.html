@@ -7,7 +7,7 @@
                 ng-style="{'top': ev.style.top, 'height': ev.style.height, 'background-color': ev.style['background-color'], 'color' : ev.style.color, 'width': ev.style.width, 'left': ev.style.left}"
                 style="position:absolute;border: 1px solid black;pointer-events: auto; overflow: hidden;"
                 ng-click="planning.weekEventCallback({event: ev})"
-                tooltip-append-to-body="true" tooltip-placement="{{ev.tooltipTemplate? 'right': 'top'}}"
+                tooltip-append-to-body="true" tooltip-placement="{{ev.tooltipTemplate? 'auto': 'top'}}"
                 ng-attr-uib-tooltip="{{!ev.tooltipTemplate ? ev.tooltip : undefined}}"
                 ng-attr-uib-tooltip-template="{{'' + ev.tooltipTemplate}}" tooltip-class="planning-event-tooltip"
                 class="single-day-event">
@@ -25,7 +25,7 @@
              zl-planning-drag-drop
              zl-drag="event"
              ng-click="planning.weekEventCallback({event: event})"
-             tooltip-append-to-body="true" tooltip-placement="{{event.tooltipTemplate? 'right': 'top'}}"
+             tooltip-append-to-body="true" tooltip-placement="{{event.tooltipTemplate? 'auto': 'top'}}"
              ng-attr-uib-tooltip="{{!event.tooltipTemplate ? event.tooltip : undefined}}"
              ng-attr-uib-tooltip-template="{{'' + event.tooltipTemplate}}" tooltip-class="planning-event-tooltip"
              ng-style="{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}">
