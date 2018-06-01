@@ -368,8 +368,10 @@
     function keys (sortedEvents) {
       switch (self.mode) {
         case 'week':
+          return Object.keys(sortedEvents).sort(function(a, b){
+            return parseInt(a) - parseInt(b)}
+          )
         case 'week-advanced':
-          return Object.keys(sortedEvents).sort(function(a, b){return parseInt(a) - parseInt(b)})
         case 'day':
         case '3day':
           return Object.keys(sortedEvents).sort()

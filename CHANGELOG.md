@@ -6,6 +6,7 @@ Version numbers correspond to `bower.json` version
 
 - Update AngularJS to 1.7.0
 - Switch to position: auto for custom event tooltip
+- Correct sort for advanced week
 
 # 1.5.4
 
