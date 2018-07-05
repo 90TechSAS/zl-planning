@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.6.1
+
+# Fixes
+
+- Fix event not being displayed in month mode when month had 6 weeks range
+
 # 1.6.0
 
 # Features

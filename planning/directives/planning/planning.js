@@ -167,7 +167,8 @@
             })
             .value()
 
-          for (var i = 0; i < 5; i++) {
+          var weekInMonth = moment(self.position).endOf('month').isoWeek() - moment(self.position).startOf('month').isoWeek() + 1
+          for (var i = 0; i < weekInMonth; i++) {
             if (self.multipleDaysEvents[i] === undefined) {
               self.multipleDaysEvents[i] = []
             }
