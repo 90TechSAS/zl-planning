@@ -5,6 +5,7 @@ Version numbers correspond to `bower.json` version
 # Fixes
 
 - Fix event not being displayed in month mode when month had 6 weeks range
+- Always set text to white for grouped events
 
 # 1.6.0
 

@@ -118,6 +118,7 @@
           event.style['background-color'] = '#000'
           event.style['font-weight'] = 'bold'
           event.title = (event.eventList.length) + ' ' + parallelText
+          event.style.color = '#fff'
           if (event.tooltip) event.tooltip = event.title
         }
         event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
