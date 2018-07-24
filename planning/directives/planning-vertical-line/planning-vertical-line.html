@@ -56,8 +56,8 @@
         </div>
     </div>
 
-    <div ng-repeat="pause in line.breaks track by $index"
-         class="planning-pause-element"
+    <div ng-repeat="pause in line.breaks track by $index" ng-if="line.checkPauseDay(pause)"
+         class="planning-pause-element" ng-class="{'planning-pause-element-absence': pause.absence}"
          style="width: 95%; left: 5%;"
          ng-style="pause.style">
     </div>

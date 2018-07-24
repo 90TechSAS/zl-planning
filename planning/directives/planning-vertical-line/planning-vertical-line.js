@@ -33,7 +33,8 @@
       _.extend(self, {
         clickEvent: clickEvent,
         calcWidth: calcWidth,
-        dropEvent: dropEvent
+        dropEvent: dropEvent,
+        checkPauseDay: checkPauseDay
       })
 
       init()
@@ -180,6 +181,8 @@
           name: p.name,
           start: moment().hours(p.start.split(':')[0]).minute(p.start.split(':')[1]).second(0),
           end: moment().hours(p.end.split(':')[0]).minute(p.end.split(':')[1]).second(0),
+          day: p.day,
+          absence: !!p.absence,
           style: {}
         }
 
@@ -204,6 +207,10 @@
     function calculateContainerHeight () {
       self.containerHeight = (parseInt(self.zoom) * BASE_SIZE) * $filter('range')(self.range) + 'px'
     }
+
+    function checkPauseDay (pause) {
+      return pause.day === self.day
+    }
   }
 
   function PlanningLineDirective () {
@@ -219,7 +226,8 @@
         events: '=',
         pauses: '=?',
         clickCallback: '&',
-        dropCallback: '&'
+        dropCallback: '&',
+        day: '='
       },
       scope: true
     }

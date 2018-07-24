@@ -2,5 +2,5 @@
   'use strict'
 
   angular
-    .module('90Tech.planning', ['pikaday', 'zlContextMenu'])
+    .module('90Tech.planning', ['zlContextMenu'])
 })(window.angular)

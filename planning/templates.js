@@ -101,9 +101,10 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    </div>\n" +
     "</div>\n" +
     "\n" +
-    "<div ng-repeat=\"pause in line.breaks track by $index\"\n" +
+    "<div ng-repeat=\"pause in line.breaks track by $index\" ng-if=\"line.checkPauseDay(pause, planning.position)\"\n" +
     "     class=\"planning-pause-element\"\n" +
     "     style=\"height: 100%;\"\n" +
+    "     ng-class=\"{'planning-pause-element-absence': pause.absence}\"\n" +
     "     ng-style=\"pause.style\">\n" +
     "</div>\n" +
     "\n" +
@@ -198,8 +199,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div ng-repeat=\"pause in line.breaks track by $index\"\n" +
-    "         class=\"planning-pause-element\"\n" +
+    "    <div ng-repeat=\"pause in line.breaks track by $index\" ng-if=\"line.checkPauseDay(pause)\"\n" +
+    "         class=\"planning-pause-element\" ng-class=\"{'planning-pause-element-absence': pause.absence}\"\n" +
     "         style=\"width: 95%; left: 5%;\"\n" +
     "         ng-style=\"pause.style\">\n" +
     "    </div>\n" +
@@ -359,7 +360,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                    drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d:day, entity: name, $data: $data, $event: $event})\"\n" +
     "                    day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                    events=\" planning.getEvents(name)[day]\"\n" +
-    "                    pauses=\"planning.entitiesPauses[name]\"\n" +
+    "                    pauses=\"planning.entitiesPauses[name]\" day=\"day\"\n" +
     "                    click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: day, entity: name})\">\n" +
     "            </zl-planning-vertical-line>\n" +
     "        </div>\n" +

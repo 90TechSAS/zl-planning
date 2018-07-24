@@ -23,7 +23,8 @@
       _.extend(self, {
         clickEvent: clickEvent,
         calcWidth: calcWidth,
-        dropEvent: dropEvent
+        dropEvent: dropEvent,
+        checkPauseDay: checkPauseDay
       })
       init()
 
@@ -46,7 +47,7 @@
 
     function extractMinutesFromEvent($event){
       var minutes
-      if (_.contains($event.target.classList, 'half-hour')) {
+      if (_.includes($event.target.classList, 'half-hour')) {
         // If the user has clicked right on the half-hour line, offsetX is 0
         minutes = 30
       } else {
@@ -176,6 +177,8 @@
           name: p.name,
           start: moment().hours(p.start.split(':')[0]).minute(p.start.split(':')[1]).second(0),
           end: moment().hours(p.end.split(':')[0]).minute(p.end.split(':')[1]).second(0),
+          day: p.day,
+          absence: !!p.absence,
           style: {}
         }
 
@@ -195,6 +198,10 @@
 
         return pause
       }))
+    }
+
+    function checkPauseDay (pause, position) {
+      return pause.day === position.weekday()
     }
   }
 
