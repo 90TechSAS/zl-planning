@@ -167,7 +167,14 @@
             })
             .value()
 
-          var weekInMonth = moment(self.position).endOf('month').isoWeek() - moment(self.position).startOf('month').isoWeek() + 1
+
+          var endWeek = moment(self.position).endOf('month').isoWeek()
+          var startWeek = moment(self.position).startOf('month').isoWeek()
+          // When switching years, last week of month can be 1
+          if (endWeek === 1) {
+            endWeek = moment(self.position).isoWeeksInYear() + 1
+          }
+          var weekInMonth = endWeek - startWeek + 1
           for (var i = 0; i < weekInMonth; i++) {
             if (self.multipleDaysEvents[i] === undefined) {
               self.multipleDaysEvents[i] = []
@@ -265,7 +272,7 @@
         // Set the beginning at the start of the month
         event.start = moment(self.position).startOf('month')
       }
-      if (event.end.month() > self.position.month()) {
+      if (event.end.month() > self.position.month() || event.end.year() !== self.position.year()) {
         // Event ends after current month
         if (event.start.month() > self.position.month()) {
           return []
