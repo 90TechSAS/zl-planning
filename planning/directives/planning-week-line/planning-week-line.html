@@ -15,7 +15,7 @@
                 <div class="event-line" ng-style="{'background-color': ev.color}" ng-if="!ev.continuedBefore"></div>
             </div>
             <div class="single-day-event-title" data-context-menu="planning/templates/planning-context-menu.html">
-                <span>{{ev.title}}</span>
+                <span ng-bind-html="ev.title"></span>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
                      ng-if="!event.continuedBefore"> </div>
             </div>
             <div class="multiple-day-event-title" data-context-menu="planning/templates/planning-context-menu.html">
-                <span>{{event.title}}</span>
+                <span ng-bind-html="event.title"></span>
             </div>
         </div>
     </div>

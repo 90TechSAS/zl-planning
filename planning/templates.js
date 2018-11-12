@@ -8,11 +8,11 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "    <div class=\"events-container\">\n" +
     "\n" +
     "        <div ng-style=\"{'background-color': event.color}\" class=\"month-event\"\n" +
-    "             ng-repeat=\"event in dayCtrl.day.events |limitTo:5\">{{event.title}}\n" +
+    "             ng-repeat=\"event in dayCtrl.day.events |limitTo:5\" ng-bind-html=\"event.title\">\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -34,7 +34,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "        <div class=\"days-body\" ng-switch-when=\"day\">\n" +
     "            <div class=\"dayName row8 b-b animate\"\n" +
-    "                 ng-repeat=\"col in planningLeftColumn.column\">\n" +
+    "                 ng-repeat=\"col in planningLeftColumn.column\" ng-click=\"planning.entityCallback({$entity: col})\">\n" +
     "                <h4>\n" +
     "                    {{col}}\n" +
     "                </h4>\n" +
@@ -42,7 +42,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "    </div>\n" +
     "    <div style=\"height:10px\"><!-- compensate for scrollbar --></div>\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -97,7 +97,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "            <div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>\n" +
     "        </div>\n" +
     "\n" +
-    "        <div class=\"title-container\"><span>{{event.title}}</span></div>\n" +
+    "        <div class=\"title-container\"><span ng-bind-html=\"event.title\">\n" +
+    "        </span></div>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -195,7 +196,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                     ng-if=\"!event.continuedBefore\"></div>\n" +
     "            </div>\n" +
     "\n" +
-    "            <div class=\"title-container\"><span>{{event.title}}</span></div>\n" +
+    "            <div class=\"title-container\"><span ng-bind-html=\"event.title\"></span></div>\n" +
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
@@ -244,7 +245,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                <div class=\"event-line\" ng-style=\"{'background-color': ev.color}\" ng-if=\"!ev.continuedBefore\"></div>\n" +
     "            </div>\n" +
     "            <div class=\"single-day-event-title\" data-context-menu=\"planning/templates/planning-context-menu.html\">\n" +
-    "                <span>{{ev.title}}</span>\n" +
+    "                <span ng-bind-html=\"ev.title\"></span>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +
@@ -263,7 +264,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                     ng-if=\"!event.continuedBefore\"> </div>\n" +
     "            </div>\n" +
     "            <div class=\"multiple-day-event-title\" data-context-menu=\"planning/templates/planning-context-menu.html\">\n" +
-    "                <span>{{event.title}}</span>\n" +
+    "                <span ng-bind-html=\"event.title\"></span>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "    </div>\n" +

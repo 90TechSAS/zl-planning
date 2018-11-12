@@ -15,7 +15,7 @@
         </div>
         <div class="days-body" ng-switch-when="day">
             <div class="dayName row8 b-b animate"
-                 ng-repeat="col in planningLeftColumn.column">
+                 ng-repeat="col in planningLeftColumn.column" ng-click="planning.entityCallback({$entity: col})">
                 <h4>
                     {{col}}
                 </h4>

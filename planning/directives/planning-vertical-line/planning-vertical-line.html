@@ -52,7 +52,7 @@
                      ng-if="!event.continuedBefore"></div>
             </div>
 
-            <div class="title-container"><span>{{event.title}}</span></div>
+            <div class="title-container"><span ng-bind-html="event.title"></span></div>
         </div>
     </div>
 

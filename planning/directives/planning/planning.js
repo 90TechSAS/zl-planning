@@ -476,6 +476,7 @@
         dayField: '=',
         eventCallback: '&',
         dayCallback: '&',
+        entityCallback: '&?',
         clickCallback: '&',
         weekEventCallback: '&',
         dropCallback: '&',

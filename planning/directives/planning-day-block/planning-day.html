@@ -4,7 +4,7 @@
     <div class="events-container">
 
         <div ng-style="{'background-color': event.color}" class="month-event"
-             ng-repeat="event in dayCtrl.day.events |limitTo:5">{{event.title}}
+             ng-repeat="event in dayCtrl.day.events |limitTo:5" ng-bind-html="event.title">
         </div>
     </div>
 
