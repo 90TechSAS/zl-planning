@@ -90,6 +90,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "         ng-style=\"{\n" +
     "         width: event.percentage,\n" +
     "         background: event.style['background-color'],\n" +
+    "         'background-image': event.style['background-image'],\n" +
     "         color: event.style.color,\n" +
     "         'border-left': event.pre > 0 ? 'none': ''\n" +
     "         }\">\n" +
@@ -185,6 +186,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "             data-context-menu=\"planning/templates/planning-context-menu.html\"\n" +
     "             ng-style=\"{\n" +
     "             height: event.percentage,\n" +
+    "             'background-image': event.style['background-image'],\n" +
     "             background: event.style['background-color'],\n" +
     "             color: event.style.color,\n" +
     "             'border-left': event.pre > 0 ? 'none': ''\n" +

@@ -5,13 +5,13 @@
     .module('90Tech.planning')
     .directive('zlPlanningVerticalLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$filter', '$scope', 'planningConfiguration', 'PositionService', 'ColorService']
+  PlanningLineController.$inject = ['$filter', '$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService']
 
   /**
    *
    */
   function
-  PlanningLineController ($filter, $scope, planningConfiguration, PositionService, ColorService) {
+  PlanningLineController ($filter, $scope, planningConfiguration, PositionService, ColorService, PauseService) {
 
 
     /** BASE_SIZE is the span of an hour. It gets multiplied by zoom (default 10) to get the size in pixel
@@ -159,6 +159,10 @@
             self.preEvent[event.id] = obj
           } else {
             event.pre = 0
+          }
+          if (event.pauses) {
+            event.style['background-image'] = PauseService.generateGradient(event, 'to bottom')
+            event.style['background-color'] = undefined
           }
 
         }
