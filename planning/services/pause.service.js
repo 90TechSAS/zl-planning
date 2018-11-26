@@ -24,11 +24,16 @@
 
       function parsePause (pauses) {
         return _.map(pauses, function (pause) {
-          var pauseRange = moment.range(pause.start, pause.end)
+          var start = event.start.isAfter(pause.start) ? event.start : pause.start
+          var end = event.end.isBefore(pause.end) ? event.end : pause.end
+          var pauseRange = moment.range(start, end)
           var pauseDuration = pauseRange.diff('milliseconds')
           var percentage = pauseDuration / totalDuration * 100
-
-          var v = (totalRange.subtract(pauseRange)[0].diff('milliseconds')) / totalDuration * 100
+          var before = totalRange.subtract(pauseRange)
+          if (!before.length) {
+            return {range: pauseRange, endPercentage: 100, startPercentage: 0}
+          }
+          var v = (before[0].diff('milliseconds') || totalDuration) / totalDuration * 100
           return {range: pauseRange, endPercentage: percentage + v, startPercentage: v}
         })
       }
