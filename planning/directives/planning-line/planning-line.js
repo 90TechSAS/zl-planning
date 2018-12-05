@@ -5,19 +5,35 @@
     .module('90Tech.planning')
     .directive('zlPlanningLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService', 'ColorService']
+  PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService']
 
   /**
    *
    */
   function
-  PlanningLineController ($scope, planningConfiguration, PositionService, ColorService) {
+  PlanningLineController ($scope, planningConfiguration, PositionService, ColorService, PauseService) {
 
     var BASE_SIZE = planningConfiguration.BASE_SIZE
     var parallelText = planningConfiguration.parallelText
     var MAX_PARALLEL = planningConfiguration.MAX_PARALLEL
 
     var self = this
+
+    self.$onInit = function () {
+      _.extend(self, {
+        clickEvent: clickEvent,
+        calcWidth: calcWidth,
+        dropEvent: dropEvent
+      })
+      init()
+
+
+
+      $scope.$watchCollection(function () {
+        return [self.events, self.dayStart, self.dayEnd]
+      }, init)
+    }
+
     self.log = function (a) {
     }
 
@@ -97,6 +113,7 @@
           event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
           event.style['background-color'] = '#000'
           event.style['font-weight'] = 'bold'
+          event.style.color = '#fff'
           event.title = (event.eventList.length) + ' ' + parallelText
           if (event.tooltip) event.tooltip = event.title
         }
@@ -140,14 +157,16 @@
           }
 
         }
+        if (event.pauses) {
+          event.style['background-image'] = PauseService.generateGradient(event, 'to right')
+          event.style['background-color'] = undefined
+        }
         currentId++
       })
       if (self.pauses) {
         createBreaks()
       }
     }
-
-    init()
 
     function calcWidth (zoom) {
       return (parseInt(zoom) * BASE_SIZE) + 'px'
@@ -172,24 +191,12 @@
         if (pause.end.isAfter(self.dayEnd)) {
           pause.end = moment(angular.copy(self.dayEnd))
         }
-
         pause.style.left = (pause.start.hours() - self.dayStart.h) * BASE_SIZE * self.zoom + pause.start.minutes() * BASE_SIZE * self.zoom / 60 + 'px'
         pause.style.width = self.zoom * self.SLIDER_WIDTH * (moment.range(pause.start, pause.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
 
         return pause
       }))
     }
-
-    $scope.$watchCollection(function () {
-      return [self.events, self.dayStart, self.dayEnd]
-    }, init)
-
-
-    _.extend(self, {
-      clickEvent: clickEvent,
-      calcWidth: calcWidth,
-      dropEvent: dropEvent
-    })
   }
 
   function PlanningLineDirective () {

@@ -5,13 +5,13 @@
     .module('90Tech.planning')
     .directive('zlPlanningVerticalLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$filter', '$scope', 'planningConfiguration', 'PositionService', 'ColorService']
+  PlanningLineController.$inject = ['$filter', '$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService']
 
   /**
    *
    */
   function
-  PlanningLineController ($filter, $scope, planningConfiguration, PositionService, ColorService) {
+  PlanningLineController ($filter, $scope, planningConfiguration, PositionService, ColorService, PauseService) {
 
 
     /** BASE_SIZE is the span of an hour. It gets multiplied by zoom (default 10) to get the size in pixel
@@ -23,6 +23,22 @@
     var AVAILABLE_SPACE = 90 // Total horizontal space taken by the events
 
     var self = this
+
+    self.$onInit = function () {
+      $scope.$watchCollection(function () {
+        return [self.events, self.dayStart, self.dayEnd]
+      }, init)
+
+
+      _.extend(self, {
+        clickEvent: clickEvent,
+        calcWidth: calcWidth,
+        dropEvent: dropEvent
+      })
+
+      init()
+    }
+
     self.log = function (a) {
     }
 
@@ -102,6 +118,7 @@
           event.style['background-color'] = '#000'
           event.style['font-weight'] = 'bold'
           event.title = (event.eventList.length) + ' ' + parallelText
+          event.style.color = '#fff'
           if (event.tooltip) event.tooltip = event.title
         }
         event.style.width = self.zoom * self.SLIDER_WIDTH * (event.range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
@@ -143,6 +160,10 @@
           } else {
             event.pre = 0
           }
+          if (event.pauses) {
+            event.style['background-image'] = PauseService.generateGradient(event, 'to bottom')
+            event.style['background-color'] = undefined
+          }
 
         }
         currentId++
@@ -152,8 +173,6 @@
       }
       calculateContainerHeight()
     }
-
-    init()
 
     function calcWidth (zoom) {
       return (parseInt(zoom) * BASE_SIZE) + 'px'
@@ -189,17 +208,6 @@
     function calculateContainerHeight () {
       self.containerHeight = (parseInt(self.zoom) * BASE_SIZE) * $filter('range')(self.range) + 'px'
     }
-
-    $scope.$watchCollection(function () {
-      return [self.events, self.dayStart, self.dayEnd]
-    }, init)
-
-
-    _.extend(self, {
-      clickEvent: clickEvent,
-      calcWidth: calcWidth,
-      dropEvent: dropEvent
-    })
   }
 
   function PlanningLineDirective () {

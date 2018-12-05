@@ -12,6 +12,23 @@
 
     var self = this
 
+    self.$onInit = function () {
+      _.extend(self, {
+        //  sortedEvents       : sortedEvents,
+        isToday: isToday,
+        currentTimeToPixels: currentTimeToPixels,
+        isCurrent: isCurrent,
+        clickCallbackWrapper: clickCallbackWrapper,
+        isInDayRange: isInDayRange,
+        keys: keys,
+        getEvents: getEvents,
+        clickWeekEvent: clickWeekEvent,
+        dropEvent: dropEvent
+      })
+
+      init()
+    }
+
     function init () {
       self.zoom = parseInt(self.zoom)
       self.allowedDays = self.usableDays.sort() || planningConfiguration.DAYS
@@ -67,22 +84,22 @@
 
           var keys = _.keys(self.sortedEvents)
           self.groupedEvents = _.map(_.groupBy(self._events, function (e) {
-              return moment(e.start).startOf('day').unix()
-            }), function (v, k) {
-              var result = {
-                key: k,
-                day: moment.unix(k).startOf('day').format('dddd DD MMMM'),
-                value: _.groupBy(v, function (e) {
-                  return e.technician
-                })
-              }
-              _.each(self.entities, function (e) {
-                if (!result.value[e]) {
-                  result.value[e] = []
-                }
+            return moment(e.start).startOf('day').unix()
+          }), function (v, k) {
+            var result = {
+              key: k,
+              day: moment.unix(k).startOf('day').format('dddd DD MMMM'),
+              value: _.groupBy(v, function (e) {
+                return e.technician
               })
-              return result
+            }
+            _.each(self.entities, function (e) {
+              if (!result.value[e]) {
+                result.value[e] = []
+              }
             })
+            return result
+          })
 
           var start = moment(self.position).hour(self._dayStart.h).minute(self._dayStart.m).second(0)
           var stop = moment(self.position).hour(self._dayEnd.h).minute(self._dayEnd.m).second(59)
@@ -150,7 +167,15 @@
             })
             .value()
 
-          for (var i = 0; i < 5; i++) {
+
+          var endWeek = moment(self.position).endOf('month').isoWeek()
+          var startWeek = moment(self.position).startOf('month').isoWeek()
+          // When switching years, last week of month can be 1
+          if (endWeek === 1) {
+            endWeek = moment(self.position).isoWeeksInYear() + 1
+          }
+          var weekInMonth = endWeek - startWeek + 1
+          for (var i = 0; i < weekInMonth; i++) {
             if (self.multipleDaysEvents[i] === undefined) {
               self.multipleDaysEvents[i] = []
             }
@@ -174,8 +199,6 @@
           break
       }
     }
-
-    init()
 
     function split (event) {
       // Event starts and ends the same day
@@ -249,7 +272,7 @@
         // Set the beginning at the start of the month
         event.start = moment(self.position).startOf('month')
       }
-      if (event.end.month() > self.position.month()) {
+      if (event.end.month() > self.position.month() || event.end.year() !== self.position.year()) {
         // Event ends after current month
         if (event.start.month() > self.position.month()) {
           return []
@@ -353,8 +376,10 @@
     function keys (sortedEvents) {
       switch (self.mode) {
         case 'week':
+          return Object.keys(sortedEvents).sort(function(a, b){
+            return parseInt(a) - parseInt(b)}
+          )
         case 'week-advanced':
-          return Object.keys(sortedEvents).sort(function(a, b){return parseInt(a) - parseInt(b)})
         case 'day':
         case '3day':
           return Object.keys(sortedEvents).sort()
@@ -437,18 +462,7 @@
       return (parseInt(self.zoom) * Math.max(planningConfiguration.BASE_SIZE - 8, 1)) + 'px'
     }
 
-    _.extend(self, {
-      //  sortedEvents       : sortedEvents,
-      isToday: isToday,
-      currentTimeToPixels: currentTimeToPixels,
-      isCurrent: isCurrent,
-      clickCallbackWrapper: clickCallbackWrapper,
-      isInDayRange: isInDayRange,
-      keys: keys,
-      getEvents: getEvents,
-      clickWeekEvent: clickWeekEvent,
-      dropEvent: dropEvent
-    })
+
   }
 
   function PlanningDirective () {

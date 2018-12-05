@@ -37,12 +37,13 @@
         </div>
 
         <div class="event" style="display: inline-block; position: relative; width: 100%;"
-             tooltip-append-to-body="true" tooltip-placement="{{event.tooltipTemplate? 'right': 'top'}}"
+             tooltip-append-to-body="true" tooltip-placement="{{event.tooltipTemplate? 'auto': 'top'}}"
              ng-attr-uib-tooltip="{{!event.tooltipTemplate ? event.tooltip : undefined}}"
              ng-attr-uib-tooltip-template="{{'' + event.tooltipTemplate}}" tooltip-class="planning-event-tooltip"
              data-context-menu="planning/templates/planning-context-menu.html"
              ng-style="{
              height: event.percentage,
+             'background-image': event.style['background-image'],
              background: event.style['background-color'],
              color: event.style.color,
              'border-left': event.pre > 0 ? 'none': ''

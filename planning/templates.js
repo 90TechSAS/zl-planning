@@ -84,12 +84,13 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "\n" +
     "    </div>\n" +
     "    <div class=\"event\" style=\"display: inline-block; position: relative; height: 100%;\" data-context-menu=\"planning/templates/planning-context-menu.html\"\n" +
-    "         tooltip-append-to-body=\"true\" tooltip-placement=\"{{event.tooltipTemplate? 'right': 'top'}}\"\n" +
+    "         tooltip-append-to-body=\"true\" tooltip-placement=\"{{event.tooltipTemplate? 'auto': 'top'}}\"\n" +
     "         ng-attr-uib-tooltip=\"{{!event.tooltipTemplate ? event.tooltip : undefined}}\"\n" +
     "         ng-attr-uib-tooltip-template=\"{{'' + event.tooltipTemplate}}\" tooltip-class=\"planning-event-tooltip\"\n" +
     "         ng-style=\"{\n" +
     "         width: event.percentage,\n" +
     "         background: event.style['background-color'],\n" +
+    "         'background-image': event.style['background-image'],\n" +
     "         color: event.style.color,\n" +
     "         'border-left': event.pre > 0 ? 'none': ''\n" +
     "         }\">\n" +
@@ -179,12 +180,13 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "\n" +
     "        <div class=\"event\" style=\"display: inline-block; position: relative; width: 100%;\"\n" +
-    "             tooltip-append-to-body=\"true\" tooltip-placement=\"{{event.tooltipTemplate? 'right': 'top'}}\"\n" +
+    "             tooltip-append-to-body=\"true\" tooltip-placement=\"{{event.tooltipTemplate? 'auto': 'top'}}\"\n" +
     "             ng-attr-uib-tooltip=\"{{!event.tooltipTemplate ? event.tooltip : undefined}}\"\n" +
     "             ng-attr-uib-tooltip-template=\"{{'' + event.tooltipTemplate}}\" tooltip-class=\"planning-event-tooltip\"\n" +
     "             data-context-menu=\"planning/templates/planning-context-menu.html\"\n" +
     "             ng-style=\"{\n" +
     "             height: event.percentage,\n" +
+    "             'background-image': event.style['background-image'],\n" +
     "             background: event.style['background-color'],\n" +
     "             color: event.style.color,\n" +
     "             'border-left': event.pre > 0 ? 'none': ''\n" +
@@ -235,7 +237,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                ng-style=\"{'top': ev.style.top, 'height': ev.style.height, 'background-color': ev.style['background-color'], 'color' : ev.style.color, 'width': ev.style.width, 'left': ev.style.left}\"\n" +
     "                style=\"position:absolute;border: 1px solid black;pointer-events: auto; overflow: hidden;\"\n" +
     "                ng-click=\"planning.weekEventCallback({event: ev})\"\n" +
-    "                tooltip-append-to-body=\"true\" tooltip-placement=\"{{ev.tooltipTemplate? 'right': 'top'}}\"\n" +
+    "                tooltip-append-to-body=\"true\" tooltip-placement=\"{{ev.tooltipTemplate? 'auto': 'top'}}\"\n" +
     "                ng-attr-uib-tooltip=\"{{!ev.tooltipTemplate ? ev.tooltip : undefined}}\"\n" +
     "                ng-attr-uib-tooltip-template=\"{{'' + ev.tooltipTemplate}}\" tooltip-class=\"planning-event-tooltip\"\n" +
     "                class=\"single-day-event\">\n" +
@@ -253,7 +255,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "             zl-planning-drag-drop\n" +
     "             zl-drag=\"event\"\n" +
     "             ng-click=\"planning.weekEventCallback({event: event})\"\n" +
-    "             tooltip-append-to-body=\"true\" tooltip-placement=\"{{event.tooltipTemplate? 'right': 'top'}}\"\n" +
+    "             tooltip-append-to-body=\"true\" tooltip-placement=\"{{event.tooltipTemplate? 'auto': 'top'}}\"\n" +
     "             ng-attr-uib-tooltip=\"{{!event.tooltipTemplate ? event.tooltip : undefined}}\"\n" +
     "             ng-attr-uib-tooltip-template=\"{{'' + event.tooltipTemplate}}\" tooltip-class=\"planning-event-tooltip\"\n" +
     "             ng-style=\"{'top': event.style.top, 'height': event.style.height, 'background-color': event.style['background-color'], 'color' : event.style.color, 'width': event.style.width, 'left': event.style.left}\">\n" +

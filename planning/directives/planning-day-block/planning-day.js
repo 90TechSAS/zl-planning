@@ -11,19 +11,23 @@
   function PlanningDayController () {
     var self = this
 
-    self.isDefined = (self.day.events === undefined)
+    self.$onInit = function () {
+      _.extend(self, {
+        dropEvent: dropEvent
+      })
+
+      self.isDefined = (self.day.events === undefined)
+      init()
+    }
+
+
     function init () {
     }
 
-    init()
 
     function dropEvent (data, event) {
       self.dropCallback({ $data: data, $event: event})
     }
-
-    _.extend(self, {
-      dropEvent: dropEvent
-    })
   }
 
   /**

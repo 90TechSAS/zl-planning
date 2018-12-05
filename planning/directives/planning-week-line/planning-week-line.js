@@ -13,6 +13,20 @@
   function PlanningLineController ($scope, PositionService, planningConfiguration, ColorService) {
     var self = this
 
+    self.$onInit = function () {
+      _.extend(self, {
+        calculateWidth: calculateWidth,
+        calculateLeft: calculateLeft
+      })
+
+      init()
+
+      $scope.$watchCollection(function () {
+        return [self.events, self.week]
+      }, init)
+
+    }
+
     var parallelText = planningConfiguration.parallelText
     var MAX_PARALLEL = planningConfiguration.MAX_PARALLEL
 
@@ -25,7 +39,7 @@
       self.oneDayEvents = positioning(self.oneDayEvents)
     }
 
-    init()
+
 
     function positioning (eventList) {
       var lines = [[]]
@@ -65,9 +79,6 @@
       }
     }
 
-    $scope.$watchCollection(function () {
-      return [self.events, self.week]
-    }, init)
 
     function calculateWidth (event) {
       if (event.start.day() === event.end.day()) {
@@ -85,10 +96,7 @@
       return ((event.start.isoWeekday() - 1)) * (99.9 / 7) + '%'
     }
 
-    _.extend(self, {
-      calculateWidth: calculateWidth,
-      calculateLeft: calculateLeft
-    })
+
   }
 
   function PlanningLineDirective () {
