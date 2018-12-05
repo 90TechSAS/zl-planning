@@ -1,18 +1,19 @@
 Version numbers correspond to `bower.json` version
 
-# 1.6.1
-
-# Fixes
-
-- Fix event not being displayed in month mode when month had 6 weeks range
-- Always set text to white for grouped events
-
 # 1.6.0
 
-# Features
+## Meta
 
 - Update AngularJS to 1.7.0
+
+## Features
+
+- Can display event pauses
+
+## Fixes
 - Switch to position: auto for custom event tooltip
+- Fix event not being displayed in month mode when month had 6 weeks range
+- Always set text to white for grouped events
 - Correct sort for advanced week
 
 # 1.5.4
