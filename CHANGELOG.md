@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.6.1
+
+## Fixes
+
+- Fix year switch
+
 # 1.6.0
 
 ## Meta

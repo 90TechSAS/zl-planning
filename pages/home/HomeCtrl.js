@@ -11,7 +11,7 @@
       $scope.moment = pikaday.getMoment()
     }
     $scope.moment = moment().month($scope.viewMonth)
-    $scope.mode = 'month'
+    $scope.mode = 'week'
 
     $scope.zoom = 10
     $scope.start = 0
@@ -47,13 +47,13 @@
 
     $scope.init = function () {
       delete $scope.events
-      $scope.days = [0, 1, 2, 5 , 7] /*_.clone(planningConfiguration.DAYS)*/
+      $scope.days = [0, 1, 2, 3, 4, 5, 6] /*_.clone(planningConfiguration.DAYS)*/
       $scope.events = []
       var month = moment().month($scope.viewMonth)
       $scope.onPikadaySelect = function (pikaday) {
         $scope.moment = pikaday.getMoment()
       }
-      $scope.moment = moment().month($scope.viewMonth)
+      $scope.moment = moment(new Date(2018, 11, 31))
 
       for (var i = 0; i < $scope.nbEvents; i++) {
         var d = Math.ceil(Math.random() * 32) - 1
@@ -94,6 +94,18 @@
           pre: Math.ceil(Math.random()*240)*/
         })
       }
+
+      $scope.events = [
+        {
+          "title": faker.random.words(),
+          "start": moment("2019-01-04T08:00:00.000Z"),
+          "end": moment("2019-01-04T10:00:00.000Z"),
+          "tooltip": faker.random.words(),
+          "technician": faker.name.firstName() + ' ' + faker.name.lastName(),
+          "color": "#112578",
+          'background-color' : faker.internet.color()
+        }
+      ]
 
       console.groupCollapsed('Generated events')
       console.table(_.map($scope.events, function (e) {
