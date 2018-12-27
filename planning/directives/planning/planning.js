@@ -412,7 +412,13 @@
       var entity
       switch (self.mode) {
         case 'week':
-          mom = moment(self.position).hour(opts.h).minute(opts.m).second(0).dayOfYear(opts.d)
+          var split = opts.d.split('/')
+          /**
+           * split[2] === year
+           * split[1] === month, we need to subtract 1 because momentJS months starts at 0
+           * split[0] === dayOfMonth
+           */
+          mom = moment(new Date(split[2], split[1] - 1, split[0], opts.h, opts.m))
           break
         case '3day':
         case 'day':
