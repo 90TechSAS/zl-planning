@@ -54,7 +54,6 @@
           self.sortedEvents = _.groupBy(self._events, function (e) {
             return e.start.format('DD/MM/YYYY')
           })
-
           addMissingDays(self.sortedEvents)
           break
         case 'day':
@@ -341,18 +340,11 @@
 
     function addMissingDays (sortedEvents) {
       sortedEvents = sortedEvents || {}
-      var startingDay = moment(self.position).weekday(0).dayOfYear()
+      var startingDay = moment(self.position).weekday(0)
       _.times(7, function (i) {
-        /* Handle week overlapping two years by adding days #366, #367, etc
-         *  And remove day #1, 2, etc
-         *  To prevent them from appearing on top
-         * */
-        if (startingDay >= 358 && sortedEvents[i]) {
-          sortedEvents[startingDay + 5 + i] = sortedEvents[i]
-          delete sortedEvents[i]
-        }
-        if (!sortedEvents[startingDay + i]) {
-          sortedEvents[startingDay + i] = []
+        var newDate = moment(angular.copy(startingDay)).add(i, 'days').format('DD/MM/YYYY')
+        if (!sortedEvents[newDate]) {
+          sortedEvents[newDate] = []
         }
       })
     }
@@ -376,9 +368,13 @@
     function keys (sortedEvents) {
       switch (self.mode) {
         case 'week':
-          return Object.keys(sortedEvents).sort(function(a, b){
-            return parseInt(a) - parseInt(b)}
-          )
+          return Object.keys(sortedEvents).sort(function(a, b) {
+            var splitA = a.split('/')
+            var splitB = b.split('/')
+            var dateA = new Date(splitA[2], splitA[1], splitA[0])
+            var dateB = new Date(splitB[2], splitB[1], splitB[0])
+            return dateA - dateB
+          })
         case 'week-advanced':
         case 'day':
         case '3day':
