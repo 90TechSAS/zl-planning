@@ -47,7 +47,7 @@
 
     $scope.init = function () {
       delete $scope.events
-      $scope.days = [0, 1, 2, 5 , 7] /*_.clone(planningConfiguration.DAYS)*/
+      $scope.days = [0, 1, 2, 3, 4, 5, 6] /*_.clone(planningConfiguration.DAYS)*/
       $scope.events = []
       var month = moment().month($scope.viewMonth)
       $scope.onPikadaySelect = function (pikaday) {

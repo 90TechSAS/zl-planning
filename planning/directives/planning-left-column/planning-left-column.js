@@ -26,7 +26,7 @@
           self.days.push(day)
         })
         self.days = _.sortBy(self.days, function (d) {
-          return d.dayOfYear()
+          return moment(d).toDate()
         })
       } else if (self.mode === 'day' && self.dayField) {
         self.column = Object.keys(self.events).sort()

@@ -52,7 +52,7 @@
           self._events = filter(self._events)
 
           self.sortedEvents = _.groupBy(self._events, function (e) {
-            return e.start.dayOfYear()
+            return e.start.format('DD/MM/YYYY')
           })
 
           addMissingDays(self.sortedEvents)
