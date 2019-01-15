@@ -49,18 +49,10 @@
                 if (e.dataTransfer.setDragImage) {
                   e.dataTransfer.setDragImage(dragImage,0,0)
                 }
-
-                // Dispatch mouseleave events to close tooltips
-                function closeTooltips(element){
-                  _.forEach(element.children,closeTooltips)
-                  _.forEach(element.attributes, function(p){  
-                    if (p.name === 'ng-attr-uib-tooltip'){
-                      element.dispatchEvent(new MouseEvent('mouseleave'));
-                    }
-                  })
-                }
-
-                closeTooltips(el)
+                // Remove tooltips on drag
+                _.each(document.querySelectorAll('.planning-event-tooltip'), function (elt) {
+                  elt.remove()
+                })
                 e.dataTransfer.setData('Text', JSON.stringify(scope.dragDropCtrl.zlDrag))
                 this.classList.add('drag')
                 return false
