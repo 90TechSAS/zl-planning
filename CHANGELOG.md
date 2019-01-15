@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.6.2
+
+## Fixes
+
+- Correctly remove tooltip on element drag
+
 # 1.6.1
 
 ## Fixes
