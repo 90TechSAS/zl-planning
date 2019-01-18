@@ -26,9 +26,6 @@
         dropEvent: dropEvent
       })
       init()
-
-
-
       $scope.$watchCollection(function () {
         return [self.events, self.dayStart, self.dayEnd]
       }, init)
@@ -58,12 +55,25 @@
     function dropEvent (data, event) {
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
-      self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      if (!self.absences) {
+        self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      } else {
+        planningConfiguration.absentTechnicianCallback(function () {
+          self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      }
     }
 
     function clickEvent (hour, $event) {
       var minutes = extractMinutesFromEvent($event)
-      self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      if (!self.absences) {
+        self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      } else {
+        planningConfiguration.absentTechnicianCallback(function () {
+          self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      }
+
     }
 
     function init () {
@@ -212,7 +222,8 @@
         events: '=',
         clickCallback: '&',
         dropCallback: '&',
-        pauses: '=?'
+        pauses: '=?',
+        absences: '=?'
       },
       scope: true
     }

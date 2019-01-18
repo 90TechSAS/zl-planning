@@ -48,6 +48,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
   $templateCache.put('planning/directives/planning-line/planning-line.html',
     "<div style=\"z-index: 1;\"\n" +
+    "     ng-class=\"{'planning-absences': !!line.absences }\"\n" +
+    "     uib-tooltip=\"Absent\" tooltip-enable=\"line.absences\" tooltip-append-to-body=\"true\"\n" +
     "        zl-planning-drag-drop\n" +
     "        zl-drop=\"line.dropEvent($data, $event)\">\n" +
     "    <div class=\"b-b b-r all-day day-hour\"\n" +
@@ -287,7 +289,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                </div>\n" +
     "                <div class=\"planning-2pc\"></div>\n" +
     "                <zl-planning-line ng-if=\"planning.mode === 'day'\"\n" +
-    "                        zoom=\"planning.zoom\"\n" +
+    "                        zoom=\"planning.zoom\" absences=\"planning.absences[i]\"\n" +
     "                        day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                        ng-repeat=\"i in planning.keys(planning.sortedEvents)\" class=\"day b-b\"\n" +
     "                        ng-class=\"{today: planning.isToday(i)}\" events=\"planning.getEvents(i)\"\n" +

@@ -478,6 +478,7 @@
         events: '=',
         entities: '=',
         entitiesPauses: '=?',
+        absences: '=?',
         position: '=',
         mode: '=',
         dayStart: '=',

@@ -39,7 +39,10 @@
           BASE_SIZE: self.BASE_SIZE,
           MAX_PARALLEL: self.MAX_PARALLEL,
           parallelText: self.parallelText,
-          DAYS: self.DAYS
+          DAYS: self.DAYS,
+          absentTechnicianCallback: function (callback) {
+            callback()
+          }
         }
       }]
     })

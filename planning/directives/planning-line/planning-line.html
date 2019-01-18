@@ -1,4 +1,6 @@
 <div style="z-index: 1;"
+     ng-class="{'planning-absences': !!line.absences }"
+     uib-tooltip="Absent" tooltip-enable="line.absences" tooltip-append-to-body="true"
         zl-planning-drag-drop
         zl-drop="line.dropEvent($data, $event)">
     <div class="b-b b-r all-day day-hour"
