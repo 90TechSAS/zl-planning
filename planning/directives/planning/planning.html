@@ -81,12 +81,12 @@
         </div>
         <div ng-repeat="day in planning.allowedDays"
              class="day-advanced">
-            <zl-planning-vertical-line
+            <zl-planning-vertical-line day="planning.daysList[$index]"
                     zoom="planning.zoom"
                     drop-callback="planning.dropEvent({h: $hour, m: $minutes, d:day, entity: name, $data: $data, $event: $event})"
                     day-start="planning._dayStart" day-end="planning._dayEnd"
                     events=" planning.getEvents(name)[day]"
-                    pauses="planning.entitiesPauses[name]"
+                    pauses="planning.entitiesPauses[name]" absences="planning.absences[name]"
                     click-callback="planning.clickCallbackWrapper({h: $hour, m: $minutes, d: day, entity: name})">
             </zl-planning-vertical-line>
         </div>

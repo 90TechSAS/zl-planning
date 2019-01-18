@@ -29,6 +29,15 @@
         return [self.events, self.dayStart, self.dayEnd]
       }, init)
 
+      $scope.$watchCollection(function () {
+        return self.absences
+      }, function (oldValue, newValue) {
+        self.hasAbsences = _.any(self.absences, function (a) {
+          var range = moment.range(moment(a.start).startOf('day'), moment(a.end).endOf('day'))
+          return range.contains(self.day)
+        })
+      })
+
 
       _.extend(self, {
         clickEvent: clickEvent,
@@ -63,12 +72,26 @@
     function dropEvent (data, event) {
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
-      self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
+      if (!self.hasAbsences) {
+        self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
+      } else {
+        planningConfiguration.absentTechnicianCallback(function () {
+          self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
+        })
+      }
+
     }
 
     function clickEvent (hour, $event) {
       var minutes = extractMinutesFromEvent($event)
-      self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      if (!self.hasAbsences) {
+        self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      } else {
+        planningConfiguration.absentTechnicianCallback(function () {
+          self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      }
+
     }
 
     function init () {
@@ -222,6 +245,8 @@
         dayEnd: '=',
         events: '=',
         pauses: '=?',
+        day: '=',
+        absences: '=?',
         clickCallback: '&',
         dropCallback: '&'
       },

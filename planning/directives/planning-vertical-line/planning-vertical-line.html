@@ -1,4 +1,5 @@
-<div ng-style="{height: line.containerHeight}">
+<div ng-style="{height: line.containerHeight}" ng-class="{'planning-absences': line.hasAbsences}"
+     uib-tooltip="Absent" tooltip-enable="line.absences" tooltip-append-to-body="true">
     <div style="position: absolute; height: 100%; width: 100%; z-index: 1;"
          zl-planning-drag-drop
          zl-drop="line.dropEvent($data, $event)">
@@ -57,27 +58,9 @@
         </div>
     </div>
 
-    <div ng-repeat="pause in line.breaks track by $index"
+    <div ng-repeat="pause in line.breaks track by $index" ng-if="!line.hasAbsences"
          class="planning-pause-element"
          style="width: 95%; left: 5%;"
          ng-style="pause.style">
     </div>
 </div>
-
-<!--<div class="event"-->
-<!--zl-planning-drag-drop-->
-<!--zl-drag="event"-->
-<!--ng-repeat="event in line._events"-->
-<!--ng-style="event.style"-->
-<!--ng-class="{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}"-->
-<!--ng-click="planning.eventCallback({'event':event})"-->
-<!--tooltip-append-to-body="true"-->
-<!--uib-tooltip="{{event.tooltip}}">-->
-<!--&lt;!&ndash;<span class="calendar-urgency bg-pink"></span>&ndash;&gt;-->
-
-<!--<div class="event-line-container" style="">-->
-<!--<div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>-->
-<!--</div>-->
-
-<!--<div class="title-container"><span>{{event.title}}</span></div>-->
-<!--</div>-->

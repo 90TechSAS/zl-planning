@@ -143,7 +143,8 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
 
 
   $templateCache.put('planning/directives/planning-vertical-line/planning-vertical-line.html',
-    "<div ng-style=\"{height: line.containerHeight}\">\n" +
+    "<div ng-style=\"{height: line.containerHeight}\" ng-class=\"{'planning-absences': line.hasAbsences}\"\n" +
+    "     uib-tooltip=\"Absent\" tooltip-enable=\"line.absences\" tooltip-append-to-body=\"true\">\n" +
     "    <div style=\"position: absolute; height: 100%; width: 100%; z-index: 1;\"\n" +
     "         zl-planning-drag-drop\n" +
     "         zl-drop=\"line.dropEvent($data, $event)\">\n" +
@@ -202,30 +203,12 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div ng-repeat=\"pause in line.breaks track by $index\"\n" +
+    "    <div ng-repeat=\"pause in line.breaks track by $index\" ng-if=\"!line.hasAbsences\"\n" +
     "         class=\"planning-pause-element\"\n" +
     "         style=\"width: 95%; left: 5%;\"\n" +
     "         ng-style=\"pause.style\">\n" +
     "    </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "<!--<div class=\"event\"-->\n" +
-    "<!--zl-planning-drag-drop-->\n" +
-    "<!--zl-drag=\"event\"-->\n" +
-    "<!--ng-repeat=\"event in line._events\"-->\n" +
-    "<!--ng-style=\"event.style\"-->\n" +
-    "<!--ng-class=\"{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}\"-->\n" +
-    "<!--ng-click=\"planning.eventCallback({'event':event})\"-->\n" +
-    "<!--tooltip-append-to-body=\"true\"-->\n" +
-    "<!--uib-tooltip=\"{{event.tooltip}}\">-->\n" +
-    "<!--&lt;!&ndash;<span class=\"calendar-urgency bg-pink\"></span>&ndash;&gt;-->\n" +
-    "\n" +
-    "<!--<div class=\"event-line-container\" style=\"\">-->\n" +
-    "<!--<div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>-->\n" +
-    "<!--</div>-->\n" +
-    "\n" +
-    "<!--<div class=\"title-container\"><span>{{event.title}}</span></div>-->\n" +
-    "<!--</div>-->\n"
+    "</div>\n"
   );
 
 
@@ -358,12 +341,12 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "        <div ng-repeat=\"day in planning.allowedDays\"\n" +
     "             class=\"day-advanced\">\n" +
-    "            <zl-planning-vertical-line\n" +
+    "            <zl-planning-vertical-line day=\"planning.daysList[$index]\"\n" +
     "                    zoom=\"planning.zoom\"\n" +
     "                    drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d:day, entity: name, $data: $data, $event: $event})\"\n" +
     "                    day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                    events=\" planning.getEvents(name)[day]\"\n" +
-    "                    pauses=\"planning.entitiesPauses[name]\"\n" +
+    "                    pauses=\"planning.entitiesPauses[name]\" absences=\"planning.absences[name]\"\n" +
     "                    click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: day, entity: name})\">\n" +
     "            </zl-planning-vertical-line>\n" +
     "        </div>\n" +
