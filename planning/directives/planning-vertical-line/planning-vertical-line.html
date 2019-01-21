@@ -1,5 +1,4 @@
-<div ng-style="{height: line.containerHeight}" ng-class="{'planning-absences': line.hasAbsences}"
-     uib-tooltip="Absent" tooltip-enable="line.absences" tooltip-append-to-body="true">
+<div ng-style="{height: line.containerHeight}">
     <div style="position: absolute; height: 100%; width: 100%; z-index: 1;"
          zl-planning-drag-drop
          zl-drop="line.dropEvent($data, $event)">
@@ -58,9 +57,14 @@
         </div>
     </div>
 
-    <div ng-repeat="pause in line.breaks track by $index" ng-if="!line.hasAbsences"
+    <div ng-repeat="pause in line.breaks track by $index"
          class="planning-pause-element"
          style="width: 95%; left: 5%;"
          ng-style="pause.style">
+    </div>
+    <div ng-repeat="absence in line._absences track by $index"
+         class="planning-absences" uib-tooltip="Absent" tooltip-append-to-body="true"
+         style="width: 95%; left: 5%;"
+         ng-style="absence.style">
     </div>
 </div>

@@ -5,13 +5,13 @@
     .module('90Tech.planning')
     .directive('zlPlanningLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService']
+  PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService', 'AbsenceService']
 
   /**
    *
    */
   function
-  PlanningLineController ($scope, planningConfiguration, PositionService, ColorService, PauseService) {
+  PlanningLineController ($scope, planningConfiguration, PositionService, ColorService, PauseService, AbsenceService) {
 
     var BASE_SIZE = planningConfiguration.BASE_SIZE
     var parallelText = planningConfiguration.parallelText
@@ -29,6 +29,25 @@
       $scope.$watchCollection(function () {
         return [self.events, self.dayStart, self.dayEnd]
       }, init)
+
+      $scope.$watchCollection(function () {
+        return [self.absences]
+      }, function (oldValue, newValue) {
+        if (Array.isArray(self.absences) && self.absences.length) {
+          var start = moment(angular.copy(self.position)).startOf('day')
+          var end = moment(angular.copy(self.position)).endOf('day')
+          self._absences = AbsenceService.parseAbsences(self.absences , [start, end]).map(function (abs) {
+            abs.style = {
+              left: (moment(abs.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + moment(abs.start).minutes() * BASE_SIZE * self.zoom / 60 + 'px',
+              width: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
+            }
+            abs.range = moment.range(abs.start, abs.end)
+            return abs
+          })
+        } else {
+          self._absences = []
+        }
+      })
     }
 
     self.log = function (a) {
@@ -55,7 +74,8 @@
     function dropEvent (data, event) {
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
-      if (!self.absences) {
+      var date = moment(angular.copy(self.position)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
+      if (!checkAbsence(date)) {
         self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
       } else {
         planningConfiguration.absentTechnicianCallback(function () {
@@ -66,7 +86,8 @@
 
     function clickEvent (hour, $event) {
       var minutes = extractMinutesFromEvent($event)
-      if (!self.absences) {
+      var date = moment(angular.copy(self.position)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
+      if (!checkAbsence(date)) {
         self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
       } else {
         planningConfiguration.absentTechnicianCallback(function () {
@@ -176,6 +197,7 @@
       if (self.pauses) {
         createBreaks()
       }
+
     }
 
     function calcWidth (zoom) {
@@ -207,6 +229,14 @@
         return pause
       }))
     }
+
+    function checkAbsence (date) {
+      var d = moment(angular.copy(date))
+      return _.any(self._absences, function (abs) {
+        return abs.range.contains(d)
+      })
+
+    }
   }
 
   function PlanningLineDirective () {
@@ -223,7 +253,8 @@
         clickCallback: '&',
         dropCallback: '&',
         pauses: '=?',
-        absences: '=?'
+        absences: '=?',
+        position: '=?'
       },
       scope: true
     }

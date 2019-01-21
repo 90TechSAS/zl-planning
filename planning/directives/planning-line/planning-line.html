@@ -1,6 +1,4 @@
 <div style="z-index: 1;"
-     ng-class="{'planning-absences': !!line.absences }"
-     uib-tooltip="Absent" tooltip-enable="line.absences" tooltip-append-to-body="true"
         zl-planning-drag-drop
         zl-drop="line.dropEvent($data, $event)">
     <div class="b-b b-r all-day day-hour"
@@ -59,6 +57,11 @@
      class="planning-pause-element"
      style="height: 100%;"
      ng-style="pause.style">
+</div>
+<div ng-repeat="absence in line._absences track by $index"
+     class="planning-absences" uib-tooltip="Absent" tooltip-append-to-body="true"
+     style="height: 100%;"
+     ng-style="absence.style">
 </div>
 
 <!--<div class="event"-->
