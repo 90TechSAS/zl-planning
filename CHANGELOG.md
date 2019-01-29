@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.6.3
+
+## Fixes
+
+- Correctly sort days on week view
+
 # 1.6.2
 
 ## Fixes
