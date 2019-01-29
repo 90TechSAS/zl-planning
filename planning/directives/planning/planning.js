@@ -369,10 +369,8 @@
       switch (self.mode) {
         case 'week':
           return Object.keys(sortedEvents).sort(function(a, b) {
-            var splitA = a.split('/')
-            var splitB = b.split('/')
-            var dateA = new Date(splitA[2], splitA[1], splitA[0])
-            var dateB = new Date(splitB[2], splitB[1], splitB[0])
+            var dateA = dateFromString(a)
+            var dateB = dateFromString(b)
             return dateA - dateB
           })
         case 'week-advanced':
@@ -444,7 +442,8 @@
       if (!mom) {
         switch (self.mode) {
           case 'week':
-            mom = moment(self.position).hour(config.h).minute(config.m).second(0).dayOfYear(config.d)
+            var doy = moment(dateFromString(config.d)).dayOfYear()
+            mom = moment(self.position).hour(config.h).minute(config.m).second(0).dayOfYear(doy)
             break
           case 'week-advanced':
             mom = moment(self.position).hour(config.h).minute(config.m).second(0).weekday(config.d)
@@ -464,6 +463,10 @@
       return (parseInt(self.zoom) * Math.max(planningConfiguration.BASE_SIZE - 8, 1)) + 'px'
     }
 
+    function dateFromString (date) {
+      var dateSplitted = date.split('/')
+      return new Date(dateSplitted[2], dateSplitted[1] - 1, dateSplitted[0])
+    }
 
   }
 

@@ -6,6 +6,12 @@ Version numbers correspond to `bower.json` version
 
 - Handle absences
 
+# 1.6.3
+
+## Fixes
+
+- Correctly sort days on week view
+
 # 1.6.2
 
 ## Fixes
