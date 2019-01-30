@@ -11,8 +11,12 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "             ng-repeat=\"event in dayCtrl.day.events |limitTo:5\">{{event.title}}\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "    <div class=\"absents-container\" tooltip-append-to-body=\"true\" ng-if=\"dayCtrl.absents.length\"\n" +
+    "         uib-tooltip-html=\"dayCtrl.absentsString\">\n" +
+    "        {{dayCtrl.absents.length}} absent(s)\n" +
+    "    </div>\n" +
     "\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -371,7 +375,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        <div class=\"day\" ng-repeat=\"day in []|range:7\"><span class=\"day-text\">{{day | day}}</span></div>\n" +
     "    </div>\n" +
     "    <div class=\"month-container\">\n" +
-    "        <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\"\n" +
+    "        <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\" absences=\"planning.absences\"\n" +
     "                         drop-callback=\"planning.dropEvent({$data: $data, $event: $event, moment: day.date})\"\n" +
     "                         ng-dblclick=\"planning.clickWeekEvent(day, $event)\"></zl-planning-day>\n" +
     "        <zl-planning-week-line ng-repeat=\"(week, events) in planning.multipleDaysEvents\" events=\"events\" week=\"week\"\n" +

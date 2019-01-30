@@ -7,5 +7,9 @@
              ng-repeat="event in dayCtrl.day.events |limitTo:5">{{event.title}}
         </div>
     </div>
+    <div class="absents-container" tooltip-append-to-body="true" ng-if="dayCtrl.absents.length"
+         uib-tooltip-html="dayCtrl.absentsString">
+        {{dayCtrl.absents.length}} absent(s)
+    </div>
 
 </div>

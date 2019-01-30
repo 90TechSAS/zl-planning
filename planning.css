@@ -345,6 +345,14 @@ zl-planning-line.ng-animate {
   border-bottom: 1px solid darkgray;
   position: relative;
 }
+.month-container .day-block .absents-container {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 0 5px;
+  border-radius: 3px;
+}
 .month-container .day-block .events-container {
   margin-top: 26px;
 }
