@@ -26,13 +26,14 @@
         }
         return absence
       })
+
       return mergeRanges(parsed)
     }
 
     function mergeRanges (ranges) {
       var copy = ranges.map(function (r, index) {
         r.index = index
-        return r
+        return Object.assign({}, r, {index: index})
       })
       // Check if any ranges overlaps
       // If none overlap, return array
@@ -47,15 +48,31 @@
         return ranges
       }
       var reduced = ranges.reduce(function (acc, value, index, arr) {
-        if (index + 1 === arr.length - 1) {
+        var next = arr[index + 1]
+        if (!next || !value) {
           return acc
         }
-        var next = arr[index + 1]
-        if (overlaps(moment.range(value, next))) {
-          acc.push({start: moment.min(value.start, next.start), end: moment.max(value.end, next.end)})
+        if (overlaps(
+          {
+            start: moment(angular.copy(value.start)).toDate(),
+            end: moment(angular.copy(value.end)).toDate()
+          }, {
+            start: moment(angular.copy(next.start)).toDate(),
+            end: moment(angular.copy(next.end)).toDate()
+          })) {
+          acc.push({
+            start: moment.min(
+              moment(angular.copy(value.start)),
+              moment(angular.copy(next.start))
+            ),
+            end: moment.max(
+              moment(angular.copy(value.end)),
+              moment(angular.copy(next.end))
+            )
+          })
         }
         return acc
-      })
+      }, [])
 
       return mergeRanges(reduced)
     }

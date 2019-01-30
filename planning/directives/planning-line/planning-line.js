@@ -32,18 +32,19 @@
 
       $scope.$watchCollection(function () {
         return [self.absences]
-      }, function (oldValue, newValue) {
+      }, function (newValue, oldValue) {
         if (Array.isArray(self.absences) && self.absences.length) {
           var start = moment(angular.copy(self.position)).startOf('day')
           var end = moment(angular.copy(self.position)).endOf('day')
-          self._absences = AbsenceService.parseAbsences(self.absences , [start, end]).map(function (abs) {
-            abs.style = {
-              left: (moment(abs.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + moment(abs.start).minutes() * BASE_SIZE * self.zoom / 60 + 'px',
-              width: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
-            }
-            abs.range = moment.range(abs.start, abs.end)
-            return abs
-          })
+            self._absences = AbsenceService.parseAbsences(self.absences , [start, end]).map(function (abs) {
+              abs.style = {
+                left: (moment(abs.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + moment(abs.start).minutes() * BASE_SIZE * self.zoom / 60 + 'px',
+                width: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
+              }
+              abs.range = moment.range(abs.start, abs.end)
+              return abs
+            })
+
         } else {
           self._absences = []
         }

@@ -50,7 +50,7 @@
                     <div class="planning-2pc"></div>
 
                     <zl-planning-line
-                            zoom="planning.zoom"
+                            zoom="planning.zoom" position="day.date" absences="day.absences[i]"
                             day-start="planning._dayStart" day-end="planning._dayEnd"
                             ng-repeat="i in planning.keys(day.value) track by $index" class="day b-b"
                             events="day.value[i]"

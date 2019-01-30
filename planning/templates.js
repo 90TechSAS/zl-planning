@@ -321,7 +321,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                    <div class=\"planning-2pc\"></div>\n" +
     "\n" +
     "                    <zl-planning-line\n" +
-    "                            zoom=\"planning.zoom\"\n" +
+    "                            zoom=\"planning.zoom\" position=\"day.date\" absences=\"day.absences[i]\"\n" +
     "                            day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                            ng-repeat=\"i in planning.keys(day.value) track by $index\" class=\"day b-b\"\n" +
     "                            events=\"day.value[i]\"\n" +
