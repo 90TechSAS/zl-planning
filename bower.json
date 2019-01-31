@@ -12,11 +12,12 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "demo"
   ],
   "main": [
-    "planning.min.js",
-    "planning.min.css"
+    "dist/planning.css",
+    "dist/planning.js"
   ],
   "dependencies": {
     "angular": "1.7.0",

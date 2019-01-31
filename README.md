@@ -1,51 +1,15 @@
 # ZL Planning
 
-[TODO - brief summary]
-
-## Demo
-http://90TechSAS.github.io/zl-planning/
-
-## Dependencies
-- required:
-	[TODO]
-- optional
-	[TODO]
-
-See `bower.json` and `index.html` in the `gh-pages` branch for a full list / more details
-
 ## Install
 1. download the files
 	1. Bower
 		1. add `"zl-planning": "latest"` to your `bower.json` file then run `bower install` OR run `bower install zl-planning`
-2. include the files in your app
-	1. `ning.min.js`
-	2. `ning.less` OR `ning.min.css` OR `ning.css`
-3. include the module in angular (i.e. in `app.js`) - `90TechSAS.zl-planning`
+2. include the module in angular (i.e. in `app.js`) - `90TechSAS.zl-planning`
 
-See the `gh-pages` branch, files `bower.json` and `index.html` for a full example.
+## Example
 
+See demo folder for example implementation
 
-## Documentation
-See the `ning.js` file top comments for usage examples and documentation
-https://github.com/90TechSAS/zl-planning/blob/master/ning.js
+## Build
 
-
-## Development
-
-1. `git checkout gh-pages`
-	1. run `npm install && bower install`
-	2. write your code then run `grunt`
-	3. git commit your changes
-2. copy over core files (.js and .css/.less for directives) to master branch
-	1. `git checkout master`
-	2. `git checkout gh-pages ning.js ning.min.js ning.less ning.css ning.min.css`
-3. update README, CHANGELOG, bower.json, and do any other final polishing to prepare for publishing
-	1. git commit changes
-	2. git tag with the version number, i.e. `git tag v1.0.0`
-4. create github repo and push
-	1. [if remote does not already exist or is incorrect] `git remote add origin [github url]`
-	2. `git push origin master --tags` (want to push master branch first so it is the default on github)
-	3. `git checkout gh-pages`
-	4. `git push origin gh-pages`
-5. (optional) register bower component
-	1. `bower register zl-planning [git repo url]`
+`npm run build`
