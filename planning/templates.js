@@ -11,8 +11,12 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "             ng-repeat=\"event in dayCtrl.day.events |limitTo:5\">{{event.title}}\n" +
     "        </div>\n" +
     "    </div>\n" +
+    "    <div class=\"absents-container\" tooltip-append-to-body=\"true\" ng-if=\"dayCtrl.absents.length\"\n" +
+    "         uib-tooltip-html=\"dayCtrl.absentsString\">\n" +
+    "        {{dayCtrl.absents.length}} absent(s)\n" +
+    "    </div>\n" +
     "\n" +
-    "</div>"
+    "</div>\n"
   );
 
 
@@ -106,6 +110,11 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "     class=\"planning-pause-element\"\n" +
     "     style=\"height: 100%;\"\n" +
     "     ng-style=\"pause.style\">\n" +
+    "</div>\n" +
+    "<div ng-repeat=\"absence in line._absences track by $index\"\n" +
+    "     class=\"planning-absences\" uib-tooltip=\"Absent\" tooltip-append-to-body=\"true\"\n" +
+    "     style=\"height: 100%;\"\n" +
+    "     ng-style=\"absence.style\">\n" +
     "</div>\n" +
     "\n" +
     "<!--<div class=\"event\"-->\n" +
@@ -205,25 +214,12 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "         style=\"width: 95%; left: 5%;\"\n" +
     "         ng-style=\"pause.style\">\n" +
     "    </div>\n" +
-    "</div>\n" +
-    "\n" +
-    "<!--<div class=\"event\"-->\n" +
-    "<!--zl-planning-drag-drop-->\n" +
-    "<!--zl-drag=\"event\"-->\n" +
-    "<!--ng-repeat=\"event in line._events\"-->\n" +
-    "<!--ng-style=\"event.style\"-->\n" +
-    "<!--ng-class=\"{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}\"-->\n" +
-    "<!--ng-click=\"planning.eventCallback({'event':event})\"-->\n" +
-    "<!--tooltip-append-to-body=\"true\"-->\n" +
-    "<!--uib-tooltip=\"{{event.tooltip}}\">-->\n" +
-    "<!--&lt;!&ndash;<span class=\"calendar-urgency bg-pink\"></span>&ndash;&gt;-->\n" +
-    "\n" +
-    "<!--<div class=\"event-line-container\" style=\"\">-->\n" +
-    "<!--<div class=\"event-line\" ng-style=\"{'background-color': event.color}\" ng-if=\"!event.continuedBefore\"></div>-->\n" +
-    "<!--</div>-->\n" +
-    "\n" +
-    "<!--<div class=\"title-container\"><span>{{event.title}}</span></div>-->\n" +
-    "<!--</div>-->\n"
+    "    <div ng-repeat=\"absence in line._absences track by $index\"\n" +
+    "         class=\"planning-absences\" uib-tooltip=\"Absent\" tooltip-append-to-body=\"true\"\n" +
+    "         style=\"width: 95%; left: 5%;\"\n" +
+    "         ng-style=\"absence.style\">\n" +
+    "    </div>\n" +
+    "</div>\n"
   );
 
 
@@ -287,7 +283,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                </div>\n" +
     "                <div class=\"planning-2pc\"></div>\n" +
     "                <zl-planning-line ng-if=\"planning.mode === 'day'\"\n" +
-    "                        zoom=\"planning.zoom\"\n" +
+    "                        zoom=\"planning.zoom\" absences=\"planning.absences[i]\" position=\"planning.position\"\n" +
     "                        day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                        ng-repeat=\"i in planning.keys(planning.sortedEvents)\" class=\"day b-b\"\n" +
     "                        ng-class=\"{today: planning.isToday(i)}\" events=\"planning.getEvents(i)\"\n" +
@@ -325,7 +321,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "                    <div class=\"planning-2pc\"></div>\n" +
     "\n" +
     "                    <zl-planning-line\n" +
-    "                            zoom=\"planning.zoom\"\n" +
+    "                            zoom=\"planning.zoom\" position=\"day.date\" absences=\"day.absences[i]\"\n" +
     "                            day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                            ng-repeat=\"i in planning.keys(day.value) track by $index\" class=\"day b-b\"\n" +
     "                            events=\"day.value[i]\"\n" +
@@ -356,12 +352,12 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        </div>\n" +
     "        <div ng-repeat=\"day in planning.allowedDays\"\n" +
     "             class=\"day-advanced\">\n" +
-    "            <zl-planning-vertical-line\n" +
+    "            <zl-planning-vertical-line day=\"planning.daysList[$index]\"\n" +
     "                    zoom=\"planning.zoom\"\n" +
     "                    drop-callback=\"planning.dropEvent({h: $hour, m: $minutes, d:day, entity: name, $data: $data, $event: $event})\"\n" +
     "                    day-start=\"planning._dayStart\" day-end=\"planning._dayEnd\"\n" +
     "                    events=\" planning.getEvents(name)[day]\"\n" +
-    "                    pauses=\"planning.entitiesPauses[name]\"\n" +
+    "                    pauses=\"planning.entitiesPauses[name]\" absences=\"planning.absences[name]\"\n" +
     "                    click-callback=\"planning.clickCallbackWrapper({h: $hour, m: $minutes, d: day, entity: name})\">\n" +
     "            </zl-planning-vertical-line>\n" +
     "        </div>\n" +
@@ -379,7 +375,7 @@ angular.module('90Tech.planning').run(['$templateCache', function($templateCache
     "        <div class=\"day\" ng-repeat=\"day in []|range:7\"><span class=\"day-text\">{{day | day}}</span></div>\n" +
     "    </div>\n" +
     "    <div class=\"month-container\">\n" +
-    "        <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\"\n" +
+    "        <zl-planning-day ng-repeat=\"day in planning.days\" day=\"day\" events=\"planning._events\" absences=\"planning.absences\"\n" +
     "                         drop-callback=\"planning.dropEvent({$data: $data, $event: $event, moment: day.date})\"\n" +
     "                         ng-dblclick=\"planning.clickWeekEvent(day, $event)\"></zl-planning-day>\n" +
     "        <zl-planning-week-line ng-repeat=\"(week, events) in planning.multipleDaysEvents\" events=\"events\" week=\"week\"\n" +

@@ -1,6 +1,8 @@
 ;(function (angular, moment, faker) {
   'use strict'
 
+  faker.seed(1)
+
   moment.locale('fr')
 
   angular.module('myApp').controller('HomeCtrl', ['$scope', 'planningConfiguration', function ($scope, planningConfiguration) {
@@ -10,8 +12,8 @@
     $scope.onPikadaySelect = function (pikaday) {
       $scope.moment = pikaday.getMoment()
     }
-    $scope.moment = moment().month($scope.viewMonth)
-    $scope.mode = 'week'
+    $scope.moment = moment(new Date(2019, 1, 21))
+    $scope.mode = 'day'
 
     $scope.zoom = 10
     $scope.start = 0
@@ -43,7 +45,36 @@
       faker.name.firstName() + ' ' + faker.name.lastName(),
       faker.name.firstName() + ' ' + faker.name.lastName()
     ]
+
+    var start = moment(new Date()).startOf('week').toDate()
+    var end = moment(new Date()).endOf('week').toDate()
+    var date1 = faker.date.between(start, end)
+    var date2 = faker.date.between(start, end)
+    $scope.absences = {}
+    $scope.absences['' + $scope.entities[0]] = [{
+        start: moment.min(moment(date1), moment(date2)).toDate(),
+        end: moment.max(moment(date1), moment(date2)).toDate(),
+        type: 'planned',
+        comment: 'Congés',
+      }]
     $scope.events = []
+
+    $scope.entities.forEach(function (e) {
+      var totalAbs = Math.floor(Math.random() * (0 - 10 + 1)) + 10
+      var absences = []
+      _.times(totalAbs, function () {
+        var date1 = faker.date.between(start, end)
+        var date2 = faker.date.between(start, end)
+        absences.push({
+          start: moment.min(moment(date1), moment(date2)).toDate(),
+          end: moment.max(moment(date1), moment(date2)).toDate(),
+          type: 'planned',
+          comment: 'Congés',
+        })
+      })
+
+      $scope.absences[e] = absences
+    })
 
     $scope.init = function () {
       delete $scope.events
@@ -53,7 +84,7 @@
       $scope.onPikadaySelect = function (pikaday) {
         $scope.moment = pikaday.getMoment()
       }
-      $scope.moment = moment(new Date(2018, 11, 31))
+      $scope.moment = moment(new Date())
 
       for (var i = 0; i < $scope.nbEvents; i++) {
         var d = Math.ceil(Math.random() * 32) - 1
@@ -69,8 +100,8 @@
             break
           case 'day':
             var roundValueAt = 30
-            start = moment().hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60)/roundValueAt)*roundValueAt)
-            end = moment().hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60)/roundValueAt)*roundValueAt)
+            start = moment().hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60) / roundValueAt) * roundValueAt)
+            end = moment().hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60) / roundValueAt) * roundValueAt)
             if (start.isAfter(end)) {
               var copy = angular.copy(start)
               start = angular.copy(end)
@@ -87,7 +118,7 @@
           start: start,
           end: end,
           tooltip: faker.random.words(),
-          tooltipTemplate: i % 2 !== 0 ? "'/pages/home/test-template.html'" : undefined,
+          tooltipTemplate: i % 2 !== 0 ? '\'/pages/home/test-template.html\'' : undefined,
           technician: $scope.entities[Math.floor(Math.random() * $scope.entities.length)],
           color: faker.internet.color(),
           'background-color': faker.internet.color()/*,
@@ -97,22 +128,15 @@
 
       $scope.events = [
         {
-          "title": faker.random.words(),
-          "start": moment("2019-01-04T08:00:00.000Z"),
-          "end": moment("2019-01-04T10:00:00.000Z"),
-          "tooltip": faker.random.words(),
-          "technician": faker.name.firstName() + ' ' + faker.name.lastName(),
-          "color": "#112578",
-          'background-color' : faker.internet.color()
+          'title': faker.random.words(),
+          'start': moment('2019-01-04T08:00:00.000Z'),
+          'end': moment('2019-01-04T10:00:00.000Z'),
+          'tooltip': faker.random.words(),
+          'technician': faker.name.firstName() + ' ' + faker.name.lastName(),
+          'color': '#112578',
+          'background-color': faker.internet.color()
         }
       ]
-
-      console.groupCollapsed('Generated events')
-      console.table(_.map($scope.events, function (e) {
-        return {title: e.title, start: e.start.format('DD/MM/YYYY HH:mm'), end: e.end.format('DD/MM/YYYY HH:mm'), technician: e.technician}
-      }))
-      console.groupEnd()
-
     }
 
     $scope.init()
@@ -169,6 +193,12 @@
 
     $scope.action = function (event) {
       console.log(event)
+    }
+
+    planningConfiguration.absentTechnicianCallback = function (callback) {
+      if (confirm('ABSENT')) {
+        callback()
+      }
     }
   }])
 }(window.angular, window.moment, window.faker))

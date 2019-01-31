@@ -117,6 +117,11 @@ zl-planning-line.ng-animate {
   z-index: 0;
   background: repeating-linear-gradient(45deg, #cccccc, #cccccc 15px, #333333 15px, #333333 25px);
 }
+.planning-absences {
+  position: absolute;
+  z-index: 0;
+  background: repeating-linear-gradient(135deg, #cccccc, #cccccc 15px, #000000 15px, #000000 25px);
+}
 .left-column {
   width: 16.7%;
   float: left;
@@ -339,6 +344,14 @@ zl-planning-line.ng-animate {
   border-right: 1px solid darkgray;
   border-bottom: 1px solid darkgray;
   position: relative;
+}
+.month-container .day-block .absents-container {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 0 5px;
+  border-radius: 3px;
 }
 .month-container .day-block .events-container {
   margin-top: 26px;

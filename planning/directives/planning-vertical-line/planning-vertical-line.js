@@ -5,13 +5,13 @@
     .module('90Tech.planning')
     .directive('zlPlanningVerticalLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$filter', '$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService']
+  PlanningLineController.$inject = ['$filter', '$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService', 'AbsenceService']
 
   /**
    *
    */
   function
-  PlanningLineController ($filter, $scope, planningConfiguration, PositionService, ColorService, PauseService) {
+  PlanningLineController ($filter, $scope, planningConfiguration, PositionService, ColorService, PauseService, AbsenceService) {
 
 
     /** BASE_SIZE is the span of an hour. It gets multiplied by zoom (default 10) to get the size in pixel
@@ -28,6 +28,26 @@
       $scope.$watchCollection(function () {
         return [self.events, self.dayStart, self.dayEnd]
       }, init)
+
+      $scope.$watchCollection(function () {
+        return self.absences
+      }, function (oldValue, newValue) {
+        if (Array.isArray(self.absences) && self.absences.length) {
+          var start = moment(angular.copy(self.day)).startOf('day')
+          var end = moment(angular.copy(self.day)).endOf('day')
+          self._absences = AbsenceService.parseAbsences(angular.copy(self.absences), [start, end]).map(function (abs) {
+            abs.style = {
+              top: (((moment(abs.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(abs.start).minutes()) * BASE_SIZE * self.zoom / 60)) +  'px',
+              height: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
+            }
+
+            abs.range = moment.range(abs.start, abs.end)
+            return abs
+          })
+        } else {
+          self._absences = []
+        }
+      })
 
 
       _.extend(self, {
@@ -63,12 +83,28 @@
     function dropEvent (data, event) {
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
-      self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
+      var date = moment(angular.copy(self.day)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
+      if (!checkAbsence(date)) {
+        self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
+      } else {
+        planningConfiguration.absentTechnicianCallback(function () {
+          self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
+        })
+      }
+
     }
 
     function clickEvent (hour, $event) {
       var minutes = extractMinutesFromEvent($event)
-      self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      var date = moment(angular.copy(self.day)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
+      if (!checkAbsence(date)) {
+        self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      } else {
+        planningConfiguration.absentTechnicianCallback(function () {
+          self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      }
+
     }
 
     function init () {
@@ -141,7 +177,7 @@
           var obj = {
             percentage: (percentage) + '%',
             style: {
-              left: (((moment(s).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(s).minutes()) * BASE_SIZE * self.zoom / 60) + 2) +  'px',
+              left: (((moment(s).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(s).minutes()) * BASE_SIZE * self.zoom / 60)) +  'px',
               width: self.zoom * self.SLIDER_WIDTH * (r.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
               top: event.style.top,
               height: event.style.height,
@@ -198,7 +234,7 @@
           pause.end = moment(angular.copy(self.dayEnd))
         }
 
-        pause.style.top = (((moment(pause.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(pause.start).minutes()) * BASE_SIZE * self.zoom / 60) + 2) +  'px'
+        pause.style.top = (((moment(pause.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(pause.start).minutes()) * BASE_SIZE * self.zoom / 60)) +  'px'
         pause.style.height = self.zoom * self.SLIDER_WIDTH * (moment.range(pause.start, pause.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
 
         return pause
@@ -207,6 +243,14 @@
 
     function calculateContainerHeight () {
       self.containerHeight = (parseInt(self.zoom) * BASE_SIZE) * $filter('range')(self.range) + 'px'
+    }
+
+    function checkAbsence (date) {
+      var d = moment(angular.copy(date))
+      return _.any(self._absences, function (abs) {
+        return abs.range.contains(d)
+      })
+
     }
   }
 
@@ -222,6 +266,8 @@
         dayEnd: '=',
         events: '=',
         pauses: '=?',
+        day: '=',
+        absences: '=?',
         clickCallback: '&',
         dropCallback: '&'
       },

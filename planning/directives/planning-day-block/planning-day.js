@@ -1,23 +1,57 @@
-;(function (angular, _) {
+;(function (angular, _, moment) {
   'use strict'
 
   angular
     .module('90Tech.planning')
     .directive('zlPlanningDay', PlanningDayDirective)
 
-  /**
-   *
-   */
-  function PlanningDayController () {
+  PlanningDayController.$inject = [
+    // Angular
+    '$scope'
+    // Libs
+    // Managers
+    // Services
+    // Const
+    // Resolved
+  ]
+  function PlanningDayController (
+    // Angular
+    $scope
+    // Libs
+    // Managers
+    // Services
+    // Const
+    // Resolved
+  ) {
     var self = this
 
     self.$onInit = function () {
       _.extend(self, {
-        dropEvent: dropEvent
+        dropEvent: dropEvent,
+        absents: []
       })
 
       self.isDefined = (self.day.events === undefined)
       init()
+      $scope.$watchCollection([self.day, self.absences], function () {
+        if (self.day && self.day.date && self.absences && Object.keys(self.absences).length) {
+          self.absents = Object.keys(self.absences).reduce(function (acc, key) {
+            var array = self.absences[key]
+            var hasOverlap = _.any(array, function (absence) {
+              var range = moment.range(absence.start, absence.end)
+              return self.day.date.within(range)
+            })
+            if (hasOverlap) {
+              acc.push(key)
+            }
+            return acc
+          }, [])
+          self.absentsString = '<div>' + self.absents.join('<br>') + '</div>'
+        } else {
+          self.absentsString = ''
+          self.absents = []
+        }
+      })
     }
 
 
@@ -44,7 +78,8 @@
         day: '=',
         events: '=',
         clickCallback: '&',
-        dropCallback: '&'
+        dropCallback: '&',
+        absences: '=?'
       },
       scope: true,
       link: function (scope, element) {
@@ -90,4 +125,4 @@
       }
     }
   }
-})(window.angular, window._)
+})(window.angular, window._, window.moment)

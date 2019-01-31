@@ -87,10 +87,12 @@
           }), function (v, k) {
             var result = {
               key: k,
+              date: moment.unix(k).startOf('day').toDate(),
               day: moment.unix(k).startOf('day').format('dddd DD MMMM'),
               value: _.groupBy(v, function (e) {
                 return e.technician
-              })
+              }),
+              absences: angular.copy(self.absences)
             }
             _.each(self.entities, function (e) {
               if (!result.value[e]) {
@@ -127,8 +129,10 @@
             if (!found) {
               var obj = {
                 key: date,
+                date: moment(angular.copy(d.start)).startOf('day').toDate(),
                 day: moment(angular.copy(d.start)).startOf('day').format('dddd DD MMMM'),
-                value: {}
+                value: {},
+                absences: angular.copy(self.absences)
               }
               _.each(_.keys(self.sortedEvents), function (k) {
                 obj.value[k] = []
@@ -481,6 +485,7 @@
         events: '=',
         entities: '=',
         entitiesPauses: '=?',
+        absences: '=?',
         position: '=',
         mode: '=',
         dayStart: '=',

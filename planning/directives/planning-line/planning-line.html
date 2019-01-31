@@ -58,6 +58,11 @@
      style="height: 100%;"
      ng-style="pause.style">
 </div>
+<div ng-repeat="absence in line._absences track by $index"
+     class="planning-absences" uib-tooltip="Absent" tooltip-append-to-body="true"
+     style="height: 100%;"
+     ng-style="absence.style">
+</div>
 
 <!--<div class="event"-->
 <!--zl-planning-drag-drop-->

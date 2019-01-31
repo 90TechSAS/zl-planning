@@ -62,22 +62,9 @@
          style="width: 95%; left: 5%;"
          ng-style="pause.style">
     </div>
+    <div ng-repeat="absence in line._absences track by $index"
+         class="planning-absences" uib-tooltip="Absent" tooltip-append-to-body="true"
+         style="width: 95%; left: 5%;"
+         ng-style="absence.style">
+    </div>
 </div>
-
-<!--<div class="event"-->
-<!--zl-planning-drag-drop-->
-<!--zl-drag="event"-->
-<!--ng-repeat="event in line._events"-->
-<!--ng-style="event.style"-->
-<!--ng-class="{'continued-before': event.continuedBefore, 'continued-after': event.continuedAfter}"-->
-<!--ng-click="planning.eventCallback({'event':event})"-->
-<!--tooltip-append-to-body="true"-->
-<!--uib-tooltip="{{event.tooltip}}">-->
-<!--&lt;!&ndash;<span class="calendar-urgency bg-pink"></span>&ndash;&gt;-->
-
-<!--<div class="event-line-container" style="">-->
-<!--<div class="event-line" ng-style="{'background-color': event.color}" ng-if="!event.continuedBefore"></div>-->
-<!--</div>-->
-
-<!--<div class="title-container"><span>{{event.title}}</span></div>-->
-<!--</div>-->
