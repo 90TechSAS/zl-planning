@@ -33,6 +33,12 @@
                     <button class="btn btn-default" ng-click="$ctrl.setMode('day')">DAY</button>
                     <button class="btn btn-default" ng-click="$ctrl.setMode('3day')">3DAY</button>
                 </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="$ctrl.hideAbsences" ng-change="$ctrl.generateAbsences()">
+                        Hide absences
+                    </label>
+                </div>
                 <div class="form-group">
                     <label for="zoom">Zoom</label>
                     <input id="zoom" name="zoom" class="form-control" type="number" min="5" max="15" ng-model="$ctrl.zoom" >
@@ -44,10 +50,6 @@
                 <div class="form-group">
                     <label for="end">End</label>
                     <input min="{{$ctrl.start}}" max="23" type="number" name="end" id="end" ng-model="$ctrl.end" class="form-control"/>
-                </div>
-                <div class="form-group">
-                    <label for="month">Month</label>
-                    <input min="0" max="11" type="number" name="month" id="month" ng-model="$ctrl.viewMonth" class="form-control" ng-change="$ctrl.generate()">
                 </div>
                 <div class="form-group">
                     <label for="nbEvents">Events count</label>

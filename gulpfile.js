@@ -68,6 +68,7 @@ gulp.task('watch', ['default'], function (callback) {
     injectChanges: true,
     notify: false,
     reloadDelay: 1000,
+    reloadDebounce: 2000,
     open: false,
     watchOptions: {
       usePolling: false

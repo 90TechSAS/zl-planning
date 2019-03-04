@@ -60,6 +60,7 @@
     }
 
     self.preEvent = {}
+    self.postEvent = {}
 
     function extractMinutesFromEvent($event){
       var minutes
@@ -102,6 +103,7 @@
       var currentId = 0
       //     self.SLIDER_WIDTH   = 24 * BASE_SIZE
       self.preEvent = {}
+      self.postEvent = {}
       self.breaks = []
 
       self._events = angular.copy(self.events)
@@ -189,10 +191,14 @@
           }
 
         }
+        generatePostEvent(event)
         if (event.pauses) {
           event.style['background-image'] = PauseService.generateGradient(event, 'to right')
           event.style['background-color'] = undefined
         }
+        const pre = self.preEvent[event.id]
+        const post = self.postEvent[event.id]
+        event.style.totalWidth = (safeParse(event.style.width) + safeParse(_.get(pre, 'style.width')) + safeParse(_.get(post, 'style.width')) + 1) + 'px'
         currentId++
       })
       if (self.pauses) {
@@ -236,7 +242,48 @@
       return _.any(self._absences, function (abs) {
         return abs.range.contains(d)
       })
+    }
 
+    function generatePostEvent (event) {
+      if (!event.post) {
+        return null
+      }
+      event.style['border-right'] = 'none'
+      let end = moment(event.end).add(event.post, 'minutes')
+      if (!moment(end).isSame(event.end, 'day')) {
+        end = moment(event.end).endOf('day')
+      }
+      const start = moment(event.end)
+      const range = moment.range(start, end)
+      const totalRange = moment.range(event.range.start, event.range.end)
+      const percentage = range.valueOf() / totalRange.valueOf() * 100
+      event.postPercentage = (100 - percentage) + '%'
+      var obj = {
+        percentage: (percentage) + '%',
+        style: {
+          left: (((moment(start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(start).minutes()) * BASE_SIZE * self.zoom / 60) + 2) +  'px',
+          width: self.zoom * self.SLIDER_WIDTH * (range.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
+          top: event.style.top,
+          height: event.style.height,
+          totalWidth: self.zoom * self.SLIDER_WIDTH * (totalRange.valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
+          'text-align': 'center',
+          color: '#fff',
+          'background' : 'repeating-linear-gradient(135deg, ' +  event['background-color']  + ', ' +  event['background-color']  + ' 10px, white 10px, white 20px)',
+          'border-top': '1px lightgrey solid',
+          'border-bottom': '1px lightgrey solid',
+          'border-left': '1px lightgrey solid'
+        },
+        tooltip: 'Trajet retour de ' + event.post + ' min'
+      }
+      if (percentage > 0) {
+        self.postEvent[event.id] = obj
+      } else {
+        event.post = 0
+      }
+    }
+
+    function safeParse (width = '0px') {
+      return parseInt(width.replace('px', ''))
     }
   }
 

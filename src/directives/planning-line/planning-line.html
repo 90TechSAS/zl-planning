@@ -18,11 +18,11 @@
      ng-style="{
         height: event.style.height,
         top: event.style.top,
-        width: event.pre > 0 ? line.preEvent[event.id].style.totalWidth : event.style.width,
+        width: event.style.totalWidth,
         left: event.pre > 0 ? line.preEvent[event.id].style.left : event.style.left
-    }" style="position: absolute; z-index: 1;"
+    }" style="position: absolute; z-index: 1; display: flex; flex-flow: row nowrap"
 >
-    <div ng-if="event.pre > 0" ng-style="{width: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}"
+    <div ng-if="event.pre > 0" ng-style="{width: line.preEvent[event.id].style.width, 'background': line.preEvent[event.id].style['background']}"
          style="display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
          class="pre-event"
          tooltip-append-to-body="true"
@@ -39,7 +39,7 @@
          ng-attr-uib-tooltip="{{!event.tooltipTemplate ? event.tooltip : undefined}}"
          ng-attr-uib-tooltip-template="{{'' + event.tooltipTemplate}}" tooltip-class="planning-event-tooltip"
          ng-style="{
-         width: event.percentage,
+         width: event.style.width,
          background: event.style['background-color'],
          'background-image': event.style['background-image'],
          color: event.style.color,
@@ -50,6 +50,18 @@
         </div>
 
         <div class="title-container"><span>{{event.title}}</span></div>
+    </div>
+    <div ng-if="event.post > 0" ng-style="{width: line.postEvent[event.id].style.width, 'background': line.postEvent[event.id].style['background']}"
+         style="display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
+         class="pre-event"
+         tooltip-append-to-body="true"
+         uib-tooltip="{{line.postEvent[event.id].tooltip}}">
+        <div class="title-container">
+            <span>
+            <i style="height: 100%; font-size: 1.2em;" class="mdi mdi-car"></i>
+            </span>
+        </div>
+
     </div>
 </div>
 

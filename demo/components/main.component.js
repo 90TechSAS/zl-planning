@@ -1,6 +1,8 @@
 ;(function () {
   'use strict'
 
+  faker.seed(1)
+
   const ENTITIES = [
     faker.name.firstName() + ' ' + faker.name.lastName(),
     faker.name.firstName() + ' ' + faker.name.lastName(),
@@ -30,6 +32,7 @@
       this.absences = {}
       this.events = []
       this.days = [0, 1, 2, 3, 4, 5, 6]
+      this.hideAbsences = true
     }
 
     $onInit () {
@@ -37,6 +40,10 @@
     }
 
     generateAbsences () {
+      if (this.hideAbsences) {
+        this.absences = []
+        return
+      }
       const start = moment(new Date()).startOf('week').toDate()
       const end = moment(new Date()).endOf('week').toDate()
 
@@ -64,6 +71,7 @@
     }
 
     generateEvents () {
+      return this.testUsecase()
       this.events = []
       const month = moment().month(this.viewMonth)
       for (let i = 0; i < this.nbEvents; i++) {
@@ -107,6 +115,24 @@
       }
     }
 
+    testUsecase () {
+      this.events = [
+        {
+          title: faker.random.words(),
+          start: moment().hours(9).minutes(30),
+          end: moment().hours(17).minutes(0),
+          tooltip: faker.random.words(),
+          technician: this.entities[0],
+          color: faker.internet.color(),
+          'background-color': faker.internet.color(),
+          post: 30,
+          pre: 45
+          /*,
+          pre: Math.ceil(Math.random()*240)*/
+        }
+      ]
+    }
+
     onPikadaySelect (pikaday) {
       this.moment = pikaday.getMoment()
       this.generate()
@@ -114,11 +140,11 @@
 
     callback (event) {
       console.log({event})
-      window.aler(`
-      Event clicked:
-      start: ${event.start.format('HH:mm')}
-      end: ${event.end.format('HH:mm')}
-      ${JSON.stringify(event)}
+      window.alert(`
+Event clicked:
+start: ${event.start.format('HH:mm')}
+end: ${event.end.format('HH:mm')}
+${JSON.stringify(event)}
       `)
     }
 
