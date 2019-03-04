@@ -7,6 +7,10 @@ Version numbers correspond to `bower.json` version
 - Switch from Grunt to Gulp for build
 - Now support ES6
 
+## Feature
+
+- Return travel
+
 # 1.7.0
 
 ## Feature

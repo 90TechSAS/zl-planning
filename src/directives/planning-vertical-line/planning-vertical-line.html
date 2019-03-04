@@ -23,7 +23,7 @@
     }" style="position: absolute; z-index: 1;"
     >
         <div ng-if="event.pre > 0"
-             ng-style="{height: line.preEvent[event.id].percentage, 'background': line.preEvent[event.id].style['background']}"
+             ng-style="{height: line.preEvent[event.id].style.width, 'background': line.preEvent[event.id].style['background']}"
              style="display: inline-block; position: relative; width: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
              class="pre-event"
              tooltip-append-to-body="true"
@@ -42,7 +42,7 @@
              ng-attr-uib-tooltip-template="{{'' + event.tooltipTemplate}}" tooltip-class="planning-event-tooltip"
              data-context-menu="/templates/planning-context-menu.html"
              ng-style="{
-             height: event.percentage,
+             height: event.style.width,
              'background-image': event.style['background-image'],
              background: event.style['background-color'],
              color: event.style.color,
@@ -54,6 +54,20 @@
             </div>
 
             <div class="title-container"><span>{{event.title}}</span></div>
+        </div>
+
+        <div ng-if="event.post > 0"
+             ng-style="{height: line.postEvent[event.id].style.width, 'background': line.postEvent[event.id].style['background']}"
+             style="display: inline-block; position: relative; width: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
+             class="pre-event"
+             tooltip-append-to-body="true"
+             uib-tooltip="{{line.postEvent[event.id].tooltip}}">
+            <div class="title-container">
+                <span>
+                <i style="width: 100%; font-size: 1.2em;" class="mdi mdi-car"></i>
+                </span>
+            </div>
+
         </div>
     </div>
 
