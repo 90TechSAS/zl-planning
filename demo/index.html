@@ -44,10 +44,29 @@
 			color: black!important;
 		}
 
+		.container-fluid {
+			height: 100vh;
+		}
+
+		.container-fluid > .row, .container-fluid > .row > .col-md-9, .container-fluid > .row > .col-md-3 {
+			height: 100vh;
+		}
+
+		.col-md-3 {
+			padding-top: 10px;
+			background-color: #f2f2f2;
+		}
+
+		.flex {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+		}
 	</style>
 </head>
 <body>
-	<div ng-view class="full-height"></div>
+	<app-main class="full-height"></app-main>
+<!--	<div ng-view class="full-height"></div>-->
 	<script type="text/javascript" src="angular/angular.min.js"></script>
 	<script type="text/javascript" src="angular-route/angular-route.min.js"></script>
 	<script type="text/javascript" src="angular-sanitize/angular-sanitize.min.js"></script>
@@ -62,20 +81,10 @@
 	<script type="text/javascript" src="angular-bootstrap/ui-bootstrap.min.js"></script>
 	<script type="text/javascript" src="angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 	<script src="zl-contextmenu/dist/zl-contextmenu.js"></script>
-
-	<!--script type="text/javascript" src="planning/module.js"></script>
-	<script type="text/javascript" src="planning/directives/planning/planning.js"></script>
-	<script type="text/javascript" src="planning/directives/planning-left-column/planning-left-column.js"></script>
-	<script type="text/javascript" src="planning/directives/planning-top-row/planning-top-row.js"></script>
-	<script type="text/javascript" src="planning/directives/horizontal-scroll/horizontal-scroll.js"></script>
-	<script type="text/javascript" src="planning/directives/planning-line/planning-line.js"></script>
-	<script type="text/javascript" src="planning/filters/momentFilter.js"></script>
-	<script type="text/javascript" src="planning/filters/range.js"></script>
-	<script type="text/javascript" src="planning/services/configurationProvider.js"></script>
-	<script type="text/javascript" src="planning/filters/strFilter.js"></script-->
 	<script type="text/javascript" src="planning.js"></script>
 
 	<script type="text/javascript" src="app.js"></script>
+	<script src="components/main.component.js"></script>
 
 	<script type="text/javascript" src="home/HomeCtrl.js"></script>
 </body>
