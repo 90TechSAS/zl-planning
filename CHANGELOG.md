@@ -1,5 +1,16 @@
 Version numbers correspond to `bower.json` version
 
+# 1.8.0
+
+## Meta
+
+- Switch from Grunt to Gulp for build
+- Now support ES6
+
+## Feature
+
+- Return travel
+
 # 1.7.0
 
 ## Feature

@@ -1,0 +1,17 @@
+.b-r {
+  border-right: 1px solid #eaeef1;
+}
+.b-b {
+  border-bottom: 1px solid #eaeef1;
+}
+zl-planning {
+  height: 100%;
+}
+html,
+body {
+  height: 99%;
+}
+.full-height {
+  height: 100%;
+}
+

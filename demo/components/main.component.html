@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <zl-planning
+                    usable-days="$ctrl.days"
+                    zoom="$ctrl.zoom"
+                    day-start="$ctrl.start" day-end="$ctrl.end" mode="$ctrl.mode || 'week'"
+                    day-field="'technician'" position="$ctrl.moment"
+                    events="$ctrl.events"
+                    event-callback="$ctrl.callback(event)"
+                    day-callback="$ctrl.dayCallback($day)"
+                    click-callback="$ctrl.clickCallback($moment)"
+                    week-event-callback="$ctrl.hello(event)" absences="$ctrl.absences"
+                    entities-pauses="$ctrl.entitiesPauses" entities="$ctrl.entities"
+                    drop-callback="$ctrl.drop($data, $event, $moment, $entity)"
+                    action="$ctrl.action($event)">
+            </zl-planning>
+        </div>
+        <div class="col-md-3">
+            <div ng-if="$ctrl.mode === 'day'" style="display: flex; flex-flow: column nowrap; justify-content: center; align-items: center">
+                <input pikaday="pikaday" default-date="{{moment.format('MM/DD/YYYY')}}" set-default-date="true" bound="false"
+                       type="hidden" on-select="$ctrl.onPikadaySelect(pikaday)">
+            </div>
+            <div>
+                <p>
+                    Current mode : <strong>{{$ctrl.mode}}</strong><br>
+                    Position: <strong>{{$ctrl.moment.toDate() | date: 'dd/MM/yyyy'}}</strong>
+                </p>
+                <div class="flex">
+                    <button class="btn btn-default" ng-click="$ctrl.setMode('month')">MONTH</button>
+                    <button class="btn btn-default" ng-click="$ctrl.setMode('week')">WEEK</button>
+                    <button class="btn btn-default" ng-click="$ctrl.setMode('week-advanced')">WEEK ADVANCED</button>
+                    <button class="btn btn-default" ng-click="$ctrl.setMode('day')">DAY</button>
+                    <button class="btn btn-default" ng-click="$ctrl.setMode('3day')">3DAY</button>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="$ctrl.hideAbsences" ng-change="$ctrl.generateAbsences()">
+                        Hide absences
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="zoom">Zoom</label>
+                    <input id="zoom" name="zoom" class="form-control" type="number" min="5" max="15" ng-model="$ctrl.zoom" >
+                </div>
+                <div class="form-group">
+                    <label for="start">Start</label>
+                    <input min="0" max="{{$ctrl.end}}" type="number" name="start" id="start" ng-model="$ctrl.start" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="end">End</label>
+                    <input min="{{$ctrl.start}}" max="23" type="number" name="end" id="end" ng-model="$ctrl.end" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="nbEvents">Events count</label>
+                    <input min="0" max="30" type="number" name="nbEvents" id="nbEvents" ng-model="$ctrl.nbEvents" class="form-control" ng-change="$ctrl.generate()"/>
+                    <button class="btn btn-default btn-block" ng-click="$ctrl.generate()">Generate</button>
+                </div>
+                <div ng-if="$ctrl.mode === 'week' || $ctrl.mode === 'week-advanced'">
+                    <h3> Days </h3>
+                    <div class="flex">
+                        <button class="btn btn-primary" ng-click="$ctrl.toggleDay(1-1)">Monday</button>
+                        <button class="btn btn-primary" ng-click="$ctrl.toggleDay(2-1)">Tuesday</button>
+                        <button class="btn btn-primary" ng-click="$ctrl.toggleDay(3-1)">Wednesday</button>
+                        <button class="btn btn-primary" ng-click="$ctrl.toggleDay(4-1)">Thursday</button>
+                        <button class="btn btn-primary" ng-click="$ctrl.toggleDay(5-1)">Friday</button>
+                        <button class="btn btn-primary" ng-click="$ctrl.toggleDay(6-1)">Saturday</button>
+                        <button class="btn btn-primary" ng-click="$ctrl.toggleDay(7-1)">Sunday</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

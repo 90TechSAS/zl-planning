@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+
+    <title>zl-planning</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="pikaday/css/pikaday.css">
+	<link rel="stylesheet" href="main.css"/>
+	<link rel="stylesheet" href="planning.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/locales/fr/faker.fr.js"></script>
+	<style>
+		.context-menu {
+			display: block;
+			position: fixed !important;
+			top: 0;
+			left: 0;
+			font-size: 15px;
+			border-radius: 2px;
+			box-shadow: 0 2px 6px rgba(0,0,0,.1);
+			border: 1px solid rgba(0,0,0,.1);
+			z-index: 1000 !important;
+			padding: 0 !important;
+		}
+
+		.context-menu i.mdi {
+			width: 30px;
+			display: inline-block;
+		}
+
+		.dropdown-header {
+			padding: 5px 15px;
+			display: block;
+			font-size: 12px;
+			line-height: 1.42857143;
+			color: #777;
+			white-space: nowrap;
+		}
+
+		.context-menu > li {
+			color: black!important;
+		}
+
+		.container-fluid {
+			height: 100vh;
+		}
+
+		.container-fluid > .row, .container-fluid > .row > .col-md-9, .container-fluid > .row > .col-md-3 {
+			height: 100vh;
+		}
+
+		.col-md-3 {
+			padding-top: 10px;
+			background-color: #f2f2f2;
+		}
+
+		.flex {
+			display: flex;
+			flex-flow: row wrap;
+			justify-content: space-around;
+		}
+	</style>
+</head>
+<body>
+	<app-main class="full-height"></app-main>
+<!--	<div ng-view class="full-height"></div>-->
+	<script type="text/javascript" src="angular/angular.min.js"></script>
+	<script type="text/javascript" src="angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="angular-sanitize/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="angular-touch/angular-touch.min.js"></script>
+	<script type="text/javascript" src="angular-animate/angular-animate.min.js"></script>
+	<script type="text/javascript" src="moment/moment.js"></script>
+	<script type="text/javascript" src="moment/locale/fr.js"></script>
+	<script type="text/javascript" src="moment-range/dist/moment-range.min.js"></script>
+	<script type="text/javascript" src="lodash/lodash.min.js"></script>
+	<script type="text/javascript" src="pikaday/pikaday.js"></script>
+	<script type="text/javascript" src="pikaday-angular/pikaday-angular.js"></script>
+	<script type="text/javascript" src="angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script type="text/javascript" src="angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="zl-contextmenu/dist/zl-contextmenu.js"></script>
+	<script type="text/javascript" src="planning.js"></script>
+
+	<script type="text/javascript" src="app.js"></script>
+	<script src="components/main.component.js"></script>
+</body>
+</html>
