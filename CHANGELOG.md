@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.8.1
+
+## Fixes
+
+- Always display event color on advanced-week mode
+
 # 1.8.0
 
 ## Meta

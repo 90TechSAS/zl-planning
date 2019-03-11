@@ -25,7 +25,7 @@
       this.viewMonth = moment().month()
       this.nbEvents = 10
       this.moment = moment()
-      this.mode = 'day'
+      this.mode = 'week-advanced'
       this.zoom = 10
       this.start = 0
       this.end = 23
@@ -71,7 +71,9 @@
     }
 
     generateEvents () {
-      return this.testUsecase()
+      if (window.location.href.includes('localhost') && false) {
+        return this.testUsecase()
+      }
       this.events = []
       const month = moment().month(this.viewMonth)
       for (let i = 0; i < this.nbEvents; i++) {
@@ -116,17 +118,19 @@
     }
 
     testUsecase () {
+
+      const start = moment().hours(9).minutes(30)
+      const end = moment(start).add(1, 'day')
+      end.hours(17)
       this.events = [
         {
           title: faker.random.words(),
-          start: moment().hours(9).minutes(30),
-          end: moment().hours(17).minutes(0),
+          start: start,
+          end: end,
           tooltip: faker.random.words(),
-          technician: this.entities[0],
+          technician: 'Axel Cousin',
           color: faker.internet.color(),
-          'background-color': faker.internet.color(),
-          post: 30,
-          pre: 45
+          'background-color': '#799aff',
           /*,
           pre: Math.ceil(Math.random()*240)*/
         }
