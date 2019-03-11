@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.8.2
+
+## Enhancement 
+
+- Add sticky headers on advanced-week mode
+
 # 1.8.1
 
 ## Fixes
