@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.8.3
+
+## Fixes
+
+- Fix issue with event filtering on day mode
+
 # 1.8.2
 
 ## Enhancement 
