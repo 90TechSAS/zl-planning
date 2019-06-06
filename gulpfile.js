@@ -23,7 +23,7 @@ gulp.task('js', ['babel'], function () {
     './.tmp/js/**/*.js',
     './.tmp/templates/*.js'
   ])
-    .pipe(sourceMaps.init())
+    .pipe(sourceMaps.init({loadMaps: true}))
     .pipe(annotate({add: true}))
     .pipe(concat('planning.js'))
     .pipe(uglify())
@@ -82,7 +82,9 @@ gulp.task('watch', ['default'], function (callback) {
 
 gulp.task('babel', () => {
   return gulp.src(['./src/**/*.js'])
+    .pipe(sourceMaps.init())
     .pipe(babel())
+    .pipe(sourceMaps.write())
     .pipe(gulp.dest('./.tmp/js'))
 })
 
