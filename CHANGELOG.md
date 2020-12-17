@@ -7,6 +7,10 @@ Version numbers correspond to `bower.json` version
 - Bump deps
 - Remove unused deps
 
+## Fixes
+
+- Fix issue for month view when switching year
+
 # 1.8.4
 
 ## Fixes
