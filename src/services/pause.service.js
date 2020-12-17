@@ -29,7 +29,8 @@
           var pauseRange = moment.range(start, end)
           var pauseDuration = pauseRange.diff('milliseconds')
           var percentage = pauseDuration / totalDuration * 100
-          var before = totalRange.subtract(pauseRange)
+          var before = totalRange.clone()
+          before.subtract(pauseRange)
           if (!before.length) {
             return {range: pauseRange, endPercentage: 100, startPercentage: 0}
           }

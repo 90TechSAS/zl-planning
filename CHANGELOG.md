@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.8.4
+
+## Fixes
+
+- Fix issue with pause parsing
+
 # 1.8.3
 
 ## Fixes
