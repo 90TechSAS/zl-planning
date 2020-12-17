@@ -1,5 +1,12 @@
 Version numbers correspond to `bower.json` version
 
+# 1.8.5
+
+## Meta
+
+- Bump deps
+- Remove unused deps
+
 # 1.8.4
 
 ## Fixes
