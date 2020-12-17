@@ -1,4 +1,4 @@
-;(function () {
+;(function (angular, faker) {
   'use strict'
 
   faker.seed(1)
@@ -11,7 +11,7 @@
     faker.name.firstName() + ' ' + faker.name.lastName()
   ]
 
-  const MODES = ['month', 'week', 'week-advanced', 'day']
+  const MODES = ['month', 'week', 'week-advanced', 'day', '3day']
 
   class MainController {
     constructor (planningConfiguration) {
@@ -22,10 +22,9 @@
         }
       }
       this.entities = ENTITIES
-      this.viewMonth = moment().month()
       this.nbEvents = 10
-      this.moment = moment()
-      this.mode = 'week-advanced'
+      this.moment = moment(new Date(2021,0,15))
+      this.mode = 'month'
       this.zoom = 10
       this.start = 0
       this.end = 23
@@ -33,6 +32,11 @@
       this.events = []
       this.days = [0, 1, 2, 3, 4, 5, 6]
       this.hideAbsences = true
+      this.useTestCases = true
+    }
+
+    get viewMonth() {
+      return this.moment.month()
     }
 
     $onInit () {
@@ -71,11 +75,12 @@
     }
 
     generateEvents () {
-      if (window.location.href.includes('localhost') && false) {
+      if (window.location.href.includes('localhost') && this.useTestCases) {
         return this.testUsecase()
       }
       this.events = []
       const month = moment().month(this.viewMonth)
+      const year = this.moment.year()
       for (let i = 0; i < this.nbEvents; i++) {
         const d = Math.ceil(Math.random() * 32) - 1
         const dd = Math.ceil(Math.random() * 32) - 1
@@ -83,15 +88,15 @@
         let end
         switch (this.mode) {
           case '3day':
-            start = moment(this.moment).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
+            start = moment(this.moment).year(year).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
             start.add(Math.floor(Math.random() * 2), 'day')
-            end = moment(angular.copy(start)).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
+            end = moment(angular.copy(start)).year(year).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
             end.add(Math.floor(Math.random() * 5), 'day')
             break
           case 'day':
             var roundValueAt = 30
-            start = moment(this.moment).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60) / roundValueAt) * roundValueAt)
-            end = moment(this.moment).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60) / roundValueAt) * roundValueAt)
+            start = moment(this.moment).year(year).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60) / roundValueAt) * roundValueAt)
+            end = moment(this.moment).year(year).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.ceil(Math.random() * 60) / roundValueAt) * roundValueAt)
             if (start.isAfter(end)) {
               var copy = angular.copy(start)
               start = angular.copy(end)
@@ -99,8 +104,8 @@
             }
             break
           default:
-            start = moment(month).date(d).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
-            end = moment(month).date(dd).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
+            start = moment(month).date(d).year(year).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
+            end = moment(month).date(dd).year(year).hour(Math.ceil(Math.random() * 24)).minutes(Math.ceil(Math.random() * 60))
             break
         }
         this.events.push({
@@ -118,23 +123,27 @@
     }
 
     testUsecase () {
+      function getDate() {
+        return faker.date.between(new Date(2021, 0, 1), new Date(2021, 0, 31))
+      }
+      this.events = []
+      for (let i = 0; i <= 10; i++) {
+        const start = moment(getDate()).startOf('day')
+        const end = moment(start).add(1, 'day').endOf('day')
+        this.events.push(
+          {
+            title: `${faker.random.word()} || ${start.format('DD/MM/YYYY HH:mm')} - ${end.format('DD/MM/YYYY HH:mm')}`,
+            start: start,
+            end: end,
+            tooltip: `${start.toISOString()} \n\n ${end.toISOString()}`,
+            technician: this.entities[Math.floor(Math.random() * this.entities.length)],
+            color: faker.internet.color(),
+            'background-color': '#799aff',
+          }
+        )
+      }
 
-      const start = moment().hours(9).minutes(30)
-      const end = moment(start).add(1, 'day')
-      end.hours(17)
-      this.events = [
-        {
-          title: faker.random.words(),
-          start: start,
-          end: end,
-          tooltip: faker.random.words(),
-          technician: 'Axel Cousin',
-          color: faker.internet.color(),
-          'background-color': '#799aff',
-          /*,
-          pre: Math.ceil(Math.random()*240)*/
-        }
-      ]
+
     }
 
     onPikadaySelect (pikaday) {
@@ -190,6 +199,36 @@ ${JSON.stringify(event)}
     action (event) {
       console.log({action: event})
     }
+
+    next() {
+      this.moment = this.moment.add(1, this.getMomentMode())
+      this.generate()
+    }
+
+    previous() {
+      this.moment = this.moment.subtract(1, this.getMomentMode())
+      this.generate()
+    }
+
+    getMomentMode () {
+      switch (this.mode) {
+        case 'month':
+          return 'month'
+        case 'week-advanced':
+        case 'week':
+          return 'week'
+        case 'day':
+        case '3day':
+          return 'day'
+      }
+    }
+    logEvents () {
+      console.table(this.events.map((e) => ({
+        ...e,
+        start: e.start.toDate(),
+        end: e.end.toDate(),
+      })))
+    }
   }
 
   angular.module('myApp')
@@ -198,5 +237,5 @@ ${JSON.stringify(event)}
       controller: ['planningConfiguration', MainController]
     })
 
-})()
+})(window.angular, window.faker)
 

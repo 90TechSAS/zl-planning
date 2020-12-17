@@ -177,6 +177,9 @@
           if (endWeek === 1) {
             endWeek = moment(self.position).isoWeeksInYear() + 1
           }
+          if (endWeek < startWeek) {
+            endWeek = startWeek + endWeek
+          }
           var weekInMonth = endWeek - startWeek + 1
           for (var i = 0; i < weekInMonth; i++) {
             if (self.multipleDaysEvents[i] === undefined) {

@@ -776,125 +776,6 @@ zl-planning-line.ng-animate {
   background-color: #fff;
 }
 
-zl-planning {
-  height: 100%;
-}
-.advanced-week .days-list {
-  background-color: #fff;
-  z-index: 10;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  display: flex;
-  border-bottom: 1px solid black;
-  align-content: stretch;
-}
-.advanced-week .days-list .day-advanced {
-  box-sizing: border-box;
-  flex: 1;
-  cursor: pointer;
-  border-right: 1px solid black;
-  min-height: 1.2em;
-  text-align: center;
-}
-.advanced-week .days-list .day-advanced:first-of-type {
-  flex: 0.5;
-}
-.advanced-week .advanced-week-container {
-  width: 100%;
-  display: flex;
-  border-bottom: 1px solid black;
-  align-content: stretch;
-}
-.advanced-week .advanced-week-container .left-column-advanced {
-  flex: 0.5;
-  box-sizing: border-box;
-  text-align: center;
-  border-right: 1px solid black;
-  display: flex;
-}
-.advanced-week .advanced-week-container .day-advanced {
-  flex: 1;
-  border-right: 1px solid black;
-  position: relative;
-  overflow-y: hidden;
-}
-.today {
-  background-color: lightgrey !important;
-}
-.planning-body {
-  height: 100%;
-  margin: 0;
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-.planning-2pc {
-  display: block;
-  height: 2%;
-  width: 100%;
-}
-.hour-cursor {
-  border-left: 1px solid #03a9f4;
-  position: absolute;
-  height: 100%;
-  z-index: 1;
-  border-right: 5px solid transparent;
-}
-.hour-cursor .hour-caret {
-  position: absolute;
-  top: -5px;
-  right: -4px;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #03a9f4;
-}
-.day-header {
-  height: 2%;
-}
-.day-header .day {
-  width: 14.28%;
-  height: 1.2em;
-  float: left;
-  border-right: 1px solid darkgray;
-  border-bottom: 1px solid darkgray;
-}
-.month-header {
-  width: 50%;
-  margin-left: auto;
-  height: 2%;
-}
-.day-block.over {
-  border: 2px solid black;
-}
-zl-planning-line.ng-animate {
-  transition: none;
-  keyframe: 0s none;
-}
-.planning-pause-element {
-  position: absolute;
-  z-index: 0;
-  background: repeating-linear-gradient(45deg, #ccc, #ccc 15px, #333 15px, #333 25px);
-}
-.planning-absences {
-  position: absolute;
-  z-index: 0;
-  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #000 15px, #000 25px);
-}
-
 .slider {
   overflow-x: scroll;
   overflow-y: hidden;
@@ -1015,22 +896,6 @@ zl-planning-line.ng-animate {
   height: 20px;
 }
 
-.day-hour {
-  text-align: center;
-  height: 100%;
-  display: inline-block;
-}
-.planning-top-row .day-hour {
-  margin: 0 75px 0 -75px;
-}
-.planning-top-row .day-hour:first-child {
-  margin: 0 45px 0 -45px;
-}
-.planning-top-row {
-  z-index: 1;
-  height: 40px;
-}
-
 .day {
   display: flex;
   flex: 1;
@@ -1134,6 +999,141 @@ zl-planning-line.ng-animate {
   z-index: 10;
   float: right;
   font-size: 0.7em;
+}
+
+zl-planning {
+  height: 100%;
+}
+.advanced-week .days-list {
+  background-color: #fff;
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+  align-content: stretch;
+}
+.advanced-week .days-list .day-advanced {
+  box-sizing: border-box;
+  flex: 1;
+  cursor: pointer;
+  border-right: 1px solid black;
+  min-height: 1.2em;
+  text-align: center;
+}
+.advanced-week .days-list .day-advanced:first-of-type {
+  flex: 0.5;
+}
+.advanced-week .advanced-week-container {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+  align-content: stretch;
+}
+.advanced-week .advanced-week-container .left-column-advanced {
+  flex: 0.5;
+  box-sizing: border-box;
+  text-align: center;
+  border-right: 1px solid black;
+  display: flex;
+}
+.advanced-week .advanced-week-container .day-advanced {
+  flex: 1;
+  border-right: 1px solid black;
+  position: relative;
+  overflow-y: hidden;
+}
+.today {
+  background-color: lightgrey !important;
+}
+.planning-body {
+  height: 100%;
+  margin: 0;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.planning-2pc {
+  display: block;
+  height: 2%;
+  width: 100%;
+}
+.hour-cursor {
+  border-left: 1px solid #03a9f4;
+  position: absolute;
+  height: 100%;
+  z-index: 1;
+  border-right: 5px solid transparent;
+}
+.hour-cursor .hour-caret {
+  position: absolute;
+  top: -5px;
+  right: -4px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #03a9f4;
+}
+.day-header {
+  height: 2%;
+}
+.day-header .day {
+  width: 14.28%;
+  height: 1.2em;
+  float: left;
+  border-right: 1px solid darkgray;
+  border-bottom: 1px solid darkgray;
+}
+.month-header {
+  width: 50%;
+  margin-left: auto;
+  height: 2%;
+}
+.day-block.over {
+  border: 2px solid black;
+}
+zl-planning-line.ng-animate {
+  transition: none;
+  keyframe: 0s none;
+}
+.planning-pause-element {
+  position: absolute;
+  z-index: 0;
+  background: repeating-linear-gradient(45deg, #ccc, #ccc 15px, #333 15px, #333 25px);
+}
+.planning-absences {
+  position: absolute;
+  z-index: 0;
+  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #000 15px, #000 25px);
+}
+
+.day-hour {
+  text-align: center;
+  height: 100%;
+  display: inline-block;
+}
+.planning-top-row .day-hour {
+  margin: 0 75px 0 -75px;
+}
+.planning-top-row .day-hour:first-child {
+  margin: 0 45px 0 -45px;
+}
+.planning-top-row {
+  z-index: 1;
+  height: 40px;
 }
 
 .day-hour-vertical {
