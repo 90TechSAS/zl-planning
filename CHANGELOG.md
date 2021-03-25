@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.8.6
+
+## Fixes
+
+- Fix hour display on week view
+
 # 1.8.5
 
 ## Meta
