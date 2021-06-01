@@ -71,7 +71,10 @@
      ng-style="pause.style">
 </div>
 <div ng-repeat="absence in line._absences track by $index"
-	 ng-class="absence.confirmation.state === 'pending' ? 'planning-absences-pending' : 'planning-absences-accepted'"
+	 ng-class="absence.confirmation.state === 'pending' ? 'planning-absences-pending' :
+	  absence.confirmation.state === 'sending' ? 'planning-absences-sending' :
+	  absence.confirmation.state === 'partial-accepted' ? 'planning-absences-partial-accepted' :
+	  'planning-absences-accepted'"
      uib-tooltip="Absent" tooltip-append-to-body="true"
      style="height: 100%;"
      ng-style="absence.style">
