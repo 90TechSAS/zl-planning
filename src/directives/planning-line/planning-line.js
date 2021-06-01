@@ -83,7 +83,7 @@
                 break
         }
         if(absenceType) {
-            return state + '&#10; Raison:'+ absenceType
+            return state + '\nRaison:'+ absenceType
         } else {
             return state
         }
