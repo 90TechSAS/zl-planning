@@ -42,8 +42,8 @@
                 width: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
               }
               abs.range = moment.range(abs.start, abs.end)
-              abs.class = 'planning-absence-' + abs.confirmation.state
-              abs.tooltip = abs.absenceType
+              /*abs.class = 'planning-absence-' + abs.confirmation.state*/
+              abs.tooltip = setAbsenceTooltip(abs)
               console.log(abs)
               return abs
             })
@@ -65,6 +65,24 @@
     self.preEvent = {}
     self.postEvent = {}
 
+    function setAbsenceTooltip(abs) {
+        let state = ''
+        switch (abs.confirmation.state) {
+            case 'sending':
+                state = 'Absence envoyée'
+                break
+            case 'pending':
+                state = 'Absence en cour de traitement'
+                break
+            case 'partial-accepted':
+                state = "Absence en attente d'un ou plusieur validateur"
+                break;
+            case 'accepted':
+                state = 'Absence acceptée'
+        }
+
+        return state + ' ' + abs.absenceType
+    }
     function extractMinutesFromEvent($event){
       var minutes
       if (_.contains($event.target.classList, 'half-hour')) {
