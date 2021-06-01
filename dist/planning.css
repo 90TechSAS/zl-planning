@@ -814,6 +814,30 @@ zl-planning-line.ng-animate {
   background-color: #fff;
 }
 
+.slider {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.slider::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+.slider::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+.slider::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+.slider::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white;
+  /* should match background, can't be transparent */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.slider::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 8px;
+}
+
 zl-planning {
   height: 100%;
 }
@@ -948,28 +972,37 @@ zl-planning-line.ng-animate {
   background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #056F00 15px, #056F00 25px);
 }
 
-.slider {
-  overflow-x: scroll;
-  overflow-y: hidden;
+.left-column {
+  width: 16.7%;
+  float: left;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 }
-.slider::-webkit-scrollbar {
-  -webkit-appearance: none;
+.planning-head {
+  height: 40px;
 }
-.slider::-webkit-scrollbar:vertical {
-  width: 11px;
+.left-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
-.slider::-webkit-scrollbar:horizontal {
-  height: 10px;
+.days-body {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
-.slider::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  border: 2px solid white;
-  /* should match background, can't be transparent */
-  background-color: rgba(0, 0, 0, 0.5);
+.dayName {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
-.slider::-webkit-scrollbar-track {
-  background-color: #fff;
-  border-radius: 8px;
+.dayName h4 {
+  margin: auto;
 }
 
 .month-container {
@@ -1033,39 +1066,6 @@ zl-planning-line.ng-animate {
   float: right;
   margin: 2px;
   height: 20px;
-}
-
-.left-column {
-  width: 16.7%;
-  float: left;
-  height: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-.planning-head {
-  height: 40px;
-}
-.left-body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.days-body {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.dayName {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.dayName h4 {
-  margin: auto;
 }
 
 .day {
@@ -1173,6 +1173,19 @@ zl-planning-line.ng-animate {
   font-size: 0.7em;
 }
 
+.day-hour-vertical {
+  display: block;
+}
+.hour-text {
+  font-size: 0.7em;
+  margin-left: 2px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.all-day {
+  display: flex;
+  align-items: flex-end;
+}
+
 .day-hour {
   text-align: center;
   height: 100%;
@@ -1187,19 +1200,6 @@ zl-planning-line.ng-animate {
 .planning-top-row {
   z-index: 1;
   height: 40px;
-}
-
-.day-hour-vertical {
-  display: block;
-}
-.hour-text {
-  font-size: 0.7em;
-  margin-left: 2px;
-  color: rgba(0, 0, 0, 0.5);
-}
-.all-day {
-  display: flex;
-  align-items: flex-end;
 }
 
 /*# sourceMappingURL=planning.css.map */

@@ -78,7 +78,7 @@
     <div ng-repeat="absence in line._absences track by $index"
          class="planning-absences" uib-tooltip="{{absence.tooltip}}" tooltip-append-to-body="true"
          style="width: 95%; left: 5%;"
-		 ng-class="absence.class"
+		 class="{{absence.class}}"
          ng-style="absence.style">
     </div>
 </div>
