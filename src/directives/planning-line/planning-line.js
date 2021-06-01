@@ -67,6 +67,7 @@
 
     function setAbsenceTooltip(abs) {
         let state = ''
+        const absenceType = abs.absenceType
         switch (abs.confirmation.state) {
             case 'sending':
                 state = 'Absence envoyée'
@@ -81,7 +82,7 @@
                 state = 'Absence acceptée'
         }
 
-        return state + ' ' + abs.absenceType
+        return state + ' ' + abs.absenceType ? + '<br>Raison:' + abs.absenceType : ''
     }
     function extractMinutesFromEvent($event){
       var minutes
