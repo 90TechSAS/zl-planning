@@ -42,6 +42,7 @@
                 width: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
               }
               abs.range = moment.range(abs.start, abs.end)
+              console.log(abs)
               return abs
             })
 
