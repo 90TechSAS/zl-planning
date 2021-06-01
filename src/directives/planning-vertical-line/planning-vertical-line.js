@@ -42,6 +42,8 @@
             }
 
             abs.range = moment.range(abs.start, abs.end)
+            abs.class = 'planning-absence-' + abs.confirmation.state
+            abs.tooltip = abs.absenceType
             return abs
           })
         } else {

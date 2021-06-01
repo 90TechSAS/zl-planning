@@ -42,7 +42,8 @@
                 width: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
               }
               abs.range = moment.range(abs.start, abs.end)
-              console.log(abs)
+              abs.class = 'planning-absence-' + abs.confirmation.state
+              abs.tooltip = abs.absenceType
               return abs
             })
 
