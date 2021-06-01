@@ -43,7 +43,7 @@
 
             abs.range = moment.range(abs.start, abs.end)
             abs.class = 'planning-absence-' + abs.confirmation.state
-            abs.tooltip = abs.absenceType
+            abs.tooltip = setAbsenceTooltip(abs)
             return abs
           })
         } else {
@@ -71,6 +71,30 @@
 
     self.preEvent = {}
     self.postEvent = {}
+
+    function setAbsenceTooltip(abs) {
+      let state = ''
+      const absenceType = abs.absenceType
+      switch (abs.confirmation.state) {
+          case 'sending':
+              state = 'Absence envoyée'
+              break
+          case 'pending':
+              state = 'Absence en cour de traitement'
+              break
+          case 'partial-accepted':
+              state = 'Absence en cour de traitement'
+              break;
+          case 'accepted':
+              state = 'Absence acceptée'
+              break
+      }
+      if(absenceType) {
+          return state + '\nRaison:'+ absenceType
+      } else {
+          return state
+      }
+    }
 
     function extractMinutesFromEvent($event){
       var minutes
