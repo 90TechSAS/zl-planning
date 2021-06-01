@@ -145,6 +145,9 @@ zl-planning-line.ng-animate {
 }
 .absence-tooltip {
   z-index: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 .left-column {
   width: 16.7%;
@@ -557,6 +560,9 @@ zl-planning-line.ng-animate {
 }
 .absence-tooltip {
   z-index: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 .left-column {
   width: 16.7%;
@@ -979,6 +985,9 @@ zl-planning-line.ng-animate {
 }
 .absence-tooltip {
   z-index: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .month-container {
