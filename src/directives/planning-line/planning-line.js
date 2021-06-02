@@ -37,11 +37,13 @@
           var start = moment(angular.copy(self.position)).startOf('day')
           var end = moment(angular.copy(self.position)).endOf('day')
             self._absences = AbsenceService.parseAbsences(self.absences , [start, end]).map(function (abs) {
-              abs.style = {
+                abs.style = {
                 left: (moment(abs.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + moment(abs.start).minutes() * BASE_SIZE * self.zoom / 60 + 'px',
                 width: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
               }
               abs.range = moment.range(abs.start, abs.end)
+              abs.class = 'planning-absence-' + abs.confirmation.state
+              abs.tooltip = setAbsenceTooltip(abs)
               return abs
             })
 
@@ -62,6 +64,29 @@
     self.preEvent = {}
     self.postEvent = {}
 
+    function setAbsenceTooltip(abs) {
+        let state = ''
+        const absenceType = abs.absenceType
+        switch (abs.confirmation.state) {
+            case 'sending':
+                state = 'Absence envoyée'
+                break
+            case 'pending':
+                state = 'Absence en cour de traitement'
+                break
+            case 'partial-accepted':
+                state = 'Absence en cour de traitement'
+                break;
+            case 'accepted':
+                state = 'Absence acceptée'
+                break
+        }
+        if(absenceType) {
+            return state + '\nRaison:'+ absenceType
+        } else {
+            return state
+        }
+    }
     function extractMinutesFromEvent($event){
       var minutes
       if (_.contains($event.target.classList, 'half-hour')) {

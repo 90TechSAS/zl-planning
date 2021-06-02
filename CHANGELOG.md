@@ -1,4 +1,8 @@
 Version numbers correspond to `bower.json` version
+# 1.9.0
+## Feature 
+
+- Absence type and Absence status
 
 # 1.8.6
 
