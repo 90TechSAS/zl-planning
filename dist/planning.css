@@ -143,6 +143,9 @@ zl-planning-line.ng-animate {
   z-index: 1;
   background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #056F00 15px, #056F00 25px);
 }
+.absence-hover {
+  z-index: -1;
+}
 .left-column {
   width: 16.7%;
   float: left;
@@ -174,6 +177,14 @@ zl-planning-line.ng-animate {
 }
 .dayName h4 {
   margin: auto;
+}
+.dayName .absents-container {
+  position: relative;
+  right: 5px;
+  bottom: 5px;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 0 5px;
+  border-radius: 3px;
 }
 .day-hour {
   text-align: center;
@@ -552,6 +563,9 @@ zl-planning-line.ng-animate {
   z-index: 1;
   background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #056F00 15px, #056F00 25px);
 }
+.absence-hover {
+  z-index: -1;
+}
 .left-column {
   width: 16.7%;
   float: left;
@@ -583,6 +597,14 @@ zl-planning-line.ng-animate {
 }
 .dayName h4 {
   margin: auto;
+}
+.dayName .absents-container {
+  position: relative;
+  right: 5px;
+  bottom: 5px;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 0 5px;
+  border-radius: 3px;
 }
 .day-hour {
   text-align: center;
@@ -971,6 +993,9 @@ zl-planning-line.ng-animate {
   z-index: 1;
   background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #056F00 15px, #056F00 25px);
 }
+.absence-hover {
+  z-index: -1;
+}
 
 .month-container {
   margin-top: -5px;
@@ -1066,6 +1091,14 @@ zl-planning-line.ng-animate {
 }
 .dayName h4 {
   margin: auto;
+}
+.dayName .absents-container {
+  position: relative;
+  right: 5px;
+  bottom: 5px;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 0 5px;
+  border-radius: 3px;
 }
 
 .day {

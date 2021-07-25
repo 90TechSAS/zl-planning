@@ -1,6 +1,6 @@
 <div ng-if="planning.mode ==='day' || planning.mode === 'week'" style="height: 100%;">
     <zl-planning-left-column mode="planning.mode" position="planning.position" day-field="planning.dayField" usable-days="planning.allowedDays"
-                             events="planning.sortedEvents"></zl-planning-left-column>
+                             events="planning.sortedEvents" absences="planning.absences"></zl-planning-left-column>
     <div class="" style="height:100%">
         <div zl-horizontal-scroll scroll-left="planning.currentTimeToPixels()" style="height:100%">
             <div ng-style="{width: planning.width}" class="planning-body">
@@ -23,6 +23,7 @@
                 <zl-planning-line ng-if="planning.mode === 'week'"
                         zoom="planning.zoom"
                         ng-repeat="day in planning.usableDays"
+                        absences="planning.absences"
                         day-start="planning._dayStart" day-end="planning._dayEnd" class="day b-b"
                         ng-class="{today: planning.isToday(planning.keys(planning.sortedEvents)[day])}" events="planning.getEvents(planning.keys(planning.sortedEvents)[day])"
                         drop-callback="planning.dropEvent({h: $hour, m: $minutes, d: planning.keys(planning.sortedEvents)[day], entity: planning.keys(planning.sortedEvents)[day], $data: $data, $event: $event})"

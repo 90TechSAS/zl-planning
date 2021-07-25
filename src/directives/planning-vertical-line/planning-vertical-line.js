@@ -37,7 +37,6 @@
           var end = moment(angular.copy(self.day)).endOf('day')
           self._absences = AbsenceService.parseAbsences(angular.copy(self.absences), [start, end]).map(function (abs) {
             abs.style = {
-              top: (((moment(abs.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + (moment(abs.start).minutes()) * BASE_SIZE * self.zoom / 60)) +  'px',
               height: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
             }
 
