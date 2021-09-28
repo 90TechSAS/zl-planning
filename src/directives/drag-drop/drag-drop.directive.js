@@ -1,4 +1,4 @@
-;(function (angular) {
+;(function (angular, _) {
   'use strict'
 
   angular
@@ -16,6 +16,9 @@
           var dragImage  = document.createElement('div')
           var el = element[0]
           window.addEventListener('dragover', function (e) {
+            if(e.target.classList.contains(e.target.id) ){
+              e.target.classList.add('absence-hover')
+            }
             e.preventDefault();
           }, false);
           window.addEventListener('drop', function (e) {
@@ -79,6 +82,9 @@
                 if (e.stopPropagation) e.stopPropagation()
                 e.target.classList.remove('over')
                 this.classList.remove('over')
+                for (const iterator of document.getElementsByClassName('absence')) {
+                  iterator.classList.remove('absence-hover')
+                }
                 scope.$apply(function () {
                   scope.dragDropCtrl.zlDrop({ $data: JSON.parse(e.dataTransfer.getData('Text')), $event: e })
                 })
@@ -99,6 +105,9 @@
             el.addEventListener(
               'dragleave',
               function (e) {
+                for (const iterator of document.getElementsByClassName('absence')) {
+                  iterator.classList.remove('absence-hover')
+                }
                 e.target.classList.remove('over')
                 return false
               },
@@ -109,4 +118,4 @@
         }
       }
     })
-})(window.angular)
+})(window.angular, _)

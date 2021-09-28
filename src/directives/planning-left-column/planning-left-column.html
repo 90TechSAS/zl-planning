@@ -11,7 +11,15 @@
                     {{day | format:'dddd' | capitalize}}<br>
                     <small>{{day | format:'ll'}}</small>
                 </h4>
+                <div
+                    class="absents-container" 
+                    tooltip-append-to-body="true" 
+                    ng-if="planningLeftColumn.absents.length"
+                    uib-tooltip-html="planningLeftColumn.absentsString">
+                    {{planningLeftColumn.absents.length}} absent(s)
+                </div>
             </div>
+            
         </div>
         <div class="days-body" ng-switch-when="day">
             <div class="dayName row8 b-b animate"

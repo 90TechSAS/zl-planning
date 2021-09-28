@@ -1,13 +1,18 @@
 <div ng-style="{height: line.containerHeight}">
-    <div style="position: absolute; height: 100%; width: 100%; z-index: 1;"
-         zl-planning-drag-drop
-         zl-drop="line.dropEvent($data, $event)">
-        <div class="b-b b-r all-day"
-             ng-style="{height: line.calcWidth(line.zoom)}"
-             ng-repeat="n in [] | range: line.range"
-             ng-dblclick="line.clickEvent(n, $event)"
-             hour="{{n + line.dayStart.h}}">
-            <span class="hour-text">{{n + 1 + line.dayStart.h}}</span>
+    <div style="position: absolute; height: 100%; width: 100%; z-index: 1">
+         <div ng-repeat="n in [] | range: line.range" style="display: flex; z-index: 1;">
+             <div>
+                <span class="hour-text">{{n + 1 + line.dayStart.h}}</span>
+            </div>
+            <div 
+                style="width: 100%;"
+                class="b-b b-r all-day"
+                ng-style="{height: line.calcWidth(line.zoom)}"
+                ng-dblclick="line.clickEvent(n, $event)"
+                hour="{{n + line.dayStart.h}}"
+                zl-planning-drag-drop
+                zl-drop="line.dropEvent($data, $event)">
+            </div>
         </div>
     </div>
 
@@ -20,7 +25,7 @@
         right: event.style.top,
         height: event.pre > 0 ? line.preEvent[event.id].style.totalWidth : event.style.width,
         top: event.pre > 0 ? line.preEvent[event.id].style.left : event.style.left
-    }" style="position: absolute; z-index: 1;"
+    }" style="position: absolute; z-index: 2;"
     >
         <div ng-if="event.pre > 0"
              ng-style="{height: line.preEvent[event.id].style.width, 'background': line.preEvent[event.id].style['background']}"
@@ -76,9 +81,11 @@
          ng-style="pause.style">
     </div>
     <div ng-repeat="absence in line._absences track by $index"
-		 class="{{absence.class}}"
+         id="{{absence._id}}"
+         class="{{absence.class}} absence {{absence._id}}"
 		 tooltip-append-to-body="true"
-		 tooltip-placement="top"
+         tooltip-placement="top"
+         tooltip-classes="absence-tooltip"
 		 uib-tooltip="{{absence.tooltip}}"
          style="width: 95%; left: 5%;"
          ng-style="absence.style">
