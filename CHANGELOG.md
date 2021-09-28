@@ -6,7 +6,6 @@ Version numbers correspond to `bower.json` version
 
 - Fix drag and drop on absence
 - Fix bug absence tooltip
-- Fix advanced week absences display
 
 # 1.9.0
 

@@ -14,18 +14,9 @@
       $scope.$watchCollection(function () {
         return [self.events, self.position, self.mode, self.dayStart, self.dayEnd, self.usableDays]
       }, init)
-
-      $scope.$watchCollection(function () {
-        return self.absences
-      }, function (){
-
-        
-      })
     }
 
     function init () {
-      console.log(self)
-      console.log(self.mode)
       self.days = []
       self.allowedDays = self.usableDays
       if (self.mode === 'week') {
@@ -56,8 +47,7 @@
         position: '=',
         mode: '=',
         dayField: '=',
-        usableDays: '=',
-        absences:'=?'
+        usableDays: '='
       },
       scope: true
     }
