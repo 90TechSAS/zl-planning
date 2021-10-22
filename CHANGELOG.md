@@ -1,5 +1,12 @@
 Version numbers correspond to `bower.json` version
 
+
+# 1.9.2
+
+## Fixes
+
+- Fix display absence on week view
+
 # 1.9.1
 
 ## Fixes

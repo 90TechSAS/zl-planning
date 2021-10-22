@@ -47,6 +47,39 @@
               return abs
             })
 
+        } else if (self.absences) {
+          var start = moment(angular.copy(self.dayOfWeek)).startOf('day')
+          var end = moment(angular.copy(self.dayOfWeek)).endOf('day')
+          self._absences = []
+          for (const [key, value] of Object.entries(self.absences)) {
+            value.forEach(absence => {
+              if(self.dayOfWeek.isBetween(moment(absence.start), moment(absence.end)) || (moment(self.dayOfWeek).isSame(moment(absence.start),'day') && moment(self.dayOfWeek).isSame(moment(absence.end),'day'))){
+                self._absences.push(angular.copy(absence))
+              }
+            })
+          }
+          self._absences.forEach(absence => {
+            let index = self._absences.indexOf(absence)
+            if (
+              (moment(absence.start).isBefore(moment(self.dayOfWeek).startOf('day')) && (moment(absence.end).isAfter(moment(self.dayOfWeek).endOf('day')))) || 
+              (moment(absence.end).isSame(moment(self.dayOfWeek).endOf('day')) && moment(absence.start).isBefore(moment(self.dayOfWeek).startOf('hour'))) ||
+              ((moment(absence.start).isSame(moment(self.dayOfWeek).startOf('day')) && (moment(absence.end).isAfter(moment(self.dayOfWeek).endOf('day')))))){
+              absence.start = moment(self.dayOfWeek).startOf('day')
+              absence.end = moment(self.dayOfWeek).endOf('day')
+            }
+            
+            absence.style = {
+              left: (moment(absence.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + moment(absence.start).minutes() * BASE_SIZE * self.zoom / 60 + 'px',
+              width: self.zoom * self.SLIDER_WIDTH * (moment.range(absence.start, absence.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
+              height: (100 / self._absences.length) + '%',
+              position: 'absolute',
+              top: (100 / self._absences.length) * index + '%'
+              }
+              absence.range = moment.range(absence.start, absence.end)
+              absence.class = 'planning-absence-' + absence.confirmation.state
+              absence.tooltip = setAbsenceTooltip(absence)
+              absence.index = index
+          })
         } else {
           self._absences = []
         }
@@ -67,22 +100,23 @@
     function setAbsenceTooltip(abs) {
         let state = ''
         const absenceType = abs.absenceType
+        const userName = self.mode === 'week' ? abs.user.fullname + ' - ' : ''
         switch (abs.confirmation.state) {
             case 'sending':
-                state = 'Absence envoyée'
+                state = userName + 'Absence envoyée'
                 break
             case 'pending':
-                state = 'Absence en cour de traitement'
+                state = userName + 'Absence en cour de traitement'
                 break
             case 'partial-accepted':
-                state = 'Absence en cour de traitement'
+                state = userName + 'Absence en cour de traitement'
                 break;
             case 'accepted':
-                state = 'Absence acceptée'
+                state = userName + 'Absence acceptée'
                 break
         }
         if(absenceType) {
-            return state + '\nRaison:'+ absenceType
+            return state + '\nRaison: '+ absenceType
         } else {
             return state
         }
@@ -327,7 +361,10 @@
         dropCallback: '&',
         pauses: '=?',
         absences: '=?',
-        position: '=?'
+        position: '=?',
+        mode: '=?',
+        entities:'=?',
+        dayOfWeek:'='
       },
       scope: true
     }
