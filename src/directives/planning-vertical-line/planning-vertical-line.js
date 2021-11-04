@@ -110,12 +110,21 @@
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
       var date = moment(angular.copy(self.day)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
-      if (!checkAbsence(date)) {
-        self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
-      } else {
-        planningConfiguration.absentTechnicianCallback(function () {
-          self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
+      var day = moment(angular.copy(self.position))
+      if (checkAbsence(date) && checkFerie(day)) {
+        planningConfiguration.warningCallback(function () {
+          self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
         })
+      } else if (checkAbsence(date) && !checkFerie(day)) {
+        planningConfiguration.absentTechnicianCallback(function () {
+          self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      } else if (!checkAbsence(date) && checkFerie(day)) {
+        planningConfiguration.isFerieCallback(function () {
+          self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      } else {
+        self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
       }
 
     }
@@ -320,8 +329,12 @@
       return _.any(self._absences, function (abs) {
         return abs.range.contains(d)
       })
-
     }
+
+    function checkFerie (date) {
+      return self.holidays.find(holiday => moment(holiday.date).format('L') === moment(date).format('L'));
+    }
+
   }
 
   function PlanningLineDirective () {
@@ -338,6 +351,7 @@
         pauses: '=?',
         day: '=',
         absences: '=?',
+        holidays: '=?',
         clickCallback: '&',
         dropCallback: '&'
       },

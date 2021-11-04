@@ -1,6 +1,12 @@
 Version numbers correspond to `bower.json` version
 
 
+# 2.0.0
+
+## Features
+
+- Display holidays
+
 # 1.9.2
 
 ## Fixes

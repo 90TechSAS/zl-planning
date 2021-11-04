@@ -42,6 +42,12 @@
           DAYS: self.DAYS,
           absentTechnicianCallback: function (callback) {
             callback()
+          },
+          isFerieCallback: function (callback) {
+            callback()
+          },
+          warningCallback: function (callback) {
+            callback()
           }
         }
       }]

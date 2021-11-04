@@ -1,6 +1,7 @@
 <div class="day-block" ng-class="{'empty-day': dayCtrl.isDefined }" ng-click="planning.dayCallback({$day:dayCtrl.day.date})">
     <div style="position:absolute;left:5px;top:5px;" ng-if="dayCtrl.day.date.day() === 1">{{dayCtrl.day.date.week()}}</div>
     <div class="day-number">{{ dayCtrl.day.date.date() }}</div>
+    <span ng-if="dayCtrl.isFerie" class="holidays">férié</span>
     <div class="events-container">
 
         <div ng-style="{'background-color': event.color}" class="month-event"

@@ -56,6 +56,9 @@
 
 
     function init () {
+      if(self.holidays) {
+        self.isFerie = self.holidays.find(holiday => moment(holiday.date).format('L') === moment(self.day.date).format('L'));
+      }
     }
 
 
@@ -79,7 +82,8 @@
         events: '=',
         clickCallback: '&',
         dropCallback: '&',
-        absences: '=?'
+        absences: '=?',
+        holidays: "="
       },
       scope: true,
       link: function (scope, element) {

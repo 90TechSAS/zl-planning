@@ -146,6 +146,30 @@ zl-planning-line.ng-animate {
 .absence-hover {
   z-index: 0;
 }
+.holidays {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 16px;
+  align-items: center;
+  cursor: default;
+  max-width: 55px;
+  min-height: 20px;
+  height: 1px;
+  margin: 4px;
+  background-color: #C0392B;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+.isFerie {
+  background: rgba(192, 57, 43, 0.7);
+  position: relative;
+  color: white;
+}
+.isFerie h4,
+.isFerie small {
+  color: white;
+}
 .left-column {
   width: 16.7%;
   float: left;
@@ -380,6 +404,10 @@ zl-planning-line.ng-animate {
   border-right: 1px solid darkgray;
   border-bottom: 1px solid darkgray;
   position: relative;
+}
+.month-container .day-block .holidays {
+  position: absolute;
+  bottom: 0px;
 }
 .month-container .day-block .absents-container {
   position: absolute;
@@ -566,6 +594,30 @@ zl-planning-line.ng-animate {
 .absence-hover {
   z-index: 0;
 }
+.holidays {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 16px;
+  align-items: center;
+  cursor: default;
+  max-width: 55px;
+  min-height: 20px;
+  height: 1px;
+  margin: 4px;
+  background-color: #C0392B;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+.isFerie {
+  background: rgba(192, 57, 43, 0.7);
+  position: relative;
+  color: white;
+}
+.isFerie h4,
+.isFerie small {
+  color: white;
+}
 .left-column {
   width: 16.7%;
   float: left;
@@ -801,6 +853,10 @@ zl-planning-line.ng-animate {
   border-bottom: 1px solid darkgray;
   position: relative;
 }
+.month-container .day-block .holidays {
+  position: absolute;
+  bottom: 0px;
+}
 .month-container .day-block .absents-container {
   position: absolute;
   right: 5px;
@@ -996,6 +1052,30 @@ zl-planning-line.ng-animate {
 .absence-hover {
   z-index: 0;
 }
+.holidays {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 16px;
+  align-items: center;
+  cursor: default;
+  max-width: 55px;
+  min-height: 20px;
+  height: 1px;
+  margin: 4px;
+  background-color: #C0392B;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+.isFerie {
+  background: rgba(192, 57, 43, 0.7);
+  position: relative;
+  color: white;
+}
+.isFerie h4,
+.isFerie small {
+  color: white;
+}
 
 .month-container {
   margin-top: -5px;
@@ -1037,6 +1117,10 @@ zl-planning-line.ng-animate {
   border-right: 1px solid darkgray;
   border-bottom: 1px solid darkgray;
   position: relative;
+}
+.month-container .day-block .holidays {
+  position: absolute;
+  bottom: 0px;
 }
 .month-container .day-block .absents-container {
   position: absolute;

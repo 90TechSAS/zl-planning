@@ -23,7 +23,9 @@
         keys: keys,
         getEvents: getEvents,
         clickWeekEvent: clickWeekEvent,
-        dropEvent: dropEvent
+        dropEvent: dropEvent,
+        isFerie: isFerie,
+        hasAbsence: hasAbsence
       })
 
       init()
@@ -399,6 +401,19 @@
       return self.position.week() === moment().week() && n === moment().dayOfYear()
     }
 
+    function isFerie (day) {
+      if(self.holidays) {
+        return self.holidays.find(holiday => moment(holiday.date).format('L') === moment(day).format('L'));
+      }
+    }
+
+    function hasAbsence (date) {
+      var d = moment(angular.copy(date))
+      return _.any(self._absences, function (abs) {
+        return abs.range.contains(d)
+      })
+    }
+
     function isInDayRange () {
       return moment().hour() > parseInt(self._dayStart.h) && moment().hour() < parseInt(self._dayEnd.h)
     }
@@ -463,7 +478,13 @@
         }
       }
       var entity = (_.includes(['week-advanced', 'day', '3day'], self.mode)) ? config.entity : undefined
-      self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
+      if((self.mode === 'month' || self.mode === 'week-advanced') && isFerie(mom)) {
+        planningConfiguration.isFerieCallback(function () {
+          self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
+        })
+      } else {
+        self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
+      }
     }
 
     function calculateAdvancedWeekContainerHeight () {
@@ -500,7 +521,8 @@
         weekEventCallback: '&',
         dropCallback: '&',
         usableDays: '=?',
-        action: '&?'
+        action: '&?',
+        holidays: '='
       },
       scope: {}
     }
