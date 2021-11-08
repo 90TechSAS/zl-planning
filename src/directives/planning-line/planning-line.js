@@ -23,7 +23,9 @@
       _.extend(self, {
         clickEvent: clickEvent,
         calcWidth: calcWidth,
-        dropEvent: dropEvent
+        dropEvent: dropEvent,
+        hoverAbsence: hoverAbsence,
+        leave: leave
       })
       init()
       $scope.$watchCollection(function () {
@@ -132,6 +134,19 @@
       return minutes
     }
 
+
+    function hoverAbsence() {
+      for (const iterator of document.getElementsByClassName('absence')) {
+        iterator.classList.add('absence-week-hover')
+      }
+    }
+
+    function leave() {
+      for (const iterator of document.getElementsByClassName('absence')) {
+        iterator.classList.remove('absence-week-hover')
+      }
+    }
+
     function dropEvent (data, event) {
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
@@ -154,16 +169,38 @@
       }
     }
 
-    function clickEvent (hour, $event) {
+    function clickEvent (hour, $event, line) {
+      let day = !!line.dayOfWeek ? line.dayOfWeek : line.position
       var minutes = extractMinutesFromEvent($event)
       var date = moment(angular.copy(self.position)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
-      if (!checkAbsence(date)) {
-        self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
-      } else {
+      if (checkAbsence(date) && checkFerie(day)) {
+        planningConfiguration.warningCallback(function () {
+          self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      } else if (checkAbsence(date) && !checkFerie(day)) {
         planningConfiguration.absentTechnicianCallback(function () {
           self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
         })
+      } else if (!checkAbsence(date) && checkFerie(day)) {
+        planningConfiguration.isFerieCallback(function () {
+          self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      } else {
+        self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
       }
+
+
+
+
+
+
+      // if (!checkAbsence(date)) {
+      //   self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      // } else {
+      //   planningConfiguration.absentTechnicianCallback(function () {
+      //     self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+      //   })
+      // }
 
     }
 
@@ -306,6 +343,9 @@
     }
 
     function checkAbsence (date) {
+      if(self.mode === 'week') {
+        return false
+      }
       var d = moment(angular.copy(date))
       return _.any(self._absences, function (abs) {
         return abs.range.contains(d)

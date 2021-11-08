@@ -1,5 +1,10 @@
 Version numbers correspond to `bower.json` version
 
+# 2.0.1
+
+## Fixes
+
+- Fix intervention creation on absence and ferie display
 
 # 2.0.0
 
