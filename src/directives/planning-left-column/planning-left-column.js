@@ -47,7 +47,8 @@
         position: '=',
         mode: '=',
         dayField: '=',
-        usableDays: '='
+        usableDays: '=',
+        isFerie: '=?'
       },
       scope: true
     }

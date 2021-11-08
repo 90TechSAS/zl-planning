@@ -54,7 +54,9 @@
       _.extend(self, {
         clickEvent: clickEvent,
         calcWidth: calcWidth,
-        dropEvent: dropEvent
+        dropEvent: dropEvent,
+        hoverAbsence: hoverAbsence,
+        leaveLine: leaveLine
       })
 
       init()
@@ -129,15 +131,35 @@
 
     }
 
-    function clickEvent (hour, $event) {
+    function hoverAbsence() {
+      for (const iterator of document.getElementsByClassName('absence')) {
+        iterator.classList.add('absence-week-advanced-hover')
+      }
+    }
+
+    function leaveLine() {
+      for (const iterator of document.getElementsByClassName('absence')) {
+        iterator.classList.remove('absence-week-advanced-hover')
+      }
+    }
+
+    function clickEvent (hour, $event, line) {
       var minutes = extractMinutesFromEvent($event)
       var date = moment(angular.copy(self.day)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
-      if (!checkAbsence(date)) {
-        self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
-      } else {
+      if (checkAbsence(date) && checkFerie(line)) {
+        planningConfiguration.warningCallback(function () {
+          self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      } else if (checkAbsence(date) && !checkFerie(line)) {
         planningConfiguration.absentTechnicianCallback(function () {
           self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
         })
+      } else if (!checkAbsence(date) && checkFerie(line)) {
+        planningConfiguration.isFerieCallback(function () {
+          self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        })
+      } else {
+        self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
       }
 
     }

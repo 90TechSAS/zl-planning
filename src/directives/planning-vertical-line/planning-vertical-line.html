@@ -1,5 +1,5 @@
 <div ng-style="{height: line.containerHeight}">
-    <div style="position: absolute; height: 100%; width: 100%; z-index: 1">
+    <div style="position: absolute; height: 100%; width: 100%; z-index: 1" ng-mouseleave="line.leaveLine()">
          <div ng-repeat="n in [] | range: line.range" style="display: flex; z-index: 1;">
              <div>
                 <span class="hour-text">{{n + 1 + line.dayStart.h}}</span>
@@ -8,7 +8,7 @@
                 style="width: 100%;"
                 class="b-b b-r all-day"
                 ng-style="{height: line.calcWidth(line.zoom)}"
-                ng-dblclick="line.clickEvent(n, $event)"
+                ng-dblclick="line.clickEvent(n, $event, line.day)"
                 hour="{{n + line.dayStart.h}}"
                 zl-planning-drag-drop
                 zl-drop="line.dropEvent($data, $event)">
@@ -83,6 +83,7 @@
     <div ng-repeat="absence in line._absences track by $index"
          id="{{absence._id}}"
          class="{{absence.class}} absence {{absence._id}}"
+         ng-mouseover="line.hoverAbsence(absence)"
 		 tooltip-append-to-body="true"
          tooltip-placement="top"
          tooltip-classes="absence-tooltip"

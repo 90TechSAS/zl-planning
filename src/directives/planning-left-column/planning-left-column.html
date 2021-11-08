@@ -1,7 +1,7 @@
 <div class="left-column" ng-switch="planningLeftColumn.mode">
     <div class="planning-head"></div>
     <div class="left-body">
-    <div class="planning-2pc"></div>
+    <div class="planning-2pc"><span class="holidays" ng-if="planningLeftColumn.isFerie">Férié</span></div>
         <div class="days-body" ng-switch-when="week">
             <div class="dayName row8 b-b animate"
                  ng-repeat="day in planningLeftColumn.days"

@@ -23,7 +23,8 @@
         entities: '=',
         position: '=',
         mode: '=',
-        callback: '&'
+        callback: '&',
+        holidays: '='
       },
       scope: {}
     }
