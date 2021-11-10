@@ -11,7 +11,7 @@
                 ng-dblclick="line.clickEvent(n, $event, line.day)"
                 hour="{{n + line.dayStart.h}}"
                 zl-planning-drag-drop
-                zl-drop="line.dropEvent($data, $event)">
+                zl-drop="line.dropEvent($data, $event, line.day)">
             </div>
         </div>
     </div>

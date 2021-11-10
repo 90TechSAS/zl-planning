@@ -2,21 +2,25 @@
 
     <div style="position: absolute; height: 100%; width: 100%; z-index: 1"
             zl-planning-drag-drop
-            ng-mouseleave="line.leave()"
-            zl-drop="line.dropEvent($data, $event)">
+            zl-drop="line.dropEvent($data, $event, line)">
         <div class="b-b b-r all-day day-hour"
+            ng-dblclick="line.clickEvent(n, $event, line)"
+            ng-mouseleave="line.leaveAbsence()"
+            uib-tooltip="{{line.tooltip}}"
+            tooltip-append-to-body="true"
+            tooltip-placement="top"
             ng-style="{width: line.calcWidth(line.zoom)}"
             ng-repeat="n in [] | range:line.range"
-            ng-dblclick="line.clickEvent(n, $event, line)"
             hour="{{n}}">
             <span class="half-hour"></span>
 
         </div>
     </div>
     <div ng-repeat="absence in line._absences track by $index"
+        ng-mouseenter="line.hoverAbsence(absence)"
         id="{{absence._id}}"
         class="{{absence.class}} absence {{absence._id}}"
-        ng-mouseover="line.hoverAbsence(absence)"
+        
         tooltip-append-to-body="true"
         tooltip-placement="top"
         uib-tooltip="{{absence.tooltip}}"
