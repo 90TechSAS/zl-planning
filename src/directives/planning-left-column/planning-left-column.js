@@ -19,6 +19,7 @@
     function init () {
       self.days = []
       self.allowedDays = self.usableDays
+      self._absences = []
       if (self.mode === 'week') {
         _.forEach(self.allowedDays, function (d) {
           var day = moment(self.position)
@@ -28,6 +29,20 @@
         self.days = _.sortBy(self.days, function (d) {
           return moment(d).toDate()
         })
+        if(self.absences) {
+          let index = 0
+          self.days.forEach(day => {
+            self._absences[index]=[]
+            for (const [key, value] of Object.entries(self.absences)) {
+              value.forEach(absence => {
+                if(day.isBetween(moment(absence.start), moment(absence.end)) || (moment(day).isSame(moment(absence.start),'day') && moment(day).isSame(moment(absence.end),'day'))){
+                  self._absences[index].push(angular.copy(absence))
+                }
+              })
+            }
+            index++
+          });
+        }
       } else if (self.mode === 'day' && self.dayField) {
         self.column = Object.keys(self.events).sort()
       }
@@ -48,7 +63,8 @@
         mode: '=',
         dayField: '=',
         usableDays: '=',
-        isFerie: '=?'
+        isFerie: '=?',
+        absences: '='
       },
       scope: true
     }

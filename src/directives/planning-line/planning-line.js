@@ -25,7 +25,7 @@
         calcWidth: calcWidth,
         dropEvent: dropEvent,
         hoverAbsence: hoverAbsence,
-        leave: leave
+        leaveAbsence: leaveAbsence
       })
       init()
       $scope.$watchCollection(function () {
@@ -134,24 +134,24 @@
       return minutes
     }
 
-
-    function hoverAbsence() {
-      for (const iterator of document.getElementsByClassName('absence')) {
-        iterator.classList.add('absence-week-hover')
+    function hoverAbsence(absence) {
+      self.tooltip = setAbsenceTooltip(absence)
+      for (const iterator of document.getElementsByClassName(absence._id)) {
+        iterator.classList.add('absence-hover')
       }
     }
 
-    function leave() {
+    function leaveAbsence() {
       for (const iterator of document.getElementsByClassName('absence')) {
-        iterator.classList.remove('absence-week-hover')
+        iterator.classList.remove('absence-hover')
       }
     }
 
-    function dropEvent (data, event) {
+    function dropEvent (data, event, line) {
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
       var date = moment(angular.copy(self.position)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
-      var day = moment(angular.copy(self.position))
+      var day = line.dayOfWeek ? line.dayOfWeek : line.position
       if (checkAbsence(date) && checkFerie(day)) {
         planningConfiguration.warningCallback(function () {
           self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
@@ -188,20 +188,6 @@
       } else {
         self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
       }
-
-
-
-
-
-
-      // if (!checkAbsence(date)) {
-      //   self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
-      // } else {
-      //   planningConfiguration.absentTechnicianCallback(function () {
-      //     self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
-      //   })
-      // }
-
     }
 
     function init () {

@@ -4,19 +4,19 @@
     <div class="planning-2pc"><span class="holidays" ng-if="planningLeftColumn.isFerie">Férié</span></div>
         <div class="days-body" ng-switch-when="week">
             <div class="dayName row8 b-b animate"
-                 ng-repeat="day in planningLeftColumn.days"
+                 ng-repeat="day in planningLeftColumn.days track by $index"
                     ng-class="{today: planning.isToday(day.dayOfYear()), isFerie: planning.isFerie(day)}"
                     ng-click="planning.dayCallback({$day:day})">
                 <h4>
                     {{day | format:'dddd' | capitalize}}<br>
                     <small>{{day | format:'ll'}}<span class="holidays" ng-if="planning.isFerie(day)">férié</span></small>
                 </h4>
-                <div
-                    class="absents-container" 
-                    tooltip-append-to-body="true" 
-                    ng-if="planningLeftColumn.absents.length"
-                    uib-tooltip-html="planningLeftColumn.absentsString">
-                    {{planningLeftColumn.absents.length}} absent(s)
+                <div ng-click="$event.stopPropagation()">
+                    <div
+                        class="absents-container"
+                        ng-click="planning.showAbsencesCallBackWrapper(planningLeftColumn._absences, $index)">
+                        {{ planningLeftColumn._absences[$index].length }} absent(s)
+                    </div>
                 </div>
             </div>
             

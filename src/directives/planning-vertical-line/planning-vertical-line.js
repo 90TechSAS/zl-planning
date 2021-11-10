@@ -108,11 +108,11 @@
       return minutes
     }
 
-    function dropEvent (data, event) {
+    function dropEvent (data, event, line) {
       var hour = parseInt(event.target.getAttribute('hour'))
       var minutes = extractMinutesFromEvent(event)
       var date = moment(angular.copy(self.day)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
-      var day = moment(angular.copy(self.position))
+      var day = line
       if (checkAbsence(date) && checkFerie(day)) {
         planningConfiguration.warningCallback(function () {
           self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})

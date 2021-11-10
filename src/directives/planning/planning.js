@@ -19,6 +19,7 @@
         currentTimeToPixels: currentTimeToPixels,
         isCurrent: isCurrent,
         clickCallbackWrapper: clickCallbackWrapper,
+        showAbsencesCallBackWrapper: showAbsencesCallBackWrapper,
         isInDayRange: isInDayRange,
         keys: keys,
         getEvents: getEvents,
@@ -459,6 +460,10 @@
       }
     }
 
+    function showAbsencesCallBackWrapper (absences, day) {
+      self.showAbsencesCallback({$absences: absences, $day: day})
+    }
+
     function dropEvent (config) {
       var mom = config.moment
       if (!mom) {
@@ -478,7 +483,7 @@
         }
       }
       var entity = (_.includes(['week-advanced', 'day', '3day'], self.mode)) ? config.entity : undefined
-      if((self.mode === 'month' || self.mode === 'week-advanced') && isFerie(mom)) {
+      if((self.mode === 'month') && isFerie(mom)) {
         planningConfiguration.isFerieCallback(function () {
           self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
         })
@@ -522,7 +527,8 @@
         dropCallback: '&',
         usableDays: '=?',
         action: '&?',
-        holidays: '='
+        holidays: '=',
+        showAbsencesCallback: '&'
       },
       scope: {}
     }
