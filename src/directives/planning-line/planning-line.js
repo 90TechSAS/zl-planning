@@ -169,7 +169,7 @@
       }
     }
 
-    function clickEvent (hour, $event, line, absences) {
+    function clickEvent (hour, $event, line) {
       let day = !!line.dayOfWeek ? line.dayOfWeek : line.position
       var minutes = extractMinutesFromEvent($event)
       var date = moment(angular.copy(self.position)).hours(hour + parseInt(self.dayStart.h)).minutes(minutes)
