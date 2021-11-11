@@ -56,7 +56,7 @@
 
 
     function init () {
-      if(self.holidays) {
+      if(self.holidays && self.day.date) {
         self.isFerie = self.holidays.find(holiday => moment(holiday.date).format('L') === moment(self.day.date).format('L'));
       }
     }
