@@ -1,5 +1,9 @@
 Version numbers correspond to `bower.json` version
+# 1.10.2
 
+## Fixes
+
+- Fix dropevent function
 # 1.10.1
 
 ## Fixes
