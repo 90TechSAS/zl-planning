@@ -1,12 +1,16 @@
 Version numbers correspond to `bower.json` version
 
-# 2.0.1
+# 1.10.1
+
+## Fixes
+
+Fix display holidays
+
+# 1.10.0
 
 ## Fixes
 
 - Fix intervention creation on absence and ferie display
-
-# 2.0.0
 
 ## Features
 

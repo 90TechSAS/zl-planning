@@ -1203,6 +1203,22 @@ zl-planning-line.ng-animate {
   border-radius: 3px;
 }
 
+.day-hour {
+  text-align: center;
+  height: 100%;
+  display: inline-block;
+}
+.planning-top-row .day-hour {
+  margin: 0 75px 0 -75px;
+}
+.planning-top-row .day-hour:first-child {
+  margin: 0 45px 0 -45px;
+}
+.planning-top-row {
+  z-index: 1;
+  height: 40px;
+}
+
 .day {
   display: flex;
   flex: 1;
@@ -1306,22 +1322,6 @@ zl-planning-line.ng-animate {
   z-index: 10;
   float: right;
   font-size: 0.7em;
-}
-
-.day-hour {
-  text-align: center;
-  height: 100%;
-  display: inline-block;
-}
-.planning-top-row .day-hour {
-  margin: 0 75px 0 -75px;
-}
-.planning-top-row .day-hour:first-child {
-  margin: 0 45px 0 -45px;
-}
-.planning-top-row {
-  z-index: 1;
-  height: 40px;
 }
 
 .day-hour-vertical {
