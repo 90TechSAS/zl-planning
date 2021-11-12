@@ -1,17 +1,17 @@
 <div class="left-column" ng-switch="planningLeftColumn.mode">
     <div class="planning-head"></div>
     <div class="left-body">
-    <div class="planning-2pc"><span class="holidays" ng-if="planningLeftColumn.isFerie">Férié</span></div>
+    <div class="planning-2pc"><span class="holidays" ng-if="planningLeftColumn.isFerie && (planningLeftColumn.mode === 'day' || planningLeftColumn.mode === '3days')">Férié</span></div>
         <div class="days-body" ng-switch-when="week">
             <div class="dayName row8 b-b animate"
                  ng-repeat="day in planningLeftColumn.days track by $index"
-                    ng-class="{today: planning.isToday(day.dayOfYear()), isFerie: planning.isFerie(day)}"
+                    ng-class="{today: (planning.isToday(day.dayOfYear())), isFerie: planning.isFerie(day)}"
                     ng-click="planning.dayCallback({$day:day})">
                 <h4>
                     {{day | format:'dddd' | capitalize}}<br>
                     <small>{{day | format:'ll'}}<span class="holidays" ng-if="planning.isFerie(day)">férié</span></small>
                 </h4>
-                <div ng-click="$event.stopPropagation()">
+                <div ng-click="$event.stopPropagation()" class="day-absence" ng-if="planningLeftColumn._absences[$index].length">
                     <div
                         class="absents-container"
                         ng-click="planning.showAbsencesCallBackWrapper(planningLeftColumn._absences, $index)">
