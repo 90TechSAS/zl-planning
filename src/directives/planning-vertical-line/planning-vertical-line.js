@@ -115,20 +115,20 @@
       var day = line
       if (checkAbsence(date) && checkFerie(day)) {
         planningConfiguration.warningCallback(function () {
-          self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+          self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
         })
       } else if (checkAbsence(date) && !checkFerie(day)) {
         planningConfiguration.absentTechnicianCallback(function () {
-          self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+          self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
         })
       } else if (!checkAbsence(date) && checkFerie(day)) {
         planningConfiguration.isFerieCallback(function () {
-          self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+          self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
         })
       } else {
-        self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
       }
-
+    
     }
 
     function hoverAbsence() {
