@@ -1,4 +1,10 @@
 Version numbers correspond to `bower.json` version
+# 1.10.4
+
+## Fixes
+
+- Fix typo
+
 # 1.10.3
 
 ## Fixes

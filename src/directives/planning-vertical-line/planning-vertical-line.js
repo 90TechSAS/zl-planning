@@ -81,10 +81,10 @@
               state = 'Absence envoyée'
               break
           case 'pending':
-              state = 'Absence en cour de traitement'
+              state = 'Absence en cours de traitement'
               break
           case 'partial-accepted':
-              state = 'Absence en cour de traitement'
+              state = 'Absence en cours de traitement'
               break;
           case 'accepted':
               state = 'Absence acceptée'
