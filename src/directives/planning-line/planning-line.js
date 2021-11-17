@@ -108,10 +108,10 @@
                 state = userName + 'Absence envoyée'
                 break
             case 'pending':
-                state = userName + 'Absence en cour de traitement'
+                state = userName + 'Absence en cours de traitement'
                 break
             case 'partial-accepted':
-                state = userName + 'Absence en cour de traitement'
+                state = userName + 'Absence en cours de traitement'
                 break;
             case 'accepted':
                 state = userName + 'Absence acceptée'
