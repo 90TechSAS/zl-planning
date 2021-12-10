@@ -18,8 +18,14 @@
       var parsed = absences.filter(function (abs) {
         return moment.range(abs.start, abs.end).overlaps(moment.range(interval[0], interval[1]))
       }).map(function (absence) {
+        absence.style = {}
+        if (moment(absence.start).isSame(moment(angular.copy(interval[0]))) ) {
+          absence.style.top = 0 + 'px'
+          absence.start = interval[0]
+        }
         if (moment(absence.start).isBefore(moment(angular.copy(interval[0])))) {
           absence.start = interval[0]
+          absence.style.top = 0 + 'px'
         }
         if (moment(absence.end).isAfter(moment(angular.copy(interval[1])))) {
           absence.end = interval[1]
@@ -75,10 +81,6 @@
       }, [])
 
       return mergeRanges(reduced)
-    }
-
-    function overlaps (range1, range2) {
-      return moment.range(range1.start, range1.end).overlaps(moment.range(range2.start, range2.end))
     }
   }
 

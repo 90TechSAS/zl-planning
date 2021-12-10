@@ -25,6 +25,9 @@
     var self = this
 
     self.$onInit = function () {
+      self.range = self.dayEnd.h - self.dayStart.h
+      self.SECONDS_BY_DAY = 3600 * self.range
+      self.SLIDER_WIDTH = BASE_SIZE * self.range
       $scope.$watchCollection(function () {
         return [self.events, self.dayStart, self.dayEnd]
       }, init)
@@ -36,9 +39,14 @@
           var start = moment(angular.copy(self.day)).startOf('day')
           var end = moment(angular.copy(self.day)).endOf('day')
           self._absences = AbsenceService.parseAbsences(angular.copy(self.absences), [start, end]).map(function (abs) {
-            abs.style = {
-              height: self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px'
-            }
+            let tempTop = (moment(abs.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + moment(abs.start).minutes() * BASE_SIZE * self.zoom / 60
+            let tempHeight = self.zoom * self.SLIDER_WIDTH * (moment.range(abs.start, abs.end).valueOf()) / self.SECONDS_BY_DAY / 1000
+            if (abs.style.top === 0 + 'px') {
+              abs.style.height = (tempTop + tempHeight) + 'px'
+            } else {
+              abs.style.height = tempHeight + 'px'
+              abs.style.top = tempTop + 'px'
+            }            
 
             abs.range = moment.range(abs.start, abs.end)
             abs.class = 'planning-absence-' + abs.confirmation.state
