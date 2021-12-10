@@ -39,7 +39,15 @@
             var array = self.absences[key]
             var hasOverlap = _.any(array, function (absence) {
               var range = moment.range(absence.start, absence.end)
-              return self.day.date.within(range)
+              if (moment(absence.start).diff(absence.end, 'minutes') === 0) {
+                return false
+              }
+              if (moment(absence.start).hours() === 12 && moment(absence.start).isSame(self.day.date, 'day') ) {
+                return !!moment(absence.start).isBetween(self.day.date, moment(self.day.date).endOf('day'))
+              }
+              if (self.day.date.within(range) ) {
+                return true
+              }
             })
             if (hasOverlap) {
               acc.push(key)
@@ -65,6 +73,10 @@
     function dropEvent (data, event) {
       self.dropCallback({ $data: data, $event: event})
     }
+
+    // function overlaps (range1, range2) {
+    //   return moment.range(range1.start, range1.end).overlaps(moment.range(range2.start, range2.end))
+    // }
   }
 
   /**
