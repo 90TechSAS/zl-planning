@@ -82,10 +82,6 @@
 
       return mergeRanges(reduced)
     }
-
-    function overlaps (range1, range2) {
-      return moment.range(range1.start, range1.end).overlaps(moment.range(range2.start, range2.end))
-    }
   }
 
 })(window.angular, window._, window.moment)
