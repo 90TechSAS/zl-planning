@@ -46,7 +46,7 @@
             } else {
               abs.style.height = tempHeight + 'px'
               abs.style.top = tempTop + 'px'
-            }            
+            }
 
             abs.range = moment.range(abs.start, abs.end)
             abs.class = 'planning-absence-' + abs.confirmation.state
@@ -136,7 +136,7 @@
       } else {
         self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
       }
-    
+
     }
 
     function hoverAbsence() {

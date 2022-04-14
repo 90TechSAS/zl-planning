@@ -63,13 +63,13 @@
           self._absences.forEach(absence => {
             let index = self._absences.indexOf(absence)
             if (
-              (moment(absence.start).isBefore(moment(self.dayOfWeek).startOf('day')) && (moment(absence.end).isAfter(moment(self.dayOfWeek).endOf('day')))) || 
+              (moment(absence.start).isBefore(moment(self.dayOfWeek).startOf('day')) && (moment(absence.end).isAfter(moment(self.dayOfWeek).endOf('day')))) ||
               (moment(absence.end).isSame(moment(self.dayOfWeek).endOf('day')) && moment(absence.start).isBefore(moment(self.dayOfWeek).startOf('hour'))) ||
               ((moment(absence.start).isSame(moment(self.dayOfWeek).startOf('day')) && (moment(absence.end).isAfter(moment(self.dayOfWeek).endOf('day')))))){
               absence.start = moment(self.dayOfWeek).startOf('day')
               absence.end = moment(self.dayOfWeek).endOf('day')
             }
-            
+
             absence.style = {
               left: (moment(absence.start).hours() - self.dayStart.h) * BASE_SIZE * self.zoom + moment(absence.start).minutes() * BASE_SIZE * self.zoom / 60 + 'px',
               width: self.zoom * self.SLIDER_WIDTH * (moment.range(absence.start, absence.end).valueOf()) / self.SECONDS_BY_DAY / 1000 + 'px',
