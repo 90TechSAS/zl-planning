@@ -59,6 +59,7 @@
       controllerAs: 'planningLeftColumn',
       bindToController: {
         events: '=',
+        entitiesName: '=',
         position: '=',
         mode: '=',
         dayField: '=',
