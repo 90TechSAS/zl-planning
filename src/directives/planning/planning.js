@@ -26,7 +26,8 @@
         clickWeekEvent: clickWeekEvent,
         dropEvent: dropEvent,
         isFerie: isFerie,
-        hasAbsence: hasAbsence
+        hasAbsence: hasAbsence,
+        getName: getName
       })
 
       init()
@@ -207,6 +208,10 @@
           }
           break
       }
+    }
+
+    function getName(id) {
+      return self.entitiesName.find((el) => el._id === id).fullname
     }
 
     function split (event) {
@@ -513,6 +518,7 @@
         zoom: '=',
         events: '=',
         entities: '=',
+        entitiesName: '=',
         entitiesPauses: '=?',
         absences: '=?',
         position: '=',

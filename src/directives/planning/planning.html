@@ -1,12 +1,13 @@
 <div ng-if="planning.mode ==='day' || planning.mode === 'week'" style="height: 100%;">
-    <zl-planning-left-column 
-        mode="planning.mode" 
-        position="planning.position" 
-        day-field="planning.dayField" 
+    <zl-planning-left-column
+        mode="planning.mode"
+        position="planning.position"
+        day-field="planning.dayField"
+        entities-name="planning.entitiesName",
         usable-days="planning.allowedDays"
         show-absences-callback="planning.showAbsencesCallBackWrapper({absences: absences, day: day})"
         events="planning.sortedEvents"
-        absences="planning.absences" 
+        absences="planning.absences"
         is-ferie="planning.isFerie(planning.position)">
     </zl-planning-left-column>
     <div class="" style="height:100%">
@@ -48,7 +49,7 @@
 </div>
 
 <div ng-if="planning.mode === '3day'" style="height: 100%;">
-    <zl-planning-left-column mode="'day'" position="planning.position" day-field="planning.dayField" usable-days="planning.allowedDays"
+    <zl-planning-left-column mode="'day'" position="planning.position" entities-name="planning.entitiesName"  day-field="planning.dayField" usable-days="planning.allowedDays"
                              events="planning.sortedEvents"></zl-planning-left-column>
     <div style="height: 100%; display: flex; flex-flow: row nowrap;" zl-horizontal-scroll>
         <div style="height:100%;" ng-repeat="day in planning.groupedEvents track by $index">
@@ -93,7 +94,7 @@
     <div class="advanced-week-container"
          ng-repeat="name in planning.keys(planning.sortedEvents)">
         <div class="left-column-advanced">
-            <span style="margin:auto">{{name}}</span>
+            <span style="margin:auto">{{planning.getName(name)}}</span>
         </div>
         <div ng-repeat="day in planning.allowedDays"
              class="day-advanced">
