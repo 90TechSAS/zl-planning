@@ -44,10 +44,13 @@
           });
         }
       } else if (self.mode === 'day' && self.dayField) {
-        self.column = Object.keys(self.events).sort()
+        self.column = Object.keys(self.events)
+        // check if displayNoTechnician to move it to the first place of column array
+        if ((/\s/).test(self.column[self.column.length -1])) {
+          self.column.unshift(self.column.pop())
+        }
       }
     }
-
 
   }
 

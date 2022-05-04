@@ -391,12 +391,29 @@
         case 'week-advanced':
         case 'day':
         case '3day':
-          return Object.keys(sortedEvents).sort()
+          /* reorder sortedEvents (which are technician ids)
+           * to be at the same order as entitiesName which 
+           * are technician fullnames (sorted alphabitically by default) 
+          */
+          const orderedTech = []
+          const eventKeys = Object.keys(sortedEvents)
+          if (eventKeys.includes(' Sans technicien')) {
+            orderedTech.push(eventKeys[eventKeys.length -1])
+          }
+          if(self.entitiesName && self.entitiesName.length > 0) {
+            self.entitiesName.forEach(e => {
+              if (!(/\s/).test(e._id)) {
+                orderedTech.push(e._id)
+              }
+            })
+          }
+          return orderedTech
       }
     }
 
     function getEvents (key) {
-      return self.sortedEvents[key]
+      const event = self.sortedEvents[key]
+      return event
     }
 
     $scope.$watchCollection(function () {
