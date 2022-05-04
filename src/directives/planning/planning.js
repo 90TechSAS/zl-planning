@@ -412,8 +412,7 @@
     }
 
     function getEvents (key) {
-      const event = self.sortedEvents[key]
-      return event
+      return self.sortedEvents[key]
     }
 
     $scope.$watchCollection(function () {
