@@ -391,23 +391,10 @@
         case 'week-advanced':
         case 'day':
         case '3day':
-          /* reorder sortedEvents (which are technician ids)
-           * to be at the same order as entitiesName which 
-           * are technician fullnames (sorted alphabitically by default) 
-          */
-          const orderedTech = []
-          const eventKeys = Object.keys(sortedEvents)
-          if (eventKeys.includes(' Sans technicien')) {
-            orderedTech.push(eventKeys[eventKeys.length -1])
+          if (self.entitiesName) {
+            return self.entitiesName.map(e => e._id)
           }
-          if(self.entitiesName && self.entitiesName.length > 0) {
-            self.entitiesName.forEach(e => {
-              if (!(/\s/).test(e._id)) {
-                orderedTech.push(e._id)
-              }
-            })
-          }
-          return orderedTech
+          return []
       }
     }
 
