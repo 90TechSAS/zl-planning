@@ -1,5 +1,11 @@
 Version numbers correspond to `bower.json` version
 
+# 1.10.9
+
+## Fixes
+
+- Fix technician intervention desorder
+
 # 1.10.8
 
 ## Fixes

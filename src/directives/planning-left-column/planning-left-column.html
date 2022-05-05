@@ -23,9 +23,9 @@
         </div>
         <div class="days-body" ng-switch-when="day">
             <div class="dayName row8 b-b animate"
-                 ng-repeat="col in planningLeftColumn.column">
+                 ng-repeat="tech in planningLeftColumn.column">
                 <h4>
-                    {{planning.getName(col)}}
+                    {{tech.fullname || ''}}
                 </h4>
             </div>
         </div>
