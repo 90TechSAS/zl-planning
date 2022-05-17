@@ -125,6 +125,7 @@
     <div class="month-container">
         <zl-planning-day ng-repeat="day in planning.days" day="day" events="planning._events" absences="planning.absences"
                          drop-callback="planning.dropEvent({$data: $data, $event: $event, moment: day.date})"
+                         entities="planning.entitiesName"
                          ng-dblclick="planning.clickWeekEvent(day, $event)" holidays="planning.holidays"></zl-planning-day>
         <zl-planning-week-line ng-repeat="(week, events) in planning.multipleDaysEvents" events="events" week="week"
                                one-day-events="planning.oneDayEvents[week]"

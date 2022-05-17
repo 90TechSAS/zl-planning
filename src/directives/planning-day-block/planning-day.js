@@ -28,6 +28,7 @@
     self.$onInit = function () {
       _.extend(self, {
         dropEvent: dropEvent,
+        getName,
         absents: []
       })
 
@@ -54,7 +55,7 @@
             }
             return acc
           }, [])
-          self.absentsString = '<div>' + self.absents.join('<br>') + '</div>'
+          self.absentsString = '<div>' + self.getName(self.absents).join('<br>') + '</div>'
         } else {
           self.absentsString = ''
           self.absents = []
@@ -74,9 +75,13 @@
       self.dropCallback({ $data: data, $event: event})
     }
 
-    // function overlaps (range1, range2) {
-    //   return moment.range(range1.start, range1.end).overlaps(moment.range(range2.start, range2.end))
-    // }
+    function getName(ids) {
+      const array = []
+      ids.forEach((id) => {
+        array.push(self.entities.find((el) => el._id === id).fullname)
+      })
+      return array
+    }
   }
 
   /**
@@ -93,6 +98,7 @@
         day: '=',
         events: '=',
         clickCallback: '&',
+        entities: '=?',
         dropCallback: '&',
         absences: '=?',
         holidays: "="
