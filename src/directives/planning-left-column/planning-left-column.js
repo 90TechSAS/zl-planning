@@ -12,7 +12,7 @@
 
     self.$onInit = function () {
       $scope.$watchCollection(function () {
-        return [self.events, self.position, self.mode, self.dayStart, self.dayEnd, self.usableDays]
+        return [self.events, self.position, self.mode, self.dayStart, self.dayEnd, self.usableDays, self.entitiesName]
       }, init)
     }
 
@@ -44,10 +44,9 @@
           });
         }
       } else if (self.mode === 'day' && self.dayField) {
-        self.column = Object.keys(self.events).sort()
+        self.column = self.entitiesName
       }
     }
-
 
   }
 

@@ -391,7 +391,10 @@
         case 'week-advanced':
         case 'day':
         case '3day':
-          return Object.keys(sortedEvents).sort()
+          if (self.entitiesName) {
+            return self.entitiesName.map(e => e._id)
+          }
+          return []
       }
     }
 

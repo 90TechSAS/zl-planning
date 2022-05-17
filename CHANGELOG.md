@@ -1,10 +1,22 @@
 Version numbers correspond to `bower.json` version
-# 1.10.8
+# 1.10.10
 
 ## FIXES
 
 - Fix id in absence tooltip
 
+# 1.10.9
+
+## Fixes
+
+- Fix technician intervention desorder
+
+# 1.10.8
+
+## Fixes
+
+- Fix technician name reordering
+- 
 # 1.10.7
 
 ## Feature
