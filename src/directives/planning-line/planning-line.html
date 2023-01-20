@@ -39,7 +39,7 @@
         }" style="position: absolute; z-index: 3; display: flex; flex-flow: row nowrap"
     >
         <div ng-if="event.pre > 0" ng-style="{width: line.preEvent[event.id].style.width, 'background': line.preEvent[event.id].style['background']}"
-            style="display: inline-block; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
+            style="display: flex; position: relative; height: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
             class="pre-event"
             tooltip-append-to-body="true"
             uib-tooltip="{{line.preEvent[event.id].tooltip}}">
