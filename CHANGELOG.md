@@ -1,4 +1,11 @@
 Version numbers correspond to `bower.json` version
+
+# 1.10.11
+
+## FIXES
+- Fix display issues
+## UPDATES
+- Update gulp sass from 2.3.2 to 5.1.0
 # 1.10.10
 
 ## FIXES

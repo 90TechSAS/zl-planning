@@ -29,7 +29,7 @@
     >
         <div ng-if="event.pre > 0"
              ng-style="{height: line.preEvent[event.id].style.width, 'background': line.preEvent[event.id].style['background']}"
-             style="display: inline-block; position: relative; width: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
+             style="display: flex; position: relative; width: 100%; text-align: center; color: white; border: 1px lightgrey solid; border-right: none;"
              class="pre-event"
              tooltip-append-to-body="true"
              uib-tooltip="{{line.preEvent[event.id].tooltip}}">
@@ -41,7 +41,7 @@
 
         </div>
 
-        <div class="event" style="display: inline-block; position: relative; width: 100%;"
+        <div class="event" style="display: flex; position: relative; width: 100%;"
              tooltip-append-to-body="true" tooltip-placement="{{event.tooltipTemplate? 'auto': 'top'}}"
              ng-attr-uib-tooltip="{{!event.tooltipTemplate ? event.tooltip : undefined}}"
              ng-attr-uib-tooltip-template="{{'' + event.tooltipTemplate}}" tooltip-class="planning-event-tooltip"
