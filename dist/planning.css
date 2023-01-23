@@ -928,50 +928,6 @@ zl-planning-line.ng-animate {
   border-radius: 8px;
 }
 
-.left-column {
-  width: 16.7%;
-  float: left;
-  height: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-.planning-head {
-  height: 40px;
-}
-.left-body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.days-body {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.dayName {
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.dayName h4 {
-  margin: auto;
-}
-.dayName .day-absence {
-  position: relative;
-}
-.dayName .day-absence .absents-container {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  background-color: rgba(200, 200, 200, 0.4);
-  padding: 0 5px;
-  border-radius: 3px;
-}
-
 .month-container {
   margin-top: -5px;
   width: 100%;
@@ -1037,6 +993,171 @@ zl-planning-line.ng-animate {
   float: right;
   margin: 2px;
   height: 20px;
+}
+
+.left-column {
+  width: 16.7%;
+  float: left;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.planning-head {
+  height: 40px;
+}
+.left-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.days-body {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.dayName {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.dayName h4 {
+  margin: auto;
+}
+.dayName .day-absence {
+  position: relative;
+}
+.dayName .day-absence .absents-container {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 0 5px;
+  border-radius: 3px;
+}
+
+.day {
+  display: flex;
+  flex: 1;
+  height: 100%;
+  position: relative;
+  cursor: cell;
+  background: #FFF;
+  -webkit-transition: 0.50s flex;
+  -moz-transition: 0.50s flex;
+  -ms-transition: 0.50s flex;
+  transition: 0.50s flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+  overflow: hidden !important;
+}
+.day:hover {
+  background: #fcfcfc;
+}
+.day .event {
+  text-align: center;
+  color: #ffffff;
+  position: absolute;
+}
+.day .day-today > .day-hour {
+  background: #dcedc8;
+}
+.day .day-passed > .day-hour {
+  background: #e0e0e0;
+}
+.day .day-hour {
+  height: 100%;
+  display: inline-block;
+}
+.day .day-hour.over {
+  background: lightblue;
+}
+.day .half-hour {
+  pointer-events: none;
+  display: inline-block;
+  height: 100%;
+  width: 1px;
+  border-right: 1px dashed #eaeef1;
+}
+.day-open {
+  -webkit-flex: 2 400px;
+  -moz-flex: 2 400px;
+  -ms-flex: 2 400px;
+  flex: 2 400px;
+}
+.event {
+  border: 1px lightgrey solid;
+}
+.event-line-container {
+  margin-left: 3px;
+  margin-right: 6px;
+  height: 100%;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  width: 1px;
+  float: left;
+}
+.event-line {
+  float: left;
+  height: 100%;
+  width: 6px;
+  background-color: white;
+}
+.title-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 100%;
+  line-height: 200%;
+  text-align: center;
+}
+.title-container span {
+  text-overflow: ellipsis;
+}
+.title-container span {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: auto;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+.continued-before:before {
+  content: '\2026';
+  float: left;
+  font-size: 0.7em;
+}
+.continued-after .title-container {
+  width: 60%;
+}
+.continued-after:after {
+  content: '\2026';
+  z-index: 10;
+  float: right;
+  font-size: 0.7em;
+}
+
+.day-hour {
+  text-align: center;
+  height: 100%;
+  display: inline-block;
+}
+.planning-top-row .day-hour {
+  margin: 0 75px 0 -75px;
+}
+.planning-top-row .day-hour:first-child {
+  margin: 0 45px 0 -45px;
+}
+.planning-top-row {
+  z-index: 1;
+  height: 40px;
 }
 
 zl-planning {
@@ -1203,22 +1324,6 @@ zl-planning-line.ng-animate {
   color: white;
 }
 
-.day-hour {
-  text-align: center;
-  height: 100%;
-  display: inline-block;
-}
-.planning-top-row .day-hour {
-  margin: 0 75px 0 -75px;
-}
-.planning-top-row .day-hour:first-child {
-  margin: 0 45px 0 -45px;
-}
-.planning-top-row {
-  z-index: 1;
-  height: 40px;
-}
-
 .day-hour-vertical {
   display: block;
 }
@@ -1230,111 +1335,6 @@ zl-planning-line.ng-animate {
 .all-day {
   display: flex;
   align-items: flex-end;
-}
-
-.day {
-  display: flex;
-  flex: 1;
-  height: 100%;
-  position: relative;
-  cursor: cell;
-  background: #FFF;
-  -webkit-transition: 0.50s flex;
-  -moz-transition: 0.50s flex;
-  -ms-transition: 0.50s flex;
-  transition: 0.50s flex;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -ms-user-select: none;
-  overflow: hidden !important;
-}
-.day:hover {
-  background: #fcfcfc;
-}
-.day .event {
-  text-align: center;
-  color: #ffffff;
-  position: absolute;
-}
-.day .day-today > .day-hour {
-  background: #dcedc8;
-}
-.day .day-passed > .day-hour {
-  background: #e0e0e0;
-}
-.day .day-hour {
-  height: 100%;
-  display: inline-block;
-}
-.day .day-hour.over {
-  background: lightblue;
-}
-.day .half-hour {
-  pointer-events: none;
-  display: inline-block;
-  height: 100%;
-  width: 1px;
-  border-right: 1px dashed #eaeef1;
-}
-.day-open {
-  -webkit-flex: 2 400px;
-  -moz-flex: 2 400px;
-  -ms-flex: 2 400px;
-  flex: 2 400px;
-}
-.event {
-  border: 1px lightgrey solid;
-}
-.event-line-container {
-  margin-left: 3px;
-  margin-right: 6px;
-  height: 100%;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  width: 1px;
-  float: left;
-}
-.event-line {
-  float: left;
-  height: 100%;
-  width: 6px;
-  background-color: white;
-}
-.title-container {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  height: 100%;
-  line-height: 200%;
-  text-align: center;
-}
-.title-container span {
-  text-overflow: ellipsis;
-}
-.title-container span {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin: auto;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: normal;
-}
-.continued-before:before {
-  content: '\2026';
-  float: left;
-  font-size: 0.7em;
-}
-.continued-after .title-container {
-  width: 60%;
-}
-.continued-after:after {
-  content: '\2026';
-  z-index: 10;
-  float: right;
-  font-size: 0.7em;
 }
 
 /*# sourceMappingURL=planning.css.map */

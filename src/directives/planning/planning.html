@@ -97,6 +97,7 @@
             <span style="margin:auto">{{planning.getName(name)}}</span>
         </div>
         <div ng-repeat="day in planning.allowedDays"
+             style="overflow: hidden;"
              class="day-advanced">
             <zl-planning-vertical-line day="planning.daysList[$index]"
                     zoom="planning.zoom"
