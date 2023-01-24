@@ -1,4 +1,7 @@
 Version numbers correspond to `bower.json` version
+# 1.10.12
+## FIXES
+- More display issues fixes
 
 # 1.10.11
 
