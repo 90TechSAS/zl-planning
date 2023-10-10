@@ -536,6 +536,7 @@
         dropCallback: '&',
         usableDays: '=?',
         action: '&?',
+        duplicateAction: '&?',
         holidays: '=',
         showAbsencesCallback: '&'
       },
