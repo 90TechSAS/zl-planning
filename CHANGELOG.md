@@ -1,4 +1,7 @@
 Version numbers correspond to `bower.json` version
+# 1.10.14
+## ENHANCEMENTS
+- Add action to planning-context menu
 # 1.10.12
 ## FIXES
 - fixe show entitiesPause for all day
