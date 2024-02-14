@@ -15,16 +15,6 @@
         link: function (scope, element) {
           var dragImage  = document.createElement('div')
           var el = element[0]
-          window.addEventListener('dragover', function (e) {
-            if(e.target.classList.contains(e.target.id) ){
-              e.target.classList.add('absence-hover')
-            }
-            e.preventDefault();
-          }, false);
-          window.addEventListener('drop', function (e) {
-            e.preventDefault();
-          }, false);
-
           if (el.attributes['zl-drag']) {
             el.draggable = true
 
@@ -49,6 +39,7 @@
 
                 document.body.appendChild(dragImage)
 
+                // remove translucent drag if present
                 if (e.dataTransfer.setDragImage) {
                   e.dataTransfer.setDragImage(dragImage,0,0)
                 }
@@ -63,31 +54,19 @@
               false
             )
 
-            el.addEventListener(
-              'dragend',
-              function (e) {
-                dragImage.remove()
-                this.classList.remove('drag')
-                return false
-              },
-              false
-            )
           }
           if (el.attributes['zl-drop']) {
             el.addEventListener(
               'drop',
               function (e) {
-                e.preventDefault()
-                e.stopPropagation()
-                if (e.stopPropagation) e.stopPropagation()
-                e.target.classList.remove('over')
-                this.classList.remove('over')
-                for (const iterator of document.getElementsByClassName('absence')) {
-                  iterator.classList.remove('absence-hover')
-                }
                 scope.$apply(function () {
                   scope.dragDropCtrl.zlDrop({ $data: JSON.parse(e.dataTransfer.getData('Text')), $event: e })
                 })
+                e.target.classList.remove('over')
+                this.classList.remove('over')
+                e.preventDefault()
+                e.stopPropagation()
+                if (e.stopPropagation) e.stopPropagation()
                 return false
               },
               false
@@ -105,9 +84,6 @@
             el.addEventListener(
               'dragleave',
               function (e) {
-                for (const iterator of document.getElementsByClassName('absence')) {
-                  iterator.classList.remove('absence-hover')
-                }
                 e.target.classList.remove('over')
                 return false
               },
