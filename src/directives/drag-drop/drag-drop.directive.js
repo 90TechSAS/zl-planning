@@ -51,7 +51,7 @@
                 this.classList.add('drag')
                 return false
               },
-              false
+              { useCapture: false, passive: true }
             )
 
           }
@@ -64,12 +64,11 @@
                 })
                 e.target.classList.remove('over')
                 this.classList.remove('over')
-                e.preventDefault()
                 e.stopPropagation()
                 if (e.stopPropagation) e.stopPropagation()
                 return false
               },
-              false
+              { useCapture: false, passive: true }
             )
 
             el.addEventListener(
@@ -78,7 +77,7 @@
                 e.target.classList.add('over')
                 return false
               },
-              false
+              { useCapture: false, passive: true }
             )
 
             el.addEventListener(
@@ -87,7 +86,7 @@
                 e.target.classList.remove('over')
                 return false
               },
-              false
+              { useCapture: false, passive: true }
             )
           }
 
