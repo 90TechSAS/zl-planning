@@ -1,4 +1,10 @@
 Version numbers correspond to `bower.json` version
+# 1.10.15
+## ENHANCEMENTS
+- zl drag drop :
+  - Add dynamic event listener creation/deletion
+  - delete events listeners 
+  - remove horrid loop for absence
 # 1.10.14
 ## ENHANCEMENTS
 - Add action to planning-context menu
