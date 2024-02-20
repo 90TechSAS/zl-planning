@@ -1,0 +1,12 @@
+<ul class="dropdown-menu context-menu" ng-click="$event.stopPropagation();" style="z-index: 10">
+  <li ng-if="!event.eventList.length && !ev.eventList.length">
+    <a ng-click="planning.dayEvent(line._events, false)">
+      <i class="mdi mdi-chevron-down"></i> Dupliquer la journée {{event.eventList.length}}
+    </a>
+  </li>
+  <li ng-if="!event.eventList.length && !ev.eventList.length">
+      <a ng-click="planning.dayEvent(line._events, true)">
+          <i class="mdi mdi-chevron-down"></i> Déplacer la journée {{event.eventList.length}}
+        </a>
+  </li>
+</ul>

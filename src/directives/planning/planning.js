@@ -27,7 +27,8 @@
         dropEvent: dropEvent,
         isFerie: isFerie,
         hasAbsence: hasAbsence,
-        getName: getName
+        getName: getName,
+        dayEvent
       })
 
       init()
@@ -509,6 +510,14 @@
       return new Date(dateSplitted[2], dateSplitted[1] - 1, dateSplitted[0])
     }
 
+    function dayEvent (line, move) {
+      if(move){
+        return self.moveAction({ $element: angular.copy(line) })
+      } else {
+        return self.duplicateAction({ $element: angular.copy(line) })
+      }
+    }
+
   }
 
   function PlanningDirective () {
@@ -537,6 +546,7 @@
         usableDays: '=?',
         action: '&?',
         duplicateAction: '&?',
+        moveAction: '&?',
         holidays: '=',
         showAbsencesCallback: '&'
       },

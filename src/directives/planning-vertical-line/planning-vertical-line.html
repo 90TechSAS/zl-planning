@@ -1,4 +1,4 @@
-<div ng-style="{height: line.containerHeight}">
+<div ng-style="{height: line.containerHeight}" data-context-menu="/templates/planning-line-context-menu.html">
     <div style="position: absolute; height: 100%; width: 100%; z-index: 1" ng-mouseleave="line.leaveLine()">
          <div ng-repeat="n in [] | range: line.range" style="display: flex; z-index: 1">
              <div style="display: flex; align-items: flex-end;">
