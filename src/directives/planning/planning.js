@@ -511,7 +511,7 @@
     }
 
     function dayEvent (line, move) {
-      if(move){
+      if (move) {
         return self.moveAction({ $element: angular.copy(line) })
       } else {
         return self.duplicateAction({ $element: angular.copy(line) })

@@ -44,6 +44,20 @@
   
   overflow: hidden;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex: 1;
+  align-items: center;
+  .buttons{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    button:last-of-type{
+      margin-top: 5px;
+    }
+    button {
+      height: 20px;
+      display: flex;
+      align-items: center;
+    }
+  }
 }

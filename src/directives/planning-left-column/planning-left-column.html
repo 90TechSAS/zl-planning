@@ -24,9 +24,31 @@
         <div class="days-body" ng-switch-when="day">
             <div class="dayName row8 b-b animate"
                  ng-repeat="tech in planningLeftColumn.column">
+                 <div class="buttons">
+                     <button 
+                     class="btn btn-primary duplication-buttons"
+                     tooltip-append-to-body="true"
+                     ng-click="planningLeftColumn.triggerDayEvent(tech)"
+                     uib-tooltip="Dupliquer la journée"
+                     tooltip-placement="right"
+                     ng-if="planningLeftColumn.activateDuplicationButtons">
+                         <i class="mdi mdi-content-duplicate"></i>
+                     </button>
+                     <button 
+                     class="btn btn-primary duplication-buttons m-l-xs"
+                     tooltip-append-to-body="true"
+                     ng-click="planningLeftColumn.triggerDayEvent(tech, true)"
+                     uib-tooltip="Déplacer la journée"
+                     tooltip-placement="right"
+                     ng-if="planningLeftColumn.activateDuplicationButtons">
+                     <i class="mdi mdi-cursor-move"></i>
+     
+                     </button>
+                 </div>
                 <h4>
                     {{tech.fullname || ''}}
                 </h4>
+
             </div>
         </div>
     </div>
