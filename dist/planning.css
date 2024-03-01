@@ -1084,88 +1084,6 @@ zl-planning-line.ng-animate {
   color: white;
 }
 
-.slider {
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-.slider::-webkit-scrollbar {
-  -webkit-appearance: none;
-}
-.slider::-webkit-scrollbar:vertical {
-  width: 11px;
-}
-.slider::-webkit-scrollbar:horizontal {
-  height: 10px;
-}
-.slider::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  border: 2px solid white;
-  /* should match background, can't be transparent */
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.slider::-webkit-scrollbar-track {
-  background-color: #fff;
-  border-radius: 8px;
-}
-
-.left-column {
-  width: 16.7%;
-  float: left;
-  height: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-.planning-head {
-  height: 40px;
-}
-.left-body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.days-body {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.dayName {
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  align-items: center;
-}
-.dayName h4 {
-  margin: auto;
-}
-.dayName .day-absence {
-  position: relative;
-}
-.dayName .day-absence .absents-container {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  background-color: rgba(200, 200, 200, 0.4);
-  padding: 0 5px;
-  border-radius: 3px;
-}
-.dayName .buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-}
-.dayName .buttons button:last-of-type {
-  margin-top: 5px;
-}
-.dayName .buttons button {
-  height: 20px;
-  display: flex;
-  align-items: center;
-}
-
 .month-container {
   margin-top: -5px;
   width: 100%;
@@ -1231,6 +1149,30 @@ zl-planning-line.ng-animate {
   float: right;
   margin: 2px;
   height: 20px;
+}
+
+.slider {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.slider::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+.slider::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+.slider::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+.slider::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white;
+  /* should match background, can't be transparent */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.slider::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 8px;
 }
 
 .day {
@@ -1338,6 +1280,77 @@ zl-planning-line.ng-animate {
   font-size: 0.7em;
 }
 
+.left-column {
+  width: 16.7%;
+  float: left;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.planning-head {
+  height: 40px;
+}
+.left-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.days-body {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.dayName {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+}
+.dayName h4 {
+  margin: auto;
+}
+.dayName .day-absence {
+  position: relative;
+}
+.dayName .day-absence .absents-container {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 0 5px;
+  border-radius: 3px;
+}
+.dayName .buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+.dayName .buttons button:last-of-type {
+  margin-top: 5px;
+}
+.dayName .buttons button {
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.day-hour-vertical {
+  display: block;
+}
+.hour-text {
+  font-size: 0.7em;
+  margin-left: 2px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.all-day {
+  display: flex;
+  align-items: flex-end;
+}
+
 .day-hour {
   text-align: center;
   height: 100%;
@@ -1352,19 +1365,6 @@ zl-planning-line.ng-animate {
 .planning-top-row {
   z-index: 1;
   height: 40px;
-}
-
-.day-hour-vertical {
-  display: block;
-}
-.hour-text {
-  font-size: 0.7em;
-  margin-left: 2px;
-  color: rgba(0, 0, 0, 0.5);
-}
-.all-day {
-  display: flex;
-  align-items: flex-end;
 }
 
 /*# sourceMappingURL=planning.css.map */
