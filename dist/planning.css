@@ -214,17 +214,16 @@ zl-planning-line.ng-animate {
   border-radius: 3px;
 }
 .dayName .buttons {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: baseline;
 }
-.dayName .buttons button:last-of-type {
-  margin-top: 5px;
+.dayName .buttons .btn-group {
+  z-index: 9999;
 }
 .dayName .buttons button {
-  height: 20px;
-  display: flex;
-  align-items: center;
+  margin: auto;
 }
 .day-hour {
   text-align: center;
@@ -678,17 +677,16 @@ zl-planning-line.ng-animate {
   border-radius: 3px;
 }
 .dayName .buttons {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: baseline;
 }
-.dayName .buttons button:last-of-type {
-  margin-top: 5px;
+.dayName .buttons .btn-group {
+  z-index: 9999;
 }
 .dayName .buttons button {
-  height: 20px;
-  display: flex;
-  align-items: center;
+  margin: auto;
 }
 .day-hour {
   text-align: center;
@@ -1108,64 +1106,6 @@ zl-planning-line.ng-animate {
   color: white;
 }
 
-.left-column {
-  width: 16.7%;
-  float: left;
-  height: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-.planning-head {
-  height: 40px;
-}
-.left-body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.days-body {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.dayName {
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  align-items: center;
-}
-.dayName h4 {
-  margin: auto;
-}
-.dayName .day-absence {
-  position: relative;
-}
-.dayName .day-absence .absents-container {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  background-color: rgba(200, 200, 200, 0.4);
-  padding: 0 5px;
-  border-radius: 3px;
-}
-.dayName .buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-}
-.dayName .buttons button:last-of-type {
-  margin-top: 5px;
-}
-.dayName .buttons button {
-  height: 20px;
-  display: flex;
-  align-items: center;
-}
-
 .month-container {
   margin-top: -5px;
   width: 100%;
@@ -1231,6 +1171,63 @@ zl-planning-line.ng-animate {
   float: right;
   margin: 2px;
   height: 20px;
+}
+
+.left-column {
+  width: 16.7%;
+  float: left;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.planning-head {
+  height: 40px;
+}
+.left-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.days-body {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.dayName {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+}
+.dayName h4 {
+  margin: auto;
+}
+.dayName .day-absence {
+  position: relative;
+}
+.dayName .day-absence .absents-container {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 0 5px;
+  border-radius: 3px;
+}
+.dayName .buttons {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+.dayName .buttons .btn-group {
+  z-index: 9999;
+}
+.dayName .buttons button {
+  margin: auto;
 }
 
 .day {
