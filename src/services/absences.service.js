@@ -19,7 +19,7 @@
         return moment.range(abs.start, abs.end).overlaps(moment.range(interval[0], interval[1]))
       }).map(function (absence) {
         absence.style = {}
-        if (moment(absence.start).isSame(moment(angular.copy(interval[0]))) ) {
+        if (moment(absence.start).isSame(moment(angular.copy(interval[0])))) {
           absence.style.top = 0 + 'px'
           absence.start = interval[0]
         }
@@ -48,7 +48,7 @@
           if (range1.index === range2.index) {
             return false
           }
-          return overlaps(range1, range2)
+          return moment.range(range1.start, range1.end).overlaps(moment.range(range2.start, range2.end))
         })
       })) {
         return ranges
@@ -58,14 +58,8 @@
         if (!next || !value) {
           return acc
         }
-        if (overlaps(
-          {
-            start: moment(angular.copy(value.start)).toDate(),
-            end: moment(angular.copy(value.end)).toDate()
-          }, {
-            start: moment(angular.copy(next.start)).toDate(),
-            end: moment(angular.copy(next.end)).toDate()
-          })) {
+
+        if (moment.range(value.start, value.end).overlaps(moment.range(next.start, next.end))) {
           acc.push({
             start: moment.min(
               moment(angular.copy(value.start)),
