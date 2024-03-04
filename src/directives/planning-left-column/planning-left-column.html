@@ -26,7 +26,7 @@
                  ng-repeat="tech in planningLeftColumn.column">
                  <div class="buttons">
                     <button 
-                    uib-popover-template="'bower_components/zl-planning/src/directives/planning-left-column/pop-over.html'" 
+                    uib-popover-template="'planningDayPopOver.html'" 
                     popover-placement="right" 
                     class="btn btn-primary"
                     ><i class="mdi mdi-settings"></i></button>
@@ -37,5 +37,10 @@
             </div>
         </div>
     </div>
+    
+    <script type="text/ng-template" id="planningDayPopOver.html">
+        <button ng-if="planningLeftColumn.activateDuplicationButtons" class="btn btn-primary" style="width: 100%; margin-bottom: 5px;" ng-click='planningLeftColumn.triggerDayEvent(tech)'>Dupliquer la journée</button>
+        <button class="btn btn-primary" style="width: 100%;" ng-click='planningLeftColumn.triggerDayEvent(tech, true)'>Déplacer la journée</button>
+     </script>
     <div style="height:10px"><!-- compensate for scrollbar --></div>
 </div>
