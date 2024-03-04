@@ -225,6 +225,10 @@ zl-planning-line.ng-animate {
 .dayName .buttons button {
   margin: auto;
 }
+.dayName .techname {
+  font-size: 15px;
+  word-break: break-all;
+}
 .day-hour {
   text-align: center;
   height: 100%;
@@ -688,6 +692,10 @@ zl-planning-line.ng-animate {
 .dayName .buttons button {
   margin: auto;
 }
+.dayName .techname {
+  font-size: 15px;
+  word-break: break-all;
+}
 .day-hour {
   text-align: center;
   height: 100%;
@@ -1229,6 +1237,39 @@ zl-planning-line.ng-animate {
 .dayName .buttons button {
   margin: auto;
 }
+.dayName .techname {
+  font-size: 15px;
+  word-break: break-all;
+}
+
+.day-hour {
+  text-align: center;
+  height: 100%;
+  display: inline-block;
+}
+.planning-top-row .day-hour {
+  margin: 0 75px 0 -75px;
+}
+.planning-top-row .day-hour:first-child {
+  margin: 0 45px 0 -45px;
+}
+.planning-top-row {
+  z-index: 1;
+  height: 40px;
+}
+
+.day-hour-vertical {
+  display: block;
+}
+.hour-text {
+  font-size: 0.7em;
+  margin-left: 2px;
+  color: rgba(0, 0, 0, 0.5);
+}
+.all-day {
+  display: flex;
+  align-items: flex-end;
+}
 
 .day {
   display: flex;
@@ -1333,35 +1374,6 @@ zl-planning-line.ng-animate {
   z-index: 10;
   float: right;
   font-size: 0.7em;
-}
-
-.day-hour {
-  text-align: center;
-  height: 100%;
-  display: inline-block;
-}
-.planning-top-row .day-hour {
-  margin: 0 75px 0 -75px;
-}
-.planning-top-row .day-hour:first-child {
-  margin: 0 45px 0 -45px;
-}
-.planning-top-row {
-  z-index: 1;
-  height: 40px;
-}
-
-.day-hour-vertical {
-  display: block;
-}
-.hour-text {
-  font-size: 0.7em;
-  margin-left: 2px;
-  color: rgba(0, 0, 0, 0.5);
-}
-.all-day {
-  display: flex;
-  align-items: flex-end;
 }
 
 /*# sourceMappingURL=planning.css.map */
