@@ -1,4 +1,8 @@
 Version numbers correspond to `bower.json` version
+# 1.10.17
+## FIXES
+- Conditions fix
+
 # 1.10.16
 ## FIXES
 - Fix tooltip not showing on absences
