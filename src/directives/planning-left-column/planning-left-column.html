@@ -24,7 +24,7 @@
         <div class="days-body" ng-switch-when="day">
             <div class="dayName row8 b-b animate"
                  ng-repeat="tech in planningLeftColumn.column">
-                 <div class="buttons">
+                 <div class="buttons" ng-if="planningLeftColumn.activateDuplicationButtons" >
                     <button 
                     uib-popover-template="'planningDayPopOver.html'" 
                     popover-placement="right" 
@@ -40,7 +40,7 @@
     
     <script type="text/ng-template" id="planningDayPopOver.html">
         <button ng-if="planningLeftColumn.activateDuplicationButtons" class="btn btn-primary" style="width: 100%; margin-bottom: 5px;" ng-click='planningLeftColumn.triggerDayEvent(tech)'>Dupliquer la journée</button>
-        <button class="btn btn-primary" style="width: 100%;" ng-click='planningLeftColumn.triggerDayEvent(tech, true)'>Déplacer la journée</button>
+        <button ng-if="planningLeftColumn.activateDuplicationButtons"  class="btn btn-primary" style="width: 100%;" ng-click='planningLeftColumn.triggerDayEvent(tech, true)'>Déplacer la journée</button>
      </script>
     <div style="height:10px"><!-- compensate for scrollbar --></div>
 </div>
