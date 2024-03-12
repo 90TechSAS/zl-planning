@@ -22,15 +22,20 @@
 
         </div>
         <div class="days-body" ng-switch-when="day">
-            <div class="dayName row8 b-b animate"
-                 ng-repeat="tech in planningLeftColumn.column">
-                 <div class="buttons" ng-if="planningLeftColumn.activateDuplicationButtons" >
-                    <button 
+            <div class="dayName dayNameDuplication row8 b-b animate"
+                    ng-if="planningLeftColumn.activateDuplicationButtons" 
                     uib-popover-template="'planningDayPopOver.html'" 
                     popover-placement="right" 
-                    class="btn btn-primary"
-                    ><i class="mdi mdi-settings"></i></button>
-                 </div>
+                 ng-repeat="tech in planningLeftColumn.column">
+                <h4 class="techname">
+                    {{tech.fullname || ''}}
+                </h4>
+            </div>
+            <div class="dayName row8 b-b animate"
+                    ng-if="!planningLeftColumn.activateDuplicationButtons" 
+                    uib-popover-template="'planningDayPopOver.html'" 
+                    popover-placement="right" 
+                 ng-repeat="tech in planningLeftColumn.column">
                 <h4 class="techname">
                     {{tech.fullname || ''}}
                 </h4>

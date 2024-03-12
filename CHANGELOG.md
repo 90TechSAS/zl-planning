@@ -1,5 +1,5 @@
 Version numbers correspond to `bower.json` version
-# 1.10.17
+# 1.10.18
 ## FIXES
 - Conditions fix
 
