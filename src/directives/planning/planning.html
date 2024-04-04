@@ -5,6 +5,8 @@
         day-field="planning.dayField"
         entities-name="planning.entitiesName",
         usable-days="planning.allowedDays"
+        day-event="planning.dayEvent"
+        move-action="planning.moveAction"
         show-absences-callback="planning.showAbsencesCallBackWrapper({absences: absences, day: day})"
         events="planning.sortedEvents"
         absences="planning.absences"
@@ -49,7 +51,7 @@
 </div>
 
 <div ng-if="planning.mode === '3day'" style="height: 100%;">
-    <zl-planning-left-column mode="'day'" position="planning.position" entities-name="planning.entitiesName"  day-field="planning.dayField" usable-days="planning.allowedDays"
+    <zl-planning-left-column mode="'day'" three-days="true" position="planning.position" entities-name="planning.entitiesName"  day-field="planning.dayField" usable-days="planning.allowedDays"
                              events="planning.sortedEvents"></zl-planning-left-column>
     <div style="height: 100%; display: flex; flex-flow: row nowrap;" zl-horizontal-scroll>
         <div style="height:100%;" ng-repeat="day in planning.groupedEvents track by $index">

@@ -1,4 +1,17 @@
 Version numbers correspond to `bower.json` version
+# 1.10.19
+## ENHANCEMENTS
+- Style enchancements
+# 1.10.18
+## FIXES
+- Conditions fix
+
+# 1.10.16
+## FIXES
+- Fix tooltip not showing on absences
+- Style
+- Try to fix broken display on day/3day planning
+
 # 1.10.15
 ## ENHANCEMENTS
 - zl drag drop :

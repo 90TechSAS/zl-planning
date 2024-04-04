@@ -1,5 +1,7 @@
-<div ng-style="{height: line.containerHeight}">
-    <div style="position: absolute; height: 100%; width: 100%; z-index: 1" ng-mouseleave="line.leaveLine()">
+<div ng-style="{height: line.containerHeight}" data-context-menu="/templates/planning-line-context-menu.html">
+    <div 
+    ng-if="!line._absences"
+    style="position: absolute; height: 100%; width: 100%; z-index: 1" ng-mouseleave="line.leaveLine()">
          <div ng-repeat="n in [] | range: line.range" style="display: flex; z-index: 1">
              <div style="display: flex; align-items: flex-end;">
                 <span class="hour-text">{{n + 1 + line.dayStart.h}}</span>
@@ -15,6 +17,29 @@
             </div>
         </div>
     </div>
+    <div 
+    ng-if="line._absences"
+    tooltip-append-to-body="true"
+    tooltip-placement="top"
+    tooltip-classes="absence-tooltip"
+    uib-tooltip="{{line._absences[0].tooltip}}"
+    style="position: absolute; height: 100%; width: 100%; z-index: 1" ng-mouseleave="line.leaveLine()">
+         <div ng-repeat="n in [] | range: line.range" style="display: flex; z-index: 1">
+             <div style="display: flex; align-items: flex-end;">
+                <span class="hour-text">{{n + 1 + line.dayStart.h}}</span>
+            </div>
+            <div 
+                style="width: 100%;"
+                class="b-b b-r all-day"
+                ng-style="{height: line.calcWidth(line.zoom)}"
+                ng-dblclick="line.clickEvent(n, $event, line.day)"
+                hour="{{n + line.dayStart.h}}"
+                zl-planning-drag-drop
+                zl-drop="line.dropEvent($data, $event, line.day)">
+            </div>
+        </div>
+    </div>
+    
 
     <div ng-repeat="event in line._events"
          zl-planning-drag-drop
@@ -84,11 +109,6 @@
     <div ng-repeat="absence in line._absences track by $index"
          id="{{absence._id}}"
          class="{{absence.class}} absence {{absence._id}}"
-         ng-mouseover="line.hoverAbsence(absence)"
-		 tooltip-append-to-body="true"
-         tooltip-placement="top"
-         tooltip-classes="absence-tooltip"
-		 uib-tooltip="{{absence.tooltip}}"
          style="width: 95%; left: 5%;"
          ng-style="absence.style">
     </div>

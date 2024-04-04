@@ -25,10 +25,17 @@
   flex: 1;
 }
 
+.dayNameDuplication{
+  &:hover {
+    transition: 0.2s ease-in-out;
+    color: white;
+    background: #00B4EC;
+  }
+}
+
 .dayName {
   h4 {
     margin: auto;
-
   }
   .day-absence {
     position: relative;
@@ -44,6 +51,23 @@
   
   overflow: hidden;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex: 1;
+  align-items: center;
+  .buttons{
+    .btn-group{
+      z-index: 9999;
+    }
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    button {
+      margin: auto;
+    }
+  }
+  .techname{
+    font-size: 15px;
+    word-break: break-all;
+  }
 }

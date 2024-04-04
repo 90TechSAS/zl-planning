@@ -1,4 +1,4 @@
-<div class="left-column" ng-switch="planningLeftColumn.mode">
+<div class="left-column planning-left-column" ng-switch="planningLeftColumn.mode">
     <div class="planning-head"></div>
     <div class="left-body">
     <div class="planning-2pc"><span class="holidays" ng-if="planningLeftColumn.isFerie && (planningLeftColumn.mode === 'day' || planningLeftColumn.mode === '3days')">Férié</span></div>
@@ -22,13 +22,30 @@
 
         </div>
         <div class="days-body" ng-switch-when="day">
-            <div class="dayName row8 b-b animate"
+            <div class="dayName dayNameDuplication row8 b-b animate"
+                    ng-if="planningLeftColumn.activateDuplicationButtons" 
+                    uib-popover-template="'planningDayPopOver.html'" 
+                    popover-placement="right" 
                  ng-repeat="tech in planningLeftColumn.column">
-                <h4>
+                <h4 class="techname">
+                    {{tech.fullname || ''}}
+                </h4>
+            </div>
+            <div class="dayName row8 b-b animate"
+                    ng-if="!planningLeftColumn.activateDuplicationButtons" 
+                    uib-popover-template="'planningDayPopOver.html'" 
+                    popover-placement="right" 
+                 ng-repeat="tech in planningLeftColumn.column">
+                <h4 class="techname">
                     {{tech.fullname || ''}}
                 </h4>
             </div>
         </div>
     </div>
+    
+    <script type="text/ng-template" id="planningDayPopOver.html">
+        <button ng-if="planningLeftColumn.activateDuplicationButtons" class="btn btn-primary" style="width: 100%; margin-bottom: 5px;" ng-click='planningLeftColumn.triggerDayEvent(tech)'>Dupliquer la journée</button>
+        <button ng-if="planningLeftColumn.activateDuplicationButtons"  class="btn btn-primary" style="width: 100%;" ng-click='planningLeftColumn.triggerDayEvent(tech, true)'>Déplacer la journée</button>
+     </script>
     <div style="height:10px"><!-- compensate for scrollbar --></div>
 </div>

@@ -5,13 +5,13 @@
     .module('90Tech.planning')
     .directive('zlPlanningVerticalLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$filter', '$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService', 'AbsenceService']
+  PlanningLineController.$inject = ['$filter', '$scope', '$rootScope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService', 'AbsenceService']
 
   /**
    *
    */
   function
-  PlanningLineController ($filter, $scope, planningConfiguration, PositionService, ColorService, PauseService, AbsenceService) {
+  PlanningLineController ($filter, $scope, $rootScope, planningConfiguration, PositionService, ColorService, PauseService, AbsenceService) {
 
 
     /** BASE_SIZE is the span of an hour. It gets multiplied by zoom (default 10) to get the size in pixel
@@ -276,6 +276,10 @@
         createBreaks()
       }
       calculateContainerHeight()
+
+      $scope.$on('$destroy', () => {
+        $rootScope.$broadcast('context-menu/close')
+      })
     }
 
     function safeParse (width = '0px') {

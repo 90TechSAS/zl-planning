@@ -11,12 +11,16 @@
     var self = this
 
     self.$onInit = function () {
+      _.extend(self, {
+        triggerDayEvent
+      })
       $scope.$watchCollection(function () {
         return [self.events, self.position, self.mode, self.dayStart, self.dayEnd, self.usableDays, self.entitiesName]
       }, init)
     }
 
     function init () {
+      if (!self.threeDays) self.activateDuplicationButtons = true
       self.days = []
       self.allowedDays = self.usableDays
       self._absences = []
@@ -48,6 +52,13 @@
       }
     }
 
+    function triggerDayEvent (line, move) {
+      if (move) {
+        return self.dayEvent(angular.copy(self.events[line._id]), true)
+      } else {
+        return self.dayEvent(angular.copy(self.events[line._id]))
+      }
+    }
   }
 
   function PlanningDirective () {
@@ -64,7 +75,9 @@
         dayField: '=',
         usableDays: '=',
         isFerie: '=?',
-        absences: '='
+        absences: '=',
+        dayEvent: '=',
+        threeDays: '<'
       },
       scope: true
     }
