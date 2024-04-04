@@ -964,6 +964,166 @@ zl-planning-line.ng-animate {
   border-radius: 8px;
 }
 
+zl-planning {
+  height: 100%;
+}
+.advanced-week .days-list {
+  background-color: #fff;
+  z-index: 10;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+  align-content: stretch;
+}
+.advanced-week .days-list .day-advanced {
+  box-sizing: border-box;
+  flex: 1;
+  cursor: pointer;
+  border-right: 1px solid black;
+  min-height: 1.2em;
+  text-align: center;
+}
+.advanced-week .days-list .day-advanced:first-of-type {
+  flex: 0.5;
+}
+.advanced-week .advanced-week-container {
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid black;
+  align-content: stretch;
+}
+.advanced-week .advanced-week-container .left-column-advanced {
+  flex: 0.5;
+  box-sizing: border-box;
+  text-align: center;
+  border-right: 1px solid black;
+  display: flex;
+}
+.advanced-week .advanced-week-container .day-advanced {
+  flex: 1;
+  border-right: 1px solid black;
+  position: relative;
+  overflow-y: hidden;
+}
+.today {
+  background-color: lightgrey !important;
+}
+.planning-body {
+  height: 100%;
+  margin: 0;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.planning-2pc {
+  display: block;
+  height: 2%;
+  width: 100%;
+}
+.hour-cursor {
+  border-left: 1px solid #03a9f4;
+  position: absolute;
+  height: 100%;
+  z-index: 1;
+  border-right: 5px solid transparent;
+}
+.hour-cursor .hour-caret {
+  position: absolute;
+  top: -5px;
+  right: -4px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #03a9f4;
+}
+.day-header {
+  height: 2%;
+}
+.day-header .day {
+  width: 14.28%;
+  height: 1.2em;
+  float: left;
+  border-right: 1px solid darkgray;
+  border-bottom: 1px solid darkgray;
+}
+.month-header {
+  width: 50%;
+  margin-left: auto;
+  height: 2%;
+}
+.day-block.over {
+  border: 2px solid black;
+}
+zl-planning-line.ng-animate {
+  transition: none;
+  keyframe: 0s none;
+}
+.planning-pause-element {
+  position: absolute;
+  z-index: 0;
+  background: repeating-linear-gradient(45deg, #ccc, #ccc 15px, #333 15px, #333 25px);
+}
+.planning-absence-sending {
+  position: absolute;
+  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #0277BD 15px, #0277BD 25px);
+}
+.planning-absence-pending {
+  position: absolute;
+  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #0277BD 15px, #0277BD 25px);
+}
+.planning-absence-partial-accepted {
+  position: absolute;
+  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #ef6c00 15px, #ef6c00 25px);
+}
+.planning-absence-accepted {
+  position: absolute;
+  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #056F00 15px, #056F00 25px);
+}
+.absence-hover {
+  z-index: 0;
+}
+.absence-week-hover {
+  z-index: 0;
+}
+.holidays {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 16px;
+  align-items: center;
+  cursor: default;
+  max-width: 55px;
+  min-height: 20px;
+  height: 1px;
+  margin: 4px;
+  background-color: #C0392B;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+.isFerie {
+  background: rgba(192, 57, 43, 0.7);
+  position: relative;
+  color: white;
+}
+.isFerie h4,
+.isFerie small {
+  color: white;
+}
+
 .month-container {
   margin-top: -5px;
   width: 100%;
@@ -1200,166 +1360,6 @@ zl-planning-line.ng-animate {
   z-index: 10;
   float: right;
   font-size: 0.7em;
-}
-
-zl-planning {
-  height: 100%;
-}
-.advanced-week .days-list {
-  background-color: #fff;
-  z-index: 10;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  display: flex;
-  border-bottom: 1px solid black;
-  align-content: stretch;
-}
-.advanced-week .days-list .day-advanced {
-  box-sizing: border-box;
-  flex: 1;
-  cursor: pointer;
-  border-right: 1px solid black;
-  min-height: 1.2em;
-  text-align: center;
-}
-.advanced-week .days-list .day-advanced:first-of-type {
-  flex: 0.5;
-}
-.advanced-week .advanced-week-container {
-  width: 100%;
-  display: flex;
-  border-bottom: 1px solid black;
-  align-content: stretch;
-}
-.advanced-week .advanced-week-container .left-column-advanced {
-  flex: 0.5;
-  box-sizing: border-box;
-  text-align: center;
-  border-right: 1px solid black;
-  display: flex;
-}
-.advanced-week .advanced-week-container .day-advanced {
-  flex: 1;
-  border-right: 1px solid black;
-  position: relative;
-  overflow-y: hidden;
-}
-.today {
-  background-color: lightgrey !important;
-}
-.planning-body {
-  height: 100%;
-  margin: 0;
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-}
-.planning-2pc {
-  display: block;
-  height: 2%;
-  width: 100%;
-}
-.hour-cursor {
-  border-left: 1px solid #03a9f4;
-  position: absolute;
-  height: 100%;
-  z-index: 1;
-  border-right: 5px solid transparent;
-}
-.hour-cursor .hour-caret {
-  position: absolute;
-  top: -5px;
-  right: -4px;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #03a9f4;
-}
-.day-header {
-  height: 2%;
-}
-.day-header .day {
-  width: 14.28%;
-  height: 1.2em;
-  float: left;
-  border-right: 1px solid darkgray;
-  border-bottom: 1px solid darkgray;
-}
-.month-header {
-  width: 50%;
-  margin-left: auto;
-  height: 2%;
-}
-.day-block.over {
-  border: 2px solid black;
-}
-zl-planning-line.ng-animate {
-  transition: none;
-  keyframe: 0s none;
-}
-.planning-pause-element {
-  position: absolute;
-  z-index: 0;
-  background: repeating-linear-gradient(45deg, #ccc, #ccc 15px, #333 15px, #333 25px);
-}
-.planning-absence-sending {
-  position: absolute;
-  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #0277BD 15px, #0277BD 25px);
-}
-.planning-absence-pending {
-  position: absolute;
-  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #0277BD 15px, #0277BD 25px);
-}
-.planning-absence-partial-accepted {
-  position: absolute;
-  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #ef6c00 15px, #ef6c00 25px);
-}
-.planning-absence-accepted {
-  position: absolute;
-  background: repeating-linear-gradient(135deg, #ccc, #ccc 15px, #056F00 15px, #056F00 25px);
-}
-.absence-hover {
-  z-index: 0;
-}
-.absence-week-hover {
-  z-index: 0;
-}
-.holidays {
-  display: inline-flex;
-  padding: 7px 12px;
-  border-radius: 16px;
-  align-items: center;
-  cursor: default;
-  max-width: 55px;
-  min-height: 20px;
-  height: 1px;
-  margin: 4px;
-  background-color: #C0392B;
-  color: white;
-  font-size: 14px;
-  font-weight: 500;
-}
-.isFerie {
-  background: rgba(192, 57, 43, 0.7);
-  position: relative;
-  color: white;
-}
-.isFerie h4,
-.isFerie small {
-  color: white;
 }
 
 .day-hour {
