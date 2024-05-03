@@ -5,14 +5,15 @@
     .module('90Tech.planning')
     .directive('zlPlanningLeftColumn', PlanningDirective)
 
-  PlanningLeftColumnController.$inject = ['$scope']
+  PlanningLeftColumnController.$inject = ['$scope', 'HolidaysServicePlanning']
 
-  function PlanningLeftColumnController ($scope) {
+  function PlanningLeftColumnController ($scope, HolidaysServicePlanning) {
     var self = this
 
     self.$onInit = function () {
       _.extend(self, {
-        triggerDayEvent
+        triggerDayEvent,
+        isSolidarityDay
       })
       $scope.$watchCollection(function () {
         return [self.events, self.position, self.mode, self.dayStart, self.dayEnd, self.usableDays, self.entitiesName]
@@ -59,6 +60,11 @@
         return self.dayEvent(angular.copy(self.events[line._id]))
       }
     }
+
+    function isSolidarityDay(day){
+      return HolidaysServicePlanning.isSolidarityDay(day.endOf('day'))
+    }
+
   }
 
   function PlanningDirective () {

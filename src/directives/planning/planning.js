@@ -5,9 +5,9 @@
     .module('90Tech.planning')
     .directive('zlPlanning', PlanningDirective)
 
-  PlanningController.$inject = ['$scope', 'planningConfiguration']
+  PlanningController.$inject = ['$scope', 'planningConfiguration', 'HolidaysServicePlanning']
 
-  function PlanningController ($scope, planningConfiguration) {
+  function PlanningController ($scope, planningConfiguration, HolidaysServicePlanning) {
     var BASE_SIZE = planningConfiguration.BASE_SIZE
 
     var self = this
@@ -36,6 +36,8 @@
     }
 
     function init () {
+      if(self.solidarityDays.length) HolidaysServicePlanning.solidarityDays = self.solidarityDays
+      HolidaysServicePlanning.aliaCompanySettings = self.aliaCompanySettings
       self.zoom = parseInt(self.zoom)
       self.allowedDays = self.usableDays.sort() || planningConfiguration.DAYS
       self.daysList = self.allowedDays.map(function (i) {
@@ -419,20 +421,7 @@
     }
 
     function isSolidarityDay (day) {
-      let bool = false
-      if (day.solidarity && day.solidarityTouched) return true
-      day.solidarityTouched = true
-      self.solidarityDays.forEach((solidarityDay) => {
-        if (
-          moment(solidarityDay.start).unix() <= moment(day).unix() &&
-          moment(solidarityDay.end).unix() >= moment(day).unix()
-        ) {
-          day.solidarity = true
-          day.solidarityTouched = true
-          bool = true
-        }
-      })
-      return bool
+      return HolidaysServicePlanning.isSolidarityDay(day)
     }
 
     function hasAbsence (date) {
@@ -511,7 +500,7 @@
       }
       var entity = (_.includes(['week-advanced', 'day', '3day'], self.mode)) ? config.entity : undefined
       if ((self.mode === 'month') && isFerie(mom)) {
-        if (!self.isSolidarityDay(mom)) {
+        if (!self.isSolidarityDay(moment(mom).endOf('day'))) {
           planningConfiguration.isFerieCallback(function () {
             self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
           })
@@ -571,7 +560,8 @@
         moveAction: '&?',
         holidays: '=',
         solidarityDays: '=',
-        showAbsencesCallback: '&'
+        showAbsencesCallback: '&',
+        aliaCompanySettings: '='
       },
       scope: {}
     }

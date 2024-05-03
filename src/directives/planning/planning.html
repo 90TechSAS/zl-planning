@@ -10,8 +10,7 @@
         show-absences-callback="planning.showAbsencesCallBackWrapper({absences: absences, day: day})"
         events="planning.sortedEvents"
         absences="planning.absences"
-        is-ferie="planning.isFerie(planning.position)"
-        is-solidarity-day="planning.isSolidarityDay">
+        is-ferie="planning.isFerie(planning.position)">
     </zl-planning-left-column>
     <div class="" style="height:100%">
         <div zl-horizontal-scroll scroll-left="planning.currentTimeToPixels()" style="height:100%">
@@ -60,7 +59,10 @@
                 <div ng-style="{width: planning.width}" class="planning-body">
                     <zl-planning-top-row mode="'day'" zoom="planning.zoom" position="planning.position"
                                          day-start="planning._dayStart" day-end="planning._dayEnd"></zl-planning-top-row>
-                    <p style="position: absolute; top: 27px; font-size: 1.4em; font-weight: bold; width: 100%; padding-left: 5px;" ng-class="{isFerie: planning.isFerie(day.date)}">{{day.day}}<span class="holidays" ng-if="planning.isFerie(day.date)">férié</span></p>
+                    <p style="position: absolute; top: 27px; font-size: 1.4em; font-weight: bold; width: 100%; padding-left: 5px;" ng-class="{isFerie: planning.isFerie(day.date), isSolidarityDay: planning.isSolidarityDay(day.date)}">{{day.day}}
+                        <span class="holidays" ng-if="planning.isFerie(day.date)">férié</span>
+                        <span class="solidarityDay" ng-if="planning.isSolidarityDay(day.date)">Journée de solidarité</span>
+                    </p>
                     <div class="hour-cursor" ng-style="{left: planning.currentTimeToPixels()+'px'}"
                          ng-if="planning.isCurrent() && planning.isInDayRange()">
                         <div class="hour-caret"></div>
