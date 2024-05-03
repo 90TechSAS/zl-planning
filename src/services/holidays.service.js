@@ -1,31 +1,36 @@
 ;(function (angular, _, moment) {
   'use strict'
   angular.module('90Tech.planning')
-    .service('HolidaysService', HolidaysService)
+    .service('HolidaysServicePlanning', HolidaysServicePlanning)
 
-  function HolidaysService () {
+  function HolidaysServicePlanning () {
     var self = this
     _.extend(self, {
       // Public Attributes
       solidarityDays: [],
+      aliaCompanySettings: {
+        showSolidarityDay: false
+      },
       // Public Methods
       isSolidarityDay
     })
 
     function isSolidarityDay (day) {
       let bool = false
-      if (day.solidarity && day.solidarityTouched) return true
-      day.solidarityTouched = true
-      self.solidarityDays.forEach((solidarityDay) => {
-        if (
-          moment(solidarityDay.start).unix() <= moment(day).unix() &&
-          moment(solidarityDay.end).unix() >= moment(day).unix()
-        ) {
-          day.solidarity = true
-          day.solidarityTouched = true
-          bool = true
-        }
-      })
+      if(day && _.get(self.aliaCompanySettings, 'showSolidarityDay', false)){
+        if (day.solidarity && day.solidarityTouched) return true
+        if(moment.isMoment(day)) day.solidarityTouched = true
+        self.solidarityDays.forEach((solidarityDay) => {
+          if (
+            moment(solidarityDay.start).unix() <= moment(day).endOf('day').unix() &&
+            moment(solidarityDay.end).unix() >= moment(day).endOf('day').unix()
+          ) {
+            day.solidarity = true
+            day.solidarityTouched = true
+            bool = true
+          }
+        })
+      }
       return bool
     }
   }
