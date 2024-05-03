@@ -174,8 +174,34 @@ zl-planning-line.ng-animate {
   font-size: 14px;
   font-weight: 500;
 }
+.solidarityDay {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 4px;
+  align-items: center;
+  cursor: default;
+  margin: 4px;
+  background-color: rgb(0, 105, 92);
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+}
 
 
+.isSolidarityDay {
+  background-color: rgba(0, 105, 92, 0.7);
+  position: relative;
+  color: white;
+  h4, small {
+    color: white;
+  }
+  &.isFerie{
+    background-color: rgba(0, 105, 92, 0.7)!important;
+  }
+  .holidays{
+    background-color: rgb(0, 105, 92) !important;
+  }
+}
 .isFerie {
   background: rgba(192, 57, 43, .7);
   position: relative;

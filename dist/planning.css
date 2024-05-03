@@ -160,6 +160,33 @@ zl-planning-line.ng-animate {
   font-size: 14px;
   font-weight: 500;
 }
+.solidarityDay {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 4px;
+  align-items: center;
+  cursor: default;
+  margin: 4px;
+  background-color: #00695c;
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+}
+.isSolidarityDay {
+  background-color: rgba(0, 105, 92, 0.7);
+  position: relative;
+  color: white;
+}
+.isSolidarityDay h4,
+.isSolidarityDay small {
+  color: white;
+}
+.isSolidarityDay.isFerie {
+  background-color: rgba(0, 105, 92, 0.7) !important;
+}
+.isSolidarityDay .holidays {
+  background-color: #00695c !important;
+}
 .isFerie {
   background: rgba(192, 57, 43, 0.7);
   position: relative;
@@ -632,6 +659,33 @@ zl-planning-line.ng-animate {
   font-size: 14px;
   font-weight: 500;
 }
+.solidarityDay {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 4px;
+  align-items: center;
+  cursor: default;
+  margin: 4px;
+  background-color: #00695c;
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+}
+.isSolidarityDay {
+  background-color: rgba(0, 105, 92, 0.7);
+  position: relative;
+  color: white;
+}
+.isSolidarityDay h4,
+.isSolidarityDay small {
+  color: white;
+}
+.isSolidarityDay.isFerie {
+  background-color: rgba(0, 105, 92, 0.7) !important;
+}
+.isSolidarityDay .holidays {
+  background-color: #00695c !important;
+}
 .isFerie {
   background: rgba(192, 57, 43, 0.7);
   position: relative;
@@ -1114,6 +1168,33 @@ zl-planning-line.ng-animate {
   font-size: 14px;
   font-weight: 500;
 }
+.solidarityDay {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 4px;
+  align-items: center;
+  cursor: default;
+  margin: 4px;
+  background-color: #00695c;
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+}
+.isSolidarityDay {
+  background-color: rgba(0, 105, 92, 0.7);
+  position: relative;
+  color: white;
+}
+.isSolidarityDay h4,
+.isSolidarityDay small {
+  color: white;
+}
+.isSolidarityDay.isFerie {
+  background-color: rgba(0, 105, 92, 0.7) !important;
+}
+.isSolidarityDay .holidays {
+  background-color: #00695c !important;
+}
 .isFerie {
   background: rgba(192, 57, 43, 0.7);
   position: relative;
@@ -1257,6 +1338,22 @@ zl-planning-line.ng-animate {
   word-break: break-all;
 }
 
+.day-hour {
+  text-align: center;
+  height: 100%;
+  display: inline-block;
+}
+.planning-top-row .day-hour {
+  margin: 0 75px 0 -75px;
+}
+.planning-top-row .day-hour:first-child {
+  margin: 0 45px 0 -45px;
+}
+.planning-top-row {
+  z-index: 1;
+  height: 40px;
+}
+
 .day {
   display: flex;
   flex: 1;
@@ -1360,22 +1457,6 @@ zl-planning-line.ng-animate {
   z-index: 10;
   float: right;
   font-size: 0.7em;
-}
-
-.day-hour {
-  text-align: center;
-  height: 100%;
-  display: inline-block;
-}
-.planning-top-row .day-hour {
-  margin: 0 75px 0 -75px;
-}
-.planning-top-row .day-hour:first-child {
-  margin: 0 45px 0 -45px;
-}
-.planning-top-row {
-  z-index: 1;
-  height: 40px;
 }
 
 .day-hour-vertical {

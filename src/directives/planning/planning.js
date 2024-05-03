@@ -26,6 +26,7 @@
         clickWeekEvent: clickWeekEvent,
         dropEvent: dropEvent,
         isFerie: isFerie,
+        isSolidarityDay,
         hasAbsence: hasAbsence,
         getName: getName,
         dayEvent
@@ -417,6 +418,23 @@
       }
     }
 
+    function isSolidarityDay (day) {
+      let bool = false
+      if (day.solidarity && day.solidarityTouched) return true
+      day.solidarityTouched = true
+      self.solidarityDays.forEach((solidarityDay) => {
+        if (
+          moment(solidarityDay.start).unix() <= moment(day).unix() &&
+          moment(solidarityDay.end).unix() >= moment(day).unix()
+        ) {
+          day.solidarity = true
+          day.solidarityTouched = true
+          bool = true
+        }
+      })
+      return bool
+    }
+
     function hasAbsence (date) {
       var d = moment(angular.copy(date))
       return _.any(self._absences, function (abs) {
@@ -492,10 +510,14 @@
         }
       }
       var entity = (_.includes(['week-advanced', 'day', '3day'], self.mode)) ? config.entity : undefined
-      if((self.mode === 'month') && isFerie(mom)) {
-        planningConfiguration.isFerieCallback(function () {
+      if ((self.mode === 'month') && isFerie(mom)) {
+        if (!self.isSolidarityDay(mom)) {
+          planningConfiguration.isFerieCallback(function () {
+            self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
+          })
+        } else {
           self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
-        })
+        }
       } else {
         self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
       }
@@ -548,6 +570,7 @@
         duplicateAction: '&?',
         moveAction: '&?',
         holidays: '=',
+        solidarityDays: '=',
         showAbsencesCallback: '&'
       },
       scope: {}
