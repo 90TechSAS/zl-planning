@@ -22,7 +22,10 @@
                     <div class="hour-caret"></div>
                 </div>
                 <div ng-if="planning.isFerie(planning.position)"></div>
-                <div class="planning-2pc" ng-class="{isFerie: (planning.mode === 'day' && planning.isFerie(planning.position))}"></div>
+                <div class="planning-2pc" 
+                ng-class="{
+                isFerie: (planning.mode === 'day' && planning.isFerie(planning.position)), 
+                isSolidarityDay: (planning.mode === 'day' && planning.isSolidarityDay(planning.position))}"></div>
                 <zl-planning-line ng-if="planning.mode === 'day'"
                         zoom="planning.zoom" absences="planning.absences[i]" position="planning.position"
                         day-start="planning._dayStart" day-end="planning._dayEnd"

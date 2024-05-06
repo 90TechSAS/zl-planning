@@ -5,7 +5,7 @@
         <span class="holidays" ng-if="planningLeftColumn.isFerie && !planningLeftColumn.isSolidarityDay(planningLeftColumn.position) && (planningLeftColumn.mode === 'day' || planningLeftColumn.mode === '3days')">
             Férié
         </span>
-        <span class="solidarityDay" ng-if="planningLeftColumn.isSolidarityDay(planningLeftColumn.position) && (planningLeftColumn.mode === 'day' || planningLeftColumn.mode === '3days')">
+        <span class="solidarityDay" style="margin-top:1px!important;" ng-if="planningLeftColumn.isSolidarityDay(planningLeftColumn.position) && (planningLeftColumn.mode === 'day' || planningLeftColumn.mode === '3days')">
              Journée de solidarité
         </span>
     </div>
