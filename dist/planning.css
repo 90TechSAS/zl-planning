@@ -460,6 +460,10 @@ zl-planning-line.ng-animate {
   position: absolute;
   bottom: 0px;
 }
+.month-container .day-block .solidarityDay {
+  position: absolute;
+  bottom: 0px;
+}
 .month-container .day-block .absents-container {
   position: absolute;
   right: 5px;
@@ -959,6 +963,10 @@ zl-planning-line.ng-animate {
   position: absolute;
   bottom: 0px;
 }
+.month-container .day-block .solidarityDay {
+  position: absolute;
+  bottom: 0px;
+}
 .month-container .day-block .absents-container {
   position: absolute;
   right: 5px;
@@ -992,30 +1000,6 @@ zl-planning-line.ng-animate {
 }
 .planning-top-row {
   background-color: #fff;
-}
-
-.slider {
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-.slider::-webkit-scrollbar {
-  -webkit-appearance: none;
-}
-.slider::-webkit-scrollbar:vertical {
-  width: 11px;
-}
-.slider::-webkit-scrollbar:horizontal {
-  height: 10px;
-}
-.slider::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  border: 2px solid white;
-  /* should match background, can't be transparent */
-  background-color: rgba(0, 0, 0, 0.5);
-}
-.slider::-webkit-scrollbar-track {
-  background-color: #fff;
-  border-radius: 8px;
 }
 
 zl-planning {
@@ -1250,6 +1234,10 @@ zl-planning-line.ng-animate {
   position: absolute;
   bottom: 0px;
 }
+.month-container .day-block .solidarityDay {
+  position: absolute;
+  bottom: 0px;
+}
 .month-container .day-block .absents-container {
   position: absolute;
   right: 5px;
@@ -1270,6 +1258,30 @@ zl-planning-line.ng-animate {
   float: right;
   margin: 2px;
   height: 20px;
+}
+
+.slider {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.slider::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+.slider::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+.slider::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+.slider::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white;
+  /* should match background, can't be transparent */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.slider::-webkit-scrollbar-track {
+  background-color: #fff;
+  border-radius: 8px;
 }
 
 .left-column {
@@ -1336,22 +1348,6 @@ zl-planning-line.ng-animate {
 .dayName .techname {
   font-size: 15px;
   word-break: break-all;
-}
-
-.day-hour {
-  text-align: center;
-  height: 100%;
-  display: inline-block;
-}
-.planning-top-row .day-hour {
-  margin: 0 75px 0 -75px;
-}
-.planning-top-row .day-hour:first-child {
-  margin: 0 45px 0 -45px;
-}
-.planning-top-row {
-  z-index: 1;
-  height: 40px;
 }
 
 .day {
@@ -1470,6 +1466,22 @@ zl-planning-line.ng-animate {
 .all-day {
   display: flex;
   align-items: flex-end;
+}
+
+.day-hour {
+  text-align: center;
+  height: 100%;
+  display: inline-block;
+}
+.planning-top-row .day-hour {
+  margin: 0 75px 0 -75px;
+}
+.planning-top-row .day-hour:first-child {
+  margin: 0 45px 0 -45px;
+}
+.planning-top-row {
+  z-index: 1;
+  height: 40px;
 }
 
 /*# sourceMappingURL=planning.css.map */
