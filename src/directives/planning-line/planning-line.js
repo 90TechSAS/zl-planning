@@ -5,13 +5,13 @@
     .module('90Tech.planning')
     .directive('zlPlanningLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService', 'AbsenceService']
+  PlanningLineController.$inject = ['$scope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService', 'AbsenceService', 'HolidaysServicePlanning']
 
   /**
    *
    */
   function
-  PlanningLineController ($scope, planningConfiguration, PositionService, ColorService, PauseService, AbsenceService) {
+  PlanningLineController ($scope, planningConfiguration, PositionService, ColorService, PauseService, AbsenceService, HolidaysServicePlanning) {
 
     var BASE_SIZE = planningConfiguration.BASE_SIZE
     var parallelText = planningConfiguration.parallelText
@@ -161,9 +161,12 @@
           self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
         })
       } else if (!checkAbsence(date) && checkFerie(day)) {
+        if(!HolidaysServicePlanning.isSolidarityDay(day)){
         planningConfiguration.isFerieCallback(function () {
           self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
-        })
+        })} else {
+          self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        }
       } else {
         self.dropCallback({ $data: data, $event: event, $hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
       }
@@ -182,9 +185,12 @@
           self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
         })
       } else if (!checkAbsence(date) && checkFerie(day)) {
+        if(!HolidaysServicePlanning.isSolidarityDay(day)){
         planningConfiguration.isFerieCallback(function () {
           self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
-        })
+        })} else {
+          self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+        }
       } else {
         self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
       }
