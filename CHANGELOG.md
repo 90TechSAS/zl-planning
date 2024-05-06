@@ -1,4 +1,10 @@
 Version numbers correspond to `bower.json` version
+
+# NEXT
+## Feature
+- Add solidarityDay support 
+
+
 # 1.10.19
 ## ENHANCEMENTS
 - Style enchancements
