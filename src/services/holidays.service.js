@@ -8,6 +8,7 @@
     _.extend(self, {
       // Public Attributes
       solidarityDays: [],
+      masterDayRange: [],
       aliaCompanySettings: {
         showSolidarityDay: false
       },
@@ -18,15 +19,19 @@
     function isSolidarityDay (day) {
       let bool = false
       if(day && _.get(self.aliaCompanySettings, 'showSolidarityDay', false)){
-        if (day.solidarity && day.solidarityTouched) return true
-        if(moment.isMoment(day)) day.solidarityTouched = true
+        const parsedDay = moment(day)
         self.solidarityDays.forEach((solidarityDay) => {
+          if(solidarityDay.master) self.masterDay = solidarityDay
+          if(parsedDay.get('year') >= _.get(self.masterDay, 'year')){
+            const filter = self.masterDayRange.filter(elt => moment(elt.date).get('year') === moment(parsedDay).get('year') && elt.rule === self.masterDay.rule)
+            if(filter.length){
+              solidarityDay = filter[0]
+            }
+          }
           if (
-            moment(solidarityDay.start).unix() <= moment(day).endOf('day').unix() &&
-            moment(solidarityDay.end).unix() >= moment(day).endOf('day').unix()
+            moment(solidarityDay.start).unix() <= moment(parsedDay).endOf('day').unix() &&
+            moment(solidarityDay.end).unix() >= moment(parsedDay).endOf('day').unix()
           ) {
-            day.solidarity = true
-            day.solidarityTouched = true
             bool = true
           }
         })

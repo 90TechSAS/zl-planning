@@ -37,6 +37,7 @@
 
     function init () {
       if(self.solidarityDays.length) HolidaysServicePlanning.solidarityDays = self.solidarityDays
+      if(self.masterDayRange.length) HolidaysServicePlanning.masterDayRange = self.masterDayRange
       HolidaysServicePlanning.aliaCompanySettings = self.aliaCompanySettings
       self.zoom = parseInt(self.zoom)
       self.allowedDays = self.usableDays.sort() || planningConfiguration.DAYS
@@ -500,7 +501,7 @@
       }
       var entity = (_.includes(['week-advanced', 'day', '3day'], self.mode)) ? config.entity : undefined
       if ((self.mode === 'month') && isFerie(mom)) {
-        if (!self.isSolidarityDay(moment(mom).endOf('day'))) {
+        if (!self.isSolidarityDay(mom)) {
           planningConfiguration.isFerieCallback(function () {
             self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
           })
@@ -561,7 +562,8 @@
         holidays: '=',
         solidarityDays: '=',
         showAbsencesCallback: '&',
-        aliaCompanySettings: '='
+        aliaCompanySettings: '=',
+        masterDayRange: '='
       },
       scope: {}
     }
