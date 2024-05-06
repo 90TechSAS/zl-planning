@@ -78,7 +78,7 @@
       self.dropCallback({ $data: data, $event: event})
     }
     function isSolidarityDay (day) {
-      return HolidaysServicePlanning.isSolidarityDay(moment(day).endOf('day'))
+      return HolidaysServicePlanning.isSolidarityDay(day)
     }
 
     function getName(ids) {

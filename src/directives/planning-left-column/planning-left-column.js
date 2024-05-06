@@ -62,7 +62,7 @@
     }
 
     function isSolidarityDay(day){
-      return HolidaysServicePlanning.isSolidarityDay(day.endOf('day'))
+      return HolidaysServicePlanning.isSolidarityDay(day)
     }
 
   }
