@@ -160,6 +160,33 @@ zl-planning-line.ng-animate {
   font-size: 14px;
   font-weight: 500;
 }
+.solidarityDay {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 4px;
+  align-items: center;
+  cursor: default;
+  margin: 4px;
+  background-color: #00695c;
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+}
+.isSolidarityDay {
+  background-color: rgba(0, 105, 92, 0.7);
+  position: relative;
+  color: white;
+}
+.isSolidarityDay h4,
+.isSolidarityDay small {
+  color: white;
+}
+.isSolidarityDay.isFerie {
+  background-color: rgba(0, 105, 92, 0.7) !important;
+}
+.isSolidarityDay .holidays {
+  background-color: #00695c !important;
+}
 .isFerie {
   background: rgba(192, 57, 43, 0.7);
   position: relative;
@@ -430,6 +457,10 @@ zl-planning-line.ng-animate {
   position: relative;
 }
 .month-container .day-block .holidays {
+  position: absolute;
+  bottom: 0px;
+}
+.month-container .day-block .solidarityDay {
   position: absolute;
   bottom: 0px;
 }
@@ -632,6 +663,33 @@ zl-planning-line.ng-animate {
   font-size: 14px;
   font-weight: 500;
 }
+.solidarityDay {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 4px;
+  align-items: center;
+  cursor: default;
+  margin: 4px;
+  background-color: #00695c;
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+}
+.isSolidarityDay {
+  background-color: rgba(0, 105, 92, 0.7);
+  position: relative;
+  color: white;
+}
+.isSolidarityDay h4,
+.isSolidarityDay small {
+  color: white;
+}
+.isSolidarityDay.isFerie {
+  background-color: rgba(0, 105, 92, 0.7) !important;
+}
+.isSolidarityDay .holidays {
+  background-color: #00695c !important;
+}
 .isFerie {
   background: rgba(192, 57, 43, 0.7);
   position: relative;
@@ -905,6 +963,10 @@ zl-planning-line.ng-animate {
   position: absolute;
   bottom: 0px;
 }
+.month-container .day-block .solidarityDay {
+  position: absolute;
+  bottom: 0px;
+}
 .month-container .day-block .absents-container {
   position: absolute;
   right: 5px;
@@ -962,6 +1024,72 @@ zl-planning-line.ng-animate {
 .slider::-webkit-scrollbar-track {
   background-color: #fff;
   border-radius: 8px;
+}
+
+.left-column {
+  width: 16.7%;
+  float: left;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.planning-head {
+  height: 40px;
+}
+.left-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.days-body {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.dayNameDuplication:hover {
+  transition: 0.2s ease-in-out;
+  color: white;
+  background: #00B4EC;
+}
+.dayName {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  align-items: center;
+}
+.dayName h4 {
+  margin: auto;
+}
+.dayName .day-absence {
+  position: relative;
+}
+.dayName .day-absence .absents-container {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  background-color: rgba(200, 200, 200, 0.4);
+  padding: 0 5px;
+  border-radius: 3px;
+}
+.dayName .buttons {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+.dayName .buttons .btn-group {
+  z-index: 9999;
+}
+.dayName .buttons button {
+  margin: auto;
+}
+.dayName .techname {
+  font-size: 15px;
+  word-break: break-all;
 }
 
 zl-planning {
@@ -1114,6 +1242,33 @@ zl-planning-line.ng-animate {
   font-size: 14px;
   font-weight: 500;
 }
+.solidarityDay {
+  display: inline-flex;
+  padding: 6px;
+  border-radius: 4px;
+  align-items: center;
+  cursor: default;
+  margin: 4px;
+  background-color: #00695c;
+  color: white;
+  font-size: 11px;
+  font-weight: 500;
+}
+.isSolidarityDay {
+  background-color: rgba(0, 105, 92, 0.7);
+  position: relative;
+  color: white;
+}
+.isSolidarityDay h4,
+.isSolidarityDay small {
+  color: white;
+}
+.isSolidarityDay.isFerie {
+  background-color: rgba(0, 105, 92, 0.7) !important;
+}
+.isSolidarityDay .holidays {
+  background-color: #00695c !important;
+}
 .isFerie {
   background: rgba(192, 57, 43, 0.7);
   position: relative;
@@ -1169,6 +1324,10 @@ zl-planning-line.ng-animate {
   position: absolute;
   bottom: 0px;
 }
+.month-container .day-block .solidarityDay {
+  position: absolute;
+  bottom: 0px;
+}
 .month-container .day-block .absents-container {
   position: absolute;
   right: 5px;
@@ -1189,72 +1348,6 @@ zl-planning-line.ng-animate {
   float: right;
   margin: 2px;
   height: 20px;
-}
-
-.left-column {
-  width: 16.7%;
-  float: left;
-  height: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
-.planning-head {
-  height: 40px;
-}
-.left-body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.days-body {
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-.dayNameDuplication:hover {
-  transition: 0.2s ease-in-out;
-  color: white;
-  background: #00B4EC;
-}
-.dayName {
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  align-items: center;
-}
-.dayName h4 {
-  margin: auto;
-}
-.dayName .day-absence {
-  position: relative;
-}
-.dayName .day-absence .absents-container {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  background-color: rgba(200, 200, 200, 0.4);
-  padding: 0 5px;
-  border-radius: 3px;
-}
-.dayName .buttons {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: baseline;
-}
-.dayName .buttons .btn-group {
-  z-index: 9999;
-}
-.dayName .buttons button {
-  margin: auto;
-}
-.dayName .techname {
-  font-size: 15px;
-  word-break: break-all;
 }
 
 .day {

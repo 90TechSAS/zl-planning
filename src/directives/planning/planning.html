@@ -22,7 +22,10 @@
                     <div class="hour-caret"></div>
                 </div>
                 <div ng-if="planning.isFerie(planning.position)"></div>
-                <div class="planning-2pc" ng-class="{isFerie: (planning.mode === 'day' && planning.isFerie(planning.position))}"></div>
+                <div class="planning-2pc" 
+                ng-class="{
+                isFerie: (planning.mode === 'day' && planning.isFerie(planning.position)), 
+                isSolidarityDay: (planning.mode === 'day' && planning.isSolidarityDay(planning.position))}"></div>
                 <zl-planning-line ng-if="planning.mode === 'day'"
                         zoom="planning.zoom" absences="planning.absences[i]" position="planning.position"
                         day-start="planning._dayStart" day-end="planning._dayEnd"
@@ -59,7 +62,10 @@
                 <div ng-style="{width: planning.width}" class="planning-body">
                     <zl-planning-top-row mode="'day'" zoom="planning.zoom" position="planning.position"
                                          day-start="planning._dayStart" day-end="planning._dayEnd"></zl-planning-top-row>
-                    <p style="position: absolute; top: 27px; font-size: 1.4em; font-weight: bold; width: 100%; padding-left: 5px;" ng-class="{isFerie: planning.isFerie(day.date)}">{{day.day}}<span class="holidays" ng-if="planning.isFerie(day.date)">férié</span></p>
+                    <p style="position: absolute; top: 27px; font-size: 1.4em; font-weight: bold; width: 100%; padding-left: 5px;" ng-class="{isFerie: planning.isFerie(day.date), isSolidarityDay: planning.isSolidarityDay(day.date)}">{{day.day}}
+                        <span class="holidays" ng-if="planning.isFerie(day.date)">férié</span>
+                        <span class="solidarityDay" ng-if="planning.isSolidarityDay(day.date)">Journée de solidarité</span>
+                    </p>
                     <div class="hour-cursor" ng-style="{left: planning.currentTimeToPixels()+'px'}"
                          ng-if="planning.isCurrent() && planning.isInDayRange()">
                         <div class="hour-caret"></div>
@@ -74,7 +80,8 @@
                             pauses="planning.entitiesPauses[i][$parent.$index]"
                             holidays="planning.holidays"
                             drop-callback="planning.dropEvent({h: $hour, m: $minutes, d: i, entity: i, $data: $data, $event: $event, day: day.key})"
-                            click-callback="planning.clickCallbackWrapper({h: $hour, m: $minutes, d: i, entity: i})"></zl-planning-line>
+                            click-callback="planning.clickCallbackWrapper({h: $hour, m: $minutes, d: i, entity: i})"
+                            is-solidarity-day="planning.isSolidarityDay"></zl-planning-line>
                 </div>
             </div>
         </div>
@@ -84,11 +91,12 @@
 <div ng-if="planning.mode ==='week-advanced'" class="advanced-week">
     <div class="days-list">
         <div class="day-advanced">&nbsp;</div>
-        <div class="day-advanced" ng-repeat="day in planning.daysList" ng-click="planning.dayCallback({$day:day})" ng-class="{isFerie: planning.isFerie(day)}">
+        <div class="day-advanced" ng-repeat="day in planning.daysList" ng-click="planning.dayCallback({$day:day})" ng-class="{isFerie: planning.isFerie(day), isSolidarityDay: planning.isSolidarityDay(day)}">
           <span class="day-text">
               {{day | format:'dddd' | capitalize}}<br>
               <small>{{day | format:'ll'}}</small>
               <span class="holidays" ng-if="planning.isFerie(day)">férié</span>
+              <span class="solidarityDay" ng-if="planning.isSolidarityDay(day)">Journée de solidarité</span>
           </span>
         </div>
     </div>
@@ -109,7 +117,8 @@
                     pauses="planning.entitiesPauses[name][$index]"
                     absences="planning.absences[name]"
                     holidays="planning.holidays"
-                    click-callback="planning.clickCallbackWrapper({h: $hour, m: $minutes, d: day, entity: name})">
+                    click-callback="planning.clickCallbackWrapper({h: $hour, m: $minutes, d: day, entity: name})"
+                    is-solidarity-day-scoped="planning.isSolidarityDay">
             </zl-planning-vertical-line>
         </div>
     </div>

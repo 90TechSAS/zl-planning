@@ -5,9 +5,9 @@
     .module('90Tech.planning')
     .directive('zlPlanning', PlanningDirective)
 
-  PlanningController.$inject = ['$scope', 'planningConfiguration']
+  PlanningController.$inject = ['$scope', 'planningConfiguration', 'HolidaysServicePlanning']
 
-  function PlanningController ($scope, planningConfiguration) {
+  function PlanningController ($scope, planningConfiguration, HolidaysServicePlanning) {
     var BASE_SIZE = planningConfiguration.BASE_SIZE
 
     var self = this
@@ -26,6 +26,7 @@
         clickWeekEvent: clickWeekEvent,
         dropEvent: dropEvent,
         isFerie: isFerie,
+        isSolidarityDay,
         hasAbsence: hasAbsence,
         getName: getName,
         dayEvent
@@ -35,6 +36,9 @@
     }
 
     function init () {
+      if(self.solidarityDays.length) HolidaysServicePlanning.solidarityDays = self.solidarityDays
+      if(self.masterDayRange.length) HolidaysServicePlanning.masterDayRange = self.masterDayRange
+      HolidaysServicePlanning.aliaCompanySettings = self.aliaCompanySettings
       self.zoom = parseInt(self.zoom)
       self.allowedDays = self.usableDays.sort() || planningConfiguration.DAYS
       self.daysList = self.allowedDays.map(function (i) {
@@ -417,6 +421,10 @@
       }
     }
 
+    function isSolidarityDay (day) {
+      return HolidaysServicePlanning.isSolidarityDay(day)
+    }
+
     function hasAbsence (date) {
       var d = moment(angular.copy(date))
       return _.any(self._absences, function (abs) {
@@ -492,10 +500,14 @@
         }
       }
       var entity = (_.includes(['week-advanced', 'day', '3day'], self.mode)) ? config.entity : undefined
-      if((self.mode === 'month') && isFerie(mom)) {
-        planningConfiguration.isFerieCallback(function () {
+      if ((self.mode === 'month') && isFerie(mom)) {
+        if (!self.isSolidarityDay(mom)) {
+          planningConfiguration.isFerieCallback(function () {
+            self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
+          })
+        } else {
           self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
-        })
+        }
       } else {
         self.dropCallback({ $moment: mom, $data: config.$data, $event: config.$event, $entity: entity })
       }
@@ -548,7 +560,10 @@
         duplicateAction: '&?',
         moveAction: '&?',
         holidays: '=',
-        showAbsencesCallback: '&'
+        solidarityDays: '=',
+        showAbsencesCallback: '&',
+        aliaCompanySettings: '=',
+        masterDayRange: '='
       },
       scope: {}
     }

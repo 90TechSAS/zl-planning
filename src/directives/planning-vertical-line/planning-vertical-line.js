@@ -5,13 +5,13 @@
     .module('90Tech.planning')
     .directive('zlPlanningVerticalLine', PlanningLineDirective)
 
-  PlanningLineController.$inject = ['$filter', '$scope', '$rootScope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService', 'AbsenceService']
+  PlanningLineController.$inject = ['$filter', '$scope', '$rootScope', 'planningConfiguration', 'PositionService', 'ColorService', 'PauseService', 'AbsenceService', 'HolidaysServicePlanning']
 
   /**
    *
    */
   function
-  PlanningLineController ($filter, $scope, $rootScope, planningConfiguration, PositionService, ColorService, PauseService, AbsenceService) {
+  PlanningLineController ($filter, $scope, $rootScope, planningConfiguration, PositionService, ColorService, PauseService, AbsenceService, HolidaysServicePlanning) {
 
 
     /** BASE_SIZE is the span of an hour. It gets multiplied by zoom (default 10) to get the size in pixel
@@ -130,9 +130,13 @@
           self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
         })
       } else if (!checkAbsence(date) && checkFerie(day)) {
-        planningConfiguration.isFerieCallback(function () {
+        if(!HolidaysServicePlanning.isSolidarityDay(day)){
+          planningConfiguration.isFerieCallback(function () {
+            self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
+          })
+        } else {
           self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
-        })
+        }
       } else {
         self.dropCallback({ $data: data, $event: event, $hour: hour, $minutes: minutes})
       }
@@ -163,9 +167,13 @@
           self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
         })
       } else if (!checkAbsence(date) && checkFerie(line)) {
-        planningConfiguration.isFerieCallback(function () {
+        if(!HolidaysServicePlanning.isSolidarityDay(line)){
+          planningConfiguration.isFerieCallback(function () {
+            self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
+          })
+        } else {
           self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
-        })
+        }
       } else {
         self.clickCallback({$hour: hour + parseInt(self.dayStart.h), $minutes: minutes})
       }

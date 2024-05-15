@@ -7,19 +7,21 @@
 
   PlanningDayController.$inject = [
     // Angular
-    '$scope'
+    '$scope',
     // Libs
     // Managers
     // Services
+    'HolidaysServicePlanning'
     // Const
     // Resolved
   ]
   function PlanningDayController (
     // Angular
-    $scope
+    $scope,
     // Libs
     // Managers
     // Services
+    HolidaysServicePlanning
     // Const
     // Resolved
   ) {
@@ -29,6 +31,7 @@
       _.extend(self, {
         dropEvent: dropEvent,
         getName,
+        isSolidarityDay,
         absents: []
       })
 
@@ -73,6 +76,9 @@
 
     function dropEvent (data, event) {
       self.dropCallback({ $data: data, $event: event})
+    }
+    function isSolidarityDay (day) {
+      return HolidaysServicePlanning.isSolidarityDay(day)
     }
 
     function getName(ids) {
