@@ -1,6 +1,6 @@
 Version numbers correspond to `bower.json` version
 
-# NEXT
+# 1.11.0
 ## Feature
 - Add solidarityDay support 
 
