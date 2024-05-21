@@ -1,6 +1,5 @@
 # ZL Planning
-
-## Install
+ 
 1. download the files
 	1. Bower
 		1. add `"zl-planning": "latest"` to your `bower.json` file then run `bower install` OR run `bower install zl-planning`
