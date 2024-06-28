@@ -1,4 +1,3 @@
-const annotate = require('gulp-ng-annotate')
 const babel = require('gulp-babel')
 const browserify = require('browserify')
 const browserSync = require('browser-sync').create()
@@ -18,20 +17,22 @@ const path = require('path')
 
 const MODULE_PACKAGE = '90Tech.planning'
 
-gulp.task('js', ['babel'], function () {
-  return gulp.src([
-    './.tmp/js/**/*.js',
-    './.tmp/templates/*.js'
-  ])
-    .pipe(sourceMaps.init({loadMaps: true}))
-    .pipe(annotate({add: true}))
-    .pipe(concat('planning.js'))
-    .pipe(uglify())
-    .pipe(sourceMaps.write('./'))
-    .pipe(gulp.dest('./dist'))
+gulp.task('js', function (done) {
+  gulp.series('babel')(()=>{
+    return gulp.src([
+      './.tmp/js/**/*.js',
+      './.tmp/templates/*.js'
+    ])
+      .pipe(sourceMaps.init({loadMaps: true}))
+      .pipe(concat('planning.js'))
+      .pipe(uglify())
+      .pipe(sourceMaps.write('./'))
+      .pipe(gulp.dest('./dist'))
+      .on('end', done)
+  })
 })
 
-gulp.task('templateCache', function () {
+gulp.task('templateCache', function (done) {
   return gulp.src([
     './src/**/*.html'
   ])
@@ -39,9 +40,10 @@ gulp.task('templateCache', function () {
     .pipe(templateCache('./template.js', {module: MODULE_PACKAGE, standAlone: false, root: '/'}))
     .pipe(gulp.dest('./.tmp/templates'))
     .pipe(browserSync.reload({stream: true}))
+    .on('end', done)
 })
 
-gulp.task('style', function () {
+gulp.task('style', function (done) {
   return gulp.src('src/**/*.less')
     .pipe(sourceMaps.init())
     .pipe(less())
@@ -49,58 +51,81 @@ gulp.task('style', function () {
     .pipe(sourceMaps.write('./'))
     .pipe(gulp.dest('./dist'))
     .pipe(browserSync.stream())
+    .on('end', done)
 })
 
-gulp.task('default', ['clean-tmp'], function (callback) {
-  runSequence(['templateCache', 'style'], 'js', callback)
-})
-
-gulp.task('watch', ['default'], function (callback) {
-  browserSync.init({
-    server: ['demo', 'dist', 'bower_components'],
-    files: [
-      './src/**/*.js',
-      './src/**/*.html',
-      './.tmp/**/*.css',
-      './dist/**/*.css',
-      './dist/**/*.js',
-    ],
-    injectChanges: true,
-    notify: false,
-    reloadDelay: 1000,
-    reloadDebounce: 2000,
-    open: false,
-    watchOptions: {
-      usePolling: false
-    }
+gulp.task('default', function (callback) {
+  gulp.series('clean-tmp')(()=>{
+    return gulp.series('templateCache', 'style', 'js')(()=>{
+      return callback()
+    })
   })
-  gulp.watch(['./src/**/*.html'], ['default'], callback).on('change', browserSync.reload)
-  gulp.watch(['./src/**/*.html', './index.html', './demo/**/*.*']).on('change', browserSync.reload)
-  gulp.watch(['./src/**/*.js'], ['js'])
-  gulp.watch(['./src/**/*.less'], ['style'])
 })
 
-gulp.task('babel', () => {
+const watchFuncs = {
+  'html-watch': function (done) {
+    return gulp.series('default')(done)
+  },
+  'js-watch': function (done) {
+    return gulp.series('js')(done)
+  },
+  'style-watch': function (done) {
+    return gulp.series('style')(done)
+  },
+}
+gulp.task('watch', function (callback) {
+  gulp.series('default')(()=>{
+    browserSync.init({
+      server: ['demo', 'dist', 'bower_components'],
+      files: [
+        './src/**/*.js',
+        './src/**/*.html',
+        './.tmp/**/*.css',
+        './dist/**/*.css',
+        './dist/**/*.js',
+      ],
+      injectChanges: true,
+      notify: false,
+      reloadDelay: 1000,
+      reloadDebounce: 2000,
+      open: false,
+      watchOptions: {
+        usePolling: false
+      }
+    })
+    gulp.watch(['./src/**/*.html'], watchFuncs['html-watch']).on('change', browserSync.reload)
+    gulp.watch(['./src/**/*.html', './index.html', './demo/**/*.*'], watchFuncs['html-watch']).on('change', browserSync.reload)
+    gulp.watch(['./src/**/*.js'], watchFuncs['js-watch'])
+    gulp.watch(['./src/**/*.less'], watchFuncs['style-watch'])
+  })
+})
+
+gulp.task('babel', (done) => {
   return gulp.src(['./src/**/*.js'])
     .pipe(sourceMaps.init())
     .pipe(babel())
     .pipe(sourceMaps.write())
     .pipe(gulp.dest('./.tmp/js'))
+    .on('end', done)
 })
 
 gulp.task('clean-dist', (done) => {
   rimraf(path.join(__dirname, './dist'), done)
 })
 
-gulp.task('clean-tmp', ['clean-dist'], (done) => {
-  rimraf(path.join(__dirname, './.tmp'), done)
+gulp.task('clean-tmp', (done) => {
+  gulp.series('clean-dist')(()=>{
+    rimraf(path.join(__dirname, './.tmp'), done)
+  })
 })
 
-gulp.task('commonjs', ['babel'], () => {
-  return browserify(['./.tmp/js/index.js']).bundle()
-    .pipe(source('index.js'))
-    .pipe(buffer())
-    .pipe(annotate())
-    .pipe(rename('planning.js'))
-    .pipe(gulp.dest('./.tmp/build'))
+gulp.task('commonjs', (done) => {
+  gulp.series('babel')(()=>{
+    return browserify(['./.tmp/js/index.js']).bundle()
+      .pipe(source('index.js'))
+      .pipe(buffer())
+      .pipe(rename('planning.js'))
+      .pipe(gulp.dest('./.tmp/build'))
+      .on('end', done)
+  })
 })
