@@ -415,6 +415,9 @@ zl-planning-line.ng-animate {
   display: flex;
   align-items: flex-end;
 }
+.no-notification {
+  background: rgba(0, 0, 0, 0.2);
+}
 .month-container {
   margin-top: -5px;
   width: 100%;
@@ -918,6 +921,9 @@ zl-planning-line.ng-animate {
   display: flex;
   align-items: flex-end;
 }
+.no-notification {
+  background: rgba(0, 0, 0, 0.2);
+}
 .month-container {
   margin-top: -5px;
   width: 100%;
@@ -1482,6 +1488,9 @@ zl-planning-line.ng-animate {
 .all-day {
   display: flex;
   align-items: flex-end;
+}
+.no-notification {
+  background: rgba(0, 0, 0, 0.2);
 }
 
 /*# sourceMappingURL=planning.css.map */

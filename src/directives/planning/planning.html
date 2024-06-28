@@ -113,6 +113,7 @@
                     zoom="planning.zoom"
                     drop-callback="planning.dropEvent({h: $hour, m: $minutes, d:day, entity: name, $data: $data, $event: $event})"
                     day-start="planning._dayStart" day-end="planning._dayEnd"
+                    is-in-range="planning.isInRange(planning.daysList[$index])"
                     events=" planning.getEvents(name)[day]"
                     pauses="planning.entitiesPauses[name][$index]"
                     absences="planning.absences[name]"

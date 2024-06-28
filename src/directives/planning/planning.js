@@ -29,7 +29,8 @@
         isSolidarityDay,
         hasAbsence: hasAbsence,
         getName: getName,
-        dayEvent
+        dayEvent,
+        isInRange
       })
 
       init()
@@ -530,6 +531,12 @@
       }
     }
 
+    function isInRange(beginAt) {
+      if(!self.interventionShowInterval?.showInterval || typeof self.interventionShowInterval.interval !== 'number') return true
+      const dateSumInterval = moment().add('days', self.interventionShowInterval.interval)
+      return (moment(beginAt).startOf('day').unix() < dateSumInterval.unix())
+    }
+
   }
 
   function PlanningDirective () {
@@ -563,6 +570,7 @@
         solidarityDays: '=',
         showAbsencesCallback: '&',
         aliaCompanySettings: '=',
+        interventionShowInterval: '=',
         masterDayRange: '='
       },
       scope: {}
