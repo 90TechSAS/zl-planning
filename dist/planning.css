@@ -426,6 +426,9 @@ zl-planning-line.ng-animate {
   border-top: 1px solid darkgray;
   border-left: 1px solid darkgray;
 }
+.month-container .no-notification {
+  background: rgba(0, 0, 0, 0.2);
+}
 .month-container .week-0 {
   height: 20%;
   width: 100%;
@@ -932,6 +935,9 @@ zl-planning-line.ng-animate {
   border-top: 1px solid darkgray;
   border-left: 1px solid darkgray;
 }
+.month-container .no-notification {
+  background: rgba(0, 0, 0, 0.2);
+}
 .month-container .week-0 {
   height: 20%;
   width: 100%;
@@ -1226,6 +1232,9 @@ zl-planning-line.ng-animate {
   overflow-y: scroll;
   border-top: 1px solid darkgray;
   border-left: 1px solid darkgray;
+}
+.month-container .no-notification {
+  background: rgba(0, 0, 0, 0.2);
 }
 .month-container .week-0 {
   height: 20%;
