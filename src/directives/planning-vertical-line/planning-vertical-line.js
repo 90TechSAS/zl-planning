@@ -390,6 +390,7 @@
         dayStart: '=',
         dayEnd: '=',
         events: '=',
+        isInRange: '=',
         pauses: '=?',
         day: '=',
         absences: '=?',

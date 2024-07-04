@@ -1,5 +1,10 @@
 Version numbers correspond to `bower.json` version
 
+#1.12.0
+## Feature
+- Handle preplannif
+- upgrade to node20
+
 # 1.11.0
 ## Feature
 - Add solidarityDay support 

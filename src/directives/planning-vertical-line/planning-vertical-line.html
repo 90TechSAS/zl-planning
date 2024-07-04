@@ -23,6 +23,7 @@
     tooltip-placement="top"
     tooltip-classes="absence-tooltip"
     uib-tooltip="{{line._absences[0].tooltip}}"
+    ng-class="{'no-notification': !line.isInRange}"
     style="position: absolute; height: 100%; width: 100%; z-index: 1" ng-mouseleave="line.leaveLine()">
          <div ng-repeat="n in [] | range: line.range" style="display: flex; z-index: 1">
              <div style="display: flex; align-items: flex-end;">

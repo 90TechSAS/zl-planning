@@ -105,6 +105,7 @@
         events: '=',
         clickCallback: '&',
         entities: '=?',
+        isInRange: '=',
         dropCallback: '&',
         absences: '=?',
         holidays: "="

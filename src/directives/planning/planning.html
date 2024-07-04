@@ -113,6 +113,7 @@
                     zoom="planning.zoom"
                     drop-callback="planning.dropEvent({h: $hour, m: $minutes, d:day, entity: name, $data: $data, $event: $event})"
                     day-start="planning._dayStart" day-end="planning._dayEnd"
+                    is-in-range="planning.isInRange(planning.daysList[$index])"
                     events=" planning.getEvents(name)[day]"
                     pauses="planning.entitiesPauses[name][$index]"
                     absences="planning.absences[name]"
@@ -136,6 +137,7 @@
     </div>
     <div class="month-container">
         <zl-planning-day ng-repeat="day in planning.days" day="day" events="planning._events" absences="planning.absences"
+                        is-in-range="planning.isInRange(day.date)"
                          drop-callback="planning.dropEvent({$data: $data, $event: $event, moment: day.date})"
                          entities="planning.entitiesName"
                          ng-dblclick="planning.clickWeekEvent(day, $event)" holidays="planning.holidays"></zl-planning-day>
